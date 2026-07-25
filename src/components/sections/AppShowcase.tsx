@@ -12,7 +12,7 @@ function StoreBadge({
   return (
     <a
       href="#"
-      className="inline-flex items-center gap-3 rounded-card bg-navy px-5 py-3 text-white transition-colors hover:bg-navy-light"
+      className="inline-flex items-center gap-3 rounded-card bg-white px-5 py-3 text-navy shadow-soft transition-all duration-[250ms] hover:-translate-y-0.5 hover:bg-cream hover:shadow-card"
       aria-label={store === "apple" ? "Download on the App Store" : "Get it on Google Play"}
     >
       <span aria-hidden="true">
@@ -27,7 +27,7 @@ function StoreBadge({
         )}
       </span>
       <span className="text-left leading-tight">
-        <span className="block text-[10px] text-white/60">
+        <span className="block text-[10px] text-muted">
           {store === "apple" ? "Download on the" : "Get it on"}
         </span>
         <span className="block text-sm font-bold">
@@ -41,7 +41,7 @@ function StoreBadge({
 function PhoneMockup() {
   return (
     <div className="relative mx-auto w-[260px]">
-      <div className="relative rounded-[2.5rem] border-[10px] border-navy bg-navy shadow-card-hover">
+      <div className="relative rounded-[2.5rem] border-[10px] border-navy bg-navy shadow-card-hover ring-1 ring-white/20">
         {/* notch */}
         <div className="absolute left-1/2 top-2 z-10 h-5 w-24 -translate-x-1/2 rounded-pill bg-navy" />
         {/* screen */}
@@ -115,9 +115,9 @@ function PhoneMockup() {
 
 export default function AppShowcase() {
   return (
-    <section id="app" className="bg-white py-16 sm:py-24">
+    <section id="app" data-nav-theme="dark" className="bg-navy py-16 sm:py-24">
       <Container>
-        <div className="grid items-center gap-12 rounded-[2rem] bg-navy p-8 text-white sm:p-12 lg:grid-cols-2 lg:gap-8 lg:p-16">
+        <div className="grid items-center gap-12 text-white lg:grid-cols-2 lg:gap-8">
           <Reveal direction="left" className="order-2 lg:order-1">
             <p className="text-sm font-bold uppercase tracking-wider text-brand-light">
               The QuickBite app

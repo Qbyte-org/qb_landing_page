@@ -14,7 +14,7 @@ export default function PageHeader({
   children?: ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden bg-cream py-16 sm:py-24">
+    <section data-nav-theme="light" className="relative overflow-hidden bg-cream py-24 sm:py-28">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-brand/15 blur-3xl"

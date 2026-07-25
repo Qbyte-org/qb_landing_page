@@ -6,7 +6,7 @@ import { testimonials } from "@/content/site";
 
 export default function Testimonials() {
   return (
-    <section className="bg-white py-16 sm:py-24">
+    <section data-nav-theme="light" className="bg-white py-16 sm:py-24">
       <Container>
         <SectionHeading
           eyebrow="Loved across Ile-Ife"

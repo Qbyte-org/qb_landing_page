@@ -11,7 +11,7 @@ import {
 
 export default function CityCoverage() {
   return (
-    <section id="cities" className="bg-cream py-16 sm:py-24">
+    <section id="cities" data-nav-theme="accent" className="bg-cream py-16 sm:py-24">
       <Container>
         <SectionHeading
           eyebrow="Where we deliver"
@@ -28,10 +28,6 @@ export default function CityCoverage() {
           {/* Live city — the hero card */}
           <Reveal className="lg:col-span-3">
             <div className="relative h-full overflow-hidden rounded-2xl border border-brand/20 bg-white p-7 shadow-card sm:p-8">
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-brand/10 blur-2xl"
-              />
               <div className="relative flex items-start justify-between gap-4">
                 <div className="flex items-center gap-4">
                   <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand text-white shadow-[0_10px_24px_-8px_rgb(255_107_0/0.5)]">

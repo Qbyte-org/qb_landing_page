@@ -14,7 +14,7 @@ import TrustBar from "@/components/sections/TrustBar";
 
 export default function Home() {
   return (
-    <SiteShell>
+    <SiteShell heroIntro>
       <Hero />
       <TrustBar />
       <Categories />

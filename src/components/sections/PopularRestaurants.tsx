@@ -9,7 +9,7 @@ import { restaurants } from "@/content/site";
 
 export default function PopularRestaurants() {
   return (
-    <section id="restaurants" className="bg-white py-16 sm:py-24">
+    <section id="restaurants" data-nav-theme="light" className="bg-white py-16 sm:py-24">
       <Container>
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
           <SectionHeading
@@ -25,7 +25,7 @@ export default function PopularRestaurants() {
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {restaurants.map((r, i) => (
-            <Reveal key={r.name} delay={(i % 3) * 0.08}>
+            <Reveal key={r.name} delay={(i % 3) * 0.08} mode="image">
               <Link
                 href="/restaurants"
                 className="group block h-full overflow-hidden rounded-card border border-border bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-card-hover"

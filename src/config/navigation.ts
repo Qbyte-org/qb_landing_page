@@ -1,0 +1,48 @@
+export const navThemes = {
+  light: {
+    surface: "#ffffff",
+    foreground: "#1a1a2e",
+    muted: "#6b7280",
+    border: "#f0e6dc",
+    action: "#e25f00",
+    actionText: "#ffffff",
+    underline: "#e25f00",
+    shadow: "0 10px 30px -16px rgba(26, 26, 46, 0.22)",
+    logo: "color",
+  },
+  dark: {
+    surface: "#1a1a2e",
+    foreground: "#ffffff",
+    muted: "#c7c8d1",
+    border: "#35354a",
+    action: "#ff8c00",
+    actionText: "#1a1a2e",
+    underline: "#ff8c00",
+    shadow: "0 14px 34px -16px rgba(0, 0, 0, 0.52)",
+    logo: "light",
+  },
+  accent: {
+    surface: "#e25f00",
+    foreground: "#ffffff",
+    muted: "#fff3e8",
+    border: "#ff8c00",
+    action: "#1a1a2e",
+    actionText: "#ffffff",
+    underline: "#ffffff",
+    shadow: "0 14px 34px -16px rgba(226, 95, 0, 0.52)",
+    logo: "light",
+  },
+  neutral: {
+    surface: "#fff7f0",
+    foreground: "#1a1a2e",
+    muted: "#6b7280",
+    border: "#eadbcf",
+    action: "#1a1a2e",
+    actionText: "#ffffff",
+    underline: "#e25f00",
+    shadow: "0 10px 30px -16px rgba(26, 26, 46, 0.18)",
+    logo: "color",
+  },
+} as const;
+
+export type NavTheme = keyof typeof navThemes;

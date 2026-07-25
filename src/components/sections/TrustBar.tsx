@@ -5,7 +5,7 @@ import { stats } from "@/content/site";
 
 export default function TrustBar() {
   return (
-    <section className="bg-white py-12 sm:py-16">
+    <section data-nav-theme="light" className="bg-white py-12 sm:py-16">
       <Container>
         <div className="grid grid-cols-2 gap-6 rounded-[1.5rem] bg-navy p-8 sm:p-10 lg:grid-cols-4">
           {stats.map((stat, i) => (

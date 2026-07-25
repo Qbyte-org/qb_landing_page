@@ -5,7 +5,7 @@ import Reveal from "../ui/Reveal";
 
 export default function FinalCTA() {
   return (
-    <section className="bg-white pb-16 sm:pb-24">
+    <section data-nav-theme="light" className="bg-white pb-16 sm:pb-24">
       <Container>
         <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand to-brand-dark px-6 py-14 text-center text-white sm:px-12 sm:py-20">
           <div

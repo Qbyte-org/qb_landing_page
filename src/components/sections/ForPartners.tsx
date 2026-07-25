@@ -7,11 +7,11 @@ import { partnerPerks } from "@/content/site";
 
 export default function ForPartners() {
   return (
-    <section id="partners" className="bg-cream py-16 sm:py-24">
+    <section id="partners" data-nav-theme="neutral" className="bg-cream py-16 sm:py-24">
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Image */}
-          <Reveal direction="right" className="relative order-2 lg:order-1">
+          <Reveal direction="right" mode="image" className="relative order-2 lg:order-1">
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[1.75rem] shadow-card">
               <Image
                 src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=900&q=80"

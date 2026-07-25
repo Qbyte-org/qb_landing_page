@@ -1,10 +1,8 @@
 "use client";
 
-import { animate, useInView, useReducedMotion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
 
-// Parses strings like "500K+", "2,000+", "12" into a count-up animation
-// that preserves the prefix/suffix and thousands formatting.
 function parse(value: string) {
   const match = value.match(/^(\D*)([\d,]+)(.*)$/);
   if (!match) return { prefix: "", target: 0, suffix: value, hasComma: false };
@@ -25,28 +23,51 @@ export default function Counter({
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-  const reduce = useReducedMotion();
   const { prefix, target, suffix, hasComma } = parse(value);
-  const [display, setDisplay] = useState(reduce ? target : 0);
 
-  useEffect(() => {
-    // Reduced-motion users already start at the final value (initial state).
-    if (!inView || reduce) return;
-    const controls = animate(0, target, {
-      duration: 1.6,
-      ease: [0.16, 1, 0.3, 1],
-      onUpdate: (latest) => setDisplay(Math.round(latest)),
-    });
-    return () => controls.stop();
-  }, [inView, reduce, target]);
+  useGSAP(
+    () => {
+      const element = ref.current;
+      if (!element) return;
 
-  const formatted = hasComma ? display.toLocaleString("en-US") : String(display);
+      const format = (current: number) => {
+        const rounded = Math.round(current);
+        const digits = hasComma
+          ? rounded.toLocaleString("en-US")
+          : String(rounded);
+        element.textContent = `${prefix}${digits}${suffix}`;
+      };
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        format(target);
+        return;
+      }
+
+      const counter = { value: 0 };
+      format(0);
+      gsap.to(counter, {
+        value: target,
+        duration: 1.6,
+        ease: "power4.out",
+        onUpdate: () => format(counter.value),
+        scrollTrigger: {
+          trigger: element,
+          start: "top 88%",
+          once: true,
+        },
+      });
+    },
+    { scope: ref, dependencies: [hasComma, prefix, suffix, target] },
+  );
+
+  const formattedTarget = hasComma
+    ? target.toLocaleString("en-US")
+    : String(target);
 
   return (
     <span ref={ref} className={className}>
       {prefix}
-      {formatted}
+      {formattedTarget}
       {suffix}
     </span>
   );

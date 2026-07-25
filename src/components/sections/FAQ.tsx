@@ -6,7 +6,7 @@ import { faqs } from "@/content/site";
 
 export default function FAQ() {
   return (
-    <section className="bg-cream py-16 sm:py-24">
+    <section data-nav-theme="neutral" className="bg-cream py-16 sm:py-24">
       <Container>
         <SectionHeading
           eyebrow="Good to know"

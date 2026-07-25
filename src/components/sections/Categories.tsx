@@ -7,7 +7,7 @@ import { categories } from "@/content/site";
 
 export default function Categories() {
   return (
-    <section id="categories" className="bg-white py-16 sm:py-20">
+    <section id="categories" data-nav-theme="neutral" className="bg-white py-16 sm:py-20">
       <Container>
         <SectionHeading
           eyebrow="Cravings sorted"

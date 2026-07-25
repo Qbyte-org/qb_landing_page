@@ -5,7 +5,7 @@ import { steps } from "@/content/site";
 
 export default function HowItWorks() {
   return (
-    <section id="how" className="bg-cream py-16 sm:py-24">
+    <section id="how" data-nav-theme="accent" className="bg-cream py-16 sm:py-24">
       <Container>
         <SectionHeading
           eyebrow="How it works"
@@ -23,10 +23,10 @@ export default function HowItWorks() {
             <Reveal
               key={step.title}
               delay={i * 0.12}
-              className="relative flex flex-col items-center rounded-2xl border border-border bg-white p-8 text-center shadow-card transition-transform duration-200 hover:-translate-y-1"
+              className="group relative flex flex-col items-center rounded-2xl border border-border bg-white p-8 text-center shadow-card transition-all duration-[250ms] hover:-translate-y-1 hover:shadow-card-hover"
             >
               <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-brand to-brand-light text-white shadow-[0_10px_24px_-8px_rgb(255_107_0/0.5)]">
-                <step.icon className="h-8 w-8" strokeWidth={1.75} aria-hidden="true" />
+                <step.icon className="h-8 w-8 transition-transform duration-[250ms] group-hover:rotate-3" strokeWidth={1.75} aria-hidden="true" />
                 <span className="absolute -right-2 -top-2 flex h-7 w-7 items-center justify-center rounded-pill bg-navy text-sm font-bold text-white ring-4 ring-cream">
                   {i + 1}
                 </span>

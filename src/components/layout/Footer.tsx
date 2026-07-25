@@ -60,7 +60,7 @@ const socials: { label: string; href: string; path: string }[] = [
 
 export default function Footer() {
   return (
-    <footer className="bg-navy text-white">
+    <footer data-nav-theme="dark" className="bg-navy text-white">
       <Container className="py-14">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">

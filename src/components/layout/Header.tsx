@@ -1,121 +1,231 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Menu, X } from "lucide-react";
-import Container from "../ui/Container";
-import Logo from "../ui/Logo";
-import Button from "../ui/Button";
+import { Check, ChevronDown, MapPin, Menu, X } from "lucide-react";
 import { navLinks } from "@/content/site";
+import { useNavbarTheme } from "@/hooks/use-navbar-theme";
+import { tactileMotion } from "@/lib/animation";
+import { useGSAP } from "@/lib/gsap";
+import Logo from "../ui/Logo";
+
+const surface =
+  "border border-border bg-white shadow-[0_10px_30px_-16px_rgba(26,26,46,0.22)]";
+
+function PrimaryNavLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link
+      href={href}
+      data-nav-text
+      className="group relative flex h-11 items-center overflow-hidden px-3 text-sm font-semibold text-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+    >
+      <span className="transition-transform duration-[250ms] ease-out group-hover:-translate-y-0.5">
+        {label}
+      </span>
+      <span
+        data-nav-underline
+        aria-hidden="true"
+        className="absolute bottom-2 left-1/2 h-0.5 w-5 -translate-x-1/2 scale-x-0 rounded-pill bg-brand-dark transition-transform duration-[250ms] ease-out group-hover:scale-x-100"
+      />
+    </Link>
+  );
+}
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [countryOpen, setCountryOpen] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  useNavbarTheme(navRef);
 
-  // Lock body scroll when the mobile menu is open
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
+  useGSAP(
+    () => {
+      if (!menuOpen) return;
+      const previousOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = previousOverflow;
+      };
+    },
+    { dependencies: [menuOpen], revertOnUpdate: true },
+  );
+
+  const closePanels = () => {
+    setMenuOpen(false);
+    setCountryOpen(false);
+  };
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/95 shadow-card backdrop-blur"
-          : "bg-white/80 backdrop-blur-sm"
-      }`}
+      ref={navRef}
+      className="pointer-events-none fixed inset-x-0 top-3 z-50 px-3 sm:top-4 sm:px-5"
+      onKeyDown={(event) => {
+        if (event.key === "Escape") closePanels();
+      }}
     >
-      <Container className="flex h-16 items-center justify-between gap-4 lg:h-20">
-        <Logo priority />
+      <div className="mx-auto flex max-w-7xl items-start justify-between gap-2">
+        <div className="pointer-events-auto flex items-start gap-2">
+          <div
+            data-intro-nav="logo"
+            data-nav-surface
+            className={`${surface} flex h-14 items-center rounded-pill px-4 sm:h-16 sm:px-5`}
+          >
+            <Logo themeAware priority />
+          </div>
 
-        {/* Desktop nav */}
+          <div
+            data-intro-nav="country"
+            className="relative hidden min-[420px]:block"
+          >
+            <motion.button
+              type="button"
+              data-nav-surface
+              data-nav-text
+              aria-expanded={countryOpen}
+              aria-haspopup="listbox"
+              aria-label="Select delivery country"
+              onClick={() => {
+                setCountryOpen((value) => !value);
+                setMenuOpen(false);
+              }}
+              className={`${surface} flex h-14 items-center gap-2 rounded-pill px-4 text-sm font-bold text-navy sm:h-16`}
+              {...tactileMotion}
+            >
+              <MapPin className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
+              NG
+              <ChevronDown
+                className={`h-4 w-4 transition-transform duration-200 ${countryOpen ? "rotate-180" : ""}`}
+                strokeWidth={2}
+                aria-hidden="true"
+              />
+            </motion.button>
+
+            <AnimatePresence>
+              {countryOpen ? (
+                <motion.div
+                  data-nav-surface
+                  role="listbox"
+                  aria-label="Delivery countries"
+                  initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -6, scale: 0.98 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className={`${surface} absolute left-0 top-[calc(100%+0.5rem)] w-64 rounded-2xl p-2`}
+                >
+                  <button
+                    type="button"
+                    role="option"
+                    aria-selected="true"
+                    data-nav-text
+                    onClick={() => setCountryOpen(false)}
+                    className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                  >
+                    <span className="flex h-9 w-9 items-center justify-center rounded-pill bg-brand-50 text-sm font-extrabold text-brand-dark">
+                      NG
+                    </span>
+                    <span className="flex-1">
+                      <span className="block text-sm font-bold">Nigeria</span>
+                      <span data-nav-muted className="block text-xs text-muted">
+                        Delivering in Ile-Ife
+                      </span>
+                    </span>
+                    <Check className="h-4 w-4 text-success" aria-hidden="true" />
+                  </button>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+          </div>
+        </div>
+
         <nav
+          data-intro-nav="links"
+          data-nav-surface
           aria-label="Primary"
-          className="hidden items-center gap-1 lg:flex"
+          className={`${surface} pointer-events-auto hidden h-16 items-center rounded-pill px-2 lg:flex`}
         >
           {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="rounded-pill px-4 py-2 text-sm font-semibold text-navy/80 transition-colors hover:bg-black/5 hover:text-navy"
-            >
-              {link.label}
-            </a>
+            <PrimaryNavLink key={link.href} {...link} />
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <Button href="#app" variant="ghost" size="sm">
-            Get the app
-          </Button>
-          <Button href="/restaurants" size="sm">
-            Order now
-          </Button>
-        </div>
-
-        {/* Mobile toggle */}
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          aria-label={open ? "Close menu" : "Open menu"}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-pill text-navy hover:bg-black/5 lg:hidden"
+        <motion.div
+          data-intro-nav="action"
+          className="pointer-events-auto hidden lg:block"
+          {...tactileMotion}
         >
-          {open ? (
-            <X className="h-6 w-6" strokeWidth={2.2} aria-hidden="true" />
-          ) : (
-            <Menu className="h-6 w-6" strokeWidth={2.2} aria-hidden="true" />
-          )}
-        </button>
-      </Container>
+          <Link
+            href="/restaurants"
+            data-nav-action
+            className="group flex h-16 items-center gap-2 rounded-pill border border-brand-dark bg-brand-dark px-6 text-sm font-bold text-white shadow-[0_10px_30px_-16px_rgba(226,95,0,0.52)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+          >
+            Order now
+            <span className="transition-transform duration-[250ms] group-hover:translate-x-0.5" aria-hidden="true">
+              →
+            </span>
+          </Link>
+        </motion.div>
 
-      {/* Mobile menu */}
+        <motion.button
+          type="button"
+          data-intro-nav="menu"
+          data-nav-surface
+          data-nav-text
+          onClick={() => {
+            setMenuOpen((value) => !value);
+            setCountryOpen(false);
+          }}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          className={`${surface} pointer-events-auto flex h-14 w-14 items-center justify-center rounded-pill text-navy sm:h-16 sm:w-16 lg:hidden`}
+          {...tactileMotion}
+        >
+          {menuOpen ? (
+            <X className="h-5 w-5" strokeWidth={2.2} aria-hidden="true" />
+          ) : (
+            <Menu className="h-5 w-5" strokeWidth={2.2} aria-hidden="true" />
+          )}
+        </motion.button>
+      </div>
+
       <AnimatePresence>
-        {open ? (
+        {menuOpen ? (
           <motion.div
             id="mobile-menu"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="overflow-hidden border-t border-border bg-white lg:hidden"
+            data-nav-surface
+            initial={{ opacity: 0, y: -12, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className={`${surface} pointer-events-auto mx-auto mt-2 max-w-7xl rounded-[1.75rem] p-3 lg:hidden`}
           >
-            <Container className="flex flex-col gap-1 py-4">
+            <nav aria-label="Mobile primary" className="grid gap-1">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="rounded-card px-4 py-3 text-base font-semibold text-navy hover:bg-cream"
+                  data-nav-text
+                  onClick={closePanels}
+                  className="group flex min-h-12 items-center justify-between rounded-2xl px-4 py-3 text-base font-semibold text-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
                 >
-                  {link.label}
-                </a>
+                  <span className="transition-transform duration-[250ms] group-hover:-translate-y-0.5">
+                    {link.label}
+                  </span>
+                  <span data-nav-muted className="text-muted" aria-hidden="true">
+                    →
+                  </span>
+                </Link>
               ))}
-              <div className="mt-3 flex flex-col gap-3">
-                <Button href="/restaurants" size="md" className="w-full">
-                  Order now
-                </Button>
-                <Button
-                  href="#app"
-                  variant="outline"
-                  size="md"
-                  className="w-full"
-                >
-                  Get the app
-                </Button>
-              </div>
-            </Container>
+            </nav>
+            <Link
+              href="/restaurants"
+              data-nav-action
+              onClick={closePanels}
+              className="mt-2 flex h-14 items-center justify-center rounded-pill border border-brand-dark bg-brand-dark px-6 text-base font-bold text-white"
+            >
+              Order now
+            </Link>
           </motion.div>
         ) : null}
       </AnimatePresence>
