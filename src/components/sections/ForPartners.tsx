@@ -14,7 +14,7 @@ export default function ForPartners() {
           <Reveal direction="right" mode="image" className="relative order-2 lg:order-1">
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[1.75rem]">
               <Image
-                src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=900&q=80"
+                src="/images/food/partner-kitchen.webp"
                 alt="A restaurant kitchen preparing fresh food"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"

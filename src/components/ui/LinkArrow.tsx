@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import {
   useCallback,
@@ -21,6 +22,8 @@ export interface LinkArrowProps {
   ariaLabel?: string;
   onClick?: MouseEventHandler<HTMLAnchorElement | HTMLSpanElement>;
   dataNavText?: boolean;
+  imageSrc?: string;
+  imageClassName?: string;
 }
 
 type LinkArrowRoot = HTMLAnchorElement | HTMLSpanElement;
@@ -47,10 +50,13 @@ function getRightEdgeShift(text: HTMLElement) {
 
   const rootWidth = root.offsetWidth;
   const textWidth = text.offsetWidth;
+  const mediaWidth =
+    root.querySelector<HTMLElement>("[data-link-arrow-media='trailing']")
+      ?.offsetWidth ?? 18;
 
   text.style.letterSpacing = currentLetterSpacing;
 
-  return Math.max(0, rootWidth - textWidth - 18);
+  return Math.max(0, rootWidth - textWidth - mediaWidth);
 }
 
 function getLinkSpacing(root: HTMLElement | null) {
@@ -76,6 +82,8 @@ export default function LinkArrow({
   ariaLabel,
   onClick,
   dataNavText = false,
+  imageSrc,
+  imageClassName = "",
 }: LinkArrowProps) {
   const rootRef = useRef<LinkArrowRoot>(null);
   const textRef = useRef<HTMLSpanElement>(null);
@@ -283,9 +291,25 @@ export default function LinkArrow({
         ref={arrowLeftRef}
         className="pointer-events-none absolute left-0 top-0 flex h-full items-center"
         style={{ opacity: 0, transform: "translateX(-8px)" }}
+        data-link-arrow-media="leading"
         aria-hidden="true"
       >
-        -&gt;
+        {imageSrc ? (
+          <Image
+            src={imageSrc}
+            alt=""
+            width={48}
+            height={48}
+            sizes="48px"
+            className={`object-contain ${imageClassName}`}
+            style={{
+              width: "var(--link-arrow-image-size, 2rem)",
+              height: "var(--link-arrow-image-size, 2rem)",
+            }}
+          />
+        ) : (
+          "->"
+        )}
       </span>
       <span
         ref={textRef}
@@ -307,10 +331,26 @@ export default function LinkArrow({
       </span>
       <span
         ref={arrowRightRef}
-        className="pointer-events-none ml-auto shrink-0"
+        className="pointer-events-none ml-auto flex shrink-0 items-center"
+        data-link-arrow-media="trailing"
         aria-hidden="true"
       >
-        -&gt;
+        {imageSrc ? (
+          <Image
+            src={imageSrc}
+            alt=""
+            width={48}
+            height={48}
+            sizes="48px"
+            className={`object-contain ${imageClassName}`}
+            style={{
+              width: "var(--link-arrow-image-size, 2rem)",
+              height: "var(--link-arrow-image-size, 2rem)",
+            }}
+          />
+        ) : (
+          "->"
+        )}
       </span>
     </>
   );

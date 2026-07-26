@@ -56,11 +56,11 @@ export default function HowItWorks() {
     <section
       id="how"
       data-nav-theme="dark"
-      className="relative overflow-hidden bg-[#2a211d] text-white"
+      className="relative -mt-px overflow-hidden bg-[#2a211d] text-white"
     >
-      <div className="relative z-10 border-b border-white/[0.04] px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28">
-        <div className="mx-auto grid max-w-[66rem] items-center gap-8 md:grid-cols-[1fr_auto]">
-          <h2 className="font-display text-[3.4rem] font-black leading-[0.9] tracking-[-0.07em] sm:text-7xl">
+      <div className="relative z-10 px-4 pb-12 pt-18 sm:px-6 sm:pb-14 sm:pt-22 lg:px-8 lg:pb-14 lg:pt-24">
+        <div className="mx-auto grid max-w-[60rem] items-center gap-6 md:grid-cols-[1fr_auto]">
+          <h2 className="font-display text-[2.85rem] font-black leading-[0.9] tracking-[-0.07em] sm:text-[4rem]">
             How It
             <br />
             Works
@@ -69,17 +69,17 @@ export default function HowItWorks() {
           <MagneticFillButton
             href="/restaurants"
             variant="brand"
-            className="h-14 w-max rounded-pill border-0 bg-[#ff4f1f] px-8 text-sm font-extrabold sm:h-16 sm:px-10 sm:text-base md:-translate-x-40 md:translate-y-14 lg:-translate-x-48 xl:-translate-x-56"
+            className="h-12 w-max rounded-pill border-0 bg-[#ff4f1f] px-7 text-sm font-extrabold sm:h-14 sm:px-9 md:-translate-x-24 md:translate-y-8 lg:-translate-x-32"
           >
             Learn more
           </MagneticFillButton>
         </div>
       </div>
 
-      <div className="relative min-h-[42rem] overflow-hidden bg-[#1c120f]">
+      <div className="relative min-h-[30rem] overflow-hidden bg-[#1c120f] lg:min-h-[34rem]">
         <div
           aria-hidden="true"
-          className="absolute left-0 bottom-0 hidden h-[47%] w-[20.5rem] bg-[#2f241f] lg:block"
+          className="absolute left-0 bottom-0 hidden h-[44%] w-[17rem] bg-[#2f241f] lg:block"
         />
 
         <div
@@ -93,19 +93,19 @@ export default function HowItWorks() {
           />
         </div>
 
-        <div className="relative z-10 grid lg:grid-cols-[44%_56%]">
-          <div className="relative min-h-[35rem] px-4 py-16 sm:px-6 lg:px-8 lg:py-20 xl:px-[8.2vw]">
-            <div className="grid gap-10 md:grid-cols-[14rem_1fr] lg:gap-16">
+        <div className="relative z-10 grid lg:grid-cols-[38%_62%]">
+          <div className="relative min-h-[27rem] px-4 py-10 sm:px-6 lg:min-h-[34rem] lg:px-8 lg:py-12 xl:px-[5vw]">
+            <div className="grid gap-6 md:grid-cols-[8.5rem_1fr] lg:gap-8">
               <div className="font-display font-black leading-none tracking-[-0.08em]">
-                <span className="text-[5.2rem] text-white sm:text-[6rem]">
+                <span className="text-[4rem] text-white sm:text-[4.8rem]">
                   {activeIndex + 1}
                 </span>
-                <span className="ml-2 align-[1.8rem] text-3xl text-white/75">
+                <span className="ml-2 align-[1.45rem] text-2xl text-white/75">
                   /{totalSteps}
                 </span>
               </div>
 
-              <div className="max-w-md pt-2">
+              <div className="max-w-sm pt-1">
                 <p className="font-display text-xs font-black uppercase tracking-[0.16em] text-[#22c55e]">
                   Our process
                 </p>
@@ -118,25 +118,25 @@ export default function HowItWorks() {
                     exit={{ opacity: 0, y: -18, filter: "blur(8px)" }}
                     transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <span className="mt-16 grid h-14 w-14 place-items-center rounded-full bg-[#ff4f1f] text-white sm:mt-20">
-                      <ActiveIcon className="h-6 w-6" strokeWidth={2.35} aria-hidden="true" />
+                    <span className="mt-8 grid h-12 w-12 place-items-center rounded-full bg-[#ff4f1f] text-white sm:mt-10">
+                      <ActiveIcon className="h-5 w-5" strokeWidth={2.35} aria-hidden="true" />
                     </span>
 
-                    <h3 className="mt-8 font-display text-3xl font-black leading-tight tracking-[-0.05em] sm:text-4xl">
+                    <h3 className="mt-5 font-display text-3xl font-black leading-tight tracking-[-0.05em] sm:text-[2.35rem]">
                       {activeStep.title}
                     </h3>
-                    <p className="mt-10 text-lg font-extrabold leading-relaxed text-white/92">
+                    <p className="mt-5 text-base font-extrabold leading-relaxed text-white/90">
                       {activeStep.description}
                     </p>
                   </motion.div>
                 </AnimatePresence>
 
-                <div className="mt-20 flex items-center gap-4">
+                <div className="mt-8 flex items-center gap-4">
                   <button
                     type="button"
                     aria-label="Previous process step"
                     onClick={goToPrevious}
-                    className="grid h-14 w-14 cursor-pointer place-items-center rounded-full bg-white text-[#ff4f1f] transition-colors duration-300 hover:bg-[#ffefe7]"
+                    className="grid h-12 w-12 cursor-pointer place-items-center rounded-full bg-white text-[#ff4f1f] transition-colors duration-300 hover:bg-[#ffefe7]"
                   >
                     <ArrowLeft className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
                   </button>
@@ -144,7 +144,7 @@ export default function HowItWorks() {
                     type="button"
                     aria-label="Next process step"
                     onClick={goToNext}
-                    className="grid h-14 w-14 cursor-pointer place-items-center rounded-full bg-white text-[#ff4f1f] transition-colors duration-300 hover:bg-[#ffefe7]"
+                    className="grid h-12 w-12 cursor-pointer place-items-center rounded-full bg-white text-[#ff4f1f] transition-colors duration-300 hover:bg-[#ffefe7]"
                   >
                     <ArrowRight className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
                   </button>
@@ -153,18 +153,18 @@ export default function HowItWorks() {
             </div>
           </div>
 
-          <div className="relative min-h-[32rem] overflow-hidden lg:min-h-[42rem]">
+          <div className="relative min-h-[27rem] overflow-hidden lg:min-h-[34rem]">
             <div
               aria-hidden="true"
-              className="absolute -left-36 -top-36 z-30 h-80 w-80 rounded-[55%_45%_48%_52%/45%_48%_52%_55%] bg-[#40b84f]"
+              className="absolute -left-28 -top-28 z-30 h-60 w-60 rounded-[55%_45%_48%_52%/45%_48%_52%_55%] bg-[#40b84f]"
             />
             <div
               aria-hidden="true"
-              className="absolute -left-20 top-28 z-30 h-72 w-72 rounded-[48%_52%_52%_48%/58%_45%_55%_42%] bg-[#ff4f1f]"
+              className="absolute -left-16 top-20 z-30 h-56 w-56 rounded-[48%_52%_52%_48%/58%_45%_55%_42%] bg-[#ff4f1f]"
             />
             <div
               aria-hidden="true"
-              className="absolute left-[-3.4rem] top-20 z-30 h-40 w-48 rotate-12 bg-[#ff8717] [clip-path:polygon(0_78%,58%_0,100%_100%)]"
+              className="absolute left-[-2.6rem] top-14 z-30 h-28 w-36 rotate-12 bg-[#ff8717] [clip-path:polygon(0_78%,58%_0,100%_100%)]"
             />
 
             <AnimatePresence mode="wait" initial={false}>
@@ -195,14 +195,14 @@ export default function HowItWorks() {
                   alt=""
                   width={760}
                   height={590}
-                  className="absolute -bottom-8 right-[-4%] w-[34rem] object-contain drop-shadow-none sm:w-[46rem] lg:-bottom-10 xl:w-[56rem]"
+                  className="absolute -bottom-4 right-[-2%] w-[24rem] object-contain drop-shadow-none sm:w-[31rem] lg:bottom-[-1.5rem] lg:w-[37rem] xl:w-[42rem]"
                 />
                 <Image
                   src={activeStep.accent}
                   alt=""
                   width={260}
                   height={210}
-                  className="absolute bottom-[10%] left-[7%] hidden w-44 -rotate-12 object-contain opacity-90 sm:block lg:left-[10%] lg:w-56"
+                  className="absolute bottom-[12%] left-[7%] hidden w-32 -rotate-12 object-contain opacity-90 sm:block lg:left-[10%] lg:w-44"
                 />
               </motion.div>
             </AnimatePresence>

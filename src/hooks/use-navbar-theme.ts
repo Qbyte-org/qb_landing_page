@@ -57,6 +57,11 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
           "--nav-chip-text": theme.chipText,
           "--nav-action": theme.action,
           "--nav-action-text": theme.actionText,
+          "--magnetic-bg": theme.chip,
+          "--magnetic-border": theme.chip,
+          "--magnetic-text": theme.chipText,
+          "--magnetic-fill": theme.action,
+          "--magnetic-hover-text": theme.actionText,
           duration,
           ease: animation.ease.smooth,
           overwrite: "auto",
@@ -84,10 +89,15 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
           ...tween,
         });
         animate("[data-nav-chip]", {
+          "--magnetic-bg": theme.chip,
+          "--magnetic-border": theme.chip,
+          "--magnetic-text": theme.chipText,
+          "--magnetic-fill": theme.action,
+          "--magnetic-hover-text": theme.actionText,
           backgroundColor: theme.chip,
           color: theme.chipText,
           ...tween,
-        });
+        } as gsap.TweenVars);
         animate("[data-nav-action]", {
           backgroundColor: theme.action,
           color: theme.actionText,

@@ -60,39 +60,50 @@ export default function Hero() {
 
   useGSAP(
     () => {
-      const bike = sectionRef.current?.querySelector<HTMLElement>(
+      const path = sectionRef.current?.querySelector<SVGPathElement>(
+        "[data-hero-bike-path]",
+      );
+      const bike = sectionRef.current?.querySelector<SVGElement>(
         "[data-hero-bike]",
       );
-      if (!bike) return;
+      if (!path || !bike) return;
 
       gsap.set(bike, {
-        left: "7%",
-        top: "0%",
         xPercent: -50,
-        yPercent: -50,
-        rotate: 0,
-        transformOrigin: "50% 65%",
+        yPercent: -62,
+        transformOrigin: "50% 62%",
+        autoAlpha: 1,
       });
 
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set(bike, {
+          motionPath: {
+            path,
+            align: path,
+            alignOrigin: [0.5, 0.62],
+            autoRotate: true,
+            start: 0.2,
+            end: 0.2,
+          },
+        });
         return;
       }
 
-      gsap.to(bike, {
-        keyframes: [
-          { left: "90%", top: "0%", rotate: 0 },
-          { left: "98%", top: "13%", rotate: 72 },
-          { left: "98%", top: "78%", rotate: 90 },
-          { left: "88%", top: "100%", rotate: 170 },
-          { left: "13%", top: "100%", rotate: 180 },
-          { left: "2%", top: "76%", rotate: 265 },
-          { left: "2%", top: "18%", rotate: 270 },
-          { left: "7%", top: "0%", rotate: 360 },
-        ],
-        duration: 28,
+      const tween = gsap.to(bike, {
+        motionPath: {
+          path,
+          align: path,
+          alignOrigin: [0.5, 0.62],
+          autoRotate: true,
+          start: 0,
+          end: 1,
+        },
+        duration: 24,
         ease: "none",
         repeat: -1,
       });
+
+      return () => tween.kill();
     },
     { scope: sectionRef },
   );
@@ -105,10 +116,62 @@ export default function Hero() {
     <section
       ref={sectionRef}
       data-nav-theme="hero"
-      className="relative z-20 isolate overflow-visible bg-[#2a211d] text-white"
+      className="relative overflow-hidden bg-[#2a211d] text-white"
     >
       <div className="relative pb-16 pt-36 sm:pb-18 sm:pt-44 lg:pb-20 lg:pt-72 xl:pb-20 xl:pt-[15rem]">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div
+            data-hero-map-detail
+            className="absolute inset-x-0 top-0 h-full opacity-55 [background-image:linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] [background-size:5rem_5rem]"
+          />
+          <div
+            data-hero-map-detail
+            className="absolute right-[8%] top-[22%] hidden h-28 w-28 rounded-[2.2rem] md:block"
+          >
+            <Image
+              src="/food/snacks.svg"
+              alt=""
+              width={130}
+              height={108}
+              className="absolute -right-5 -top-6 w-24 rotate-12 object-contain opacity-85"
+            />
+            <span className="absolute bottom-5 left-5 h-3 w-3 rounded-full bg-[#ff4f1f]" />
+          </div>
+          <svg
+            data-hero-route
+            className="absolute inset-x-0 top-20 h-[31rem] w-full text-[#ff7a2d] opacity-45 sm:top-28 lg:top-36"
+            viewBox="0 0 1440 520"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              data-hero-bike-path
+              d="M-40 388C150 263 282 462 438 314C583 177 695 154 835 268C1002 403 1126 203 1480 318"
+              fill="none"
+              stroke="currentColor"
+              strokeDasharray="12 18"
+              strokeLinecap="round"
+              strokeWidth="3"
+            />
+            <image
+              data-hero-bike
+              href="/quickbite-delivery-bike.svg"
+              width="132"
+              height="80"
+            />
+            <path
+              d="M-60 194C134 75 277 241 431 142C604 31 704 77 846 172C1018 287 1166 117 1498 171"
+              fill="none"
+              stroke="#0c5b47"
+              strokeDasharray="7 15"
+              strokeLinecap="round"
+              strokeOpacity=".52"
+              strokeWidth="2"
+            />
+            <circle cx="438" cy="314" r="7" fill="#ff7a2d" />
+            <circle cx="846" cy="172" r="7" fill="#0c5b47" />
+            <circle cx="1126" cy="203" r="7" fill="#ff7a2d" />
+          </svg>
           {floatingFoods.map((food, index) => (
             <Image
               key={food.src}
@@ -166,16 +229,31 @@ export default function Hero() {
       <div
         data-hero-next-image
         data-hero-image-stage
-        className="relative h-[17rem] w-full overflow-hidden rounded-tr-[4rem] bg-[#2a211d] sm:h-[23rem] sm:rounded-tr-[6rem] lg:h-[clamp(21rem,46svh,32rem)] xl:h-[clamp(30rem,46svh,40rem)]"
+        className="relative h-[17rem] w-full overflow-hidden bg-[#2a211d] sm:h-[23rem] lg:h-[clamp(21rem,46svh,32rem)] xl:h-[clamp(30rem,46svh,40rem)]"
       >
-        <AnimatePresence initial={false} mode="wait">
+        <AnimatePresence initial={false}>
           <motion.div
             key={activeSlide.word}
-            className="absolute inset-0"
-            initial={{ opacity: 0, scale: 1.018 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.985 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            data-hero-image-media
+            className="absolute inset-0 overflow-hidden will-change-transform"
+            initial={{
+              zIndex: 2,
+              clipPath: "inset(0% 0% 0% 18%)",
+              x: "6%",
+              scale: 1.04,
+            }}
+            animate={{
+              zIndex: 2,
+              clipPath: "inset(0% 0% 0% 0%)",
+              x: "0%",
+              scale: 1,
+            }}
+            exit={{
+              zIndex: 1,
+              x: "-3%",
+              scale: 1.018,
+            }}
+            transition={{ duration: 1.08, ease: [0.22, 1, 0.36, 1] }}
           >
             <Image
               src={activeSlide.src}
@@ -191,19 +269,6 @@ export default function Hero() {
           aria-hidden="true"
           className="absolute inset-0 bg-[linear-gradient(180deg,rgba(42,33,29,0.08),rgba(42,33,29,0)_42%)]"
         />
-        <div
-          data-hero-bike
-          aria-hidden="true"
-          className="pointer-events-none absolute z-40 h-14 w-24 sm:h-16 sm:w-28"
-        >
-          <Image
-            src="/quickbite-delivery-bike.svg"
-            alt=""
-            fill
-            sizes="112px"
-            className="object-contain"
-          />
-        </div>
       </div>
 
     </section>

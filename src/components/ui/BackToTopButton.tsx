@@ -1,11 +1,66 @@
 "use client";
 
 import { ArrowUp } from "lucide-react";
-import { useRef, useState } from "react";
+import { useRef, useState, type CSSProperties } from "react";
+import type { NavTheme } from "@/config/navigation";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import MagneticFillButton from "./MagneticFillButton";
+
+const backToTopThemes: Record<
+  NavTheme,
+  {
+    background: string;
+    foreground: string;
+    fill: string;
+    hoverForeground: string;
+  }
+> = {
+  hero: {
+    background: "#fff7ef",
+    foreground: "#24180f",
+    fill: "#f15f00",
+    hoverForeground: "#ffffff",
+  },
+  light: {
+    background: "#000000",
+    foreground: "#ffffff",
+    fill: "#f15f00",
+    hoverForeground: "#ffffff",
+  },
+  dark: {
+    background: "#f15f00",
+    foreground: "#ffffff",
+    fill: "#fff7ef",
+    hoverForeground: "#24180f",
+  },
+  accent: {
+    background: "#fff7ef",
+    foreground: "#24180f",
+    fill: "#000000",
+    hoverForeground: "#ffffff",
+  },
+  neutral: {
+    background: "#f15f00",
+    foreground: "#ffffff",
+    fill: "#000000",
+    hoverForeground: "#ffffff",
+  },
+};
+
+const defaultThemeVariables = {
+  "--magnetic-bg": backToTopThemes.hero.background,
+  "--magnetic-border": "transparent",
+  "--magnetic-text": backToTopThemes.hero.foreground,
+  "--magnetic-fill": backToTopThemes.hero.fill,
+  "--magnetic-hover-text": backToTopThemes.hero.hoverForeground,
+} as CSSProperties;
+
+function isNavTheme(value: string | undefined): value is NavTheme {
+  return Boolean(value && value in backToTopThemes);
+}
 
 export default function BackToTopButton() {
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const buttonRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useGSAP(
@@ -30,6 +85,56 @@ export default function BackToTopButton() {
       return () => {
         trigger.kill();
       };
+    },
+    { scope: buttonRef },
+  );
+
+  useGSAP(
+    () => {
+      const button = buttonRef.current;
+      if (!button) return;
+
+      const sections = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-nav-theme]"),
+      );
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      const applyTheme = (name: NavTheme, immediate = false) => {
+        const theme = backToTopThemes[name];
+
+        gsap.to(button, {
+          "--magnetic-bg": theme.background,
+          "--magnetic-text": theme.foreground,
+          "--magnetic-fill": theme.fill,
+          "--magnetic-hover-text": theme.hoverForeground,
+          duration: immediate || reducedMotion ? 0 : 0.48,
+          ease: "power3.out",
+          overwrite: "auto",
+        } as gsap.TweenVars);
+      };
+
+      const viewportLine = window.innerHeight * 0.72;
+      const initialSection = sections.find((section) => {
+        const rect = section.getBoundingClientRect();
+        return rect.top <= viewportLine && rect.bottom > viewportLine;
+      });
+      const initialTheme = initialSection?.dataset.navTheme;
+      applyTheme(isNavTheme(initialTheme) ? initialTheme : "hero", true);
+
+      sections.forEach((section) => {
+        const themeName = section.dataset.navTheme;
+        if (!isNavTheme(themeName)) return;
+
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top 72%",
+          end: "bottom 72%",
+          onEnter: () => applyTheme(themeName),
+          onEnterBack: () => applyTheme(themeName),
+        });
+      });
     },
     { scope: buttonRef },
   );
@@ -64,14 +169,20 @@ export default function BackToTopButton() {
   };
 
   return (
-    <button
+    <div
       ref={buttonRef}
-      type="button"
-      aria-label="Back to top"
-      onClick={scrollToTop}
-      className="fixed bottom-6 right-5 z-[90] grid h-12 w-12 cursor-pointer place-items-center rounded-full bg-[#fff7f0] text-[#2a211d] ring-1 ring-[#2a211d]/10 transition-colors duration-300 hover:bg-[#ff6b00] hover:text-white sm:bottom-7 sm:right-7 sm:h-14 sm:w-14"
+      style={defaultThemeVariables}
+      className="fixed bottom-6 right-5 z-[90] h-12 w-12 sm:bottom-7 sm:right-7 sm:h-14 sm:w-14"
     >
-      <ArrowUp className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
-    </button>
+      <MagneticFillButton
+        type="button"
+        ariaLabel="Back to top"
+        onClick={scrollToTop}
+        themeAware
+        className="h-full w-full rounded-full border-0 p-0"
+      >
+        <ArrowUp className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
+      </MagneticFillButton>
+    </div>
   );
 }

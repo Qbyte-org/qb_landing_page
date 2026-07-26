@@ -172,31 +172,27 @@ export type Restaurant = {
 export const heroSlides = [
   {
     word: "Fresh.",
-    src: "https://images.unsplash.com/photo-1652862730779-c4f87896c7a7?auto=format&fit=crop&w=2200&q=88",
+    src: "/images/food/hero-fresh.webp",
     alt: "A premium takeaway food spread ready for delivery",
   },
   {
     word: "Fast.",
-    src: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=2200&q=88",
+    src: "/images/food/hero-fast.webp",
     alt: "Crispy snacks packed for quick delivery",
   },
   {
     word: "Local.",
-    src: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=2200&q=88",
+    src: "/images/food/hero-local.webp",
     alt: "A local rice and chicken meal served hot",
   },
   {
     word: "Hot.",
-    src: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=2200&q=88",
+    src: "/images/food/hero-hot.webp",
     alt: "Grilled food served hot with herbs",
   },
 ] as const;
 
 export const heroImage = heroSlides[0];
-
-// Unsplash images — hostname allow-listed in next.config.ts.
-const img = (id: string) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=640&q=75`;
 
 export const restaurants: Restaurant[] = [
   {
@@ -205,7 +201,7 @@ export const restaurants: Restaurant[] = [
     rating: 4.8,
     deliveryFrom: "₦500",
     eta: "25–35 min",
-    image: img("photo-1604908176997-125f25cc6f3d"),
+    image: "/images/food/hero-local.webp",
   },
   {
     name: "Suya Republic",
@@ -213,7 +209,7 @@ export const restaurants: Restaurant[] = [
     rating: 4.7,
     deliveryFrom: "₦600",
     eta: "20–30 min",
-    image: img("photo-1529193591184-b1d58069ecdd"),
+    image: "/images/food/hero-hot.webp",
   },
   {
     name: "The Swallow House",
@@ -221,7 +217,7 @@ export const restaurants: Restaurant[] = [
     rating: 4.9,
     deliveryFrom: "₦450",
     eta: "30–40 min",
-    image: img("photo-1567620905732-2d1ec7ab7445"),
+    image: "/images/food/restaurant-swallow.webp",
   },
   {
     name: "Naija Bites & Snacks",
@@ -229,7 +225,7 @@ export const restaurants: Restaurant[] = [
     rating: 4.6,
     deliveryFrom: "₦400",
     eta: "15–25 min",
-    image: img("photo-1601050690597-df0568f70950"),
+    image: "/images/food/hero-fast.webp",
   },
   {
     name: "Ife Pizza Co.",
@@ -237,7 +233,7 @@ export const restaurants: Restaurant[] = [
     rating: 4.5,
     deliveryFrom: "₦700",
     eta: "30–45 min",
-    image: img("photo-1513104890138-7c749659a591"),
+    image: "/images/food/restaurant-pizza.webp",
   },
   {
     name: "Smoothie & Chill",
@@ -245,7 +241,7 @@ export const restaurants: Restaurant[] = [
     rating: 4.8,
     deliveryFrom: "₦350",
     eta: "15–20 min",
-    image: img("photo-1505252585461-04db1eb84625"),
+    image: "/images/food/restaurant-smoothie.webp",
   },
 ];
 

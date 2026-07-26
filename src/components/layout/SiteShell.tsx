@@ -28,10 +28,14 @@ export default function SiteShell({
         "[data-intro-nav-parent]",
         "[data-intro-nav-shell]",
         "[data-intro-nav-content]",
+        "[data-hero-map-detail]",
+        "[data-hero-route]",
         "[data-hero-title]",
         "[data-hero-actions]",
         "[data-hero-float]",
         "[data-hero-next-image]",
+        "[data-hero-image-media]",
+        "[data-hero-bike]",
       ].join(",");
 
       if (reducedMotion) {
@@ -45,9 +49,9 @@ export default function SiteShell({
       if (!heroIntro) {
         gsap.from("[data-intro-nav-parent]", {
           autoAlpha: 0,
-          x: -48,
+          x: -80,
           clipPath: "inset(0 100% 0 0 round 999px)",
-          duration: animation.duration.base,
+          duration: 0.92,
           ease: animation.ease.premium,
         });
         return;
@@ -60,38 +64,59 @@ export default function SiteShell({
       timeline
         .from("[data-intro-nav-parent]", {
           autoAlpha: 0,
-          x: -78,
+          x: -170,
           clipPath: "inset(0 100% 0 0 round 999px)",
-          duration: 0.68,
+          duration: 1.16,
         })
         .from("[data-intro-nav-shell]", {
           autoAlpha: 0,
-          x: -20,
-          scaleX: 0.96,
+          x: -30,
+          scaleX: 0.94,
           transformOrigin: "left center",
-          duration: 0.42,
-          stagger: 0.06,
-        }, "-=0.36")
+          duration: 0.66,
+          stagger: 0.08,
+        }, "-=0.5")
         .from(
           "[data-intro-nav-content]",
           {
             autoAlpha: 0,
-            y: 8,
-            duration: 0.34,
+            y: 10,
+            duration: 0.42,
             stagger: 0.035,
           },
-          "-=0.34",
+          "-=0.3",
+        )
+        .from(
+          "[data-hero-map-detail]",
+          {
+            autoAlpha: 0,
+            y: 20,
+            scale: 0.96,
+            duration: 0.78,
+            stagger: 0.08,
+          },
+          0.28,
+        )
+        .from(
+          "[data-hero-route]",
+          {
+            autoAlpha: 0,
+            y: 22,
+            scale: 0.985,
+            duration: 0.72,
+          },
+          0.42,
         )
         .from(
           "[data-hero-title] > span",
           {
             autoAlpha: 0,
-            y: -44,
-            filter: "blur(10px)",
-            duration: 0.72,
-            stagger: 0.1,
+            y: -64,
+            filter: "blur(8px)",
+            duration: 0.88,
+            stagger: 0.14,
           },
-          0.48,
+          0.56,
         )
         .from(
           "[data-hero-float]",
@@ -102,22 +127,40 @@ export default function SiteShell({
             duration: 0.72,
             stagger: 0.08,
           },
-          0.72,
+          0.86,
         )
         .from(
           "[data-hero-actions] > *",
-          { autoAlpha: 0, y: 24, duration: 0.42, stagger: 0.07 },
-          0.96,
+          { autoAlpha: 0, y: 34, scale: 0.94, duration: 0.52, stagger: 0.07 },
+          1.16,
         )
         .from(
           "[data-hero-next-image]",
           {
             autoAlpha: 0,
-            y: 46,
+            y: 58,
             scale: 1.025,
-            duration: 0.74,
+            clipPath: "inset(18% 0 0 0)",
+            duration: 0.82,
           },
-          0.72,
+          0.94,
+        )
+        .from(
+          "[data-hero-image-media]",
+          {
+            scale: 1.05,
+            duration: 0.9,
+          },
+          1.02,
+        )
+        .from(
+          "[data-hero-bike]",
+          {
+            autoAlpha: 0,
+            scale: 0.84,
+            duration: 0.5,
+          },
+          1.28,
         );
     },
     { scope: shellRef, dependencies: [heroIntro] },
