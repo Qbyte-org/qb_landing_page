@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useRef, useState, type CSSProperties } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { MapPin, Sun } from "lucide-react";
@@ -311,35 +310,17 @@ export default function Header() {
                   <ul className="grid w-full gap-3 sm:gap-4">
                     {menuLinks.map((link) => (
                       <li key={`${link.href}-${link.label}`} className="w-full">
-                        <div className="flex w-full items-center gap-3 sm:gap-4">
-                          <span
-                            aria-hidden="true"
-                            className="relative grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-[1rem] sm:h-11 sm:w-11"
-                            style={{
-                              backgroundColor:
-                                "color-mix(in srgb, var(--nav-foreground) 10%, transparent)",
-                            }}
-                          >
-                            <Image
-                              src={link.asset}
-                              alt=""
-                              fill
-                              sizes="44px"
-                              className="object-contain p-1.5"
-                            />
-                          </span>
-
-                          <LinkArrow
-                            href={link.href}
-                            onClick={closePanels}
-                            variant="dark"
-                            dataNavText
-                            className="w-full !text-[var(--nav-foreground)] [--link-arrow-expanded-spacing:0.14em] [--link-arrow-min-width:100%] [--link-arrow-spacing:0em] border-0 pb-0 font-display text-2xl font-extrabold normal-case leading-none tracking-normal [border-bottom-width:0] sm:text-[2.05rem]"
-                            textClassName="tracking-normal"
-                          >
-                            {link.label}
-                          </LinkArrow>
-                        </div>
+                        <LinkArrow
+                          href={link.href}
+                          onClick={closePanels}
+                          variant="dark"
+                          dataNavText
+                          imageSrc={link.asset}
+                          className="w-full !text-[var(--nav-foreground)] [--link-arrow-expanded-spacing:0.14em] [--link-arrow-image-size:2rem] [--link-arrow-min-width:100%] [--link-arrow-spacing:0em] border-0 pb-0 font-display text-2xl font-extrabold normal-case leading-none tracking-normal [border-bottom-width:0] sm:text-[2.05rem] sm:[--link-arrow-image-size:2.35rem]"
+                          textClassName="tracking-normal"
+                        >
+                          {link.label}
+                        </LinkArrow>
                       </li>
                     ))}
                   </ul>
