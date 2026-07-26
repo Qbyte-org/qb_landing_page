@@ -1,13 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRef, useState, type CSSProperties } from "react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { MapPin, Sun } from "lucide-react";
 import { useNavbarTheme } from "@/hooks/use-navbar-theme";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import LinkArrow from "../ui/LinkArrow";
+import Logo from "../ui/Logo";
 import MagneticFillButton from "../ui/MagneticFillButton";
 
 const navPill = "bg-black text-white";
@@ -31,11 +31,6 @@ const navThemeDefaults = {
   "--nav-chip-text": "#24180f",
   "--nav-action": "#f15f00",
   "--nav-action-text": "#ffffff",
-  "--magnetic-bg": "#ffffff",
-  "--magnetic-border": "#ffffff",
-  "--magnetic-text": "#24180f",
-  "--magnetic-fill": "#f15f00",
-  "--magnetic-hover-text": "#ffffff",
 } as CSSProperties;
 
 function MenuGlyph({ open }: { open: boolean }) {
@@ -70,10 +65,6 @@ function MenuGlyph({ open }: { open: boolean }) {
 
 export default function Header() {
   const navRef = useRef<HTMLElement>(null);
-  const menuShellRef = useRef<HTMLDivElement>(null);
-  const menuPanelRef = useRef<HTMLElement>(null);
-  const menuTimelineRef = useRef<gsap.core.Timeline | null>(null);
-  const menuAnimationReadyRef = useRef(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useNavbarTheme(navRef);
@@ -169,160 +160,25 @@ export default function Header() {
       if (!menuOpen) return;
       const previousOverflow = document.body.style.overflow;
       document.body.style.overflow = "hidden";
+      const closeOnOutsidePointerDown = (event: PointerEvent) => {
+        const nav = navRef.current;
+        const target = event.target;
+
+        if (!nav || !(target instanceof Node)) return;
+        if (!nav.contains(target)) setMenuOpen(false);
+      };
+
+      document.addEventListener("pointerdown", closeOnOutsidePointerDown, true);
       return () => {
         document.body.style.overflow = previousOverflow;
+        document.removeEventListener(
+          "pointerdown",
+          closeOnOutsidePointerDown,
+          true,
+        );
       };
     },
     { dependencies: [menuOpen], revertOnUpdate: true },
-  );
-
-  useGSAP(
-    () => {
-      const shell = menuShellRef.current;
-      const panel = menuPanelRef.current;
-      if (!shell || !panel) return;
-
-      const rows = gsap.utils.toArray<HTMLElement>(
-        panel.querySelectorAll("[data-menu-row]"),
-      );
-      const reducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
-      const getClosedHeight = () =>
-        Number.parseFloat(
-          getComputedStyle(shell).getPropertyValue("--nav-closed-height"),
-        ) || 64;
-
-      menuTimelineRef.current?.kill();
-      gsap.killTweensOf([shell, panel, ...rows]);
-
-      if (!menuAnimationReadyRef.current) {
-        menuAnimationReadyRef.current = true;
-        gsap.set(shell, {
-          height: "var(--nav-closed-height)",
-          width: "var(--nav-menu-closed-width)",
-          overflow: "hidden",
-          willChange: "height,width",
-        });
-        gsap.set(panel, {
-          autoAlpha: 0,
-          display: "none",
-          pointerEvents: "none",
-          maxHeight: 0,
-          overflow: "hidden",
-          y: -14,
-          clipPath: "inset(0 0 100% 0 round 0 0 1.9rem 1.9rem)",
-        });
-        gsap.set(rows, { autoAlpha: 0, y: -16 });
-        if (!menuOpen) return;
-      }
-
-      if (menuOpen) {
-        const closedHeight = getClosedHeight();
-
-        gsap.set(panel, {
-          display: "block",
-          pointerEvents: "auto",
-          visibility: "hidden",
-          maxHeight: "none",
-          overflow: "hidden",
-          y: -14,
-          clipPath: "inset(0 0 100% 0 round 0 0 1.9rem 1.9rem)",
-        });
-
-        const panelHeight = panel.scrollHeight;
-        const drawerBreathingRoom = 18;
-        const openHeight = closedHeight + panelHeight + drawerBreathingRoom;
-
-        gsap.set(panel, {
-          autoAlpha: 1,
-          maxHeight: panelHeight,
-          overflow: "hidden",
-          visibility: "visible",
-        });
-        gsap.set(rows, { autoAlpha: 0, y: -18 });
-
-        menuTimelineRef.current = gsap
-          .timeline({ defaults: { overwrite: "auto" } })
-          .to(shell, {
-            height: openHeight,
-            width: "var(--nav-menu-open-width)",
-            duration: reducedMotion ? 0 : 0.72,
-            ease: "expo.inOut",
-          })
-          .to(
-            panel,
-            {
-              y: 0,
-              clipPath: "inset(0 0 0% 0 round 0 0 1.9rem 1.9rem)",
-              duration: reducedMotion ? 0 : 0.66,
-              ease: "expo.inOut",
-            },
-            0.02,
-          )
-          .to(
-            rows,
-            {
-              autoAlpha: 1,
-              y: 0,
-              duration: reducedMotion ? 0 : 0.46,
-              ease: "power3.out",
-              stagger: 0.045,
-            },
-            0.26,
-          );
-
-        return;
-      }
-
-      menuTimelineRef.current = gsap
-        .timeline({
-          defaults: { overwrite: "auto" },
-          onComplete: () => {
-            gsap.set(panel, {
-              display: "none",
-              maxHeight: 0,
-              overflow: "hidden",
-              autoAlpha: 0,
-              y: -14,
-              clipPath: "inset(0 0 100% 0 round 0 0 1.9rem 1.9rem)",
-              pointerEvents: "none",
-            });
-            gsap.set(shell, {
-              height: "var(--nav-closed-height)",
-              width: "var(--nav-menu-closed-width)",
-            });
-          },
-        })
-        .to(rows, {
-          autoAlpha: 0,
-          y: -22,
-          duration: reducedMotion ? 0 : 0.28,
-          ease: "power2.inOut",
-          stagger: { each: 0.018, from: "start" },
-        })
-        .to(
-          panel,
-          {
-            y: -18,
-            clipPath: "inset(0 0 100% 0 round 0 0 1.9rem 1.9rem)",
-            duration: reducedMotion ? 0 : 0.5,
-            ease: "expo.inOut",
-          },
-          0.02,
-        )
-        .to(
-          shell,
-          {
-            height: "var(--nav-closed-height)",
-            width: "var(--nav-menu-closed-width)",
-            duration: reducedMotion ? 0 : 0.62,
-            ease: "expo.inOut",
-          },
-          0,
-        );
-    },
-    { scope: navRef, dependencies: [menuOpen], revertOnUpdate: false },
   );
 
   const closePanels = () => {
@@ -333,55 +189,45 @@ export default function Header() {
     <header
       ref={navRef}
       style={navThemeDefaults}
-      className="pointer-events-none fixed inset-x-0 top-4 z-[100] overflow-x-clip px-4 sm:top-5 sm:px-6 lg:px-8 xl:top-8"
+      className="pointer-events-none fixed inset-x-0 top-4 z-50 overflow-x-clip px-4 sm:top-5 sm:px-6 lg:px-8 xl:top-8"
       onKeyDown={(event) => {
         if (event.key === "Escape") closePanels();
       }}
     >
       <div
         data-intro-nav-parent
-        className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-[auto_minmax(0,1fr)] items-start gap-2 sm:gap-4"
+        className="relative z-10 mx-auto grid max-w-7xl grid-cols-[auto_auto] items-start justify-between gap-2 sm:gap-4"
       >
         {/* Logo */}
         <div
           data-header-logo
           data-intro-nav-shell
           data-nav-surface
-          className={`${navPill} pointer-events-auto flex h-12 w-[11.5rem] cursor-pointer items-center justify-center rounded-pill px-3 sm:h-16 sm:w-[14rem] sm:px-5 xl:h-[4.9rem] xl:w-[15.25rem] xl:px-6`}
+          className={`${navPill} pointer-events-auto flex h-12 w-[10.25rem] cursor-pointer items-center rounded-pill px-3 sm:h-16 sm:w-[13.25rem] sm:px-5 xl:h-[4.9rem] xl:w-[14.5rem] xl:px-6`}
         >
-          <div
-            data-intro-nav-content
-            className="grid h-full w-full place-items-center"
-          >
-            <Link
-              href="/"
-              aria-label="QuickBite home"
-              className="flex h-full w-full items-center justify-center gap-2.5 sm:gap-3"
-            >
-              <Image
-                src="/quickbite-mark.svg"
-                alt="QuickBite"
-                width={64}
-                height={64}
-                priority
-                className="h-10 w-10 shrink-0 object-contain sm:h-12 sm:w-12 xl:h-[3.35rem] xl:w-[3.35rem]"
-              />
-              <span className="font-display text-lg font-black leading-none tracking-[-0.05em] sm:text-xl xl:text-[1.35rem]">
-                <span data-nav-text>Quick</span>
-                <span data-nav-icon>Bite</span>
-              </span>
-            </Link>
+          <div data-intro-nav-content>
+            <Logo variant="light" priority width={128} height={28} themeAware />
           </div>
         </div>
 
         {/* Navigation Menu */}
-        <div
-          ref={menuShellRef}
+        <motion.div
+          layout
           data-intro-nav-shell
           data-nav-surface
           className={`${navPill} pointer-events-auto relative flex h-[var(--nav-closed-height)] w-[var(--nav-menu-closed-width)] justify-self-end overflow-hidden rounded-[1.5rem] [--nav-closed-height:3rem] [--nav-menu-closed-width:10rem] [--nav-menu-open-width:min(32rem,calc(100vw-2rem))] sm:[--nav-menu-closed-width:28rem] sm:[--nav-menu-open-width:28rem] sm:rounded-[1.9rem] sm:[--nav-closed-height:4rem] lg:[--nav-menu-closed-width:30rem] lg:[--nav-menu-open-width:30rem] xl:[--nav-menu-closed-width:32rem] xl:[--nav-menu-open-width:32rem] xl:rounded-[2.35rem] xl:[--nav-closed-height:4.9rem]`}
           data-menu-open={menuOpen ? "true" : "false"}
           style={{ transformOrigin: "top right" }}
+          animate={{
+            width: menuOpen
+              ? "var(--nav-menu-open-width)"
+              : "var(--nav-menu-closed-width)",
+            height: menuOpen
+              ? "min(45rem, calc(100svh - 3rem))"
+              : "var(--nav-closed-height)",
+          }}
+          initial={false}
+          transition={{ duration: 0.56, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="flex w-full flex-col">
             <div
@@ -392,9 +238,8 @@ export default function Header() {
                 <MagneticFillButton
                   href="/restaurants"
                   variant="ghost"
-                  themeAware
                   dataNavChip
-                  className="h-9 rounded-pill border-0 px-4 text-xs font-extrabold xl:h-12 xl:px-6 xl:text-sm"
+                  className="h-9 rounded-pill border-0 bg-white px-4 text-xs font-extrabold text-[#24180f] xl:h-12 xl:px-6 xl:text-sm"
                 >
                   Find food
                   <MapPin data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.3} aria-hidden="true" />
@@ -421,14 +266,8 @@ export default function Header() {
 
               <motion.button
                 type="button"
-                onPointerDown={(event) => {
-                  if (event.button !== 0) return;
+                onClick={() => {
                   setMenuOpen((value) => !value);
-                }}
-                onClick={(event) => {
-                  if (event.detail === 0) {
-                    setMenuOpen((value) => !value);
-                  }
                 }}
                 aria-expanded={menuOpen}
                 aria-controls="site-menu"
@@ -440,37 +279,75 @@ export default function Header() {
               </motion.button>
             </div>
 
-            <nav
-              ref={menuPanelRef}
-              id="site-menu"
-              aria-label="Expanded menu"
-              aria-hidden={!menuOpen}
-              className="invisible pointer-events-none origin-top px-6 pb-8 pt-4 text-[var(--nav-foreground)] sm:px-8 sm:pb-9 sm:pt-5"
-            >
-              <ul className="grid w-full gap-2.5 py-2 sm:gap-3 sm:py-3">
-                {menuLinks.map((link) => (
-                  <li
-                    data-menu-row
-                    key={`${link.href}-${link.label}`}
-                    className="w-full"
-                  >
-                    <LinkArrow
-                      href={link.href}
-                      onClick={closePanels}
-                      variant="dark"
-                      dataNavText
-                      imageSrc={link.asset}
-                      className="min-h-8 w-full !text-[var(--nav-foreground)] [--link-arrow-expanded-spacing:0.12em] [--link-arrow-image-size:1.55rem] [--link-arrow-min-width:100%] [--link-arrow-spacing:0em] border-0 pb-0 font-display text-[1.45rem] font-black uppercase leading-none tracking-normal [border-bottom-width:0] sm:min-h-9 sm:text-[1.75rem] sm:[--link-arrow-image-size:1.9rem] xl:text-[1.9rem] xl:[--link-arrow-image-size:2rem]"
-                      textClassName="tracking-normal"
-                    >
-                      {link.label}
-                    </LinkArrow>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+            <AnimatePresence>
+              {menuOpen ? (
+                <motion.nav
+                  id="site-menu"
+                  aria-label="Expanded menu"
+                  initial={{
+                    opacity: 0,
+                    x: 88,
+                    y: -10,
+                    scaleX: 0.94,
+                    clipPath: "inset(0 0 0 22% round 2.25rem)",
+                  }}
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                    y: 0,
+                    scaleX: 1,
+                    clipPath: "inset(0 0 0 0% round 2.25rem)",
+                  }}
+                  exit={{
+                    opacity: 0,
+                    x: 72,
+                    y: -8,
+                    scaleX: 0.96,
+                    clipPath: "inset(0 0 0 24% round 2.25rem)",
+                  }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="origin-top-right px-7 pb-9 pt-6 text-[var(--nav-foreground)] sm:px-9 xl:pt-7"
+                >
+                  <ul className="grid w-full gap-3 sm:gap-4">
+                    {menuLinks.map((link) => (
+                      <li key={`${link.href}-${link.label}`} className="w-full">
+                        <div className="flex w-full items-center gap-3 sm:gap-4">
+                          <span
+                            aria-hidden="true"
+                            className="relative grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-[1rem] sm:h-11 sm:w-11"
+                            style={{
+                              backgroundColor:
+                                "color-mix(in srgb, var(--nav-foreground) 10%, transparent)",
+                            }}
+                          >
+                            <Image
+                              src={link.asset}
+                              alt=""
+                              fill
+                              sizes="44px"
+                              className="object-contain p-1.5"
+                            />
+                          </span>
+
+                          <LinkArrow
+                            href={link.href}
+                            onClick={closePanels}
+                            variant="dark"
+                            dataNavText
+                            className="w-full !text-[var(--nav-foreground)] [--link-arrow-expanded-spacing:0.14em] [--link-arrow-min-width:100%] [--link-arrow-spacing:0em] border-0 pb-0 font-display text-2xl font-extrabold normal-case leading-none tracking-normal [border-bottom-width:0] sm:text-[2.05rem]"
+                            textClassName="tracking-normal"
+                          >
+                            {link.label}
+                          </LinkArrow>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.nav>
+              ) : null}
+            </AnimatePresence>
           </div>
-        </div>
+        </motion.div>
       </div>
     </header>
   );

@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { heroSlides } from "@/content/site";
 import { useHeroTransition } from "@/hooks/use-hero-transition";
-import { gsap, useGSAP } from "@/lib/gsap";
 import Container from "../ui/Container";
 import MagneticFillButton from "../ui/MagneticFillButton";
 import TypewriterText from "../ui/TypewriterText";
@@ -58,56 +57,6 @@ export default function Hero() {
 
   useHeroTransition(sectionRef);
 
-  useGSAP(
-    () => {
-      const path = sectionRef.current?.querySelector<SVGPathElement>(
-        "[data-hero-bike-path]",
-      );
-      const bike = sectionRef.current?.querySelector<SVGElement>(
-        "[data-hero-bike]",
-      );
-      if (!path || !bike) return;
-
-      gsap.set(bike, {
-        xPercent: -50,
-        yPercent: -62,
-        transformOrigin: "50% 62%",
-        autoAlpha: 1,
-      });
-
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        gsap.set(bike, {
-          motionPath: {
-            path,
-            align: path,
-            alignOrigin: [0.5, 0.62],
-            autoRotate: true,
-            start: 0.2,
-            end: 0.2,
-          },
-        });
-        return;
-      }
-
-      const tween = gsap.to(bike, {
-        motionPath: {
-          path,
-          align: path,
-          alignOrigin: [0.5, 0.62],
-          autoRotate: true,
-          start: 0,
-          end: 1,
-        },
-        duration: 24,
-        ease: "none",
-        repeat: -1,
-      });
-
-      return () => tween.kill();
-    },
-    { scope: sectionRef },
-  );
-
   const handleWordChange = useCallback((_word: string, index: number) => {
     setActiveSlideIndex(index % heroSlides.length);
   }, []);
@@ -137,41 +86,6 @@ export default function Hero() {
             />
             <span className="absolute bottom-5 left-5 h-3 w-3 rounded-full bg-[#ff4f1f]" />
           </div>
-          <svg
-            data-hero-route
-            className="absolute inset-x-0 top-20 h-[31rem] w-full text-[#ff7a2d] opacity-45 sm:top-28 lg:top-36"
-            viewBox="0 0 1440 520"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            <path
-              data-hero-bike-path
-              d="M-40 388C150 263 282 462 438 314C583 177 695 154 835 268C1002 403 1126 203 1480 318"
-              fill="none"
-              stroke="currentColor"
-              strokeDasharray="12 18"
-              strokeLinecap="round"
-              strokeWidth="3"
-            />
-            <image
-              data-hero-bike
-              href="/quickbite-delivery-bike.svg"
-              width="132"
-              height="80"
-            />
-            <path
-              d="M-60 194C134 75 277 241 431 142C604 31 704 77 846 172C1018 287 1166 117 1498 171"
-              fill="none"
-              stroke="#0c5b47"
-              strokeDasharray="7 15"
-              strokeLinecap="round"
-              strokeOpacity=".52"
-              strokeWidth="2"
-            />
-            <circle cx="438" cy="314" r="7" fill="#ff7a2d" />
-            <circle cx="846" cy="172" r="7" fill="#0c5b47" />
-            <circle cx="1126" cy="203" r="7" fill="#ff7a2d" />
-          </svg>
           {floatingFoods.map((food, index) => (
             <Image
               key={food.src}
@@ -228,47 +142,51 @@ export default function Hero() {
 
       <div
         data-hero-next-image
-        data-hero-image-stage
-        className="relative h-[17rem] w-full overflow-hidden bg-[#2a211d] sm:h-[23rem] lg:h-[clamp(21rem,46svh,32rem)] xl:h-[clamp(30rem,46svh,40rem)]"
+        className="relative h-[17rem] w-full overflow-visible bg-[#2a211d] sm:h-[23rem] lg:h-[clamp(21rem,46svh,32rem)] xl:h-[clamp(30rem,46svh,40rem)]"
       >
-        <AnimatePresence initial={false}>
-          <motion.div
-            key={activeSlide.word}
-            data-hero-image-media
-            className="absolute inset-0 overflow-hidden will-change-transform"
-            initial={{
-              zIndex: 2,
-              clipPath: "inset(0% 0% 0% 18%)",
-              x: "6%",
-              scale: 1.04,
-            }}
-            animate={{
-              zIndex: 2,
-              clipPath: "inset(0% 0% 0% 0%)",
-              x: "0%",
-              scale: 1,
-            }}
-            exit={{
-              zIndex: 1,
-              x: "-3%",
-              scale: 1.018,
-            }}
-            transition={{ duration: 1.08, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <Image
-              src={activeSlide.src}
-              alt={activeSlide.alt}
-              fill
-              priority={activeSlideIndex === 0}
-              sizes="100vw"
-              className="object-cover object-center"
-            />
-          </motion.div>
-        </AnimatePresence>
         <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(42,33,29,0.08),rgba(42,33,29,0)_42%)]"
-        />
+          data-hero-image-stage
+          className="absolute left-0 top-0 h-full w-full overflow-hidden bg-[#2a211d]"
+        >
+          <AnimatePresence initial={false}>
+            <motion.div
+              key={activeSlide.word}
+              data-hero-image-media
+              className="absolute inset-0 overflow-hidden will-change-transform"
+              initial={{
+                zIndex: 2,
+                clipPath: "inset(0% 0% 0% 18%)",
+                x: "6%",
+                scale: 1.04,
+              }}
+              animate={{
+                zIndex: 2,
+                clipPath: "inset(0% 0% 0% 0%)",
+                x: "0%",
+                scale: 1,
+              }}
+              exit={{
+                zIndex: 1,
+                x: "-3%",
+                scale: 1.018,
+              }}
+              transition={{ duration: 1.08, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Image
+                src={activeSlide.src}
+                alt={activeSlide.alt}
+                fill
+                priority={activeSlideIndex === 0}
+                sizes="100vw"
+                className="object-cover object-center"
+              />
+            </motion.div>
+          </AnimatePresence>
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(42,33,29,0.08),rgba(42,33,29,0)_42%)]"
+          />
+        </div>
       </div>
 
     </section>

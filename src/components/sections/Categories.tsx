@@ -2,7 +2,13 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { Heart, Play, Share2, SkipBack, SkipForward, Star } from "lucide-react";
+import {
+  Clock3,
+  MapPin,
+  Navigation,
+  ShoppingBag,
+  Star,
+} from "lucide-react";
 import { categories, heroSlides, type Category } from "@/content/site";
 import { gsap, useGSAP } from "@/lib/gsap";
 import Container from "../ui/Container";
@@ -306,60 +312,77 @@ export default function Categories() {
 
       <Container className="relative">
         <div
-          data-hero-image-target
-          className="relative mx-auto mb-14 aspect-square w-full max-w-[23rem] overflow-hidden rounded-[3rem] bg-[#3a2a22] p-3 ring-1 ring-[#24180f]/18 sm:max-w-[25rem]"
+          className="relative mx-auto mb-16 w-full max-w-[31rem] overflow-hidden rounded-[3rem] bg-[#2a211d] p-3 text-white ring-1 ring-[#24180f]/16 sm:max-w-[34rem]"
         >
-          <div className="relative h-full w-full overflow-hidden rounded-[2.25rem]">
-            <Image
-              src={focusImage.src}
-              alt={focusImage.alt}
-              fill
-              sizes="704px"
-              className="object-cover object-center"
-            />
+          <div className="overflow-hidden rounded-[2.25rem] bg-[#fff7ef] text-[#2a211d]">
             <div
-              aria-hidden="true"
-              className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,13,8,0.25),rgba(22,13,8,0.02)_38%,rgba(22,13,8,0.72))]"
-            />
-            <div className="pointer-events-none absolute inset-x-4 top-4 z-[70] flex items-center justify-between text-[0.63rem] font-black uppercase tracking-[0.14em] text-white sm:inset-x-5 sm:top-5">
-              <span className="rounded-full bg-black/45 px-3 py-2 backdrop-blur-sm">
-                Next bite
-              </span>
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/18 backdrop-blur-sm">
-                <Heart className="h-4 w-4 fill-white text-white" strokeWidth={2.2} aria-hidden="true" />
+              data-hero-image-target
+              className="relative h-[15.5rem] overflow-hidden rounded-b-[2rem] sm:h-[17.5rem]"
+            >
+              <Image
+                src={focusImage.src}
+                alt={focusImage.alt}
+                fill
+                sizes="544px"
+                className="object-cover object-center"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,13,8,0.12),rgba(22,13,8,0.02)_42%,rgba(22,13,8,0.36))]"
+              />
+              <div className="absolute left-5 top-5 flex items-center gap-2 rounded-pill bg-[#2a211d]/88 px-4 py-2 text-[0.7rem] font-black uppercase tracking-[0.12em] text-white backdrop-blur-sm">
+                <ShoppingBag className="h-4 w-4 text-[#ff6b00]" strokeWidth={2.3} aria-hidden="true" />
+                Featured drop
+              </div>
+              <span className="absolute bottom-5 right-5 rounded-pill bg-white px-4 py-2 text-xs font-black text-[#2a211d]">
+                24 min ETA
               </span>
             </div>
-            <div
-              data-media-controller
-              className="absolute inset-x-4 bottom-4 z-[80] rounded-[1.55rem] bg-black/42 px-4 py-3 text-white backdrop-blur-md sm:inset-x-5 sm:bottom-5"
-            >
-              <div className="mb-3 flex items-center justify-between gap-4 text-[0.64rem] font-bold">
-                <span>0:18</span>
-                <span>Fresh focus</span>
-                <span>-1:24</span>
+
+            <div className="p-5 sm:p-6">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-[0.68rem] font-black uppercase tracking-[0.16em] text-[#f06400]">
+                    QuickBite now
+                  </p>
+                  <h3 className="mt-2 font-display text-3xl font-black leading-none tracking-[-0.06em]">
+                    Hot meals headed your way
+                  </h3>
+                </div>
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#ff6b00] text-white">
+                  <Navigation className="h-5 w-5" strokeWidth={2.4} aria-hidden="true" />
+                </span>
               </div>
-              <div className="relative mb-3 h-1 rounded-full bg-white/28">
-                <span className="absolute inset-y-0 left-0 w-[42%] rounded-full bg-white" />
+
+              <div className="mt-6 grid gap-3 rounded-[1.6rem] bg-white px-4 py-4 text-sm font-extrabold text-[#4a3d38]">
+                <div className="flex items-center gap-3">
+                  <span className="grid h-9 w-9 place-items-center rounded-full bg-[#fff0e4] text-[#f06400]">
+                    <MapPin className="h-4 w-4" strokeWidth={2.4} aria-hidden="true" />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    From top-rated kitchens near you
+                  </span>
+                </div>
+                <div className="relative ml-[1.1rem] h-8 border-l-2 border-dashed border-[#e8c9b4]" />
+                <div className="flex items-center gap-3">
+                  <span className="grid h-9 w-9 place-items-center rounded-full bg-[#0c5b47] text-white">
+                    <Clock3 className="h-4 w-4" strokeWidth={2.4} aria-hidden="true" />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    Tracked, packed and delivered hot
+                  </span>
+                </div>
               </div>
-              <div className="flex items-center justify-center gap-5">
-                <button type="button" aria-label="Previous bite" className="grid h-8 w-8 place-items-center rounded-full bg-white/12 text-white">
-                  <SkipBack className="h-4 w-4 fill-white" strokeWidth={2.1} aria-hidden="true" />
-                </button>
-                <button type="button" aria-label="Play bite story" className="grid h-10 w-10 place-items-center rounded-full bg-white text-[#24180f]">
-                  <Play className="ml-0.5 h-4 w-4 fill-[#24180f]" strokeWidth={2.1} aria-hidden="true" />
-                </button>
-                <button type="button" aria-label="Next bite" className="grid h-8 w-8 place-items-center rounded-full bg-white/12 text-white">
-                  <SkipForward className="h-4 w-4 fill-white" strokeWidth={2.1} aria-hidden="true" />
-                </button>
+
+              <div className="mt-5 flex items-center justify-between gap-4">
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-[#7c6253]">
+                  Dinner without the waiting game
+                </p>
+                <span className="rounded-pill bg-[#2a211d] px-4 py-2 text-xs font-black text-white">
+                  Live order
+                </span>
               </div>
             </div>
-            <button
-              type="button"
-              aria-label="Share bite"
-              className="absolute right-4 top-16 z-[70] grid h-9 w-9 place-items-center rounded-full bg-white/18 text-white backdrop-blur-sm sm:right-5 sm:top-[4.4rem]"
-            >
-              <Share2 className="h-4 w-4" strokeWidth={2.2} aria-hidden="true" />
-            </button>
           </div>
         </div>
 
