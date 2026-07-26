@@ -1,132 +1,214 @@
+"use client";
+
 import Image from "next/image";
-import { ArrowLeft, ArrowRight, MapPin, Sparkle } from "lucide-react";
-import { steps } from "@/content/site";
-import Container from "../ui/Container";
-import Reveal from "../ui/Reveal";
+import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { heroSlides, steps } from "@/content/site";
+import MagneticFillButton from "../ui/MagneticFillButton";
+
+const processVisuals = [
+  {
+    image: heroSlides[0].src,
+    imageAlt: heroSlides[0].alt,
+    plate: "/food/jollof.svg",
+    accent: "/food/drinks.svg",
+    background: "#fff7f0",
+  },
+  {
+    image: heroSlides[1].src,
+    imageAlt: heroSlides[1].alt,
+    plate: "/food/snacks.svg",
+    accent: "/food/pastries.svg",
+    background: "#fff2df",
+  },
+  {
+    image: heroSlides[2].src,
+    imageAlt: heroSlides[2].alt,
+    plate: "/quickbite-delivery-bike.svg",
+    accent: "/food/grills.svg",
+    background: "#fff9ed",
+  },
+];
+
+const processSlides = steps.map((step, index) => ({
+  ...step,
+  ...(processVisuals[index] ?? processVisuals[0]),
+}));
+
+const totalSteps = processSlides.length;
 
 export default function HowItWorks() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeStep = processSlides[activeIndex] ?? processSlides[0];
+  const ActiveIcon = activeStep.icon;
+  const progress = ((activeIndex + 1) / totalSteps) * 100;
+
+  const goToPrevious = () => {
+    setActiveIndex((current) => (current - 1 + totalSteps) % totalSteps);
+  };
+
+  const goToNext = () => {
+    setActiveIndex((current) => (current + 1) % totalSteps);
+  };
+
   return (
     <section
       id="how"
       data-nav-theme="dark"
-      className="overflow-hidden bg-[#0c5b47] py-16 sm:py-24"
+      className="relative overflow-hidden bg-[#2a211d] text-white"
     >
-      <Container>
-        <div className="relative overflow-hidden rounded-[2.2rem] bg-[#ff8248] px-5 py-7 text-[#24180f] sm:rounded-[3rem] sm:px-8 sm:py-10 lg:px-12">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 opacity-25 [background-image:radial-gradient(#24180f_0.8px,transparent_0.8px)] [background-size:22px_22px]"
-          />
-          <div
-            aria-hidden="true"
-            className="absolute -left-24 top-16 h-72 w-72 rounded-full bg-[#fff1b8]/45 blur-3xl"
-          />
-          <div
-            aria-hidden="true"
-            className="absolute -right-24 bottom-10 h-80 w-80 rounded-full bg-[#0c5b47]/20 blur-3xl"
-          />
+      <div className="relative z-10 border-b border-white/[0.04] px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28">
+        <div className="mx-auto grid max-w-[66rem] items-center gap-8 md:grid-cols-[1fr_auto]">
+          <h2 className="font-display text-[3.4rem] font-black leading-[0.9] tracking-[-0.07em] sm:text-7xl">
+            How It
+            <br />
+            Works
+          </h2>
 
-          <div className="relative z-10 grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
-            <Reveal direction="left" className="max-w-xl">
-              <p className="font-display text-sm font-black uppercase tracking-[0.18em] text-[#642a10]">
-                From craving to doorstep
-              </p>
-              <h2 className="mt-5 font-display text-4xl font-black leading-[0.96] tracking-[-0.055em] text-[#160d08] sm:text-6xl xl:text-[5.8rem]">
-                Unpack and enjoy
-              </h2>
-              <p className="mt-6 max-w-md text-base font-semibold leading-relaxed text-[#4b2618]/78 sm:text-lg">
-                Choose the food, pay securely, then watch your rider bring it in
-                hot. QuickBite keeps the flow simple while the experience feels
-                considered.
-              </p>
-            </Reveal>
+          <MagneticFillButton
+            href="/restaurants"
+            variant="brand"
+            className="h-14 w-max rounded-pill border-0 bg-[#ff4f1f] px-8 text-sm font-extrabold sm:h-16 sm:px-10 sm:text-base md:-translate-x-40 md:translate-y-14 lg:-translate-x-48 xl:-translate-x-56"
+          >
+            Learn more
+          </MagneticFillButton>
+        </div>
+      </div>
 
-            <Reveal
-              direction="right"
-              className="relative min-h-[28rem] overflow-hidden rounded-[2rem] bg-[#ffefb1] sm:min-h-[34rem] sm:rounded-[2.5rem]"
-            >
-              <div className="absolute inset-x-8 top-10 text-center">
-                <p className="font-display text-3xl font-black tracking-[-0.04em] text-[#160d08] sm:text-5xl">
-                  Track every bite
-                </p>
+      <div className="relative min-h-[42rem] overflow-hidden bg-[#1c120f]">
+        <div
+          aria-hidden="true"
+          className="absolute left-0 bottom-0 hidden h-[47%] w-[20.5rem] bg-[#2f241f] lg:block"
+        />
+
+        <div
+          aria-hidden="true"
+          className="absolute right-0 top-0 z-30 hidden h-full w-1 bg-[#3b251e] lg:block"
+        >
+          <motion.span
+            className="absolute left-0 top-0 block w-full rounded-b-full bg-[#ff4f1f]"
+            animate={{ height: `${progress}%` }}
+            transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
+          />
+        </div>
+
+        <div className="relative z-10 grid lg:grid-cols-[44%_56%]">
+          <div className="relative min-h-[35rem] px-4 py-16 sm:px-6 lg:px-8 lg:py-20 xl:px-[8.2vw]">
+            <div className="grid gap-10 md:grid-cols-[14rem_1fr] lg:gap-16">
+              <div className="font-display font-black leading-none tracking-[-0.08em]">
+                <span className="text-[5.2rem] text-white sm:text-[6rem]">
+                  {activeIndex + 1}
+                </span>
+                <span className="ml-2 align-[1.8rem] text-3xl text-white/75">
+                  /{totalSteps}
+                </span>
               </div>
 
-              <Image
-                src="/menu/delivery-bag.svg"
-                alt=""
-                width={460}
-                height={460}
-                className="absolute left-1/2 top-[31%] w-[18rem] -translate-x-1/2 sm:w-[25rem]"
-              />
-              <Image
-                src="/food/jollof.svg"
-                alt=""
-                width={210}
-                height={170}
-                className="absolute left-[7%] top-[53%] w-28 -rotate-12 opacity-80 sm:w-40"
-              />
-              <Image
-                src="/food/drinks.svg"
-                alt=""
-                width={170}
-                height={140}
-                className="absolute right-[8%] top-[52%] w-24 rotate-12 opacity-75 sm:w-36"
-              />
-              <Image
-                src="/quickbite-delivery-bike.svg"
-                alt=""
-                width={220}
-                height={132}
-                className="absolute bottom-7 right-8 w-36 sm:w-48"
-              />
-            </Reveal>
+              <div className="max-w-md pt-2">
+                <p className="font-display text-xs font-black uppercase tracking-[0.16em] text-[#22c55e]">
+                  Our process
+                </p>
+
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={activeStep.title}
+                    initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: -18, filter: "blur(8px)" }}
+                    transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <span className="mt-16 grid h-14 w-14 place-items-center rounded-full bg-[#ff4f1f] text-white sm:mt-20">
+                      <ActiveIcon className="h-6 w-6" strokeWidth={2.35} aria-hidden="true" />
+                    </span>
+
+                    <h3 className="mt-8 font-display text-3xl font-black leading-tight tracking-[-0.05em] sm:text-4xl">
+                      {activeStep.title}
+                    </h3>
+                    <p className="mt-10 text-lg font-extrabold leading-relaxed text-white/92">
+                      {activeStep.description}
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
+
+                <div className="mt-20 flex items-center gap-4">
+                  <button
+                    type="button"
+                    aria-label="Previous process step"
+                    onClick={goToPrevious}
+                    className="grid h-14 w-14 cursor-pointer place-items-center rounded-full bg-white text-[#ff4f1f] transition-colors duration-300 hover:bg-[#ffefe7]"
+                  >
+                    <ArrowLeft className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Next process step"
+                    onClick={goToNext}
+                    className="grid h-14 w-14 cursor-pointer place-items-center rounded-full bg-white text-[#ff4f1f] transition-colors duration-300 hover:bg-[#ffefe7]"
+                  >
+                    <ArrowRight className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="relative z-10 mt-7 grid gap-3 lg:grid-cols-[1fr_auto] lg:items-end">
-            <div className="grid gap-3 md:grid-cols-3">
-              {steps.map((step, index) => (
-                <Reveal
-                  key={step.title}
-                  delay={index * 0.08}
-                  className="rounded-[1.45rem] bg-white/82 p-4 backdrop-blur-sm"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="font-display text-sm font-black text-[#0c5b47]">
-                      0{index + 1}
-                    </span>
-                    <step.icon
-                      className="h-5 w-5 text-[#f06400]"
-                      strokeWidth={2.2}
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <h3 className="mt-4 font-display text-lg font-black tracking-[-0.03em]">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-sm font-semibold leading-snug text-[#5e3a2c]/75">
-                    {step.description}
-                  </p>
-                </Reveal>
-              ))}
-            </div>
+          <div className="relative min-h-[32rem] overflow-hidden lg:min-h-[42rem]">
+            <div
+              aria-hidden="true"
+              className="absolute -left-36 -top-36 z-30 h-80 w-80 rounded-[55%_45%_48%_52%/45%_48%_52%_55%] bg-[#40b84f]"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute -left-20 top-28 z-30 h-72 w-72 rounded-[48%_52%_52%_48%/58%_45%_55%_42%] bg-[#ff4f1f]"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute left-[-3.4rem] top-20 z-30 h-40 w-48 rotate-12 bg-[#ff8717] [clip-path:polygon(0_78%,58%_0,100%_100%)]"
+            />
 
-            <div className="flex items-center gap-3 justify-self-start lg:justify-self-end">
-              <span className="grid h-12 w-12 place-items-center rounded-full bg-[#0c5b47] text-[#ffcfaa]">
-                <MapPin className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
-              </span>
-              <span className="grid h-12 w-12 place-items-center rounded-full bg-[#0c5b47] text-[#ffcfaa]">
-                <ArrowLeft className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
-              </span>
-              <span className="grid h-12 w-12 place-items-center rounded-full border-2 border-[#0c5b47] text-[#0c5b47]">
-                <ArrowRight className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
-              </span>
-              <span className="grid h-12 w-12 place-items-center rounded-full bg-[#0c5b47] text-[#ffcfaa]">
-                <Sparkle className="h-5 w-5 fill-current" strokeWidth={2.25} aria-hidden="true" />
-              </span>
-            </div>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={activeStep.title}
+                className="absolute inset-0 z-10 overflow-hidden"
+                style={{ backgroundColor: activeStep.background }}
+                initial={{ opacity: 0, x: 44, scale: 1.025 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -34, scale: 0.985 }}
+                transition={{ duration: 0.56, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <Image
+                  src={activeStep.image}
+                  alt={activeStep.imageAlt}
+                  fill
+                  priority={activeIndex === 0}
+                  unoptimized
+                  sizes="(min-width: 1024px) 56vw, 100vw"
+                  className="object-cover object-center opacity-70"
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-[linear-gradient(90deg,rgba(28,18,15,0.08),rgba(255,247,240,0.16)_38%,rgba(255,247,240,0.52))]"
+                />
+                <Image
+                  src={activeStep.plate}
+                  alt=""
+                  width={760}
+                  height={590}
+                  className="absolute -bottom-8 right-[-4%] w-[34rem] object-contain drop-shadow-none sm:w-[46rem] lg:-bottom-10 xl:w-[56rem]"
+                />
+                <Image
+                  src={activeStep.accent}
+                  alt=""
+                  width={260}
+                  height={210}
+                  className="absolute bottom-[10%] left-[7%] hidden w-44 -rotate-12 object-contain opacity-90 sm:block lg:left-[10%] lg:w-56"
+                />
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

@@ -6,6 +6,8 @@ import { animation } from "@/lib/animation";
 import { gsap, useGSAP } from "@/lib/gsap";
 import Header from "./Header";
 import Footer from "./Footer";
+import SmoothScroll from "./SmoothScroll";
+import BackToTopButton from "../ui/BackToTopButton";
 import StickyOrderBar from "../ui/StickyOrderBar";
 
 export default function SiteShell({
@@ -123,9 +125,11 @@ export default function SiteShell({
 
   return (
     <div ref={shellRef} className="flex min-h-full flex-col">
+      <SmoothScroll />
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
+      <BackToTopButton />
       <StickyOrderBar />
     </div>
   );
