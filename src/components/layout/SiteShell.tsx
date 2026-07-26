@@ -23,10 +23,12 @@ export default function SiteShell({
         "(prefers-reduced-motion: reduce)",
       ).matches;
       const introTargets = [
+        "[data-intro-nav-parent]",
         "[data-intro-nav-shell]",
         "[data-intro-nav-content]",
         "[data-hero-title]",
         "[data-hero-actions]",
+        "[data-hero-float]",
         "[data-hero-next-image]",
       ].join(",");
 
@@ -39,11 +41,11 @@ export default function SiteShell({
       }
 
       if (!heroIntro) {
-        gsap.from("[data-intro-nav-shell]", {
+        gsap.from("[data-intro-nav-parent]", {
           autoAlpha: 0,
-          x: -24,
+          x: -48,
+          clipPath: "inset(0 100% 0 0 round 999px)",
           duration: animation.duration.base,
-          stagger: 0.06,
           ease: animation.ease.premium,
         });
         return;
@@ -54,14 +56,20 @@ export default function SiteShell({
       });
 
       timeline
+        .from("[data-intro-nav-parent]", {
+          autoAlpha: 0,
+          x: -78,
+          clipPath: "inset(0 100% 0 0 round 999px)",
+          duration: 0.68,
+        })
         .from("[data-intro-nav-shell]", {
           autoAlpha: 0,
-          x: -46,
+          x: -20,
           scaleX: 0.96,
           transformOrigin: "left center",
-          duration: 0.54,
+          duration: 0.42,
           stagger: 0.06,
-        })
+        }, "-=0.36")
         .from(
           "[data-intro-nav-content]",
           {
@@ -82,6 +90,17 @@ export default function SiteShell({
             stagger: 0.1,
           },
           0.48,
+        )
+        .from(
+          "[data-hero-float]",
+          {
+            autoAlpha: 0,
+            y: -24,
+            scale: 0.86,
+            duration: 0.72,
+            stagger: 0.08,
+          },
+          0.72,
         )
         .from(
           "[data-hero-actions] > *",

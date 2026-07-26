@@ -48,9 +48,22 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
           overwrite: "auto",
         });
 
+        gsap.to(nav, {
+          "--nav-surface": theme.surface,
+          "--nav-foreground": theme.foreground,
+          "--nav-muted": theme.muted,
+          "--nav-icon": theme.icon,
+          "--nav-chip": theme.chip,
+          "--nav-chip-text": theme.chipText,
+          "--nav-action": theme.action,
+          "--nav-action-text": theme.actionText,
+          duration,
+          ease: animation.ease.smooth,
+          overwrite: "auto",
+        } as gsap.TweenVars);
+
         animate("[data-nav-surface]", {
           backgroundColor: theme.surface,
-          borderColor: theme.border,
           backdropFilter: "blur(18px)",
           ...tween,
         });
@@ -73,13 +86,11 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
         animate("[data-nav-chip]", {
           backgroundColor: theme.chip,
           color: theme.chipText,
-          borderColor: theme.border,
           ...tween,
         });
         animate("[data-nav-action]", {
           backgroundColor: theme.action,
           color: theme.actionText,
-          borderColor: theme.action,
           ...tween,
         });
         animate("[data-logo-color]", {

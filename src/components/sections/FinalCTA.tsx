@@ -1,4 +1,3 @@
-import { UtensilsCrossed } from "lucide-react";
 import Container from "../ui/Container";
 import Button from "../ui/Button";
 import Reveal from "../ui/Reveal";
@@ -17,13 +16,7 @@ export default function FinalCTA() {
             className="pointer-events-none absolute -bottom-20 -right-10 h-72 w-72 rounded-full bg-navy/20 blur-3xl"
           />
           <Reveal className="relative" direction="up">
-            <span
-              className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-white/15 text-white ring-1 ring-white/25 backdrop-blur"
-              aria-hidden="true"
-            >
-              <UtensilsCrossed className="h-8 w-8" strokeWidth={1.75} />
-            </span>
-            <h2 className="mt-5 font-display text-3xl font-extrabold leading-[1.05] sm:text-5xl">
+            <h2 className="font-display text-3xl font-extrabold leading-[1.05] sm:text-5xl">
               Hungry? Fast. Fresh. Delivered.
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-lg text-white/90">

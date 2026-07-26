@@ -21,17 +21,10 @@ export default function ForPartners() {
                 className="object-cover"
               />
             </div>
-            <div className="absolute -bottom-5 -right-3 rounded-card bg-white p-4 sm:-right-6">
-              <p className="text-2xl font-extrabold text-brand-dark">2x</p>
-              <p className="text-xs text-muted">more orders on average</p>
-            </div>
           </Reveal>
 
           {/* Copy */}
           <Reveal direction="left" className="order-1 lg:order-2">
-            <span className="mb-4 inline-flex items-center gap-2 rounded-pill bg-brand-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand-dark">
-              For restaurants & vendors
-            </span>
             <h2 className="mt-1 font-display text-3xl font-extrabold leading-[1.1] text-navy sm:text-4xl">
               Grow your food business with QuickBite
             </h2>

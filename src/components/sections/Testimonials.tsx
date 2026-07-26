@@ -9,7 +9,6 @@ export default function Testimonials() {
     <section data-nav-theme="light" className="bg-white py-16 sm:py-24">
       <Container>
         <SectionHeading
-          eyebrow="Loved across Ile-Ife"
           title="Customers, vendors & riders agree"
           subtitle="Real stories from the QuickBite community."
         />
@@ -18,7 +17,7 @@ export default function Testimonials() {
           {testimonials.map((t, i) => (
             <Reveal key={t.name} delay={i * 0.1}>
             <figure
-              className="relative flex h-full flex-col rounded-2xl border border-border bg-cream p-7 transition-all duration-200 hover:-translate-y-1"
+              className="relative flex h-full flex-col rounded-2xl border border-border bg-cream p-7"
             >
               <Quote
                 className="absolute right-6 top-6 h-9 w-9 text-brand/15"

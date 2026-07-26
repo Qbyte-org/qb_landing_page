@@ -10,7 +10,6 @@ export default function ForRiders() {
     <section id="riders" data-nav-theme="light" className="bg-white py-16 sm:py-24">
       <Container>
         <SectionHeading
-          eyebrow="Earn with QuickBite"
           title="Ride with us — smartphone or not"
           subtitle="Our two-tier rider model means everyone can earn. Sign up directly, or run a fleet of riders through our dispatcher portal."
         />
@@ -20,14 +19,14 @@ export default function ForRiders() {
             <Reveal
               key={tier.name}
               delay={i * 0.12}
-              className="group flex flex-col rounded-card border border-border bg-cream p-8 transition-all duration-[250ms] hover:-translate-y-1"
+              className="flex flex-col rounded-card border border-border bg-cream p-8"
             >
               <div className="flex items-center gap-4">
                 <span
                   className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white text-brand-dark ring-1 ring-border"
                   aria-hidden="true"
                 >
-                  <tier.icon className="h-7 w-7 transition-transform duration-[250ms] group-hover:rotate-3" strokeWidth={1.75} />
+                  <tier.icon className="h-7 w-7" strokeWidth={1.75} />
                 </span>
                 <div>
                   <h3 className="text-xl font-bold text-navy">{tier.name}</h3>

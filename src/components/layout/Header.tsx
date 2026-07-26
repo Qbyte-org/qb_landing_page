@@ -1,47 +1,62 @@
 "use client";
 
-import Link from "next/link";
-import { useRef, useState } from "react";
+import Image from "next/image";
+import { useRef, useState, type CSSProperties } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowRight, MapPin, Sun } from "lucide-react";
-import { navLinks } from "@/content/site";
+import { MapPin, Sun } from "lucide-react";
 import { useNavbarTheme } from "@/hooks/use-navbar-theme";
-import { tactileMotion } from "@/lib/animation";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import LinkArrow from "../ui/LinkArrow";
 import Logo from "../ui/Logo";
 import MagneticFillButton from "../ui/MagneticFillButton";
 
-const blackPill = "border border-transparent bg-black text-white";
+const navPill = "bg-black text-white";
 
 const menuLinks = [
-  { label: "Home", href: "/" },
-  ...navLinks,
-  { label: "Cities", href: "/#cities" },
-  { label: "Get the app", href: "/#app" },
-  { label: "Contact Us", href: "/company" },
+  { label: "Home", href: "/", asset: "/menu/delivery-bag.svg" },
+  { label: "Restaurants", href: "/restaurants", asset: "/food/jollof.svg" },
+  { label: "For Partners", href: "/partners", asset: "/menu/company-card.svg" },
+  { label: "Riders", href: "/riders", asset: "/menu/rider-bike.svg" },
+  { label: "Company", href: "/company", asset: "/menu/company-card.svg" },
+  { label: "Cities", href: "/#cities", asset: "/menu/city-pin.svg" },
+  { label: "Get the app", href: "/#app", asset: "/menu/app-phone.svg" },
+  { label: "Contact Us", href: "/company", asset: "/menu/contact-bubble.svg" },
 ];
+
+const navThemeDefaults = {
+  "--nav-foreground": "#ffffff",
+  "--nav-muted": "#ffd8bd",
+  "--nav-icon": "#f06400",
+  "--nav-chip": "#ffffff",
+  "--nav-chip-text": "#24180f",
+  "--nav-action": "#f15f00",
+  "--nav-action-text": "#ffffff",
+} as CSSProperties;
 
 function MenuGlyph({ open }: { open: boolean }) {
   return (
-    <span className="relative flex h-8 w-8 items-center justify-center" aria-hidden="true">
+    <span
+      className="relative flex h-8 w-8 items-center justify-center"
+      aria-hidden="true"
+    >
       <motion.span
         className="absolute h-[2px] rounded-pill bg-current"
-        animate={{ rotate: open ? 45 : 0, y: open ? 0 : -7, width: open ? 30 : 26 }}
-        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+        animate={{ rotate: open ? 45 : 0, y: open ? 0 : -7, width: open ? 30 : 25 }}
+        transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
       />
       <motion.span
         className="absolute h-[2px] rounded-pill bg-current"
-        animate={{ opacity: open ? 0 : 1, x: open ? 8 : 0, width: open ? 8 : 18 }}
-        transition={{ duration: 0.22, ease: "easeOut" }}
+        animate={{ opacity: open ? 0 : 1, x: open ? 14 : 0, width: open ? 6 : 16 }}
+        transition={{ duration: 0.24, ease: "easeOut" }}
       />
       <motion.span
         className="absolute h-[2px] rounded-pill bg-current"
-        animate={{ rotate: open ? -45 : 0, y: open ? 0 : 7, width: open ? 30 : 26 }}
-        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+        animate={{ rotate: open ? -45 : 0, y: open ? 0 : 7, width: open ? 30 : 25 }}
+        transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
       />
       <motion.span
         className="absolute right-0 top-1 h-1.5 w-1.5 rounded-pill bg-[#ff4f1f]"
-        animate={{ scale: open ? 0 : 1, opacity: open ? 0 : 1 }}
+        animate={{ scale: open ? 0 : 1, opacity: open ? 0 : 1, x: open ? 6 : 0 }}
         transition={{ duration: 0.24, ease: "easeOut" }}
       />
     </span>
@@ -54,50 +69,113 @@ export default function Header() {
 
   useNavbarTheme(navRef);
 
-  // Animate the nav in/out of view on scroll
   useGSAP(
     () => {
       const nav = navRef.current;
-      if (!nav) return;
+      const logoShell = nav?.querySelector<HTMLElement>("[data-header-logo]");
+      if (!nav || !logoShell) return;
 
       const reducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       ).matches;
-      const getOffset = () => -(Number.parseFloat(getComputedStyle(nav).top) || 0);
+      const duration = reducedMotion ? 0 : 0.38;
+      const getFloatingGap = () => (window.innerWidth >= 1024 ? 16 : 12);
+      const getOffset = () => {
+        const top = Number.parseFloat(getComputedStyle(nav).top) || 0;
+        return -Math.max(0, top - getFloatingGap());
+      };
+      let logoHidden = false;
+
+      const showLogo = () => {
+        if (!logoHidden) return;
+        logoHidden = false;
+        gsap.to(logoShell, {
+          autoAlpha: 1,
+          x: 0,
+          scale: 1,
+          duration,
+          ease: "power3.out",
+          pointerEvents: "auto",
+          overwrite: "auto",
+        });
+      };
+
+      const hideLogo = () => {
+        if (logoHidden) return;
+        logoHidden = true;
+        gsap.to(logoShell, {
+          autoAlpha: 0,
+          x: -28,
+          scale: 0.96,
+          duration,
+          ease: "power3.out",
+          pointerEvents: "none",
+          overwrite: "auto",
+        });
+      };
 
       ScrollTrigger.create({
         start: 28,
         end: 999999,
-        onEnter: () =>
+        onEnter: () => {
           gsap.to(nav, {
             y: getOffset,
-            duration: reducedMotion ? 0 : 0.38,
+            duration,
             ease: "power3.out",
             overwrite: "auto",
-          }),
-        onLeaveBack: () =>
+          });
+          hideLogo();
+        },
+        onLeaveBack: () => {
           gsap.to(nav, {
             y: 0,
-            duration: reducedMotion ? 0 : 0.38,
+            duration,
             ease: "power3.out",
             overwrite: "auto",
-          }),
+          });
+          showLogo();
+        },
+        onUpdate: (self) => {
+          if (self.scroll() < 36 || self.direction < 0) {
+            showLogo();
+          } else if (self.direction > 0) {
+            hideLogo();
+          }
+        },
         onRefresh: (self) => {
           gsap.set(nav, { y: self.isActive ? getOffset() : 0 });
+          if (self.scroll() < 36) {
+            showLogo();
+          } else {
+            hideLogo();
+          }
         },
       });
     },
     { scope: navRef },
   );
 
-  // Manage body overflow when menu is open
   useGSAP(
     () => {
       if (!menuOpen) return;
       const previousOverflow = document.body.style.overflow;
       document.body.style.overflow = "hidden";
+      const closeOnOutsidePointerDown = (event: PointerEvent) => {
+        const nav = navRef.current;
+        const target = event.target;
+
+        if (!nav || !(target instanceof Node)) return;
+        if (!nav.contains(target)) setMenuOpen(false);
+      };
+
+      document.addEventListener("pointerdown", closeOnOutsidePointerDown, true);
       return () => {
         document.body.style.overflow = previousOverflow;
+        document.removeEventListener(
+          "pointerdown",
+          closeOnOutsidePointerDown,
+          true,
+        );
       };
     },
     { dependencies: [menuOpen], revertOnUpdate: true },
@@ -110,71 +188,69 @@ export default function Header() {
   return (
     <header
       ref={navRef}
-      className="pointer-events-none fixed inset-x-0 top-4 z-50 px-4 sm:top-5 sm:px-7 xl:top-8"
+      style={navThemeDefaults}
+      className="pointer-events-none fixed inset-x-0 top-4 z-50 overflow-x-clip px-4 sm:top-5 sm:px-6 lg:px-8 xl:top-8"
       onKeyDown={(event) => {
         if (event.key === "Escape") closePanels();
       }}
     >
-      <AnimatePresence>
-        {menuOpen ? (
-          <motion.button
-            type="button"
-            aria-label="Close menu overlay"
-            onClick={closePanels}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.28, ease: "easeOut" }}
-            className="pointer-events-auto fixed inset-0 cursor-pointer bg-black/48"
-          />
-        ) : null}
-      </AnimatePresence>
-
-      <div className="relative z-10 mx-auto grid max-w-[103rem] grid-cols-[minmax(0,1fr)_auto] items-start gap-3 sm:gap-5">
-        {/* Logo nav */}
+      <div
+        data-intro-nav-parent
+        className="relative z-10 mx-auto grid max-w-7xl grid-cols-[auto_auto] items-start justify-between gap-2 sm:gap-4"
+      >
+        {/* Logo */}
         <div
+          data-header-logo
           data-intro-nav-shell
           data-nav-surface
-          className={`${blackPill} pointer-events-auto flex h-12 min-w-0 cursor-pointer items-center rounded-pill px-3 sm:h-16 sm:px-6 xl:h-[4.9rem] xl:px-9`}
+          className={`${navPill} pointer-events-auto flex h-12 w-[10.25rem] cursor-pointer items-center rounded-pill px-3 sm:h-16 sm:w-[13.25rem] sm:px-5 xl:h-[4.9rem] xl:w-[14.5rem] xl:px-6`}
         >
           <div data-intro-nav-content>
             <Logo variant="light" priority width={128} height={28} themeAware />
           </div>
         </div>
 
-        {/* menu nav */}
+        {/* Navigation Menu */}
         <motion.div
+          layout
           data-intro-nav-shell
           data-nav-surface
-          className={`${blackPill} pointer-events-auto relative flex h-[var(--nav-closed-height)] items-start overflow-hidden rounded-[1.5rem] [--nav-closed-height:3rem] sm:rounded-[1.9rem] sm:[--nav-closed-height:4rem] xl:rounded-[2.35rem] xl:[--nav-closed-height:4.9rem] ${
-            menuOpen
-              ? "w-[calc(100vw-2rem)] max-w-[34rem] sm:w-[34rem] xl:w-[35rem]"
-              : "w-auto"
-          }`}
+          className={`${navPill} pointer-events-auto relative flex h-[var(--nav-closed-height)] w-[var(--nav-menu-closed-width)] justify-self-end overflow-hidden rounded-[1.5rem] [--nav-closed-height:3rem] [--nav-menu-closed-width:10rem] [--nav-menu-open-width:min(32rem,calc(100vw-2rem))] sm:[--nav-menu-closed-width:28rem] sm:[--nav-menu-open-width:28rem] sm:rounded-[1.9rem] sm:[--nav-closed-height:4rem] lg:[--nav-menu-closed-width:30rem] lg:[--nav-menu-open-width:30rem] xl:[--nav-menu-closed-width:32rem] xl:[--nav-menu-open-width:32rem] xl:rounded-[2.35rem] xl:[--nav-closed-height:4.9rem]`}
+          data-menu-open={menuOpen ? "true" : "false"}
+          style={{ transformOrigin: "top right" }}
           animate={{
+            width: menuOpen
+              ? "var(--nav-menu-open-width)"
+              : "var(--nav-menu-closed-width)",
             height: menuOpen
-              ? "min(49rem, calc(100svh - 3rem))"
+              ? "min(45rem, calc(100svh - 3rem))"
               : "var(--nav-closed-height)",
           }}
           initial={false}
-          transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.56, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="flex w-full flex-col">
-            <div data-intro-nav-content className="flex h-12 items-center gap-2 px-2 sm:h-16 sm:gap-3 sm:px-4 xl:h-[4.9rem]">
-              <Link
-                href="/restaurants"
-                data-nav-chip
-                className="hidden h-9 cursor-pointer items-center gap-2 rounded-pill border border-white/75 px-4 text-xs font-extrabold text-white transition-colors duration-300 hover:bg-white hover:text-black sm:flex xl:h-12 xl:px-6 xl:text-sm"
-              >
-                Find food
-                <MapPin data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.3} aria-hidden="true" />
-              </Link>
+            <div
+              data-intro-nav-content
+              className="flex h-12 items-center gap-2 px-2 sm:h-16 sm:gap-3 sm:px-3 xl:h-[4.9rem] xl:px-4"
+            >
+              <span className="hidden sm:block">
+                <MagneticFillButton
+                  href="/restaurants"
+                  variant="ghost"
+                  dataNavChip
+                  className="h-9 rounded-pill border-0 bg-white px-4 text-xs font-extrabold text-[#24180f] xl:h-12 xl:px-6 xl:text-sm"
+                >
+                  Find food
+                  <MapPin data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.3} aria-hidden="true" />
+                </MagneticFillButton>
+              </span>
 
               <MagneticFillButton
                 href="/restaurants"
                 variant="brand"
                 dataNavAction
-                className="h-9 cursor-pointer rounded-pill border-[#ff4f1f] bg-[#ff4f1f] px-4 text-xs font-extrabold sm:h-10 sm:px-5 xl:h-12 xl:px-8 xl:text-sm"
+                className="h-9 rounded-pill border-0 bg-[#ff4f1f] px-4 text-xs font-extrabold sm:h-10 sm:px-5 xl:h-12 xl:px-8 xl:text-sm"
               >
                 Order now
               </MagneticFillButton>
@@ -183,8 +259,7 @@ export default function Header() {
                 type="button"
                 aria-label="Theme preview"
                 data-nav-chip
-                className="hidden h-9 w-9 cursor-pointer items-center justify-center rounded-pill bg-white/12 text-white ring-1 ring-white/10 sm:flex xl:h-12 xl:w-12"
-                {...tactileMotion}
+                className="hidden h-9 w-9 cursor-pointer items-center justify-center rounded-pill bg-white text-[#24180f] sm:flex xl:h-12 xl:w-12"
               >
                 <Sun data-nav-icon className="h-4 w-4" strokeWidth={2.2} aria-hidden="true" />
               </motion.button>
@@ -199,7 +274,6 @@ export default function Header() {
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 data-nav-icon
                 className="ml-auto flex h-9 w-9 cursor-pointer items-center justify-center rounded-pill text-white sm:h-11 sm:w-11 xl:h-12 xl:w-12"
-                {...tactileMotion}
               >
                 <MenuGlyph open={menuOpen} />
               </motion.button>
@@ -210,29 +284,62 @@ export default function Header() {
                 <motion.nav
                   id="site-menu"
                   aria-label="Expanded menu"
-                  initial={{ opacity: 0, x: 72, y: 10 }}
-                  animate={{ opacity: 1, x: 0, y: 0 }}
-                  exit={{ opacity: 0, x: 56, y: 8 }}
-                  transition={{ duration: 0.46, ease: [0.22, 1, 0.36, 1] }}
-                  className="px-8 pb-9 pt-6 sm:px-10 xl:pt-7"
+                  initial={{
+                    opacity: 0,
+                    x: 88,
+                    y: -10,
+                    scaleX: 0.94,
+                    clipPath: "inset(0 0 0 22% round 2.25rem)",
+                  }}
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                    y: 0,
+                    scaleX: 1,
+                    clipPath: "inset(0 0 0 0% round 2.25rem)",
+                  }}
+                  exit={{
+                    opacity: 0,
+                    x: 72,
+                    y: -8,
+                    scaleX: 0.96,
+                    clipPath: "inset(0 0 0 24% round 2.25rem)",
+                  }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="origin-top-right px-7 pb-9 pt-6 text-[var(--nav-foreground)] sm:px-9 xl:pt-7"
                 >
-                  <ul className="grid gap-4 sm:gap-5">
+                  <ul className="grid w-full gap-3 sm:gap-4">
                     {menuLinks.map((link) => (
-                      <li key={`${link.href}-${link.label}`}>
-                        <Link
-                          href={link.href}
-                          onClick={closePanels}
-                          data-nav-text
-                          className="group inline-flex cursor-pointer items-center gap-4 font-display text-2xl font-extrabold leading-none text-white transition-colors duration-300 hover:text-[#ff6b35] sm:text-[2.15rem]"
-                        >
-                          {link.label}
-                          <ArrowRight
-                            data-nav-icon
-                            className="h-5 w-5 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
-                            strokeWidth={2.2}
+                      <li key={`${link.href}-${link.label}`} className="w-full">
+                        <div className="flex w-full items-center gap-3 sm:gap-4">
+                          <span
                             aria-hidden="true"
-                          />
-                        </Link>
+                            className="relative grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-[1rem] sm:h-11 sm:w-11"
+                            style={{
+                              backgroundColor:
+                                "color-mix(in srgb, var(--nav-foreground) 10%, transparent)",
+                            }}
+                          >
+                            <Image
+                              src={link.asset}
+                              alt=""
+                              fill
+                              sizes="44px"
+                              className="object-contain p-1.5"
+                            />
+                          </span>
+
+                          <LinkArrow
+                            href={link.href}
+                            onClick={closePanels}
+                            variant="dark"
+                            dataNavText
+                            className="w-full !text-[var(--nav-foreground)] [--link-arrow-expanded-spacing:0.14em] [--link-arrow-min-width:100%] [--link-arrow-spacing:0em] border-0 pb-0 font-display text-2xl font-extrabold normal-case leading-none tracking-normal [border-bottom-width:0] sm:text-[2.05rem]"
+                            textClassName="tracking-normal"
+                          >
+                            {link.label}
+                          </LinkArrow>
+                        </div>
                       </li>
                     ))}
                   </ul>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 210" role="img" aria-label="Cold drink cup">
+  <g fill="none" fill-rule="evenodd">
+    <ellipse cx="130" cy="164" rx="64" ry="20" fill="#2f2118" opacity=".11"/>
+    <path fill="#322017" d="M88 54h85l-14 112c-1 9-12 16-29 16-18 0-29-7-30-16L88 54Z"/>
+    <path fill="#f7efe4" d="M96 61h68l-12 101c-1 7-9 12-22 12-14 0-22-5-23-12L96 61Z"/>
+    <path fill="#ff7b2d" d="M102 92h56l-8 67c-1 6-9 10-20 10-12 0-19-4-20-10l-8-67Z"/>
+    <path fill="#ffd36a" d="M102 92h56l-2 19c-13 9-36 10-52 1l-2-20Z"/>
+    <path stroke="#2f2118" stroke-linecap="round" stroke-width="8" d="M79 52h102"/>
+    <path stroke="#2f2118" stroke-linecap="round" stroke-width="7" d="m138 43 24-28"/>
+    <path stroke="#2f2118" stroke-linecap="round" stroke-width="6" d="M130 82c10 8 24 8 35 0"/>
+    <circle cx="75" cy="106" r="12" fill="#8bd9ff"/>
+    <circle cx="190" cy="120" r="10" fill="#b8ecff"/>
+    <circle cx="73" cy="138" r="7" fill="#fff1b4"/>
+  </g>
+</svg>

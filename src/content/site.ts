@@ -43,17 +43,98 @@ export const stats: Stat[] = [
   { value: "12", label: "Cities and counting" },
 ];
 
-export type Category = { name: string; icon: LucideIcon; tint: string };
+export type Category = {
+  name: string;
+  icon: LucideIcon;
+  tint: string;
+  description: string;
+  image: string;
+  meta: string;
+  rating: string;
+  time: string;
+};
 
 export const categories: Category[] = [
-  { name: "Jollof Rice", icon: CookingPot, tint: "#fff0e4" },
-  { name: "Grills", icon: Beef, tint: "#ffe8e0" },
-  { name: "Swallow", icon: UtensilsCrossed, tint: "#fff3e0" },
-  { name: "Snacks", icon: Cookie, tint: "#fff7e6" },
-  { name: "Drinks", icon: CupSoda, tint: "#e8f5ff" },
-  { name: "Pizza", icon: Pizza, tint: "#fff0e4" },
-  { name: "Local Soups", icon: Soup, tint: "#ffeede" },
-  { name: "Pastries", icon: Croissant, tint: "#fdeaf3" },
+  {
+    name: "Jollof Rice",
+    icon: CookingPot,
+    tint: "#fff0e4",
+    description: "Smoky party rice, tender chicken, plantain and pepper sauce.",
+    image: "/food/jollof.svg",
+    meta: "Most ordered",
+    rating: "4.9",
+    time: "25 min",
+  },
+  {
+    name: "Grills",
+    icon: Beef,
+    tint: "#ffe8e0",
+    description: "Suya, wings and asun with punchy spice and quick dispatch.",
+    image: "/food/grills.svg",
+    meta: "Fire-grilled",
+    rating: "4.8",
+    time: "30 min",
+  },
+  {
+    name: "Swallow",
+    icon: UtensilsCrossed,
+    tint: "#fff3e0",
+    description: "Hot amala, eba or pounded yam paired with rich soups.",
+    image: "/food/swallow.svg",
+    meta: "Local classic",
+    rating: "4.7",
+    time: "28 min",
+  },
+  {
+    name: "Snacks",
+    icon: Cookie,
+    tint: "#fff7e6",
+    description: "Small chops, meat pies and crispy bites for any hour.",
+    image: "/food/snacks.svg",
+    meta: "Quick bites",
+    rating: "4.8",
+    time: "20 min",
+  },
+  {
+    name: "Drinks",
+    icon: CupSoda,
+    tint: "#e8f5ff",
+    description: "Fresh juices, zobo, smoothies and chilled soft drinks.",
+    image: "/food/drinks.svg",
+    meta: "Chilled",
+    rating: "4.6",
+    time: "15 min",
+  },
+  {
+    name: "Pizza",
+    icon: Pizza,
+    tint: "#fff0e4",
+    description: "Cheesy slices, loaded toppings and oven-fresh boxes.",
+    image: "/food/pizza.svg",
+    meta: "Shareable",
+    rating: "4.7",
+    time: "35 min",
+  },
+  {
+    name: "Local Soups",
+    icon: Soup,
+    tint: "#ffeede",
+    description: "Egusi, efo riro and pepper soup from trusted kitchens.",
+    image: "/food/soup.svg",
+    meta: "Soup house",
+    rating: "4.9",
+    time: "32 min",
+  },
+  {
+    name: "Pastries",
+    icon: Croissant,
+    tint: "#fdeaf3",
+    description: "Soft croissants, doughnuts and bakery treats delivered fresh.",
+    image: "/food/pastries.svg",
+    meta: "Bakery fresh",
+    rating: "4.6",
+    time: "18 min",
+  },
 ];
 
 export type Step = { title: string; description: string; icon: LucideIcon };
@@ -88,10 +169,30 @@ export type Restaurant = {
   image: string;
 };
 
-export const heroImage = {
-  src: "https://images.unsplash.com/photo-1652862730779-c4f87896c7a7?auto=format&fit=crop&w=2200&q=88",
-  alt: "A premium takeaway food spread ready for delivery",
-};
+export const heroSlides = [
+  {
+    word: "Fresh.",
+    src: "https://images.unsplash.com/photo-1652862730779-c4f87896c7a7?auto=format&fit=crop&w=2200&q=88",
+    alt: "A premium takeaway food spread ready for delivery",
+  },
+  {
+    word: "Fast.",
+    src: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=2200&q=88",
+    alt: "Crispy snacks packed for quick delivery",
+  },
+  {
+    word: "Local.",
+    src: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=2200&q=88",
+    alt: "A local rice and chicken meal served hot",
+  },
+  {
+    word: "Hot.",
+    src: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=2200&q=88",
+    alt: "Grilled food served hot with herbs",
+  },
+] as const;
+
+export const heroImage = heroSlides[0];
 
 // Unsplash images — hostname allow-listed in next.config.ts.
 const img = (id: string) =>

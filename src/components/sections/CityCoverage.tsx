@@ -1,4 +1,4 @@
-import { MapPin, CircleCheck, Clock3 } from "lucide-react";
+import { MapPin, CircleCheck } from "lucide-react";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
@@ -14,7 +14,6 @@ export default function CityCoverage() {
     <section id="cities" data-nav-theme="accent" className="bg-cream py-16 sm:py-24">
       <Container>
         <SectionHeading
-          eyebrow="Where we deliver"
           title={
             <>
               Now live in {liveCity} —{" "}
@@ -40,13 +39,6 @@ export default function CityCoverage() {
                     <p className="text-sm text-muted">{liveCityState}, Nigeria</p>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-1.5 rounded-pill bg-success/10 px-3 py-1 text-xs font-bold text-success ring-1 ring-success/20">
-                  <span className="relative flex h-2 w-2" aria-hidden="true">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-pill bg-success opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-pill bg-success" />
-                  </span>
-                  Live now
-                </span>
               </div>
 
               <p className="relative mt-6 text-sm font-semibold uppercase tracking-wider text-muted">
@@ -56,7 +48,7 @@ export default function CityCoverage() {
                 {coverageAreas.map((area) => (
                   <span
                     key={area}
-                    className="inline-flex items-center gap-1.5 rounded-pill border border-border bg-cream px-3 py-1.5 text-sm font-semibold text-navy"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-navy"
                   >
                     <CircleCheck className="h-3.5 w-3.5 text-success" strokeWidth={2.25} aria-hidden="true" />
                     {area}
@@ -69,11 +61,7 @@ export default function CityCoverage() {
           {/* Coming soon — expansion roadmap */}
           <Reveal delay={0.1} className="lg:col-span-2">
             <div className="flex h-full flex-col rounded-2xl border border-border bg-navy p-7 text-white sm:p-8">
-              <span className="inline-flex w-fit items-center gap-1.5 rounded-pill bg-white/10 px-3 py-1 text-xs font-bold text-brand-light ring-1 ring-white/10">
-                <Clock3 className="h-3.5 w-3.5" strokeWidth={2.25} aria-hidden="true" />
-                Coming soon
-              </span>
-              <h3 className="mt-4 font-display text-xl font-bold">
+              <h3 className="font-display text-xl font-bold">
                 Rolling out across Nigeria
               </h3>
               <p className="mt-1 text-sm text-white/60">
@@ -83,7 +71,7 @@ export default function CityCoverage() {
                 {expansionCities.map((city) => (
                   <span
                     key={city}
-                    className="inline-flex items-center gap-2 rounded-pill bg-white/5 px-3.5 py-1.5 text-sm font-semibold text-white/70 ring-1 ring-white/10"
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-white/70"
                   >
                     <MapPin className="h-3.5 w-3.5 text-white/40" strokeWidth={2} aria-hidden="true" />
                     {city}

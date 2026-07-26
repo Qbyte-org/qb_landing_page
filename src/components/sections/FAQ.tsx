@@ -9,7 +9,6 @@ export default function FAQ() {
     <section data-nav-theme="neutral" className="bg-cream py-16 sm:py-24">
       <Container>
         <SectionHeading
-          eyebrow="Good to know"
           title="Frequently asked questions"
         />
 
@@ -17,7 +16,7 @@ export default function FAQ() {
           {faqs.map((faq, i) => (
             <Reveal key={faq.question} delay={i * 0.05}>
             <details
-              className="group rounded-2xl border border-border bg-white p-5 transition-colors hover:border-brand/30 [&_summary::-webkit-details-marker]:hidden"
+              className="group rounded-2xl border border-border bg-white p-5 [&_summary::-webkit-details-marker]:hidden"
             >
               <summary className="flex cursor-pointer items-center justify-between gap-4 text-lg font-semibold text-navy">
                 {faq.question}

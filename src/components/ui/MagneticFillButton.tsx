@@ -35,6 +35,7 @@ export interface MagneticFillButtonProps {
   ariaLabel?: string;
   themeAware?: boolean;
   dataNavAction?: boolean;
+  dataNavChip?: boolean;
 }
 
 const variants: Record<
@@ -91,6 +92,7 @@ export default function MagneticFillButton({
   ariaLabel,
   themeAware = false,
   dataNavAction = false,
+  dataNavChip = false,
 }: MagneticFillButtonProps) {
   const buttonRef = useRef<MagneticElement>(null);
   const [fillOrigin, setFillOrigin] = useState({ x: 0, y: 0 });
@@ -179,6 +181,7 @@ export default function MagneticFillButton({
     onClick,
     "aria-label": ariaLabel,
     "data-nav-action": dataNavAction ? "" : undefined,
+    "data-nav-chip": dataNavChip ? "" : undefined,
   };
 
   if (href) {

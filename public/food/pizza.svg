@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 210" role="img" aria-label="Pizza slices">
+  <g fill="none" fill-rule="evenodd">
+    <ellipse cx="132" cy="151" rx="86" ry="29" fill="#2f2118" opacity=".12"/>
+    <path fill="#7a3718" d="M52 124c28-50 81-78 153-85 12 38-1 79-38 121-52 9-90-3-115-36Z"/>
+    <path fill="#f6be51" d="M67 122c24-39 68-62 128-69 7 30-4 63-33 96-40 8-72-1-95-27Z"/>
+    <path fill="#fff0a2" d="M78 120c22-31 59-50 107-55 2 23-8 50-31 76-32 7-58 0-76-21Z"/>
+    <path fill="#c0392b" d="M101 112a13 13 0 1 0 0-26 13 13 0 0 0 0 26ZM146 91a12 12 0 1 0 0-24 12 12 0 0 0 0 24ZM146 138a13 13 0 1 0 0-26 13 13 0 0 0 0 26Z"/>
+    <g fill="#3c7c35">
+      <path d="M119 121c12-8 22-7 29 1-11 6-21 5-29-1ZM163 103c9-8 19-9 29-2-8 8-18 9-29 2ZM91 93c10-5 19-4 27 4-10 4-19 3-27-4Z"/>
+    </g>
+    <path stroke="#fff7d3" stroke-linecap="round" stroke-width="8" d="M84 126c30 16 57 21 82 16"/>
+    <path stroke="#fff7d3" stroke-linecap="round" stroke-width="7" d="M83 114c41-11 74-30 98-58"/>
+  </g>
+</svg>

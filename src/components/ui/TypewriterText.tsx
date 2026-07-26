@@ -9,6 +9,7 @@ export interface TypewriterTextProps {
   typeSpeed?: number;
   deleteSpeed?: number;
   pause?: number;
+  onWordChange?: (word: string, index: number) => void;
 }
 
 export default function TypewriterText({
@@ -17,6 +18,7 @@ export default function TypewriterText({
   typeSpeed = 78,
   deleteSpeed = 44,
   pause = 1850,
+  onWordChange,
 }: TypewriterTextProps) {
   const rootRef = useRef<HTMLSpanElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
@@ -33,12 +35,13 @@ export default function TypewriterText({
       }
 
       const timeline = gsap.timeline({ repeat: -1, repeatDelay: 0.35 });
-      words.forEach((word) => {
+      words.forEach((word, index) => {
         const writer = { length: 0 };
         timeline
           .call(() => {
             writer.length = 0;
             text.textContent = "";
+            onWordChange?.(word, index);
           })
           .to(writer, {
             length: word.length,
@@ -61,7 +64,7 @@ export default function TypewriterText({
     },
     {
       scope: rootRef,
-      dependencies: [deleteSpeed, firstWord, pause, typeSpeed, words],
+      dependencies: [deleteSpeed, firstWord, onWordChange, pause, typeSpeed, words],
       revertOnUpdate: true,
     },
   );

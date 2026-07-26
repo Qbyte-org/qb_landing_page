@@ -65,9 +65,6 @@ function PhoneMockup() {
             <div className="rounded-card bg-white p-3">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-navy">Order #QB2048</span>
-                <span className="rounded-pill bg-green-50 px-2 py-0.5 text-[10px] font-bold text-green-700">
-                  On the way
-                </span>
               </div>
               <div className="mt-3 flex items-center gap-1.5">
                 {[0, 1, 2, 3].map((s) => (
@@ -121,10 +118,7 @@ export default function AppShowcase() {
       <Container>
         <div className="grid items-center gap-12 text-white lg:grid-cols-2 lg:gap-8">
           <Reveal direction="left" className="order-2 lg:order-1">
-            <p className="text-sm font-bold uppercase tracking-wider text-brand-light">
-              The QuickBite app
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-extrabold leading-[1.1] sm:text-4xl">
+            <h2 className="font-display text-3xl font-extrabold leading-[1.1] sm:text-4xl">
               Order on the go, track every bite
             </h2>
             <p className="mt-4 max-w-md text-lg leading-relaxed text-white/70">
