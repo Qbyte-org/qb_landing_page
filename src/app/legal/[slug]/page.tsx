@@ -66,11 +66,11 @@ export default async function LegalPage({ params }: Params) {
   return (
     <SiteShell>
       <PageHeader eyebrow="Legal" title={doc.title} subtitle={doc.description}>
-        <span className="inline-flex items-center gap-2 rounded-pill bg-white px-4 py-1.5 text-sm font-semibold text-navy shadow-sm">
+        <span className="inline-flex items-center gap-2 rounded-pill bg-white px-4 py-1.5 text-sm font-semibold text-navy">
           <ShieldCheck className="h-4 w-4 text-brand-dark" strokeWidth={2} aria-hidden="true" />
           Nigeria · NDPR &amp; NDPA
         </span>
-        <span className="inline-flex items-center gap-2 rounded-pill bg-white px-4 py-1.5 text-sm font-semibold text-navy shadow-sm">
+        <span className="inline-flex items-center gap-2 rounded-pill bg-white px-4 py-1.5 text-sm font-semibold text-navy">
           <Clock3 className="h-4 w-4 text-brand-dark" strokeWidth={2} aria-hidden="true" />
           Last updated: June 2026
         </span>
@@ -82,7 +82,7 @@ export default async function LegalPage({ params }: Params) {
             <LegalSidebar current={typedSlug} />
 
             <Reveal>
-              <article className="rounded-[1.25rem] border border-border bg-white p-6 shadow-card sm:p-10">
+              <article className="rounded-[1.25rem] border border-border bg-white p-6 sm:p-10">
                 <div className={prose}>
                   <Markdown remarkPlugins={[remarkGfm]}>{body}</Markdown>
                 </div>
@@ -100,7 +100,7 @@ export default async function LegalPage({ params }: Params) {
                       <Link
                         key={s}
                         href={`/legal/${s}`}
-                        className="group flex items-center gap-3 rounded-card border border-border bg-white p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand hover:shadow-card"
+                        className="group flex items-center gap-3 rounded-card border border-border bg-white p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand"
                       >
                         <span
                           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cream text-brand-dark"

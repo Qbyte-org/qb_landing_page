@@ -6,7 +6,7 @@ export default function LegalSidebar({ current }: { current: LegalSlug }) {
     <aside className="lg:sticky lg:top-24 lg:self-start">
       <nav
         aria-label="Legal documents"
-        className="rounded-card border border-border bg-white p-3 shadow-sm"
+        className="rounded-card border border-border bg-white p-3"
       >
         <p className="px-3 pb-2 pt-1 text-xs font-bold uppercase tracking-wider text-muted">
           Legal Center

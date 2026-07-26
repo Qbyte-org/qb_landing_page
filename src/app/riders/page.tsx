@@ -43,7 +43,7 @@ export default function RidersPage() {
             {perks.map((p) => (
               <div
                 key={p.title}
-                className="rounded-2xl border border-border bg-white p-7 text-center shadow-soft transition-transform duration-200 hover:-translate-y-1"
+                className="rounded-2xl border border-border bg-white p-7 text-center transition-transform duration-200 hover:-translate-y-1"
               >
                 <IconChip icon={p.icon} size="lg" tone="brand" className="mx-auto" />
                 <h3 className="mt-4 text-lg font-bold text-navy">{p.title}</h3>

@@ -10,13 +10,12 @@ import Hero from "@/components/sections/Hero";
 import HowItWorks from "@/components/sections/HowItWorks";
 import PopularRestaurants from "@/components/sections/PopularRestaurants";
 import Testimonials from "@/components/sections/Testimonials";
-import TrustBar from "@/components/sections/TrustBar";
 
 export default function Home() {
   return (
     <SiteShell heroIntro>
       <Hero />
-      <TrustBar />
+      {/* <TrustBar /> */}
       <Categories />
       <HowItWorks />
       <PopularRestaurants />

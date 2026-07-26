@@ -27,10 +27,10 @@ export default function CityCoverage() {
         <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-5">
           {/* Live city — the hero card */}
           <Reveal className="lg:col-span-3">
-            <div className="relative h-full overflow-hidden rounded-2xl border border-brand/20 bg-white p-7 shadow-card sm:p-8">
+            <div className="relative h-full overflow-hidden rounded-2xl border border-brand/20 bg-white p-7 sm:p-8">
               <div className="relative flex items-start justify-between gap-4">
                 <div className="flex items-center gap-4">
-                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand text-white shadow-[0_10px_24px_-8px_rgb(255_107_0/0.5)]">
+                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand text-white">
                     <MapPin className="h-7 w-7" strokeWidth={1.75} aria-hidden="true" />
                   </span>
                   <div>
@@ -68,7 +68,7 @@ export default function CityCoverage() {
 
           {/* Coming soon — expansion roadmap */}
           <Reveal delay={0.1} className="lg:col-span-2">
-            <div className="flex h-full flex-col rounded-2xl border border-border bg-navy p-7 text-white shadow-card sm:p-8">
+            <div className="flex h-full flex-col rounded-2xl border border-border bg-navy p-7 text-white sm:p-8">
               <span className="inline-flex w-fit items-center gap-1.5 rounded-pill bg-white/10 px-3 py-1 text-xs font-bold text-brand-light ring-1 ring-white/10">
                 <Clock3 className="h-3.5 w-3.5" strokeWidth={2.25} aria-hidden="true" />
                 Coming soon

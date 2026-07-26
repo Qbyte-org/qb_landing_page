@@ -31,36 +31,62 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
           overwrite: "auto" as const,
         };
 
-        gsap.to(nav.querySelectorAll("[data-nav-surface]"), {
+        const animate = (
+          selector: string,
+          vars: gsap.TweenVars,
+        ) => {
+          const targets = nav.querySelectorAll(selector);
+          if (!targets.length) return;
+          gsap.to(targets, vars);
+        };
+
+        gsap.to(document.documentElement, {
+          "--background": theme.pageBackground,
+          "--foreground": theme.pageForeground,
+          duration,
+          ease: animation.ease.smooth,
+          overwrite: "auto",
+        });
+
+        animate("[data-nav-surface]", {
           backgroundColor: theme.surface,
           borderColor: theme.border,
-          boxShadow: theme.shadow,
+          backdropFilter: "blur(18px)",
           ...tween,
         });
-        gsap.to(nav.querySelectorAll("[data-nav-text]"), {
+        animate("[data-nav-text]", {
           color: theme.foreground,
           ...tween,
         });
-        gsap.to(nav.querySelectorAll("[data-nav-muted]"), {
+        animate("[data-nav-muted]", {
           color: theme.muted,
           ...tween,
         });
-        gsap.to(nav.querySelectorAll("[data-nav-underline]"), {
+        animate("[data-nav-icon]", {
+          color: theme.icon,
+          ...tween,
+        });
+        animate("[data-nav-underline]", {
           backgroundColor: theme.underline,
           ...tween,
         });
-        gsap.to(nav.querySelectorAll("[data-nav-action]"), {
+        animate("[data-nav-chip]", {
+          backgroundColor: theme.chip,
+          color: theme.chipText,
+          borderColor: theme.border,
+          ...tween,
+        });
+        animate("[data-nav-action]", {
           backgroundColor: theme.action,
           color: theme.actionText,
           borderColor: theme.action,
-          boxShadow: theme.shadow,
           ...tween,
         });
-        gsap.to(nav.querySelectorAll("[data-logo-color]"), {
+        animate("[data-logo-color]", {
           autoAlpha: theme.logo === "color" ? 1 : 0,
           ...tween,
         });
-        gsap.to(nav.querySelectorAll("[data-logo-light]"), {
+        animate("[data-logo-light]", {
           autoAlpha: theme.logo === "light" ? 1 : 0,
           ...tween,
         });

@@ -1,19 +1,17 @@
-import Link from "next/link";
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { MouseEventHandler, ReactNode } from "react";
+import MagneticFillButton, {
+  type MagneticFillVariant,
+} from "./MagneticFillButton";
 
 type Variant = "solid" | "outline" | "ghost" | "dark" | "white";
 type Size = "sm" | "md" | "lg";
 
-const base =
-  "inline-flex items-center justify-center gap-2 rounded-pill font-semibold transition-all duration-200 will-change-transform hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:opacity-60 disabled:pointer-events-none";
-
-const variants: Record<Variant, string> = {
-  // brand-dark fill keeps white label text at AA contrast
-  solid: "bg-brand-dark text-white hover:bg-brand shadow-sm hover:shadow-md",
-  outline: "border-2 border-brand text-brand-dark hover:bg-brand-50",
-  ghost: "text-navy hover:bg-black/5",
-  dark: "bg-navy text-white hover:bg-navy-light",
-  white: "bg-white text-navy hover:bg-cream-200 shadow-sm",
+const variants: Record<Variant, MagneticFillVariant> = {
+  solid: "brand",
+  outline: "light",
+  ghost: "ghost",
+  dark: "dark",
+  white: "white",
 };
 
 const sizes: Record<Size, string> = {
@@ -34,41 +32,46 @@ type LinkProps = CommonProps & {
   external?: boolean;
 };
 
-type NativeButtonProps = CommonProps &
-  Omit<ButtonHTMLAttributes<HTMLButtonElement>, keyof CommonProps>;
+type NativeButtonProps = CommonProps & {
+  href?: never;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+};
 
 export default function Button(props: LinkProps | NativeButtonProps) {
-  const { children, variant = "solid", size = "md", className = "" } = props;
-  const classes = `${base} ${variants[variant]} ${sizes[size]} ${className}`;
+  const {
+    children,
+    variant = "solid",
+    size = "md",
+    className = "",
+  } = props;
+  const classes = `rounded-pill ${sizes[size]} ${className}`;
 
   if ("href" in props && props.href) {
-    if (props.external) {
-      return (
-        <a
-          href={props.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={classes}
-        >
-          {children}
-        </a>
-      );
-    }
     return (
-      <Link href={props.href} className={classes}>
+      <MagneticFillButton
+        href={props.href}
+        external={props.external}
+        variant={variants[variant]}
+        className={classes}
+      >
         {children}
-      </Link>
+      </MagneticFillButton>
     );
   }
 
-  // Strip presentational props so only DOM-valid attributes reach <button>.
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { variant: _v, size: _s, className: _cn, children: _ch, ...rest } =
-    props as NativeButtonProps;
+  const nativeProps = props as NativeButtonProps;
 
   return (
-    <button className={classes} {...rest}>
+    <MagneticFillButton
+      type={nativeProps.type}
+      disabled={nativeProps.disabled}
+      onClick={nativeProps.onClick as MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>}
+      variant={variants[variant]}
+      className={classes}
+    >
       {children}
-    </button>
+    </MagneticFillButton>
   );
 }

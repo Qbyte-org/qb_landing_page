@@ -3,42 +3,94 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Check, ChevronDown, MapPin, Menu, X } from "lucide-react";
+import { ArrowRight, MapPin, Sun } from "lucide-react";
 import { navLinks } from "@/content/site";
 import { useNavbarTheme } from "@/hooks/use-navbar-theme";
 import { tactileMotion } from "@/lib/animation";
-import { useGSAP } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import Logo from "../ui/Logo";
+import MagneticFillButton from "../ui/MagneticFillButton";
 
-const surface =
-  "border border-border bg-white shadow-[0_10px_30px_-16px_rgba(26,26,46,0.22)]";
+const blackPill = "border border-transparent bg-black text-white";
 
-function PrimaryNavLink({ href, label }: { href: string; label: string }) {
+const menuLinks = [
+  { label: "Home", href: "/" },
+  ...navLinks,
+  { label: "Cities", href: "/#cities" },
+  { label: "Get the app", href: "/#app" },
+  { label: "Contact Us", href: "/company" },
+];
+
+function MenuGlyph({ open }: { open: boolean }) {
   return (
-    <Link
-      href={href}
-      data-nav-text
-      className="group relative flex h-11 items-center overflow-hidden px-3 text-sm font-semibold text-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-    >
-      <span className="transition-transform duration-[250ms] ease-out group-hover:-translate-y-0.5">
-        {label}
-      </span>
-      <span
-        data-nav-underline
-        aria-hidden="true"
-        className="absolute bottom-2 left-1/2 h-0.5 w-5 -translate-x-1/2 scale-x-0 rounded-pill bg-brand-dark transition-transform duration-[250ms] ease-out group-hover:scale-x-100"
+    <span className="relative flex h-8 w-8 items-center justify-center" aria-hidden="true">
+      <motion.span
+        className="absolute h-[2px] rounded-pill bg-current"
+        animate={{ rotate: open ? 45 : 0, y: open ? 0 : -7, width: open ? 30 : 26 }}
+        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
       />
-    </Link>
+      <motion.span
+        className="absolute h-[2px] rounded-pill bg-current"
+        animate={{ opacity: open ? 0 : 1, x: open ? 8 : 0, width: open ? 8 : 18 }}
+        transition={{ duration: 0.22, ease: "easeOut" }}
+      />
+      <motion.span
+        className="absolute h-[2px] rounded-pill bg-current"
+        animate={{ rotate: open ? -45 : 0, y: open ? 0 : 7, width: open ? 30 : 26 }}
+        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+      />
+      <motion.span
+        className="absolute right-0 top-1 h-1.5 w-1.5 rounded-pill bg-[#ff4f1f]"
+        animate={{ scale: open ? 0 : 1, opacity: open ? 0 : 1 }}
+        transition={{ duration: 0.24, ease: "easeOut" }}
+      />
+    </span>
   );
 }
 
 export default function Header() {
   const navRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [countryOpen, setCountryOpen] = useState(false);
 
   useNavbarTheme(navRef);
 
+  // Animate the nav in/out of view on scroll
+  useGSAP(
+    () => {
+      const nav = navRef.current;
+      if (!nav) return;
+
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const getOffset = () => -(Number.parseFloat(getComputedStyle(nav).top) || 0);
+
+      ScrollTrigger.create({
+        start: 28,
+        end: 999999,
+        onEnter: () =>
+          gsap.to(nav, {
+            y: getOffset,
+            duration: reducedMotion ? 0 : 0.38,
+            ease: "power3.out",
+            overwrite: "auto",
+          }),
+        onLeaveBack: () =>
+          gsap.to(nav, {
+            y: 0,
+            duration: reducedMotion ? 0 : 0.38,
+            ease: "power3.out",
+            overwrite: "auto",
+          }),
+        onRefresh: (self) => {
+          gsap.set(nav, { y: self.isActive ? getOffset() : 0 });
+        },
+      });
+    },
+    { scope: navRef },
+  );
+
+  // Manage body overflow when menu is open
   useGSAP(
     () => {
       if (!menuOpen) return;
@@ -53,182 +105,143 @@ export default function Header() {
 
   const closePanels = () => {
     setMenuOpen(false);
-    setCountryOpen(false);
   };
 
   return (
     <header
       ref={navRef}
-      className="pointer-events-none fixed inset-x-0 top-3 z-50 px-3 sm:top-4 sm:px-5"
+      className="pointer-events-none fixed inset-x-0 top-4 z-50 px-4 sm:top-5 sm:px-7 xl:top-8"
       onKeyDown={(event) => {
         if (event.key === "Escape") closePanels();
       }}
     >
-      <div className="mx-auto flex max-w-7xl items-start justify-between gap-2">
-        <div className="pointer-events-auto flex items-start gap-2">
-          <div
-            data-intro-nav="logo"
-            data-nav-surface
-            className={`${surface} flex h-14 items-center rounded-pill px-4 sm:h-16 sm:px-5`}
-          >
-            <Logo themeAware priority />
-          </div>
+      <AnimatePresence>
+        {menuOpen ? (
+          <motion.button
+            type="button"
+            aria-label="Close menu overlay"
+            onClick={closePanels}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.28, ease: "easeOut" }}
+            className="pointer-events-auto fixed inset-0 cursor-pointer bg-black/48"
+          />
+        ) : null}
+      </AnimatePresence>
 
-          <div
-            data-intro-nav="country"
-            className="relative hidden min-[420px]:block"
-          >
-            <motion.button
-              type="button"
-              data-nav-surface
-              data-nav-text
-              aria-expanded={countryOpen}
-              aria-haspopup="listbox"
-              aria-label="Select delivery country"
-              onClick={() => {
-                setCountryOpen((value) => !value);
-                setMenuOpen(false);
-              }}
-              className={`${surface} flex h-14 items-center gap-2 rounded-pill px-4 text-sm font-bold text-navy sm:h-16`}
-              {...tactileMotion}
-            >
-              <MapPin className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
-              NG
-              <ChevronDown
-                className={`h-4 w-4 transition-transform duration-200 ${countryOpen ? "rotate-180" : ""}`}
-                strokeWidth={2}
-                aria-hidden="true"
-              />
-            </motion.button>
-
-            <AnimatePresence>
-              {countryOpen ? (
-                <motion.div
-                  data-nav-surface
-                  role="listbox"
-                  aria-label="Delivery countries"
-                  initial={{ opacity: 0, y: -8, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -6, scale: 0.98 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  className={`${surface} absolute left-0 top-[calc(100%+0.5rem)] w-64 rounded-2xl p-2`}
-                >
-                  <button
-                    type="button"
-                    role="option"
-                    aria-selected="true"
-                    data-nav-text
-                    onClick={() => setCountryOpen(false)}
-                    className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-                  >
-                    <span className="flex h-9 w-9 items-center justify-center rounded-pill bg-brand-50 text-sm font-extrabold text-brand-dark">
-                      NG
-                    </span>
-                    <span className="flex-1">
-                      <span className="block text-sm font-bold">Nigeria</span>
-                      <span data-nav-muted className="block text-xs text-muted">
-                        Delivering in Ile-Ife
-                      </span>
-                    </span>
-                    <Check className="h-4 w-4 text-success" aria-hidden="true" />
-                  </button>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
+      <div className="relative z-10 mx-auto grid max-w-[103rem] grid-cols-[minmax(0,1fr)_auto] items-start gap-3 sm:gap-5">
+        {/* Logo nav */}
+        <div
+          data-intro-nav-shell
+          data-nav-surface
+          className={`${blackPill} pointer-events-auto flex h-12 min-w-0 cursor-pointer items-center rounded-pill px-3 sm:h-16 sm:px-6 xl:h-[4.9rem] xl:px-9`}
+        >
+          <div data-intro-nav-content>
+            <Logo variant="light" priority width={128} height={28} themeAware />
           </div>
         </div>
 
-        <nav
-          data-intro-nav="links"
-          data-nav-surface
-          aria-label="Primary"
-          className={`${surface} pointer-events-auto hidden h-16 items-center rounded-pill px-2 lg:flex`}
-        >
-          {navLinks.map((link) => (
-            <PrimaryNavLink key={link.href} {...link} />
-          ))}
-        </nav>
-
+        {/* menu nav */}
         <motion.div
-          data-intro-nav="action"
-          className="pointer-events-auto hidden lg:block"
-          {...tactileMotion}
-        >
-          <Link
-            href="/restaurants"
-            data-nav-action
-            className="group flex h-16 items-center gap-2 rounded-pill border border-brand-dark bg-brand-dark px-6 text-sm font-bold text-white shadow-[0_10px_30px_-16px_rgba(226,95,0,0.52)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-          >
-            Order now
-            <span className="transition-transform duration-[250ms] group-hover:translate-x-0.5" aria-hidden="true">
-              →
-            </span>
-          </Link>
-        </motion.div>
-
-        <motion.button
-          type="button"
-          data-intro-nav="menu"
+          data-intro-nav-shell
           data-nav-surface
-          data-nav-text
-          onClick={() => {
-            setMenuOpen((value) => !value);
-            setCountryOpen(false);
+          className={`${blackPill} pointer-events-auto relative flex h-[var(--nav-closed-height)] items-start overflow-hidden rounded-[1.5rem] [--nav-closed-height:3rem] sm:rounded-[1.9rem] sm:[--nav-closed-height:4rem] xl:rounded-[2.35rem] xl:[--nav-closed-height:4.9rem] ${
+            menuOpen
+              ? "w-[calc(100vw-2rem)] max-w-[34rem] sm:w-[34rem] xl:w-[35rem]"
+              : "w-auto"
+          }`}
+          animate={{
+            height: menuOpen
+              ? "min(49rem, calc(100svh - 3rem))"
+              : "var(--nav-closed-height)",
           }}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          className={`${surface} pointer-events-auto flex h-14 w-14 items-center justify-center rounded-pill text-navy sm:h-16 sm:w-16 lg:hidden`}
-          {...tactileMotion}
+          initial={false}
+          transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
         >
-          {menuOpen ? (
-            <X className="h-5 w-5" strokeWidth={2.2} aria-hidden="true" />
-          ) : (
-            <Menu className="h-5 w-5" strokeWidth={2.2} aria-hidden="true" />
-          )}
-        </motion.button>
-      </div>
+          <div className="flex w-full flex-col">
+            <div data-intro-nav-content className="flex h-12 items-center gap-2 px-2 sm:h-16 sm:gap-3 sm:px-4 xl:h-[4.9rem]">
+              <Link
+                href="/restaurants"
+                data-nav-chip
+                className="hidden h-9 cursor-pointer items-center gap-2 rounded-pill border border-white/75 px-4 text-xs font-extrabold text-white transition-colors duration-300 hover:bg-white hover:text-black sm:flex xl:h-12 xl:px-6 xl:text-sm"
+              >
+                Find food
+                <MapPin data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.3} aria-hidden="true" />
+              </Link>
 
-      <AnimatePresence>
-        {menuOpen ? (
-          <motion.div
-            id="mobile-menu"
-            data-nav-surface
-            initial={{ opacity: 0, y: -12, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.98 }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className={`${surface} pointer-events-auto mx-auto mt-2 max-w-7xl rounded-[1.75rem] p-3 lg:hidden`}
-          >
-            <nav aria-label="Mobile primary" className="grid gap-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  data-nav-text
-                  onClick={closePanels}
-                  className="group flex min-h-12 items-center justify-between rounded-2xl px-4 py-3 text-base font-semibold text-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+              <MagneticFillButton
+                href="/restaurants"
+                variant="brand"
+                dataNavAction
+                className="h-9 cursor-pointer rounded-pill border-[#ff4f1f] bg-[#ff4f1f] px-4 text-xs font-extrabold sm:h-10 sm:px-5 xl:h-12 xl:px-8 xl:text-sm"
+              >
+                Order now
+              </MagneticFillButton>
+
+              <motion.button
+                type="button"
+                aria-label="Theme preview"
+                data-nav-chip
+                className="hidden h-9 w-9 cursor-pointer items-center justify-center rounded-pill bg-white/12 text-white ring-1 ring-white/10 sm:flex xl:h-12 xl:w-12"
+                {...tactileMotion}
+              >
+                <Sun data-nav-icon className="h-4 w-4" strokeWidth={2.2} aria-hidden="true" />
+              </motion.button>
+
+              <motion.button
+                type="button"
+                onClick={() => {
+                  setMenuOpen((value) => !value);
+                }}
+                aria-expanded={menuOpen}
+                aria-controls="site-menu"
+                aria-label={menuOpen ? "Close menu" : "Open menu"}
+                data-nav-icon
+                className="ml-auto flex h-9 w-9 cursor-pointer items-center justify-center rounded-pill text-white sm:h-11 sm:w-11 xl:h-12 xl:w-12"
+                {...tactileMotion}
+              >
+                <MenuGlyph open={menuOpen} />
+              </motion.button>
+            </div>
+
+            <AnimatePresence>
+              {menuOpen ? (
+                <motion.nav
+                  id="site-menu"
+                  aria-label="Expanded menu"
+                  initial={{ opacity: 0, x: 72, y: 10 }}
+                  animate={{ opacity: 1, x: 0, y: 0 }}
+                  exit={{ opacity: 0, x: 56, y: 8 }}
+                  transition={{ duration: 0.46, ease: [0.22, 1, 0.36, 1] }}
+                  className="px-8 pb-9 pt-6 sm:px-10 xl:pt-7"
                 >
-                  <span className="transition-transform duration-[250ms] group-hover:-translate-y-0.5">
-                    {link.label}
-                  </span>
-                  <span data-nav-muted className="text-muted" aria-hidden="true">
-                    →
-                  </span>
-                </Link>
-              ))}
-            </nav>
-            <Link
-              href="/restaurants"
-              data-nav-action
-              onClick={closePanels}
-              className="mt-2 flex h-14 items-center justify-center rounded-pill border border-brand-dark bg-brand-dark px-6 text-base font-bold text-white"
-            >
-              Order now
-            </Link>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+                  <ul className="grid gap-4 sm:gap-5">
+                    {menuLinks.map((link) => (
+                      <li key={`${link.href}-${link.label}`}>
+                        <Link
+                          href={link.href}
+                          onClick={closePanels}
+                          data-nav-text
+                          className="group inline-flex cursor-pointer items-center gap-4 font-display text-2xl font-extrabold leading-none text-white transition-colors duration-300 hover:text-[#ff6b35] sm:text-[2.15rem]"
+                        >
+                          {link.label}
+                          <ArrowRight
+                            data-nav-icon
+                            className="h-5 w-5 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
+                            strokeWidth={2.2}
+                            aria-hidden="true"
+                          />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.nav>
+              ) : null}
+            </AnimatePresence>
+          </div>
+        </motion.div>
+      </div>
     </header>
   );
 }

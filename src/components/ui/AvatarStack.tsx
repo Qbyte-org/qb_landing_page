@@ -12,7 +12,7 @@ export default function AvatarStack() {
       {people.map((p) => (
         <span
           key={p.initials}
-          className="flex h-9 w-9 items-center justify-center rounded-pill border-2 border-white text-xs font-bold text-white shadow-sm"
+          className="flex h-9 w-9 items-center justify-center rounded-pill border-2 border-white text-xs font-bold text-white"
           style={{ backgroundColor: p.color }}
         >
           {p.initials}

@@ -37,7 +37,7 @@ export default function Categories() {
             <Reveal key={cat.name} delay={(i % 4) * 0.06}>
               <Link
                 href="/restaurants"
-                className="group flex h-full flex-col items-center gap-4 rounded-2xl border border-border bg-white p-6 text-center shadow-soft transition-all duration-200 hover:-translate-y-1 hover:border-brand/40 hover:shadow-card"
+                className="group flex h-full flex-col items-center gap-4 rounded-2xl border border-border bg-white p-6 text-center transition-all duration-200 hover:-translate-y-1 hover:border-brand/40"
               >
                 <span
                   className="flex h-16 w-16 items-center justify-center rounded-2xl text-brand-dark transition-transform duration-200 group-hover:scale-110 group-hover:rotate-3"

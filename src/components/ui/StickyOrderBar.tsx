@@ -1,10 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useRef } from "react";
-import { motion } from "motion/react";
-import { tactileMotion } from "@/lib/animation";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import MagneticFillButton from "./MagneticFillButton";
 
 export default function StickyOrderBar() {
   const barRef = useRef<HTMLDivElement>(null);
@@ -46,7 +44,7 @@ export default function StickyOrderBar() {
   return (
     <div
       ref={barRef}
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-white/95 px-4 py-3 shadow-[0_-6px_24px_-8px_rgb(26_26_46/0.15)] backdrop-blur lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-white/95 px-4 py-3 backdrop-blur lg:hidden"
     >
       <div className="flex items-center gap-3">
         <div className="min-w-0 flex-1 leading-tight">
@@ -55,14 +53,15 @@ export default function StickyOrderBar() {
             Free delivery on your first order
           </p>
         </div>
-        <motion.div className="shrink-0" {...tactileMotion}>
-          <Link
+        <div className="shrink-0">
+          <MagneticFillButton
             href="/restaurants"
-            className="inline-flex h-12 items-center justify-center rounded-pill bg-brand-dark px-6 text-base font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+            variant="brand"
+            className="h-12 rounded-pill px-6 text-base"
           >
             Order now
-          </Link>
-        </motion.div>
+          </MagneticFillButton>
+        </div>
       </div>
     </div>
   );

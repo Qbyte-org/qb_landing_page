@@ -18,6 +18,8 @@ export default function Logo({
 }) {
   const src =
     variant === "light" ? "/quickbite-logo-light.svg" : "/quickbite-logo.svg";
+  const colorLogoState = variant === "light" ? "invisible opacity-0" : "";
+  const lightLogoState = variant === "light" ? "" : "invisible opacity-0";
 
   return (
     <Link
@@ -34,7 +36,7 @@ export default function Logo({
             fill
             priority={priority}
             sizes="145px"
-            className="object-contain object-left"
+            className={`${colorLogoState} object-contain object-left`}
           />
           <Image
             data-logo-light
@@ -44,7 +46,7 @@ export default function Logo({
             priority={priority}
             sizes="145px"
             aria-hidden="true"
-            className="invisible object-contain object-left opacity-0"
+            className={`${lightLogoState} object-contain object-left`}
           />
         </span>
       ) : (

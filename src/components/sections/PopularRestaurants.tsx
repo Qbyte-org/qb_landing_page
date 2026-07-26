@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Clock, Star } from "lucide-react";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/SectionHeading";
-import Button from "../ui/Button";
+import LinkArrow from "../ui/LinkArrow";
 import Reveal from "../ui/Reveal";
 import { restaurants } from "@/content/site";
 
@@ -18,9 +18,9 @@ export default function PopularRestaurants() {
             title="Trending restaurants"
             subtitle="Verified kitchens loved by thousands of QuickBite customers."
           />
-          <Button href="/restaurants" variant="outline" size="md">
+          <LinkArrow href="/restaurants" variant="accent">
             See all restaurants
-          </Button>
+          </LinkArrow>
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -28,7 +28,7 @@ export default function PopularRestaurants() {
             <Reveal key={r.name} delay={(i % 3) * 0.08} mode="image">
               <Link
                 href="/restaurants"
-                className="group block h-full overflow-hidden rounded-card border border-border bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-card-hover"
+                className="group block h-full overflow-hidden rounded-card border border-border bg-white transition-all duration-200 hover:-translate-y-1"
               >
               <div className="relative aspect-[16/10] w-full overflow-hidden">
                 <Image
@@ -38,7 +38,7 @@ export default function PopularRestaurants() {
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-                <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-pill bg-white/95 px-3 py-1 text-xs font-bold text-navy shadow-sm backdrop-blur">
+                <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-pill bg-white/95 px-3 py-1 text-xs font-bold text-navy backdrop-blur">
                   <Clock className="h-3.5 w-3.5 text-brand-dark" strokeWidth={2.25} aria-hidden="true" />
                   {r.eta}
                 </span>

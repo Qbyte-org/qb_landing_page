@@ -2,6 +2,7 @@ import { MapPin, Search, Bike, CookingPot, CupSoda, type LucideIcon } from "luci
 import Container from "../ui/Container";
 import Reveal from "../ui/Reveal";
 import IconChip from "../ui/IconChip";
+import MagneticFillButton from "../ui/MagneticFillButton";
 import { appFeatures } from "@/content/site";
 
 function StoreBadge({
@@ -10,10 +11,11 @@ function StoreBadge({
   store: "apple" | "google";
 }) {
   return (
-    <a
+    <MagneticFillButton
       href="#"
-      className="inline-flex items-center gap-3 rounded-card bg-white px-5 py-3 text-navy shadow-soft transition-all duration-[250ms] hover:-translate-y-0.5 hover:bg-cream hover:shadow-card"
-      aria-label={store === "apple" ? "Download on the App Store" : "Get it on Google Play"}
+      variant="white"
+      className="rounded-card px-5 py-3"
+      ariaLabel={store === "apple" ? "Download on the App Store" : "Get it on Google Play"}
     >
       <span aria-hidden="true">
         {store === "apple" ? (
@@ -34,14 +36,14 @@ function StoreBadge({
           {store === "apple" ? "App Store" : "Google Play"}
         </span>
       </span>
-    </a>
+    </MagneticFillButton>
   );
 }
 
 function PhoneMockup() {
   return (
     <div className="relative mx-auto w-[260px]">
-      <div className="relative rounded-[2.5rem] border-[10px] border-navy bg-navy shadow-card-hover ring-1 ring-white/20">
+      <div className="relative rounded-[2.5rem] border-[10px] border-navy bg-navy ring-1 ring-white/20">
         {/* notch */}
         <div className="absolute left-1/2 top-2 z-10 h-5 w-24 -translate-x-1/2 rounded-pill bg-navy" />
         {/* screen */}
@@ -60,7 +62,7 @@ function PhoneMockup() {
           </div>
           {/* tracking card */}
           <div className="space-y-3 p-4">
-            <div className="rounded-card bg-white p-3 shadow-sm">
+            <div className="rounded-card bg-white p-3">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-navy">Order #QB2048</span>
                 <span className="rounded-pill bg-green-50 px-2 py-0.5 text-[10px] font-bold text-green-700">
@@ -89,7 +91,7 @@ function PhoneMockup() {
             ] as { icon: LucideIcon; n: string; p: string }[]).map((item) => (
               <div
                 key={item.n}
-                className="flex items-center gap-3 rounded-card bg-white p-3 shadow-sm"
+                className="flex items-center gap-3 rounded-card bg-white p-3"
               >
                 <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-cream-200 text-brand-dark">
                   <item.icon className="h-[1.15rem] w-[1.15rem]" strokeWidth={1.75} aria-hidden="true" />
@@ -115,7 +117,7 @@ function PhoneMockup() {
 
 export default function AppShowcase() {
   return (
-    <section id="app" data-nav-theme="dark" className="bg-navy py-16 sm:py-24">
+    <section id="app" data-nav-theme="dark" className="overflow-x-clip bg-navy py-16 sm:py-24">
       <Container>
         <div className="grid items-center gap-12 text-white lg:grid-cols-2 lg:gap-8">
           <Reveal direction="left" className="order-2 lg:order-1">

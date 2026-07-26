@@ -23,14 +23,11 @@ export default function SiteShell({
         "(prefers-reduced-motion: reduce)",
       ).matches;
       const introTargets = [
-        "[data-intro-nav]",
-        "[data-hero-kicker]",
+        "[data-intro-nav-shell]",
+        "[data-intro-nav-content]",
         "[data-hero-title]",
-        "[data-hero-description]",
         "[data-hero-actions]",
-        "[data-hero-proof]",
-        "[data-hero-image-reveal]",
-        "[data-hero-decor]",
+        "[data-hero-next-image]",
       ].join(",");
 
       if (reducedMotion) {
@@ -42,9 +39,9 @@ export default function SiteShell({
       }
 
       if (!heroIntro) {
-        gsap.from("[data-intro-nav]", {
+        gsap.from("[data-intro-nav-shell]", {
           autoAlpha: 0,
-          y: -12,
+          x: -24,
           duration: animation.duration.base,
           stagger: 0.06,
           ease: animation.ease.premium,
@@ -57,71 +54,49 @@ export default function SiteShell({
       });
 
       timeline
-        .from('[data-intro-nav="logo"]', {
+        .from("[data-intro-nav-shell]", {
           autoAlpha: 0,
-          y: -14,
-          duration: 0.34,
+          x: -46,
+          scaleX: 0.96,
+          transformOrigin: "left center",
+          duration: 0.54,
+          stagger: 0.06,
         })
         .from(
-          '[data-intro-nav]:not([data-intro-nav="logo"])',
+          "[data-intro-nav-content]",
           {
             autoAlpha: 0,
-            y: -12,
-            duration: 0.32,
-            stagger: 0.04,
+            y: 8,
+            duration: 0.34,
+            stagger: 0.035,
           },
-          "-=0.2",
-        )
-        .from(
-          "[data-hero-kicker]",
-          { autoAlpha: 0, y: 22, filter: "blur(8px)", duration: 0.36 },
-          "-=0.12",
+          "-=0.34",
         )
         .from(
           "[data-hero-title] > span",
           {
             autoAlpha: 0,
-            y: 40,
+            y: -44,
             filter: "blur(10px)",
-            duration: 0.5,
-            stagger: 0.07,
+            duration: 0.72,
+            stagger: 0.1,
           },
-          "-=0.22",
-        )
-        .from(
-          "[data-hero-description]",
-          { autoAlpha: 0, y: 24, filter: "blur(7px)", duration: 0.38 },
-          "-=0.3",
+          0.48,
         )
         .from(
           "[data-hero-actions] > *",
-          { autoAlpha: 0, y: 20, duration: 0.34, stagger: 0.04 },
-          "-=0.22",
+          { autoAlpha: 0, y: 24, duration: 0.42, stagger: 0.07 },
+          0.96,
         )
         .from(
-          "[data-hero-proof] > *",
-          { autoAlpha: 0, y: 16, duration: 0.3, stagger: 0.03 },
-          "-=0.2",
-        )
-        .fromTo(
-          "[data-hero-image-reveal]",
-          { clipPath: "inset(0 0 0 100%)" },
-          {
-            clipPath: "inset(0 0 0 0%)",
-            duration: 0.75,
-            ease: "power4.inOut",
-          },
-          0.28,
-        )
-        .from(
-          "[data-hero-decor]",
+          "[data-hero-next-image]",
           {
             autoAlpha: 0,
-            scale: 0.9,
-            duration: 0.44,
-            stagger: 0.05,
+            y: 46,
+            scale: 1.025,
+            duration: 0.74,
           },
-          "-=0.34",
+          0.72,
         );
     },
     { scope: shellRef, dependencies: [heroIntro] },

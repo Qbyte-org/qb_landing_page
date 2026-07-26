@@ -20,11 +20,11 @@ export default function ForRiders() {
             <Reveal
               key={tier.name}
               delay={i * 0.12}
-              className="group flex flex-col rounded-card border border-border bg-cream p-8 transition-all duration-[250ms] hover:-translate-y-1 hover:shadow-card"
+              className="group flex flex-col rounded-card border border-border bg-cream p-8 transition-all duration-[250ms] hover:-translate-y-1"
             >
               <div className="flex items-center gap-4">
                 <span
-                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white text-brand-dark shadow-sm ring-1 ring-border"
+                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white text-brand-dark ring-1 ring-border"
                   aria-hidden="true"
                 >
                   <tier.icon className="h-7 w-7 transition-transform duration-[250ms] group-hover:rotate-3" strokeWidth={1.75} />

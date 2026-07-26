@@ -23,9 +23,9 @@ export default function HowItWorks() {
             <Reveal
               key={step.title}
               delay={i * 0.12}
-              className="group relative flex flex-col items-center rounded-2xl border border-border bg-white p-8 text-center shadow-card transition-all duration-[250ms] hover:-translate-y-1 hover:shadow-card-hover"
+              className="group relative flex flex-col items-center rounded-2xl border border-border bg-white p-8 text-center transition-all duration-[250ms] hover:-translate-y-1"
             >
-              <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-brand to-brand-light text-white shadow-[0_10px_24px_-8px_rgb(255_107_0/0.5)]">
+              <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-brand to-brand-light text-white">
                 <step.icon className="h-8 w-8 transition-transform duration-[250ms] group-hover:rotate-3" strokeWidth={1.75} aria-hidden="true" />
                 <span className="absolute -right-2 -top-2 flex h-7 w-7 items-center justify-center rounded-pill bg-navy text-sm font-bold text-white ring-4 ring-cream">
                   {i + 1}

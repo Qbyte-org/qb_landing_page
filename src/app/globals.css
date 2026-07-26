@@ -4,6 +4,7 @@
 :root {
   --background: #ffffff;
   --foreground: #1a1a2e;
+  --page-glow: color-mix(in srgb, var(--background) 72%, #ff8c00 28%);
 }
 
 @theme inline {
@@ -34,17 +35,36 @@
   --radius-xl2: 1.25rem;
   --radius-pill: 9999px;
 
-  /* Shadow — layered for depth */
-  --shadow-soft: 0 1px 2px rgb(26 26 46 / 0.04), 0 4px 12px -6px rgb(26 26 46 / 0.08);
-  --shadow-card: 0 2px 6px -2px rgb(26 26 46 / 0.06), 0 10px 30px -12px rgb(26 26 46 / 0.16);
-  --shadow-card-hover: 0 8px 18px -6px rgb(26 26 46 / 0.12), 0 24px 50px -16px rgb(255 107 0 / 0.22);
-  --shadow-ring: 0 0 0 1px rgb(26 26 46 / 0.04);
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--page-glow) 42%, transparent), transparent 34rem),
+    var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  --tw-shadow: 0 0 #0000 !important;
+  --tw-shadow-colored: 0 0 #0000 !important;
+  box-shadow: none !important;
+}
+
+a,
+button,
+[role="button"],
+summary,
+input[type="submit"],
+input[type="button"] {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
 }
 
 /* Smooth in-page anchor scrolling for nav links */
@@ -119,6 +139,63 @@ html {
   animation: pulse-glow 9s ease-in-out infinite;
 }
 
+/* Odometer structure; typography inherits QuickBite's display styles. */
+.odometer {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+}
+
+.odometer .odometer-digit {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+}
+
+.odometer .odometer-digit-spacer {
+  display: inline-block;
+  visibility: hidden;
+}
+
+.odometer .odometer-digit-inner {
+  inset: 0;
+  overflow: hidden;
+  position: absolute;
+  text-align: left;
+}
+
+.odometer .odometer-ribbon,
+.odometer .odometer-ribbon-inner,
+.odometer .odometer-value {
+  display: block;
+}
+
+.odometer .odometer-ribbon-inner {
+  backface-visibility: hidden;
+}
+
+.odometer .odometer-value {
+  transform: translateZ(0);
+}
+
+.odometer .odometer-value.odometer-last-value {
+  position: absolute;
+}
+
+.odometer.odometer-animating-up .odometer-ribbon-inner {
+  transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.odometer.odometer-animating-up.odometer-animating .odometer-ribbon-inner,
+.odometer.odometer-animating-down .odometer-ribbon-inner {
+  transform: translateY(-100%);
+}
+
+.odometer.odometer-animating-down.odometer-animating .odometer-ribbon-inner {
+  transform: translateY(0);
+  transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -132,6 +209,10 @@ html {
   *,
   *::before,
   *::after {
+    transition-duration: 0.01ms !important;
+  }
+
+  .odometer .odometer-ribbon-inner {
     transition-duration: 0.01ms !important;
   }
 }

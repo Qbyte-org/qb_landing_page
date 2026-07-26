@@ -60,7 +60,7 @@ export default function CompanyPage() {
             {values.map((v) => (
               <div
                 key={v.title}
-                className="rounded-2xl border border-border bg-cream p-8 text-center shadow-soft transition-transform duration-200 hover:-translate-y-1"
+                className="rounded-2xl border border-border bg-cream p-8 text-center transition-transform duration-200 hover:-translate-y-1"
               >
                 <IconChip icon={v.icon} size="lg" tone="brand" className="mx-auto" />
                 <h3 className="mt-4 text-xl font-bold text-navy">{v.title}</h3>

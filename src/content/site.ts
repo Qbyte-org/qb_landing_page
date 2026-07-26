@@ -88,6 +88,11 @@ export type Restaurant = {
   image: string;
 };
 
+export const heroImage = {
+  src: "https://images.unsplash.com/photo-1652862730779-c4f87896c7a7?auto=format&fit=crop&w=2200&q=88",
+  alt: "A premium takeaway food spread ready for delivery",
+};
+
 // Unsplash images — hostname allow-listed in next.config.ts.
 const img = (id: string) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=640&q=75`;
