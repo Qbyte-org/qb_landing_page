@@ -66,7 +66,7 @@ const variants: Record<
     hoverText: "text-white",
   },
   ghost: {
-    root: "bg-transparent text-navy",
+    root: "bg-[#2a211d] text-navy",
     fill: "bg-[#ff4f1f]",
     hoverText: "text-white",
   },

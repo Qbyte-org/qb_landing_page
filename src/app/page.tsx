@@ -1,11 +1,9 @@
 import SiteShell from "@/components/layout/SiteShell";
 import AppShowcase from "@/components/sections/AppShowcase";
 import Categories from "@/components/sections/Categories";
-import CityCoverage from "@/components/sections/CityCoverage";
+import CommunityBento from "@/components/sections/CommunityBento";
 import FAQ from "@/components/sections/FAQ";
 import FinalCTA from "@/components/sections/FinalCTA";
-import ForPartners from "@/components/sections/ForPartners";
-import ForRiders from "@/components/sections/ForRiders";
 import Hero from "@/components/sections/Hero";
 import HowItWorks from "@/components/sections/HowItWorks";
 import PopularRestaurants from "@/components/sections/PopularRestaurants";
@@ -20,9 +18,7 @@ export default function Home() {
       <HowItWorks />
       <PopularRestaurants />
       <AppShowcase />
-      <ForPartners />
-      <ForRiders />
-      <CityCoverage />
+      <CommunityBento />
       <Testimonials />
       <FAQ />
       <FinalCTA />

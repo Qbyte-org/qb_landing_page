@@ -2,7 +2,7 @@
 
 import { useRef, useState, type CSSProperties } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { MapPin } from "lucide-react";
+import { ListOrderedIcon, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useNavbarTheme } from "@/hooks/use-navbar-theme";
@@ -37,142 +37,43 @@ function MenuGlyph({ open }: { open: boolean }) {
   const ease = [0.22, 1, 0.36, 1] as const;
 
   return (
-    <motion.span
-      className="relative grid h-9 w-9 place-items-center text-current"
-      animate={{ scale: open ? 1.04 : 1 }}
-      transition={{ duration: 0.48, ease }}
-      aria-hidden="true"
-    >
-      <motion.span
-        data-magnetic-accent
-        className="absolute inset-0 rounded-full bg-[var(--nav-icon,#ff4f1f)]"
-        animate={{
-          scale: open ? 0.96 : 0.62,
-          opacity: open ? 0.14 : 0,
-        }}
-        transition={{ duration: 0.45, ease }}
-      />
-
-      <svg
-        className="relative h-10 w-10 overflow-visible"
-        viewBox="0 0 42 42"
-        fill="none"
+    <div className="flex h-12 items-center justify-center overflow-hidden">
+      <motion.svg
+        viewBox="0 0 18 14"
+        animate={{ width: open ? 0 : 22, opacity: open ? 0 : 1, marginRight: open ? 0 : 5 }}
+        transition={{ duration: 0.4, ease }}
+        className="h-[1.1rem] shrink-0"
       >
-        <motion.path
-          data-magnetic-accent
-          d="M6.8 26.5C12.5 22.8 18.6 22.2 25.4 24.2"
-          stroke="var(--nav-icon,#ff4f1f)"
-          strokeWidth="1.55"
-          strokeLinecap="round"
-          strokeDasharray="1.8 4.8"
-          animate={{
-            opacity: open ? 0 : 0.72,
-            pathLength: open ? 0 : 1,
-            pathOffset: open ? 0 : [0, -0.22, 0],
-          }}
-          transition={
-            open
-              ? { duration: 0.28, ease }
-              : { duration: 2.8, repeat: Infinity, ease }
-          }
-        />
-        <motion.path
-          d="M8.2 16.8H15.8"
-          stroke="currentColor"
-          strokeWidth="2.15"
-          strokeLinecap="round"
-          animate={{
-            x: open ? 7 : 0,
-            opacity: open ? 0 : 1,
-            pathLength: open ? 0 : 1,
-          }}
-          transition={{ duration: 0.34, ease }}
-        />
-        <motion.path
-          d="M6.5 21H15"
-          stroke="currentColor"
-          strokeWidth="2.15"
-          strokeLinecap="round"
-          animate={{
-            x: open ? 8 : 0,
-            opacity: open ? 0 : 0.92,
-            pathLength: open ? 0 : 1,
-          }}
-          transition={{ duration: 0.34, ease }}
-        />
+        <path d="M1 13V1H9V13M9 1H17V13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+      </motion.svg>
 
-        <motion.g
-          animate={{
-            x: open ? -1 : [0, 1.15, 0],
-            y: open ? 0 : [0, -0.65, 0],
-            scale: open ? 0.78 : 1,
-            opacity: open ? 0.18 : 1,
-          }}
-          transition={
-            open
-              ? { duration: 0.28, ease }
-              : { duration: 1.65, repeat: Infinity, ease }
-          }
-          style={{ transformOrigin: "25px 20px" }}
-        >
-          <path
-            data-magnetic-accent
-            d="M19.2 18.4H30.8C32 18.4 33 19.35 33 20.55V28.1C33 29.3 32 30.25 30.8 30.25H19.2C18 30.25 17 29.3 17 28.1V20.55C17 19.35 18 18.4 19.2 18.4Z"
-            fill="var(--nav-icon,#ff4f1f)"
-          />
-          <path
-            d="M21.2 18.4V17.35C21.2 15.45 22.75 14.05 25 14.05C27.25 14.05 28.8 15.45 28.8 17.35V18.4"
-            stroke="currentColor"
-            strokeWidth="1.85"
-            strokeLinecap="round"
-          />
-          <path
-            d="M22.15 23.1V26.9M24.7 23.1V26.9M27.25 23.1V26.9"
-            stroke="white"
-            strokeWidth="1.45"
-            strokeLinecap="round"
-          />
-        </motion.g>
-
-        <motion.path
-          data-magnetic-accent
-          d="M13.5 13.5L28.5 28.5"
-          stroke="var(--nav-icon,#ff4f1f)"
-          strokeWidth="2.45"
-          strokeLinecap="round"
-          animate={{
-            opacity: open ? 1 : 0,
-            pathLength: open ? 1 : 0,
-          }}
-          transition={{ duration: 0.42, ease }}
-        />
-        <motion.path
-          d="M28.5 13.5L13.5 28.5"
-          stroke="currentColor"
-          strokeWidth="2.45"
-          strokeLinecap="round"
-          animate={{
-            opacity: open ? 1 : 0,
-            pathLength: open ? 1 : 0,
-          }}
-          transition={{ duration: 0.42, delay: open ? 0.04 : 0, ease }}
-        />
+      <svg className="h-[1.1rem] w-[1.1rem] shrink-0 overflow-visible" viewBox="0 0 14 14">
+        <motion.line x1="1" y1="1" x2="13" y2="1" stroke="var(--nav-icon, #f06400)" strokeWidth="2" strokeLinecap="square"
+          animate={{ y2: open ? 13 : 1 }} transition={{ duration: 0.4, ease }} />
+        <motion.line x1="1" y1="7" x2="13" y2="7" stroke="var(--nav-icon, #f06400)" strokeWidth="2" strokeLinecap="square"
+          animate={{ opacity: open ? 0 : 1, scaleX: open ? 0 : 1 }} transition={{ duration: 0.3, ease }} />
+        <motion.line x1="1" y1="13" x2="13" y2="13" stroke="var(--nav-icon, #f06400)" strokeWidth="2" strokeLinecap="square"
+          animate={{ y2: open ? 1 : 13 }} transition={{ duration: 0.4, ease }} />
       </svg>
 
-      <motion.span
-        data-magnetic-accent
-        className="pointer-events-none absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-[var(--nav-icon,#ff4f1f)]"
-        animate={{
-          scale: open ? 0 : [1, 1.35, 1],
-          opacity: open ? 0 : 1,
-        }}
-        transition={
-          open
-            ? { duration: 0.22, ease }
-            : { duration: 1.6, repeat: Infinity, ease }
-        }
-      />
-    </motion.span>
+      <motion.svg
+        viewBox="0 0 14 14"
+        animate={{ width: open ? 0 : 18, opacity: open ? 0 : 1, marginLeft: open ? 0 : 5 }}
+        transition={{ duration: 0.4, ease }}
+        className="h-[1.1rem] shrink-0"
+      >
+        <path d="M1 13V1H13V13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+      </motion.svg>
+
+      <motion.svg
+        viewBox="0 0 14 14"
+        animate={{ width: open ? 0 : 18, opacity: open ? 0 : 1, marginLeft: open ? 0 : 5 }}
+        transition={{ duration: 0.4, ease }}
+        className="h-[1.1rem] shrink-0"
+      >
+        <path d="M1 1V13H13V1" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
+      </motion.svg>
+    </div>
   );
 }
 
@@ -370,10 +271,9 @@ export default function Header() {
                 <MagneticFillButton
                   href="/restaurants"
                   variant="ghost"
-                  customFillClass="bg-[#F15F00]"
-                  customHoverTextColor="#ffffff"
+                  themeAware
                   dataNavChip
-                  className="h-9 rounded-pill border-0 bg-white px-4 text-xs font-extrabold text-[#24180f] sm:h-10 sm:px-5 xl:h-12 xl:px-6 xl:text-sm"
+                  className="h-9 rounded-pill px-4 text-xs font-extrabold sm:h-10 sm:px-5 xl:h-12 xl:px-6 xl:text-base"
                 >
                   Find food
                   <MapPin data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.3} aria-hidden="true" />
@@ -384,9 +284,10 @@ export default function Header() {
                 href="/restaurants"
                 variant="brand"
                 dataNavAction
-                className="h-9 rounded-pill border-0 bg-[#F15F00] px-4 text-xs font-extrabold sm:h-10 sm:px-5 xl:h-12 xl:px-8 xl:text-sm"
+                className="h-9 rounded-pill border-0 bg-[#F15F00] px-4 text-xs font-extrabold sm:h-10 sm:px-5 xl:h-12 xl:text-base"
               >
                 Order now
+                <ListOrderedIcon data-nav-icon className="h-4 w-4" strokeWidth={2.35} aria-hidden="true" />
               </MagneticFillButton>
 
               {/* <motion.button
@@ -398,20 +299,25 @@ export default function Header() {
                 <Sun data-nav-icon className="h-4 w-4" strokeWidth={2.2} aria-hidden="true" />
               </motion.button> */}
 
-              <MagneticFillButton
+              <motion.button
                 type="button"
                 onClick={() => {
                   setMenuOpen((value) => !value);
                 }}
-                variant="ghost"
-                customFillClass="bg-[#F15F00]"
-                customHoverTextColor="#ffffff"
-                ariaLabel={menuOpen ? "Close menu" : "Open menu"}
-                dataNavChip
-                className="ml-auto flex h-9 w-9 cursor-pointer items-center justify-center rounded-pill border-0 bg-white text-[#24180f] sm:h-10 sm:w-10 xl:h-12 xl:w-12"
+                aria-expanded={menuOpen}
+                aria-controls="site-menu"
+                aria-label={menuOpen ? "Close menu" : "Open menu"}
+                data-nav-icon
+                className="ml-auto flex h-9 min-w-[6.2rem] cursor-pointer items-center justify-center gap-2 rounded-[0.95rem] bg-transparent px-2.5 text-xs font-black uppercase tracking-[0.08em] text-[var(--nav-icon)] outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-[#F15F00] focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:h-10 sm:min-w-[6.7rem] xl:h-12 xl:min-w-[7.4rem]"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
               >
+                <span className="leading-none text-base">
+                  {menuOpen ? "Close" : ""}
+                </span>
                 <MenuGlyph open={menuOpen} />
-              </MagneticFillButton>
+              </motion.button>
             </div>
 
             <AnimatePresence>
@@ -432,7 +338,7 @@ export default function Header() {
                     y: -12,
                   }}
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                  className="px-7 pb-6 pt-4 text-[var(--nav-foreground)] sm:px-9 xl:pt-6"
+                  className="px-7 pb-4 pt-4 text-[var(--nav-foreground)] sm:px-9 xl:pt-6"
                 >
                   <ul className="grid w-full gap-3 sm:gap-4">
                     {menuLinks.map((link) => (

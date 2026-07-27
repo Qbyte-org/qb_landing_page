@@ -199,7 +199,7 @@ export default function HowItWorks() {
                   alt=""
                   width={760}
                   height={590}
-                  className="absolute -bottom-4 right-[-2%] w-[24rem] object-contain drop-shadow-none sm:w-[31rem] lg:bottom-[-1.5rem] lg:w-[32rem] xl:w-[38rem]"
+                  className="absolute -bottom-4 right-[-2%] w-[28rem] object-contain drop-shadow-none sm:w-[35rem] lg:bottom-[-1.5rem] lg:w-[38rem] xl:w-[44rem]"
                 />
                 <Image
                   src={activeStep.accent}

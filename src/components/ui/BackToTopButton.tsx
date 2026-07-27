@@ -181,7 +181,7 @@ export default function BackToTopButton() {
         themeAware
         className="h-full w-full rounded-full border-0 p-0"
       >
-        <ArrowUp className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
+        <ArrowUp className="h-5 w-5" strokeWidth={2.25} />
       </MagneticFillButton>
     </div>
   );

@@ -1,4 +1,4 @@
-import { MapPin, Search, Bike, CookingPot, CupSoda, type LucideIcon } from "lucide-react";
+import Image from "next/image";
 import Container from "../ui/Container";
 import Reveal from "../ui/Reveal";
 import IconChip from "../ui/IconChip";
@@ -42,72 +42,19 @@ function StoreBadge({
 
 function PhoneMockup() {
   return (
-    <div className="relative mx-auto w-[260px]">
-      <div className="relative rounded-[2.5rem] border-[10px] border-navy bg-navy ring-1 ring-white/20">
-        {/* notch */}
-        <div className="absolute left-1/2 top-2 z-10 h-5 w-24 -translate-x-1/2 rounded-pill bg-navy" />
-        {/* screen */}
-        <div className="overflow-hidden rounded-[1.8rem] bg-cream">
-          {/* app header */}
-          <div className="bg-gradient-to-br from-brand to-brand-light px-4 pb-6 pt-8 text-white">
-            <p className="text-xs/none opacity-80">Deliver to</p>
-            <p className="mt-1 flex items-center gap-1.5 text-sm font-bold">
-              <MapPin className="h-4 w-4" strokeWidth={2.25} aria-hidden="true" />
-              OAU Campus, Ile-Ife
-            </p>
-            <div className="mt-4 flex items-center gap-2 rounded-pill bg-white/95 px-4 py-2 text-sm text-muted">
-              <Search className="h-4 w-4" strokeWidth={2.25} aria-hidden="true" />
-              Search jollof, suya…
-            </div>
-          </div>
-          {/* tracking card */}
-          <div className="space-y-3 p-4">
-            <div className="rounded-card bg-white p-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-navy">Order #QB2048</span>
-              </div>
-              <div className="mt-3 flex items-center gap-1.5">
-                {[0, 1, 2, 3].map((s) => (
-                  <span
-                    key={s}
-                    className={`h-1.5 flex-1 rounded-pill ${
-                      s < 3 ? "bg-brand" : "bg-black/10"
-                    }`}
-                  />
-                ))}
-              </div>
-              <p className="mt-2 flex items-center gap-1.5 text-[11px] text-muted">
-                <Bike className="h-3.5 w-3.5 text-brand-dark" strokeWidth={2.25} aria-hidden="true" />
-                Emeka is 5 min away
-              </p>
-            </div>
-
-            {([
-              { icon: CookingPot, n: "Smoky Jollof + Chicken", p: "₦3,500" },
-              { icon: CupSoda, n: "Chapman (50cl)", p: "₦1,200" },
-            ] as { icon: LucideIcon; n: string; p: string }[]).map((item) => (
-              <div
-                key={item.n}
-                className="flex items-center gap-3 rounded-card bg-white p-3"
-              >
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-cream-200 text-brand-dark">
-                  <item.icon className="h-[1.15rem] w-[1.15rem]" strokeWidth={1.75} aria-hidden="true" />
-                </span>
-                <span className="flex-1 text-xs font-semibold text-navy">
-                  {item.n}
-                </span>
-                <span className="text-xs font-bold text-brand-dark">
-                  {item.p}
-                </span>
-              </div>
-            ))}
-
-            <div className="rounded-pill bg-brand-dark py-2.5 text-center text-sm font-bold text-white">
-              Track order
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="relative mx-auto w-[min(78vw,20rem)] sm:w-[23rem] lg:w-[24rem]">
+      <div
+        aria-hidden="true"
+        className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f06400]/20 blur-3xl sm:h-80 sm:w-80"
+      />
+      <Image
+        src="/images/phone.png"
+        alt="QuickBite mobile app preview"
+        width={433}
+        height={577}
+        sizes="(min-width: 1024px) 384px, 78vw"
+        className="pointer-events-none relative z-10 h-auto w-full select-none object-contain"
+      />
     </div>
   );
 }
