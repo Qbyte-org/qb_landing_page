@@ -58,6 +58,10 @@ export default function SiteShell({
 
       const timeline = gsap.timeline({
         defaults: { ease: animation.ease.premium },
+        onComplete: () => {
+          gsap.set("[data-intro-nav-content] > *", { clearProps: "transform" });
+          gsap.set("[data-intro-nav-shell]", { clearProps: "transform,clipPath" });
+        },
       });
 
       timeline
@@ -83,9 +87,9 @@ export default function SiteShell({
           "[data-intro-nav-content] > *",
           {
             autoAlpha: 0,
-            y: 8,
+            scale: 0.96,
             duration: 0.48,
-            stagger: 0.05,
+            stagger: 0.04,
             ease: "power3.out",
           },
           0.5,

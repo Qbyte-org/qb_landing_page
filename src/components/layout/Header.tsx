@@ -8,7 +8,6 @@ import Link from "next/link";
 import { useNavbarTheme } from "@/hooks/use-navbar-theme";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import LinkArrow from "../ui/LinkArrow";
-import Logo from "../ui/Logo";
 import MagneticFillButton from "../ui/MagneticFillButton";
 
 const navPill = "bg-black text-white";
@@ -37,28 +36,36 @@ const navThemeDefaults = {
 function MenuGlyph({ open }: { open: boolean }) {
   return (
     <span
-      className="relative flex h-8 w-8 items-center justify-center"
+      className="relative flex h-5 w-5 items-center justify-center overflow-hidden"
       aria-hidden="true"
     >
       <motion.span
-        className="absolute h-[2px] rounded-pill bg-current"
-        animate={{ rotate: open ? 45 : 0, y: open ? 0 : -7, width: open ? 30 : 25 }}
-        transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute h-[2px] rounded-full bg-current"
+        animate={{
+          rotate: open ? 45 : 0,
+          y: open ? 0 : -5,
+          width: open ? 18 : 16,
+        }}
+        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
       />
       <motion.span
-        className="absolute h-[2px] rounded-pill bg-current"
-        animate={{ opacity: open ? 0 : 1, x: open ? 14 : 0, width: open ? 6 : 16 }}
-        transition={{ duration: 0.24, ease: "easeOut" }}
+        className="absolute h-[2px] rounded-full bg-current"
+        animate={{
+          opacity: open ? 0 : 1,
+          scaleX: open ? 0 : 1,
+          width: 12,
+          x: open ? 6 : -2,
+        }}
+        transition={{ duration: 0.22, ease: "easeOut" }}
       />
       <motion.span
-        className="absolute h-[2px] rounded-pill bg-current"
-        animate={{ rotate: open ? -45 : 0, y: open ? 0 : 7, width: open ? 30 : 25 }}
-        transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
-      />
-      <motion.span
-        className="absolute right-0 top-1 h-1.5 w-1.5 rounded-pill bg-[#ff4f1f]"
-        animate={{ scale: open ? 0 : 1, opacity: open ? 0 : 1, x: open ? 6 : 0 }}
-        transition={{ duration: 0.24, ease: "easeOut" }}
+        className="absolute h-[2px] rounded-full bg-current"
+        animate={{
+          rotate: open ? -45 : 0,
+          y: open ? 0 : 5,
+          width: open ? 18 : 16,
+        }}
+        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
       />
     </span>
   );
@@ -233,10 +240,9 @@ export default function Header() {
 
         {/* Navigation Menu */}
         <motion.div
-          layout
           data-intro-nav-shell
           data-nav-surface
-          className={`${navPill} pointer-events-auto relative flex h-[var(--nav-closed-height)] w-[var(--nav-menu-closed-width)] justify-self-end overflow-hidden rounded-[1.5rem] [--nav-closed-height:3rem] [--nav-menu-closed-width:10rem] [--nav-menu-open-width:min(32rem,calc(100vw-2rem))] sm:[--nav-menu-closed-width:28rem] sm:[--nav-menu-open-width:28rem] sm:rounded-[1.9rem] sm:[--nav-closed-height:4rem] lg:[--nav-menu-closed-width:30rem] lg:[--nav-menu-open-width:30rem] xl:[--nav-menu-closed-width:32rem] xl:[--nav-menu-open-width:32rem] xl:rounded-[2.35rem] xl:[--nav-closed-height:4.9rem]`}
+          className={`${navPill} pointer-events-auto relative flex h-[var(--nav-closed-height)] w-[var(--nav-menu-closed-width)] justify-self-end overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] xl:rounded-[2.45rem] [--nav-closed-height:3rem] [--nav-menu-closed-width:10rem] [--nav-menu-open-width:min(32rem,calc(100vw-2rem))] sm:[--nav-menu-closed-width:28rem] sm:[--nav-menu-open-width:28rem] sm:[--nav-closed-height:4rem] lg:[--nav-menu-closed-width:30rem] lg:[--nav-menu-open-width:30rem] xl:[--nav-menu-closed-width:32rem] xl:[--nav-menu-open-width:32rem] xl:[--nav-closed-height:4.9rem]`}
           data-menu-open={menuOpen ? "true" : "false"}
           style={{ transformOrigin: "top right" }}
           animate={{
@@ -250,17 +256,19 @@ export default function Header() {
           initial={false}
           transition={{ duration: 0.56, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="flex w-full flex-col">
+          <div className="flex h-full w-full flex-col">
             <div
               data-intro-nav-content
-              className="flex h-12 items-center gap-2 px-2 sm:h-16 sm:gap-3 sm:px-3 xl:h-[4.9rem] xl:px-4"
+              className="flex h-[var(--nav-closed-height)] w-full shrink-0 items-center gap-2 px-2.5 sm:gap-3 sm:px-3.5 xl:px-4"
             >
               <span className="hidden sm:block">
                 <MagneticFillButton
                   href="/restaurants"
                   variant="ghost"
+                  customFillClass="bg-[#F15F00]"
+                  customHoverTextColor="#ffffff"
                   dataNavChip
-                  className="h-9 rounded-pill border-0 bg-white px-4 text-xs font-extrabold text-[#24180f] xl:h-12 xl:px-6 xl:text-sm"
+                  className="h-9 rounded-pill border-0 bg-white px-4 text-xs font-extrabold text-[#24180f] sm:h-10 sm:px-5 xl:h-12 xl:px-6 xl:text-sm"
                 >
                   Find food
                   <MapPin data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.3} aria-hidden="true" />
@@ -271,33 +279,34 @@ export default function Header() {
                 href="/restaurants"
                 variant="brand"
                 dataNavAction
-                className="h-9 rounded-pill border-0 bg-[#ff4f1f] px-4 text-xs font-extrabold sm:h-10 sm:px-5 xl:h-12 xl:px-8 xl:text-sm"
+                className="h-9 rounded-pill border-0 bg-[#F15F00] px-4 text-xs font-extrabold sm:h-10 sm:px-5 xl:h-12 xl:px-8 xl:text-sm"
               >
                 Order now
               </MagneticFillButton>
 
-              <motion.button
+              {/* <motion.button
                 type="button"
                 aria-label="Theme preview"
                 data-nav-chip
-                className="hidden h-9 w-9 cursor-pointer items-center justify-center rounded-pill bg-white text-[#24180f] sm:flex xl:h-12 xl:w-12"
+                className="hidden h-9 w-9 cursor-pointer items-center justify-center rounded-pill bg-white text-[#24180f] sm:flex sm:h-10 sm:w-10 xl:h-12 xl:w-12"
               >
                 <Sun data-nav-icon className="h-4 w-4" strokeWidth={2.2} aria-hidden="true" />
-              </motion.button>
+              </motion.button> */}
 
-              <motion.button
+              <MagneticFillButton
                 type="button"
                 onClick={() => {
                   setMenuOpen((value) => !value);
                 }}
-                aria-expanded={menuOpen}
-                aria-controls="site-menu"
-                aria-label={menuOpen ? "Close menu" : "Open menu"}
-                data-nav-icon
-                className="ml-auto flex h-9 w-9 cursor-pointer items-center justify-center rounded-pill text-white sm:h-11 sm:w-11 xl:h-12 xl:w-12"
+                variant="ghost"
+                customFillClass="bg-[#F15F00]"
+                customHoverTextColor="#ffffff"
+                ariaLabel={menuOpen ? "Close menu" : "Open menu"}
+                dataNavIcon
+                className="ml-auto flex h-9 w-9 cursor-pointer items-center justify-center rounded-pill border-0 bg-transparent text-white sm:h-10 sm:w-10 xl:h-12 xl:w-12"
               >
                 <MenuGlyph open={menuOpen} />
-              </motion.button>
+              </MagneticFillButton>
             </div>
 
             <AnimatePresence>
@@ -307,27 +316,18 @@ export default function Header() {
                   aria-label="Expanded menu"
                   initial={{
                     opacity: 0,
-                    x: 88,
-                    y: -10,
-                    scaleX: 0.94,
-                    clipPath: "inset(0 0 0 22% round 2.25rem)",
+                    y: -16,
                   }}
                   animate={{
                     opacity: 1,
-                    x: 0,
                     y: 0,
-                    scaleX: 1,
-                    clipPath: "inset(0 0 0 0% round 2.25rem)",
                   }}
                   exit={{
                     opacity: 0,
-                    x: 72,
-                    y: -8,
-                    scaleX: 0.96,
-                    clipPath: "inset(0 0 0 24% round 2.25rem)",
+                    y: -12,
                   }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  className="origin-top-right px-7 pb-9 pt-6 text-[var(--nav-foreground)] sm:px-9 xl:pt-7"
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  className="px-7 pb-9 pt-4 text-[var(--nav-foreground)] sm:px-9 xl:pt-6"
                 >
                   <ul className="grid w-full gap-3 sm:gap-4">
                     {menuLinks.map((link) => (

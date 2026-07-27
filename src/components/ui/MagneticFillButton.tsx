@@ -23,6 +23,8 @@ type MagneticElement = HTMLButtonElement | HTMLAnchorElement;
 
 export interface MagneticFillButtonProps {
   variant?: MagneticFillVariant;
+  customFillClass?: string;
+  customHoverTextColor?: string;
   children: ReactNode;
   className?: string;
   href?: string;
@@ -36,6 +38,7 @@ export interface MagneticFillButtonProps {
   themeAware?: boolean;
   dataNavAction?: boolean;
   dataNavChip?: boolean;
+  dataNavIcon?: boolean;
 }
 
 const variants: Record<
@@ -43,34 +46,34 @@ const variants: Record<
   { root: string; fill: string; hoverText: string }
 > = {
   brand: {
-    root: "border-brand-dark bg-brand-dark text-white",
+    root: "bg-brand-dark text-white",
     fill: "bg-white",
     hoverText: "text-navy",
   },
   dark: {
-    root: "border-navy bg-navy text-white",
+    root: "bg-navy text-white",
     fill: "bg-brand-light",
     hoverText: "text-navy",
   },
   light: {
-    root: "border-brand bg-white text-brand-dark",
+    root: "bg-white text-brand-dark",
     fill: "bg-brand-dark",
     hoverText: "text-white",
   },
   white: {
-    root: "border-white bg-white text-navy",
+    root: "bg-white text-navy",
     fill: "bg-navy",
     hoverText: "text-white",
   },
   ghost: {
-    root: "border-transparent bg-transparent text-navy",
-    fill: "bg-cream-200",
-    hoverText: "text-navy",
+    root: "bg-transparent text-navy",
+    fill: "bg-[#ff4f1f]",
+    hoverText: "text-white",
   },
 };
 
 const themeAwareStyles = {
-  root: "border-[var(--magnetic-border)] bg-[var(--magnetic-bg)] text-[var(--magnetic-text)]",
+  root: "bg-[var(--magnetic-bg)] text-[var(--magnetic-text)]",
   fill: "bg-[var(--magnetic-fill)]",
   hoverText: "text-[var(--magnetic-hover-text)]",
 };
@@ -80,7 +83,7 @@ const variantHoverTextColors: Record<MagneticFillVariant, string> = {
   dark: "#1a1a2e",
   light: "#ffffff",
   white: "#ffffff",
-  ghost: "#1a1a2e",
+  ghost: "#ffffff",
 };
 
 function isExternalHref(href: string, external?: boolean) {
@@ -94,6 +97,8 @@ function isExternalHref(href: string, external?: boolean) {
 
 export default function MagneticFillButton({
   variant = "brand",
+  customFillClass,
+  customHoverTextColor,
   children,
   className = "",
   href,
@@ -107,15 +112,19 @@ export default function MagneticFillButton({
   themeAware = false,
   dataNavAction = false,
   dataNavChip = false,
+  dataNavIcon = false,
 }: MagneticFillButtonProps) {
   const buttonRef = useRef<MagneticElement>(null);
   const [fillOrigin, setFillOrigin] = useState({ x: 0, y: 0 });
   const [fillSize, setFillSize] = useState(480);
   const [isHovered, setIsHovered] = useState(false);
   const styles = themeAware ? themeAwareStyles : variants[variant];
-  const hoverTextColor = themeAware
-    ? "var(--magnetic-hover-text)"
-    : variantHoverTextColors[variant];
+  const fillClassName = customFillClass || styles.fill;
+  const activeHoverTextColor =
+    customHoverTextColor ||
+    (themeAware
+      ? "var(--magnetic-hover-text)"
+      : variantHoverTextColors[variant]);
   const idleTextColor = themeAware ? "var(--magnetic-text)" : undefined;
 
   const setOrigin = useCallback((x: number, y: number) => {
@@ -159,7 +168,7 @@ export default function MagneticFillButton({
   };
 
   const rootClassName = [
-    "relative isolate inline-flex cursor-pointer items-center justify-center overflow-hidden border font-semibold transition-[background-color,border-color,color,transform] duration-300 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60",
+    "relative isolate inline-flex cursor-pointer items-center justify-center overflow-hidden border-0 font-semibold transition-[background-color,color,transform] duration-300 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60",
     styles.root,
     className,
   ].join(" ");
@@ -168,7 +177,7 @@ export default function MagneticFillButton({
     <>
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute rounded-full ${styles.fill}`}
+        className={`pointer-events-none absolute rounded-full ${fillClassName}`}
         style={{
           width: fillSize,
           height: fillSize,
@@ -181,11 +190,13 @@ export default function MagneticFillButton({
         }}
       />
       <span
-        className={`relative z-10 flex h-full w-full items-center justify-center gap-2 transition-colors duration-300 [&_*]:!text-current [&_svg]:!stroke-current ${
-          isHovered ? styles.hoverText : themeAware ? "" : ""
+        className={`relative z-10 flex h-full w-full items-center justify-center gap-2 transition-colors duration-300 ${
+          isHovered
+            ? `${styles.hoverText} [&_*]:!color-[inherit] [&_*]:!text-current [&_svg]:!stroke-current [&_svg]:![color:inherit]`
+            : "[&_*]:!text-current [&_svg]:!stroke-current"
         }`}
         style={{
-          color: isHovered ? hoverTextColor : idleTextColor,
+          color: isHovered ? activeHoverTextColor : idleTextColor,
         }}
       >
         {children}
@@ -203,6 +214,7 @@ export default function MagneticFillButton({
     "aria-label": ariaLabel,
     "data-nav-action": dataNavAction ? "" : undefined,
     "data-nav-chip": dataNavChip ? "" : undefined,
+    "data-nav-icon": dataNavIcon ? "" : undefined,
   };
 
   if (href) {

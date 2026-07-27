@@ -84,7 +84,7 @@ export default function Hero() {
               height={108}
               className="absolute -right-5 -top-6 w-24 rotate-12 object-contain opacity-85"
             />
-            <span className="absolute bottom-5 left-5 h-3 w-3 rounded-full bg-[#ff4f1f]" />
+            <span className="absolute bottom-5 left-5 h-3 w-3 rounded-full bg-[#F15F00]" />
           </div>
           {floatingFoods.map((food, index) => (
             <Image
@@ -115,7 +115,7 @@ export default function Hero() {
                 delivered{" "}
                 <TypewriterText
                   words={rotatingHeadlines}
-                  className="inline-grid text-[#ff4f1f]"
+                  className="inline-grid text-[#F15F00]"
                   typeSpeed={92}
                   deleteSpeed={58}
                   pause={4200}
@@ -131,7 +131,7 @@ export default function Hero() {
             <MagneticFillButton
               href="/restaurants"
               variant="brand"
-              className="pointer-events-auto h-16 cursor-pointer rounded-4xl border-[#ff4f1f] bg-[#ff4f1f] px-9 text-base font-extrabold"
+              className="pointer-events-auto h-16 cursor-pointer rounded-4xl border-[#F15F00] bg-[#F15F00] px-9 text-base font-extrabold"
             >
               Order now
               <ArrowRight className="h-5 w-5" strokeWidth={2.35} aria-hidden="true" />
@@ -146,7 +146,7 @@ export default function Hero() {
       >
         <div
           data-hero-image-stage
-          className="absolute left-0 top-0 h-full w-full overflow-hidden bg-[#2a211d]"
+          className="absolute left-0 top-0 h-full w-full overflow-hidden rounded-tl-[2.75rem] bg-[#2a211d] sm:rounded-tl-[4rem] xl:rounded-tl-[5.5rem]"
         >
           <AnimatePresence initial={false}>
             <motion.div

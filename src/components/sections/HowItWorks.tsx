@@ -61,15 +61,14 @@ export default function HowItWorks() {
       <div className="relative z-10 px-4 pb-12 pt-18 sm:px-6 sm:pb-14 sm:pt-22 lg:px-8 lg:pb-14 lg:pt-24">
         <div className="mx-auto grid max-w-[60rem] items-center gap-6 md:grid-cols-[1fr_auto]">
           <h2 className="font-display text-[2.85rem] font-black leading-[0.9] tracking-[-0.07em] sm:text-[4rem]">
-            How It
-            <br />
-            Works
+            How It Works
+            {/* <br /> */}
           </h2>
 
           <MagneticFillButton
             href="/restaurants"
             variant="brand"
-            className="h-12 w-max rounded-pill border-0 bg-[#ff4f1f] px-7 text-sm font-extrabold sm:h-14 sm:px-9 md:-translate-x-24 md:translate-y-8 lg:-translate-x-32"
+            className="h-12 w-max rounded-pill border-0 bg-[#F15F00] px-7 text-sm font-extrabold sm:h-14 sm:px-9 md:-translate-x-24 md:translate-y-8 lg:-translate-x-32"
           >
             Learn more
           </MagneticFillButton>
@@ -87,7 +86,7 @@ export default function HowItWorks() {
           className="absolute right-0 top-0 z-30 hidden h-full w-1 bg-[#3b251e] lg:block"
         >
           <motion.span
-            className="absolute left-0 top-0 block w-full rounded-b-full bg-[#ff4f1f]"
+            className="absolute left-0 top-0 block w-full rounded-b-full bg-[#F15F00]"
             animate={{ height: `${progress}%` }}
             transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
           />
@@ -118,7 +117,7 @@ export default function HowItWorks() {
                     exit={{ opacity: 0, y: -18, filter: "blur(8px)" }}
                     transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <span className="mt-8 grid h-12 w-12 place-items-center rounded-full bg-[#ff4f1f] text-white sm:mt-10">
+                    <span className="mt-8 grid h-12 w-12 place-items-center rounded-full bg-[#F15F00] text-white sm:mt-10">
                       <ActiveIcon className="h-5 w-5" strokeWidth={2.35} aria-hidden="true" />
                     </span>
 
@@ -136,7 +135,7 @@ export default function HowItWorks() {
                     type="button"
                     aria-label="Previous process step"
                     onClick={goToPrevious}
-                    className="grid h-12 w-12 cursor-pointer place-items-center rounded-full bg-white text-[#ff4f1f] transition-colors duration-300 hover:bg-[#ffefe7]"
+                    className="grid h-12 w-12 cursor-pointer place-items-center rounded-full bg-white text-[#F15F00] transition-colors duration-300 hover:bg-[#ffefe7]"
                   >
                     <ArrowLeft className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
                   </button>
@@ -144,7 +143,7 @@ export default function HowItWorks() {
                     type="button"
                     aria-label="Next process step"
                     onClick={goToNext}
-                    className="grid h-12 w-12 cursor-pointer place-items-center rounded-full bg-white text-[#ff4f1f] transition-colors duration-300 hover:bg-[#ffefe7]"
+                    className="grid h-12 w-12 cursor-pointer place-items-center rounded-full bg-white text-[#F15F00] transition-colors duration-300 hover:bg-[#ffefe7]"
                   >
                     <ArrowRight className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
                   </button>
@@ -160,7 +159,7 @@ export default function HowItWorks() {
             />
             <div
               aria-hidden="true"
-              className="absolute -left-16 top-20 z-30 h-56 w-56 rounded-[48%_52%_52%_48%/58%_45%_55%_42%] bg-[#ff4f1f]"
+              className="absolute -left-16 top-20 z-30 h-56 w-56 rounded-[48%_52%_52%_48%/58%_45%_55%_42%] bg-[#F15F00]"
             />
             <div
               aria-hidden="true"
