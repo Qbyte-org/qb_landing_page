@@ -3,6 +3,8 @@
 import { useRef, useState, type CSSProperties } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { MapPin, Sun } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { useNavbarTheme } from "@/hooks/use-navbar-theme";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import LinkArrow from "../ui/LinkArrow";
@@ -202,10 +204,30 @@ export default function Header() {
           data-header-logo
           data-intro-nav-shell
           data-nav-surface
-          className={`${navPill} pointer-events-auto flex h-12 w-[10.25rem] cursor-pointer items-center rounded-pill px-3 sm:h-16 sm:w-[13.25rem] sm:px-5 xl:h-[4.9rem] xl:w-[14.5rem] xl:px-6`}
+          className={`${navPill} pointer-events-auto flex h-12 w-[11.5rem] cursor-pointer items-center justify-center rounded-pill px-3 sm:h-16 sm:w-[14rem] sm:px-5 xl:h-[4.9rem] xl:w-[13.25rem]`}
         >
-          <div data-intro-nav-content>
-            <Logo variant="light" priority width={128} height={28} themeAware />
+          <div
+            data-intro-nav-content
+            className="grid h-full w-full place-items-center"
+          >
+            <Link
+              href="/"
+              aria-label="QuickBite home"
+              className="flex h-full w-full items-center justify-center gap-2.5 sm:gap-3"
+            >
+              <Image
+                src="/quickbite-mark.svg"
+                alt="QuickBite"
+                width={64}
+                height={64}
+                priority
+                className="h-10 w-10 shrink-0 object-contain sm:h-12 sm:w-12 xl:h-[2.8rem] xl:w-[2.8rem]"
+              />
+              <span className="font-display text-lg font-black leading-none tracking-[-0.05em] sm:text-xl xl:text-[1.3rem]">
+                <span data-nav-text>Quick</span>
+                <span data-nav-icon>Bite</span>
+              </span>
+            </Link>
           </div>
         </div>
 
