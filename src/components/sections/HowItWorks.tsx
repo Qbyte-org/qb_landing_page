@@ -59,16 +59,15 @@ export default function HowItWorks() {
       className="relative -mt-px overflow-hidden bg-[#2a211d] text-white"
     >
       <div className="relative z-10 px-4 pb-12 pt-18 sm:px-6 sm:pb-14 sm:pt-22 lg:px-8 lg:pb-14 lg:pt-24">
-        <div className="mx-auto grid max-w-[60rem] items-center gap-6 md:grid-cols-[1fr_auto]">
+        <div className="mx-auto flex max-w-[60rem] flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
           <h2 className="font-display text-[2.85rem] font-black leading-[0.9] tracking-[-0.07em] sm:text-[4rem]">
             How It Works
-            {/* <br /> */}
           </h2>
 
           <MagneticFillButton
             href="/restaurants"
             variant="brand"
-            className="h-12 w-max rounded-pill border-0 bg-[#F15F00] px-7 text-sm font-extrabold sm:h-14 sm:px-9 md:-translate-x-24 md:translate-y-8 lg:-translate-x-32"
+            className="h-12 w-max rounded-pill border-0 bg-[#F15F00] px-7 text-sm font-extrabold sm:h-14 sm:px-9"
           >
             Learn more
           </MagneticFillButton>
@@ -92,7 +91,7 @@ export default function HowItWorks() {
           />
         </div>
 
-        <div className="relative z-10 grid lg:grid-cols-[38%_62%]">
+        <div className="relative z-10 grid lg:grid-cols-[45%_55%]">
           <div className="relative min-h-[27rem] px-4 py-10 sm:px-6 lg:min-h-[34rem] lg:px-8 lg:py-12 xl:px-[5vw]">
             <div className="grid gap-6 md:grid-cols-[8.5rem_1fr] lg:gap-8">
               <div className="font-display font-black leading-none tracking-[-0.08em]">
@@ -104,7 +103,7 @@ export default function HowItWorks() {
                 </span>
               </div>
 
-              <div className="max-w-sm pt-1">
+              <div className="max-w-md pt-1">
                 <p className="font-display text-xs font-black uppercase tracking-[0.16em] text-[#22c55e]">
                   Our process
                 </p>
@@ -131,22 +130,28 @@ export default function HowItWorks() {
                 </AnimatePresence>
 
                 <div className="mt-8 flex items-center gap-4">
-                  <button
+                  <MagneticFillButton
                     type="button"
-                    aria-label="Previous process step"
+                    ariaLabel="Previous process step"
                     onClick={goToPrevious}
-                    className="grid h-12 w-12 cursor-pointer place-items-center rounded-full bg-white text-[#F15F00] transition-colors duration-300 hover:bg-[#ffefe7]"
+                    variant="ghost"
+                    customFillClass="bg-[#F15F00]"
+                    customHoverTextColor="#ffffff"
+                    className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white text-[#F15F00]"
                   >
                     <ArrowLeft className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
-                  </button>
-                  <button
+                  </MagneticFillButton>
+                  <MagneticFillButton
                     type="button"
-                    aria-label="Next process step"
+                    ariaLabel="Next process step"
                     onClick={goToNext}
-                    className="grid h-12 w-12 cursor-pointer place-items-center rounded-full bg-white text-[#F15F00] transition-colors duration-300 hover:bg-[#ffefe7]"
+                    variant="ghost"
+                    customFillClass="bg-[#F15F00]"
+                    customHoverTextColor="#ffffff"
+                    className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white text-[#F15F00]"
                   >
                     <ArrowRight className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
-                  </button>
+                  </MagneticFillButton>
                 </div>
               </div>
             </div>
@@ -194,7 +199,7 @@ export default function HowItWorks() {
                   alt=""
                   width={760}
                   height={590}
-                  className="absolute -bottom-4 right-[-2%] w-[24rem] object-contain drop-shadow-none sm:w-[31rem] lg:bottom-[-1.5rem] lg:w-[37rem] xl:w-[42rem]"
+                  className="absolute -bottom-4 right-[-2%] w-[24rem] object-contain drop-shadow-none sm:w-[31rem] lg:bottom-[-1.5rem] lg:w-[32rem] xl:w-[38rem]"
                 />
                 <Image
                   src={activeStep.accent}

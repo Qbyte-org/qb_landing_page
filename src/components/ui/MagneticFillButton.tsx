@@ -172,6 +172,10 @@ export default function MagneticFillButton({
     styles.root,
     className,
   ].join(" ");
+  const childColorClassName =
+    "[&_*]:![color:inherit] [&_svg]:!text-current [&_svg]:!stroke-current";
+  const hoverAccentClassName =
+    "[&_[data-magnetic-accent]]:!bg-current [&_[data-magnetic-accent]]:![fill:currentColor] [&_[data-magnetic-accent]]:![stroke:currentColor]";
 
   const content = (
     <>
@@ -192,8 +196,8 @@ export default function MagneticFillButton({
       <span
         className={`relative z-10 flex h-full w-full items-center justify-center gap-2 transition-colors duration-300 ${
           isHovered
-            ? `${styles.hoverText} [&_*]:!color-[inherit] [&_*]:!text-current [&_svg]:!stroke-current [&_svg]:![color:inherit]`
-            : "[&_*]:!text-current [&_svg]:!stroke-current"
+            ? `${styles.hoverText} ${childColorClassName} ${hoverAccentClassName}`
+            : childColorClassName
         }`}
         style={{
           color: isHovered ? activeHoverTextColor : idleTextColor,

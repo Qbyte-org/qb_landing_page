@@ -38,7 +38,7 @@ function CategoryCard({ category }: { category: Category }) {
           fill="currentColor"
         />
         <path
-          d="M22 101C108 130 132 86 188 70C265 48 279 99 357 108C424 116 459 69 510 89"
+          d="M0 101C82 130 111 89 181 70C260 48 278 99 357 108C424 116 459 69 532 89"
           fill="none"
           stroke="#8f6a57"
           strokeDasharray="8 12"

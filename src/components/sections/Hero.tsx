@@ -126,12 +126,12 @@ export default function Hero() {
           </div>
         </Container>
 
-        <Container className="pointer-events-none absolute inset-x-0 bottom-6 z-[70] max-w-[103rem]">
+        <Container className="pointer-events-none absolute inset-x-0 bottom-8 z-[70] max-w-[103rem]">
           <div data-hero-actions className="translate-y-1/2 sm:pl-10 xl:pl-32">
             <MagneticFillButton
               href="/restaurants"
               variant="brand"
-              className="pointer-events-auto h-16 cursor-pointer rounded-4xl border-[#F15F00] bg-[#F15F00] px-9 text-base font-extrabold"
+              className="pointer-events-auto h-16 cursor-pointer rounded-4xl border-[#F15F00] bg-[#F15F00] px-9 text-lg font-extrabold"
             >
               Order now
               <ArrowRight className="h-5 w-5" strokeWidth={2.35} aria-hidden="true" />
