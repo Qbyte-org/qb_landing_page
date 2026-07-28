@@ -11,14 +11,14 @@ const processVisuals = [
   {
     image: heroSlides[0].src,
     imageAlt: heroSlides[0].alt,
-    plate: "/food/jollof.svg",
+    plate: "/quickbite-delivery-bike.svg",
     accent: "/food/drinks.svg",
     background: "#fff7f0",
   },
   {
     image: heroSlides[1].src,
     imageAlt: heroSlides[1].alt,
-    plate: "/food/snacks.svg",
+    plate: "/quickbite-delivery-bike.svg",
     accent: "/food/pastries.svg",
     background: "#fff2df",
   },
@@ -67,7 +67,7 @@ export default function HowItWorks() {
           <MagneticFillButton
             href="/restaurants"
             variant="brand"
-            className="h-12 w-max rounded-pill border-0 bg-[#F15F00] px-7 text-sm font-extrabold sm:h-14 sm:px-9"
+            className="h-12 w-max rounded-pill border-0 bg-[#F15F00] px-7 text-base font-extrabold sm:h-14 sm:px-9"
           >
             Learn more
           </MagneticFillButton>
@@ -91,10 +91,10 @@ export default function HowItWorks() {
           />
         </div>
 
-        <div className="relative z-10 grid lg:grid-cols-[45%_55%]">
+        <div className="relative z-10 grid lg:grid-cols-[55%_45%]">
           <div className="relative min-h-[27rem] px-4 py-10 sm:px-6 lg:min-h-[34rem] lg:px-8 lg:py-12 xl:px-[5vw]">
-            <div className="grid gap-6 md:grid-cols-[8.5rem_1fr] lg:gap-8">
-              <div className="font-display font-black leading-none tracking-[-0.08em]">
+            <div className="grid gap-6 md:grid-cols-[16.5rem_1fr] lg:gap-8">
+              <div className="font-display font-black leading-none tracking-[-0.08em] pt-12">
                 <span className="text-[4rem] text-white sm:text-[4.8rem]">
                   {activeIndex + 1}
                 </span>
@@ -103,7 +103,7 @@ export default function HowItWorks() {
                 </span>
               </div>
 
-              <div className="max-w-md pt-1">
+              <div className="max-w-md pt-12">
                 <p className="font-display text-xs font-black uppercase tracking-[0.16em] text-[#22c55e]">
                   Our process
                 </p>
@@ -155,27 +155,20 @@ export default function HowItWorks() {
                 </div>
               </div>
             </div>
+            <Image
+              src={activeStep.plate}
+              alt=""
+              width={360}
+              height={190}
+              className="absolute -bottom-4 left-[-2%] w-[28rem] object-contain drop-shadow-none lg:bottom-[-1.5rem]"
+            />
           </div>
 
           <div className="relative min-h-[27rem] overflow-hidden lg:min-h-[34rem]">
-            <div
-              aria-hidden="true"
-              className="absolute -left-28 -top-28 z-30 h-60 w-60 rounded-[55%_45%_48%_52%/45%_48%_52%_55%] bg-[#40b84f]"
-            />
-            <div
-              aria-hidden="true"
-              className="absolute -left-16 top-20 z-30 h-56 w-56 rounded-[48%_52%_52%_48%/58%_45%_55%_42%] bg-[#F15F00]"
-            />
-            <div
-              aria-hidden="true"
-              className="absolute left-[-2.6rem] top-14 z-30 h-28 w-36 rotate-12 bg-[#ff8717] [clip-path:polygon(0_78%,58%_0,100%_100%)]"
-            />
-
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={activeStep.title}
                 className="absolute inset-0 z-10 overflow-hidden"
-                style={{ backgroundColor: activeStep.background }}
                 initial={{ opacity: 0, x: 44, scale: 1.025 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -34, scale: 0.985 }}
@@ -190,24 +183,17 @@ export default function HowItWorks() {
                   sizes="(min-width: 1024px) 56vw, 100vw"
                   className="object-cover object-center opacity-70"
                 />
-                <div
+                {/* <div
                   aria-hidden="true"
                   className="absolute inset-0 bg-[linear-gradient(90deg,rgba(28,18,15,0.08),rgba(255,247,240,0.16)_38%,rgba(255,247,240,0.52))]"
-                />
-                <Image
-                  src={activeStep.plate}
-                  alt=""
-                  width={760}
-                  height={590}
-                  className="absolute -bottom-4 right-[-2%] w-[28rem] object-contain drop-shadow-none sm:w-[35rem] lg:bottom-[-1.5rem] lg:w-[38rem] xl:w-[44rem]"
-                />
-                <Image
+                /> */}
+                {/* <Image
                   src={activeStep.accent}
                   alt=""
                   width={260}
                   height={210}
                   className="absolute bottom-[12%] left-[7%] hidden w-32 -rotate-12 object-contain opacity-90 sm:block lg:left-[10%] lg:w-44"
-                />
+                /> */}
               </motion.div>
             </AnimatePresence>
           </div>

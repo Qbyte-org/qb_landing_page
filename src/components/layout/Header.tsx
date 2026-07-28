@@ -284,7 +284,7 @@ export default function Header() {
                 href="/restaurants"
                 variant="brand"
                 dataNavAction
-                className="h-9 rounded-pill border-0 bg-[#F15F00] px-4 text-xs font-extrabold sm:h-10 sm:px-5 xl:h-12 xl:text-base"
+                className="h-9 rounded-pill bg-[#F15F00] px-4 text-xs font-extrabold sm:h-10 sm:px-5 xl:h-12 xl:text-base"
               >
                 Order now
                 <ListOrderedIcon data-nav-icon className="h-4 w-4" strokeWidth={2.35} aria-hidden="true" />

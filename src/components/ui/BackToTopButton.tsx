@@ -123,18 +123,32 @@ export default function BackToTopButton() {
       const initialTheme = initialSection?.dataset.navTheme;
       applyTheme(isNavTheme(initialTheme) ? initialTheme : "hero", true);
 
-      sections.forEach((section) => {
-        const themeName = section.dataset.navTheme;
-        if (!isNavTheme(themeName)) return;
+      const triggers: ScrollTrigger[] = [];
+      const frame = window.requestAnimationFrame(() => {
+        sections.forEach((section) => {
+          if (!section.isConnected) return;
 
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top 72%",
-          end: "bottom 72%",
-          onEnter: () => applyTheme(themeName),
-          onEnterBack: () => applyTheme(themeName),
+          const themeName = section.dataset.navTheme;
+          if (!isNavTheme(themeName)) return;
+
+          const trigger = ScrollTrigger.create({
+            trigger: section,
+            start: "top 72%",
+            end: "bottom 72%",
+            onEnter: () => applyTheme(themeName),
+            onEnterBack: () => applyTheme(themeName),
+          });
+
+          triggers.push(trigger);
         });
+
+        ScrollTrigger.refresh();
       });
+
+      return () => {
+        window.cancelAnimationFrame(frame);
+        triggers.forEach((trigger) => trigger.kill());
+      };
     },
     { scope: buttonRef },
   );
