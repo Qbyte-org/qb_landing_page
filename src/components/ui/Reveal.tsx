@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 import { useRef } from "react";
 import { animation } from "@/lib/animation";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
@@ -22,6 +22,7 @@ export default function Reveal({
   className = "",
   once = true,
   mode = "content",
+  ...props
 }: {
   children: ReactNode;
   delay?: number;
@@ -29,7 +30,7 @@ export default function Reveal({
   className?: string;
   once?: boolean;
   mode?: "content" | "image";
-}) {
+} & HTMLAttributes<HTMLDivElement>) {
   const elementRef = useRef<HTMLDivElement>(null);
   const from = offsets[direction];
 
@@ -100,6 +101,7 @@ export default function Reveal({
     <div
       ref={elementRef}
       className={className}
+      {...props}
     >
       {children}
     </div>

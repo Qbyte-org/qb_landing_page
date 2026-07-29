@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import SiteShell from "@/components/layout/SiteShell";
 import Categories from "@/components/sections/Categories";
-import CityCoverage from "@/components/sections/CityCoverage";
 import FinalCTA from "@/components/sections/FinalCTA";
 import PageHeader from "@/components/sections/PageHeader";
-import PopularRestaurants from "@/components/sections/PopularRestaurants";
+import QuickBitePassportHub from "@/components/sections/QuickBitePassportHub";
 import Button from "@/components/ui/Button";
 
 export const metadata: Metadata = {
@@ -29,8 +28,7 @@ export default function RestaurantsPage() {
         </Button>
       </PageHeader>
       <Categories />
-      <PopularRestaurants />
-      <CityCoverage />
+      <QuickBitePassportHub />
       <FinalCTA />
     </SiteShell>
   );

@@ -228,6 +228,27 @@ export default function Categories() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-[0.28] [background-image:radial-gradient(#3a2418_0.65px,transparent_0.65px)] [background-size:18px_18px]"
       />
+      <Image
+        src="/food/jollof.svg"
+        alt=""
+        width={150}
+        height={150}
+        className="pointer-events-none absolute left-[9%] top-44 hidden w-20 -rotate-12 opacity-[0.075] lg:block"
+      />
+      <Image
+        src="/food/drinks.svg"
+        alt=""
+        width={140}
+        height={140}
+        className="pointer-events-none absolute right-[13%] top-72 hidden w-18 rotate-12 opacity-[0.08] lg:block"
+      />
+      <Image
+        src="/food/pastries.svg"
+        alt=""
+        width={150}
+        height={150}
+        className="pointer-events-none absolute bottom-44 left-[17%] hidden w-20 rotate-6 opacity-[0.07] lg:block"
+      />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 -top-24 z-10 h-36 overflow-hidden sm:-top-32 sm:h-48"
@@ -331,7 +352,7 @@ export default function Categories() {
       <div
         ref={carouselRef}
         data-categories-carousel
-        className="relative z-10 mt-16 overflow-hidden"
+        className="relative z-10 mt-5 overflow-hidden"
       >
         <div
           aria-hidden="true"

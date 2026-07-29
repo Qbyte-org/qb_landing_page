@@ -22,7 +22,10 @@ export default function SectionHeading({
   const eyebrowColor = tone === "light" ? "text-brand-light" : "text-brand-dark";
 
   return (
-    <Reveal className={`max-w-2xl ${alignment} ${className}`}>
+    <Reveal
+      className={`max-w-2xl ${alignment} ${className}`}
+      data-section-motion-header
+    >
       {eyebrow ? (
         <p className={`mb-3 text-xs font-extrabold uppercase tracking-[0.22em] ${eyebrowColor}`}>
           {eyebrow}

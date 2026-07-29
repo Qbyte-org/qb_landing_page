@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { heroSlides, steps } from "@/content/site";
 import MagneticFillButton from "../ui/MagneticFillButton";
 
@@ -38,6 +37,54 @@ const processSlides = steps.map((step, index) => ({
 
 const totalSteps = processSlides.length;
 
+function BiteRouteIcon({
+  direction = "right",
+  className = "",
+}: {
+  direction?: "left" | "right";
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 32 32"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+    >
+      <g transform={direction === "left" ? "translate(32 0) scale(-1 1)" : undefined}>
+        <path
+          d="M5.5 20.5C9.8 15.1 14.1 22.6 18.3 17.8C20.4 15.4 22.1 12.8 25.8 12.8"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeWidth="2.35"
+        />
+        <path
+          d="M22.5 8.9L26.8 12.8L22.5 16.7"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2.35"
+        />
+        <circle cx="6" cy="20.5" r="2.1" fill="currentColor" opacity="0.72" />
+        <path
+          d="M11.2 10.7H18.7"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeWidth="1.9"
+          opacity="0.72"
+        />
+        <path
+          d="M13.2 10.4C13.8 7.8 16.2 6.2 18.6 6.9C20.4 7.5 21.7 8.9 22.1 10.7H13.2Z"
+          stroke="currentColor"
+          strokeLinejoin="round"
+          strokeWidth="1.7"
+          opacity="0.72"
+        />
+      </g>
+    </svg>
+  );
+}
+
 export default function HowItWorks() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeStep = processSlides[activeIndex] ?? processSlides[0];
@@ -59,7 +106,10 @@ export default function HowItWorks() {
       className="relative -mt-px overflow-hidden bg-[#2a211d] text-white"
     >
       <div className="relative z-10 px-4 pb-12 pt-18 sm:px-6 sm:pb-14 sm:pt-22 lg:px-8 lg:pb-14 lg:pt-24">
-        <div className="mx-auto flex max-w-[60rem] flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
+        <div
+          data-section-motion-header
+          className="mx-auto flex max-w-[60rem] flex-col items-start gap-6 md:flex-row md:items-center md:justify-between"
+        >
           <h2 className="font-display text-[2.85rem] font-black leading-[0.9] tracking-[-0.07em] sm:text-[4rem]">
             How It Works
           </h2>
@@ -77,12 +127,12 @@ export default function HowItWorks() {
       <div className="relative min-h-[30rem] overflow-hidden bg-[#1c120f] lg:min-h-[34rem]">
         <div
           aria-hidden="true"
-          className="absolute left-0 bottom-0 hidden h-[44%] w-[17rem] bg-[#2f241f] lg:block"
+          className="absolute left-0 bottom-0 hidden h-[44%] w-[17rem] bg-[#2a211d] lg:block"
         />
 
         <div
           aria-hidden="true"
-          className="absolute right-0 top-0 z-30 hidden h-full w-1 bg-[#3b251e] lg:block"
+          className="absolute right-0 top-0 z-30 hidden h-full w-1 bg-[#9d593d] lg:block"
         >
           <motion.span
             className="absolute left-0 top-0 block w-full rounded-b-full bg-[#F15F00]"
@@ -129,7 +179,7 @@ export default function HowItWorks() {
                   </motion.div>
                 </AnimatePresence>
 
-                <div className="mt-8 flex items-center gap-4">
+                <div className="relative z-20 mt-8 inline-flex items-center gap-2 rounded-[1.55rem] bg-[#2a211d] p-2 ring-1 ring-white/8">
                   <MagneticFillButton
                     type="button"
                     ariaLabel="Previous process step"
@@ -137,20 +187,20 @@ export default function HowItWorks() {
                     variant="ghost"
                     customFillClass="bg-[#F15F00]"
                     customHoverTextColor="#ffffff"
-                    className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white text-[#F15F00]"
+                    className="flex h-[3.75rem] w-[3.75rem] cursor-pointer items-center justify-center rounded-[1.1rem] border-0 bg-[#ffffff] text-[#2a211d] sm:h-16 sm:w-16"
                   >
-                    <ArrowLeft className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
+                    <BiteRouteIcon direction="left" className="h-8 w-8" />
                   </MagneticFillButton>
                   <MagneticFillButton
                     type="button"
                     ariaLabel="Next process step"
                     onClick={goToNext}
                     variant="ghost"
-                    customFillClass="bg-[#F15F00]"
-                    customHoverTextColor="#ffffff"
-                    className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white text-[#F15F00]"
+                    customFillClass="bg-[#fffaf3]"
+                    customHoverTextColor="#2a211d"
+                    className="flex h-[3.75rem] w-[3.75rem] cursor-pointer items-center justify-center rounded-[1.1rem] border-0 bg-[#F15F00] text-white sm:h-16 sm:w-16"
                   >
-                    <ArrowRight className="h-5 w-5" strokeWidth={2.25} aria-hidden="true" />
+                    <BiteRouteIcon className="h-8 w-8" />
                   </MagneticFillButton>
                 </div>
               </div>
@@ -160,7 +210,7 @@ export default function HowItWorks() {
               alt=""
               width={360}
               height={190}
-              className="absolute -bottom-4 left-[-2%] w-[28rem] object-contain drop-shadow-none lg:bottom-[-1.5rem]"
+              className="pointer-events-none absolute -bottom-4 left-[-2%] z-0 w-[28rem] object-contain drop-shadow-none lg:bottom-[-1.5rem]"
             />
           </div>
 
