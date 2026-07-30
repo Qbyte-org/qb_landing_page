@@ -223,7 +223,7 @@ function FloatingRestaurant({
         href="/restaurants"
         className="group relative block rounded-[1.45rem] bg-white/90 p-3 text-[#24180f] ring-1 ring-black/5 backdrop-blur-xl transition-transform duration-300"
       >
-        <div className="absolute -inset-1 rounded-[1.65rem] bg-black/20 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-60" />
+        <div className="absolute -inset-1 rounded-[1.65rem] bg-[#2a211d]/20 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-60" />
         <div className="relative">
           <motion.div
             animate={{

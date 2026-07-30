@@ -1,94 +1,19 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import { heroSlides, steps } from "@/content/site";
+import { motion } from "motion/react";
+import {
+  processSlides,
+  totalSteps,
+} from "./how-it-works/howItWorks.data";
+import ProcessControls from "./how-it-works/ProcessControls";
+import ProcessStepCopy from "./how-it-works/ProcessStepCopy";
+import ProcessVisualPanel from "./how-it-works/ProcessVisualPanel";
 import MagneticFillButton from "../ui/MagneticFillButton";
-
-const processVisuals = [
-  {
-    image: heroSlides[0].src,
-    imageAlt: heroSlides[0].alt,
-    plate: "/quickbite-delivery-bike.svg",
-    accent: "/food/drinks.svg",
-    background: "#fff7f0",
-  },
-  {
-    image: heroSlides[1].src,
-    imageAlt: heroSlides[1].alt,
-    plate: "/quickbite-delivery-bike.svg",
-    accent: "/food/pastries.svg",
-    background: "#fff2df",
-  },
-  {
-    image: heroSlides[2].src,
-    imageAlt: heroSlides[2].alt,
-    plate: "/quickbite-delivery-bike.svg",
-    accent: "/food/grills.svg",
-    background: "#fff9ed",
-  },
-];
-
-const processSlides = steps.map((step, index) => ({
-  ...step,
-  ...(processVisuals[index] ?? processVisuals[0]),
-}));
-
-const totalSteps = processSlides.length;
-
-function BiteRouteIcon({
-  direction = "right",
-  className = "",
-}: {
-  direction?: "left" | "right";
-  className?: string;
-}) {
-  return (
-    <svg
-      viewBox="0 0 32 32"
-      fill="none"
-      aria-hidden="true"
-      className={className}
-    >
-      <g transform={direction === "left" ? "translate(32 0) scale(-1 1)" : undefined}>
-        <path
-          d="M5.5 20.5C9.8 15.1 14.1 22.6 18.3 17.8C20.4 15.4 22.1 12.8 25.8 12.8"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeWidth="2.35"
-        />
-        <path
-          d="M22.5 8.9L26.8 12.8L22.5 16.7"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2.35"
-        />
-        <circle cx="6" cy="20.5" r="2.1" fill="currentColor" opacity="0.72" />
-        <path
-          d="M11.2 10.7H18.7"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeWidth="1.9"
-          opacity="0.72"
-        />
-        <path
-          d="M13.2 10.4C13.8 7.8 16.2 6.2 18.6 6.9C20.4 7.5 21.7 8.9 22.1 10.7H13.2Z"
-          stroke="currentColor"
-          strokeLinejoin="round"
-          strokeWidth="1.7"
-          opacity="0.72"
-        />
-      </g>
-    </svg>
-  );
-}
 
 export default function HowItWorks() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeStep = processSlides[activeIndex] ?? processSlides[0];
-  const ActiveIcon = activeStep.icon;
   const progress = ((activeIndex + 1) / totalSteps) * 100;
 
   const goToPrevious = () => {
@@ -105,7 +30,7 @@ export default function HowItWorks() {
       data-nav-theme="dark"
       className="relative -mt-px overflow-hidden bg-[#2a211d] text-white"
     >
-      <div className="relative z-10 px-4 pb-12 pt-18 sm:px-6 sm:pb-14 sm:pt-22 lg:px-8 lg:pb-14 lg:pt-24">
+      <div className="relative z-10 px-4 pb-8 pt-14 sm:px-6 sm:pb-10 sm:pt-18 lg:px-8 lg:pb-12 lg:pt-20">
         <div
           data-section-motion-header
           className="mx-auto flex max-w-[60rem] flex-col items-start gap-6 md:flex-row md:items-center md:justify-between"
@@ -124,7 +49,7 @@ export default function HowItWorks() {
         </div>
       </div>
 
-      <div className="relative min-h-[30rem] overflow-hidden bg-[#1c120f] lg:min-h-[34rem]">
+      <div className="relative min-h-[25rem] overflow-hidden bg-[#1c120f] lg:min-h-[28rem]">
         <div
           aria-hidden="true"
           className="absolute left-0 bottom-0 hidden h-[44%] w-[17rem] bg-[#2a211d] lg:block"
@@ -141,112 +66,33 @@ export default function HowItWorks() {
           />
         </div>
 
-        <div className="relative z-10 grid lg:grid-cols-[55%_45%]">
-          <div className="relative min-h-[27rem] px-4 py-10 sm:px-6 lg:min-h-[34rem] lg:px-8 lg:py-12 xl:px-[5vw]">
-            <div className="grid gap-6 md:grid-cols-[16.5rem_1fr] lg:gap-8">
-              <div className="font-display font-black leading-none tracking-[-0.08em] pt-12">
-                <span className="text-[4rem] text-white sm:text-[4.8rem]">
+        <div className="relative z-10 grid lg:grid-cols-[54%_46%]">
+          <div className="relative min-h-[23rem] px-4 py-8 sm:px-6 lg:min-h-[28rem] lg:px-8 lg:py-10 xl:px-[5vw]">
+            <div className="grid gap-6 md:grid-cols-[8rem_1fr] lg:grid-cols-[10rem_1fr]">
+              <div className="pt-2 font-display font-black leading-none tracking-[-0.08em] md:pt-6 lg:pt-8">
+                <span className="text-[3.25rem] text-white sm:text-[4rem]">
                   {activeIndex + 1}
                 </span>
-                <span className="ml-2 align-[1.45rem] text-2xl text-white/75">
+                <span className="ml-2 align-[1.1rem] text-xl text-white/75 sm:text-2xl">
                   /{totalSteps}
                 </span>
               </div>
 
-              <div className="max-w-md pt-12">
-                <p className="font-display text-xs font-black uppercase tracking-[0.16em] text-[#22c55e]">
-                  Our process
-                </p>
-
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.div
-                    key={activeStep.title}
-                    initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: -18, filter: "blur(8px)" }}
-                    transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    <span className="mt-8 grid h-12 w-12 place-items-center rounded-full bg-[#F15F00] text-white sm:mt-10">
-                      <ActiveIcon className="h-5 w-5" strokeWidth={2.35} aria-hidden="true" />
-                    </span>
-
-                    <h3 className="mt-5 font-display text-3xl font-black leading-tight tracking-[-0.05em] sm:text-[2.35rem]">
-                      {activeStep.title}
-                    </h3>
-                    <p className="mt-5 text-base font-extrabold leading-relaxed text-white/90">
-                      {activeStep.description}
-                    </p>
-                  </motion.div>
-                </AnimatePresence>
-
-                <div className="relative z-20 mt-8 inline-flex items-center gap-2 rounded-[1.55rem] bg-[#2a211d] p-2 ring-1 ring-white/8">
-                  <MagneticFillButton
-                    type="button"
-                    ariaLabel="Previous process step"
-                    onClick={goToPrevious}
-                    variant="ghost"
-                    customFillClass="bg-[#F15F00]"
-                    customHoverTextColor="#ffffff"
-                    className="flex h-[3.75rem] w-[3.75rem] cursor-pointer items-center justify-center rounded-[1.1rem] border-0 bg-[#ffffff] text-[#2a211d] sm:h-16 sm:w-16"
-                  >
-                    <BiteRouteIcon direction="left" className="h-8 w-8" />
-                  </MagneticFillButton>
-                  <MagneticFillButton
-                    type="button"
-                    ariaLabel="Next process step"
-                    onClick={goToNext}
-                    variant="ghost"
-                    customFillClass="bg-[#fffaf3]"
-                    customHoverTextColor="#2a211d"
-                    className="flex h-[3.75rem] w-[3.75rem] cursor-pointer items-center justify-center rounded-[1.1rem] border-0 bg-[#F15F00] text-white sm:h-16 sm:w-16"
-                  >
-                    <BiteRouteIcon className="h-8 w-8" />
-                  </MagneticFillButton>
-                </div>
+              <div>
+                <ProcessStepCopy activeStep={activeStep} />
+                <ProcessControls onPrevious={goToPrevious} onNext={goToNext} />
               </div>
             </div>
-            <Image
+            {/* <Image
               src={activeStep.plate}
               alt=""
               width={360}
               height={190}
               className="pointer-events-none absolute -bottom-4 left-[-2%] z-0 w-[28rem] object-contain drop-shadow-none lg:bottom-[-1.5rem]"
-            />
+            /> */}
           </div>
 
-          <div className="relative min-h-[27rem] overflow-hidden lg:min-h-[34rem]">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={activeStep.title}
-                className="absolute inset-0 z-10 overflow-hidden"
-                initial={{ opacity: 0, x: 44, scale: 1.025 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: -34, scale: 0.985 }}
-                transition={{ duration: 0.56, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <Image
-                  src={activeStep.image}
-                  alt={activeStep.imageAlt}
-                  fill
-                  priority={activeIndex === 0}
-                  unoptimized
-                  sizes="(min-width: 1024px) 56vw, 100vw"
-                  className="object-cover object-center opacity-70"
-                />
-                {/* <div
-                  aria-hidden="true"
-                  className="absolute inset-0 bg-[linear-gradient(90deg,rgba(28,18,15,0.08),rgba(255,247,240,0.16)_38%,rgba(255,247,240,0.52))]"
-                /> */}
-                {/* <Image
-                  src={activeStep.accent}
-                  alt=""
-                  width={260}
-                  height={210}
-                  className="absolute bottom-[12%] left-[7%] hidden w-32 -rotate-12 object-contain opacity-90 sm:block lg:left-[10%] lg:w-44"
-                /> */}
-              </motion.div>
-            </AnimatePresence>
-          </div>
+          <ProcessVisualPanel activeStep={activeStep} activeIndex={activeIndex} />
         </div>
       </div>
     </section>

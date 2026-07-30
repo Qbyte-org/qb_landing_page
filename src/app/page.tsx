@@ -14,7 +14,6 @@ export default function Home() {
   return (
     <SiteShell heroIntro>
       <Hero />
-      {/* <TrustBar /> */}
       <Categories />
       <HowItWorks />
       <QuickBitePassportHub />
@@ -24,6 +23,7 @@ export default function Home() {
       <Testimonials />
       <FAQ />
       <FinalCTA />
+      {/* <TrustBar /> */}
     </SiteShell>
   );
 }

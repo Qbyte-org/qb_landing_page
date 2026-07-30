@@ -61,7 +61,7 @@ function PhoneMockup() {
 
 export default function AppShowcase() {
   return (
-    <section id="app" data-nav-theme="dark" className="overflow-x-clip bg-navy py-16 sm:py-24">
+    <section id="app" data-nav-theme="dark" className="overflow-x-clip bg-[#fffaf5] py-16 sm:py-24">
       <Container>
         <div className="grid items-center gap-12 text-white lg:grid-cols-2 lg:gap-8">
           <Reveal direction="left" className="order-2 lg:order-1">

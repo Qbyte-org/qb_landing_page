@@ -10,7 +10,7 @@ import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import LinkArrow from "../ui/LinkArrow";
 import MagneticFillButton from "../ui/MagneticFillButton";
 
-const navPill = "bg-black text-white";
+const navPill = "bg-[#2a211d] text-white";
 
 const menuLinks = [
   { label: "Home", href: "/", asset: "/menu/delivery-bag.svg" },

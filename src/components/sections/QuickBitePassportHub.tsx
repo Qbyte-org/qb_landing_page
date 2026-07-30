@@ -1,42 +1,32 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
-import Link from "next/link";
 import {
   useMemo,
   useRef,
   useState,
   type CSSProperties,
   type KeyboardEvent,
-  type RefObject,
 } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
-  ChevronDown,
   Clock3,
-  Compass,
   MapPin,
   Star,
   Store,
-  UtensilsCrossed,
 } from "lucide-react";
+import AnimatedStamp from "./quickbite-passport-hub/AnimatedStamp";
+import CityStampSelector from "./quickbite-passport-hub/CityStampSelector";
+import { keepPassportCardScroll } from "./quickbite-passport-hub/passportScroll";
 import {
-  coverageAreas,
-  expansionCities,
-  liveCity,
-  liveCityState,
-  restaurants,
-  type Restaurant,
-} from "@/content/site";
+  getCityRestaurants,
+  passportCities,
+  type PassportRestaurant,
+} from "./quickbite-passport-hub/passportHub.data";
 import { gsap, useGSAP } from "@/lib/gsap";
 import Container from "../ui/Container";
+import LinkArrow from "../ui/LinkArrow";
 import MagneticFillButton from "../ui/MagneticFillButton";
-import type {
-  PassportMapCity,
-  PassportMapNode,
-  PassportMapRestaurant,
-} from "./PassportLeafletMap";
 
 const PassportLeafletMap = dynamic(() => import("./PassportLeafletMap"), {
   ssr: false,
@@ -47,373 +37,6 @@ const PassportLeafletMap = dynamic(() => import("./PassportLeafletMap"), {
   ),
 });
 
-type PassportNode = PassportMapNode;
-
-type PassportRestaurant = Restaurant &
-  PassportMapRestaurant & {
-    avgOrder: string;
-    badge: string;
-    description: string;
-    hours: string;
-    logo: string;
-  };
-
-type PassportCity = PassportMapCity & {
-  id: string;
-  state: string;
-  paper: string;
-  avgEta: string;
-  restaurantCount: number;
-  avgRating: number;
-  stamp: "DELIVERED" | "BOARDING" | "ROUTED";
-  nodes: PassportNode[];
-};
-
-const cityMeta = [
-  {
-    name: liveCity,
-    state: liveCityState,
-    center: [7.4905, 4.5521] as [number, number],
-    radius: 4300,
-  },
-  {
-    name: "Ibadan",
-    state: "Oyo State",
-    center: [7.3775, 3.947] as [number, number],
-    radius: 5600,
-  },
-  {
-    name: "Lagos",
-    state: "Lagos State",
-    center: [6.5244, 3.3792] as [number, number],
-    radius: 6200,
-  },
-  {
-    name: "Abuja",
-    state: "FCT",
-    center: [9.0765, 7.3986] as [number, number],
-    radius: 5800,
-  },
-  {
-    name: "Akure",
-    state: "Ondo State",
-    center: [7.2571, 5.2058] as [number, number],
-    radius: 4700,
-  },
-  {
-    name: "Osogbo",
-    state: "Osun State",
-    center: [7.7827, 4.5418] as [number, number],
-    radius: 4300,
-  },
-  {
-    name: "Abeokuta",
-    state: "Ogun State",
-    center: [7.1475, 3.3619] as [number, number],
-    radius: 4900,
-  },
-];
-
-const palettes = [
-  { accent: "#ef5f00", paper: "#fff4e7" },
-  { accent: "#0f7a5a", paper: "#eefbf4" },
-  { accent: "#c17817", paper: "#fff6d8" },
-  { accent: "#d85a2a", paper: "#fff0e8" },
-  { accent: "#5f58c9", paper: "#f1efff" },
-  { accent: "#178c83", paper: "#ecfffb" },
-  { accent: "#b86024", paper: "#fff0e3" },
-];
-
-const coordinateOffsets: [number, number][] = [
-  [0.015, -0.017],
-  [0.019, 0.011],
-  [-0.003, 0.023],
-  [-0.02, 0.014],
-  [-0.018, -0.016],
-  [0.004, -0.028],
-  [0.027, -0.004],
-];
-
-const restaurantOffsets: [number, number][] = [
-  [0.006, 0.006],
-  [-0.008, 0.007],
-  [0.009, -0.006],
-  [-0.007, -0.008],
-  [0.014, 0.001],
-  [0.001, -0.014],
-];
-
-const avgOrders = ["₦3,200", "₦4,100", "₦2,750", "₦3,850", "₦5,200", "₦2,950"];
-
-const restaurantBadges = [
-  "Member table",
-  "Chef favourite",
-  "Stamped pick",
-  "Fast seating",
-  "Local pass",
-  "Route special",
-];
-
-const restaurantDescriptions = [
-  "A familiar stop for hot plates, dependable portions, and quick rider pickup.",
-  "Known for smoky flavours, generous sides, and delivery-friendly packaging.",
-  "A comfort-food favourite with steady ratings and warm dinner traffic.",
-  "A quick-bite counter built for campus rushes and late afternoon cravings.",
-  "A casual kitchen with easy group orders and weekend crowd energy.",
-  "Fresh drinks and light meals for soft landings between heavier plates.",
-];
-
-function slugify(value: string) {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-}
-
-function getInitials(name: string) {
-  return name
-    .split(" ")
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((word) => word[0])
-    .join("")
-    .toUpperCase();
-}
-
-function KitchenCompassIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 36 36"
-      fill="none"
-      aria-hidden="true"
-      className={className}
-    >
-      <path
-        d="M9 24.7C13.5 18.7 18.2 21.4 21.4 16.2C23.2 13.3 25.6 10.3 30 8.6"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="2.45"
-      />
-      <path
-        d="M23.2 7.6L30.8 6.1L28.2 13.4"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2.45"
-      />
-      <path
-        d="M9.8 13.3H18"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="2"
-      />
-      <path
-        d="M11.4 12.9C12.2 9.8 14.9 8.1 17.7 8.9C19.5 9.4 20.9 10.9 21.4 12.9H11.4Z"
-        stroke="currentColor"
-        strokeLinejoin="round"
-        strokeWidth="1.85"
-      />
-      <circle
-        cx="9"
-        cy="24.7"
-        r="2.55"
-        fill="currentColor"
-        opacity="0.82"
-      />
-      <circle
-        data-magnetic-accent
-        cx="18"
-        cy="18"
-        r="14.5"
-        stroke="currentColor"
-        strokeDasharray="1.5 5"
-        strokeLinecap="round"
-        strokeWidth="1.25"
-        opacity="0.38"
-      />
-    </svg>
-  );
-}
-
-function makeNodes(center: [number, number], offset: number): PassportNode[] {
-  const names = coverageAreas.slice(0, coordinateOffsets.length);
-
-  return coordinateOffsets.map(([latOffset, lngOffset], index) => ({
-    name: names[(index + offset) % names.length],
-    deliveries: 12 + ((index + 3) * 9 + offset * 6) % 48,
-    coordinates: [
-      center[0] + latOffset,
-      center[1] + lngOffset,
-    ] as [number, number],
-  }));
-}
-
-const passportCities: PassportCity[] = [liveCity, ...expansionCities].map(
-  (cityName, index) => {
-    const fallback = cityMeta[index] ?? cityMeta[0];
-    const city = cityMeta.find((item) => item.name === cityName) ?? fallback;
-    const palette = palettes[index % palettes.length];
-    const live = cityName === liveCity;
-
-    return {
-      id: slugify(city.name),
-      name: city.name,
-      state: live ? liveCityState : city.state,
-      center: city.center,
-      radius: city.radius,
-      accent: palette.accent,
-      paper: palette.paper,
-      avgEta: live ? "24m" : `${18 + ((index + 2) * 4) % 17}m`,
-      restaurantCount: live ? 48 : 28 + index * 6,
-      avgRating: Number((4.6 + (index % 4) * 0.08).toFixed(1)),
-      stamp: live ? "DELIVERED" : index % 2 === 0 ? "ROUTED" : "BOARDING",
-      nodes: makeNodes(city.center, index),
-    };
-  },
-);
-
-function getCityRestaurants(
-  city: PassportCity,
-  selectedNode?: PassportNode | null,
-): PassportRestaurant[] {
-  const cityIndex = passportCities.findIndex((item) => item.id === city.id);
-  const nodeIndex = selectedNode
-    ? city.nodes.findIndex((node) => node.name === selectedNode.name)
-    : 0;
-  const offset = Math.max(0, cityIndex + nodeIndex);
-  const base = selectedNode?.coordinates ?? city.center;
-
-  return Array.from({ length: restaurants.length }, (_, index) => {
-    const restaurant = restaurants[(offset + index) % restaurants.length];
-    const [latOffset, lngOffset] = restaurantOffsets[index % restaurantOffsets.length];
-
-    return {
-      ...restaurant,
-      coordinates: [
-        base[0] + latOffset,
-        base[1] + lngOffset,
-      ] as [number, number],
-      avgOrder: avgOrders[(offset + index) % avgOrders.length],
-      badge: restaurantBadges[index % restaurantBadges.length],
-      description: restaurantDescriptions[(offset + index) % restaurantDescriptions.length],
-      hours: index % 2 === 0 ? "10:00 AM – 10:30 PM" : "11:00 AM – 11:00 PM",
-      logo: getInitials(restaurant.name),
-    };
-  });
-}
-
-function CityStampSelector({
-  cities,
-  selectedCity,
-  onSelect,
-}: {
-  cities: PassportCity[];
-  selectedCity: PassportCity;
-  onSelect: (cityId: string) => void;
-}) {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div className="relative">
-      <motion.button
-        type="button"
-        onClick={() => setOpen((value) => !value)}
-        whileHover={{ y: -2 }}
-        whileTap={{ scale: 0.98 }}
-        className="flex h-12 items-center gap-3 rounded-[1.05rem] bg-[#fffaf3]/86 px-4 text-left text-[#2a211d] ring-1 ring-[#3a2418]/10 backdrop-blur transition-colors hover:bg-white"
-      >
-        <MapPin className="h-4 w-4 text-[var(--passport-accent)]" strokeWidth={2.35} />
-        <span>
-          <span className="block text-[0.6rem] font-black uppercase tracking-[0.18em] text-[#9a7a66]">
-            Destination
-          </span>
-          <span className="block text-sm font-black leading-none">
-            {selectedCity.name}
-          </span>
-        </span>
-        <motion.span animate={{ rotate: open ? 180 : 0 }}>
-          <ChevronDown className="h-4 w-4" strokeWidth={2.4} />
-        </motion.span>
-      </motion.button>
-
-      <AnimatePresence>
-        {open ? (
-          <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.96 }}
-            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute right-0 top-[calc(100%+0.6rem)] z-50 w-56 overflow-hidden rounded-[1.2rem] bg-[#fffaf3] p-2 text-[#2a211d] ring-1 ring-[#3a2418]/10"
-          >
-            {cities.map((city) => {
-              const active = city.id === selectedCity.id;
-
-              return (
-                <button
-                  key={city.id}
-                  type="button"
-                  onClick={() => {
-                    setOpen(false);
-                    onSelect(city.id);
-                  }}
-                  className={`flex w-full items-center justify-between rounded-[0.9rem] px-3 py-2.5 text-sm font-black transition-colors ${active
-                      ? "bg-[var(--passport-accent)] text-white"
-                      : "text-[#5d4639] hover:bg-[#f5eadc]"
-                    }`}
-                >
-                  {city.name}
-                  <span className={active ? "text-white/65" : "text-[#b08f78]"}>
-                    {city.state}
-                  </span>
-                </button>
-              );
-            })}
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-    </div>
-  );
-}
-
-function AnimatedStamp({
-  city,
-  stampRef,
-  inkRef,
-}: {
-  city: PassportCity;
-  stampRef: RefObject<HTMLDivElement | null>;
-  inkRef: RefObject<HTMLDivElement | null>;
-}) {
-  return (
-    <motion.div
-      ref={stampRef}
-      whileHover={{ scale: 1.035, rotate: -5 }}
-      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-      className="relative w-max rotate-[-7deg]"
-    >
-      <div
-        ref={inkRef}
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-[-20%] rounded-full bg-[var(--passport-accent)] opacity-0 blur-2xl"
-      />
-      <div
-        className="relative overflow-hidden rounded-[1.05rem] border-[0.18rem] border-dashed border-[var(--passport-accent)] px-5 py-3.5 text-center text-[var(--passport-accent)]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 20% 20%, rgba(58,36,24,.08) 0 1px, transparent 1.5px), radial-gradient(circle at 78% 42%, rgba(58,36,24,.08) 0 1px, transparent 1.5px)",
-          backgroundSize: "12px 12px, 17px 17px",
-        }}
-      >
-        <div className="absolute inset-0 bg-[var(--passport-accent)] opacity-[0.025]" />
-        <p className="relative text-[0.7rem] font-black uppercase leading-none tracking-[0.28em]">
-          Entry stamp
-        </p>
-        <p className="relative mt-1 font-serif text-2xl font-black uppercase leading-none tracking-[-0.06em]">
-          {city.name}
-        </p>
-        <p className="relative mt-2 text-xs font-black tracking-[0.3em]">07 / 2026</p>
-      </div>
-    </motion.div>
-  );
-}
-
 const qrCells = new Set([
   0, 1, 2, 3, 5, 6, 7, 8, 10, 13, 15, 18, 20, 22, 24, 26, 27, 28, 29, 31,
   33, 35, 36, 38, 41, 42, 44, 46, 48, 49, 51, 53, 55, 57, 59, 60, 62, 64,
@@ -422,54 +45,1249 @@ const qrCells = new Set([
 
 function BurgerLineArt({ className = "" }: { className?: string }) {
   return (
+    <svg viewBox="0 0 260 200" fill="none" aria-hidden="true" className={className}>
+      <path d="M34 91C42 34 92 14 146 24C194 33 222 59 230 96" stroke="currentColor" strokeLinecap="round" strokeWidth="15" />
+      <path d="M42 109H232" stroke="currentColor" strokeLinecap="round" strokeWidth="16" />
+      <path d="M48 132C68 150 89 111 111 130C133 149 151 113 175 131C193 146 211 126 232 135" stroke="currentColor" strokeLinecap="round" strokeWidth="15" />
+      <path d="M44 158H231" stroke="currentColor" strokeLinecap="round" strokeWidth="16" />
+      <path d="M70 174C98 190 171 190 207 172" stroke="currentColor" strokeLinecap="round" strokeWidth="15" />
+      <path d="M101 124L141 154L175 124" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="12" />
+      <circle cx="99" cy="62" r="5.5" stroke="currentColor" strokeWidth="10" />
+      <circle cx="139" cy="51" r="5.5" stroke="currentColor" strokeWidth="10" />
+      <circle cx="174" cy="73" r="5.5" stroke="currentColor" strokeWidth="10" />
+    </svg>
+  );
+}
+
+function LocalMealBowlLineArt({ className = "" }: { className?: string }) {
+  return (
     <svg
-      viewBox="0 0 230 180"
+      viewBox="0 0 260 200"
       fill="none"
       aria-hidden="true"
       className={className}
     >
+      {/* Bowl */}
       <path
-        d="M27 86C33 35 79 11 132 21C177 29 204 56 209 91"
+        d="M36 92C70 70 190 70 224 92"
         stroke="currentColor"
+        strokeWidth="16"
         strokeLinecap="round"
-        strokeWidth="12"
       />
+
       <path
-        d="M33 101H207"
+        d="M42 102C54 152 88 182 130 182C172 182 206 152 218 102"
         stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="12"
-      />
-      <path
-        d="M47 121C66 140 85 101 106 121C126 139 142 103 164 121C181 137 196 116 211 126"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="12"
-      />
-      <path
-        d="M42 145H206"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="13"
-      />
-      <path
-        d="M65 159C87 173 159 174 187 158"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="12"
-      />
-      <path
-        d="M88 116L128 145L160 116"
-        stroke="currentColor"
+        strokeWidth="16"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="9"
       />
-      <circle cx="88" cy="55" r="6" fill="currentColor" />
-      <circle cx="126" cy="44" r="6" fill="currentColor" />
-      <circle cx="158" cy="66" r="6" fill="currentColor" />
+
+      {/* Food */}
+      <circle
+        cx="94"
+        cy="94"
+        r="14"
+        stroke="currentColor"
+        strokeWidth="12"
+      />
+
+      <circle
+        cx="132"
+        cy="82"
+        r="16"
+        stroke="currentColor"
+        strokeWidth="12"
+      />
+
+      <circle
+        cx="172"
+        cy="96"
+        r="12"
+        stroke="currentColor"
+        strokeWidth="12"
+      />
+
+      <path
+        d="M92 52C82 68 98 76 90 90"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M134 36C122 54 140 66 130 82"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M174 50C164 66 180 76 172 92"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
     </svg>
   );
+}
+
+function SwallowSoupLineArt({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+    >
+      {/* Bowl */}
+      <path
+        d="M36 92C70 70 190 70 224 92"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M42 102C54 152 88 182 130 182C172 182 206 152 218 102"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* Soup */}
+      <path
+        d="M68 118C88 104 108 129 132 116C152 104 176 112 194 126"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      {/* Swallow */}
+      <path
+        d="M120 70C134 56 154 56 168 70C180 84 174 102 156 108C142 112 126 104 120 90"
+        stroke="currentColor"
+        strokeWidth="14"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* Spoon */}
+      <path
+        d="M194 36L168 78"
+        stroke="currentColor"
+        strokeWidth="13"
+        strokeLinecap="round"
+      />
+
+      <circle
+        cx="204"
+        cy="28"
+        r="10"
+        stroke="currentColor"
+        strokeWidth="12"
+      />
+
+      {/* Steam */}
+      <path
+        d="M84 42C72 58 90 68 80 84"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M122 28C110 46 128 58 118 74"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M160 40C148 58 166 70 156 86"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function SuyaSkewerLineArt({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* skewer */}
+      <path
+        d="M28 158L236 54"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
+
+      {/* meat */}
+      <path
+        d="M74 114L106 95L126 122L92 140Z"
+        stroke="currentColor"
+        strokeWidth="15"
+        strokeLinejoin="round"
+      />
+
+      <path
+        d="M126 88L162 71L183 100L146 118Z"
+        stroke="currentColor"
+        strokeWidth="15"
+        strokeLinejoin="round"
+      />
+
+      <path
+        d="M184 60L222 44L244 74L204 90Z"
+        stroke="currentColor"
+        strokeWidth="15"
+        strokeLinejoin="round"
+      />
+
+      {/* grill */}
+      <path
+        d="M78 46L58 66"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M146 24L126 46"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M212 14L192 38"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function RamenBowlLineArt({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Bowl */}
+      <path
+        d="M58 84H202C198 148 176 178 130 178C84 178 62 148 58 84Z"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinejoin="round"
+      />
+
+      {/* Rim */}
+      <path
+        d="M48 84H212"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
+
+      {/* Noodles */}
+      <path
+        d="M82 104C98 94 114 116 130 104C146 92 162 116 180 104"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M84 126C102 114 116 136 134 126C152 116 168 136 182 124"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      {/* Chopsticks */}
+      <path
+        d="M168 22L214 70"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M188 14L232 62"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function MeatPieLineArt({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+    >
+      {/* Pie */}
+      <path
+        d="M48 120C58 66 98 38 150 38C202 38 240 66 250 120"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      <path
+        d="M54 126C90 160 208 160 244 126"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
+
+      {/* Crimp */}
+      <path
+        d="M70 136L82 148"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M94 136L106 148"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M118 136L130 148"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M142 136L154 148"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M166 136L178 148"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M190 136L202 148"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+
+      {/* Top scoring */}
+      <path
+        d="M118 66L104 94"
+        stroke="currentColor"
+        strokeWidth="11"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M152 58L138 90"
+        stroke="currentColor"
+        strokeWidth="11"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M186 68L172 98"
+        stroke="currentColor"
+        strokeWidth="11"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function PizzaSliceLineArt({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M40 42C90 18 171 20 224 62"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M50 50L132 184L224 68"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
+
+      {/* cheese */}
+      <path
+        d="M78 86C112 68 162 72 205 101"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      {/* toppings */}
+      <circle
+        cx="103"
+        cy="88"
+        r="8"
+        stroke="currentColor"
+        strokeWidth="12"
+      />
+
+      <circle
+        cx="150"
+        cy="98"
+        r="8"
+        stroke="currentColor"
+        strokeWidth="12"
+      />
+
+      <circle
+        cx="136"
+        cy="138"
+        r="8"
+        stroke="currentColor"
+        strokeWidth="12"
+      />
+    </svg>
+  );
+}
+
+function DrinksCupLineArt({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* lid */}
+      <path
+        d="M72 58H198"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
+
+      {/* cup */}
+      <path
+        d="M84 58H186L172 178H98L84 58Z"
+        stroke="currentColor"
+        strokeWidth="15"
+        strokeLinejoin="round"
+      />
+
+      {/* drink */}
+      <path
+        d="M102 114C122 98 140 128 160 112C172 102 184 104 194 114"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      {/* straw */}
+      <path
+        d="M128 58L112 18"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M112 18H60"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      {/* bubbles */}
+      <circle
+        cx="206"
+        cy="126"
+        r="7"
+        stroke="currentColor"
+        strokeWidth="10"
+      />
+
+      <circle
+        cx="50"
+        cy="136"
+        r="9"
+        stroke="currentColor"
+        strokeWidth="10"
+      />
+    </svg>
+  );
+}
+
+function ShawarmaWrapLineArt({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* wrap */}
+      <path
+        d="M86 28C118 16 166 30 198 62C231 96 234 146 206 170C176 192 126 178 92 142C58 106 56 44 86 28Z"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinejoin="round"
+      />
+
+      {/* fold */}
+      <path
+        d="M72 58C112 96 146 122 196 160"
+        stroke="currentColor"
+        strokeWidth="13"
+        strokeLinecap="round"
+      />
+
+      {/* filling */}
+      <path
+        d="M94 108C116 94 144 94 170 112"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M112 46C122 60 138 64 158 62"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      <circle
+        cx="176"
+        cy="78"
+        r="7"
+        stroke="currentColor"
+        strokeWidth="10"
+      />
+    </svg>
+  );
+}
+
+function CoffeeCupLineArt({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Cup */}
+      <path
+        d="M72 82H172V148C172 167 158 180 132 180H112C86 180 72 167 72 148V82Z"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinejoin="round"
+      />
+
+      {/* Handle */}
+      <path
+        d="M172 100H194C212 100 220 114 217 130C214 146 199 154 176 150"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
+
+      {/* Rim */}
+      <path
+        d="M66 82H178"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
+
+      {/* Steam */}
+      <path
+        d="M96 46C82 30 104 22 92 10"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M132 48C118 32 142 24 130 10"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M166 46C154 30 176 22 166 8"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      {/* Saucer */}
+      <path
+        d="M88 180H168"
+        stroke="currentColor"
+        strokeWidth="15"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function CroissantLineArt({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Body */}
+      <path
+        d="M52 126C68 68 116 44 162 60C205 74 228 120 214 160"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* Left horn */}
+      <path
+        d="M52 126C36 150 52 178 82 166"
+        stroke="currentColor"
+        strokeWidth="15"
+        strokeLinecap="round"
+      />
+
+      {/* Right horn */}
+      <path
+        d="M214 160C234 174 248 154 236 128"
+        stroke="currentColor"
+        strokeWidth="15"
+        strokeLinecap="round"
+      />
+
+      {/* Layers */}
+      <path
+        d="M82 116C100 84 126 72 154 78"
+        stroke="currentColor"
+        strokeWidth="13"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M128 136C142 104 164 90 190 94"
+        stroke="currentColor"
+        strokeWidth="13"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function PancakesLineArt({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Pancake 1 */}
+      <path
+        d="M60 84C84 70 182 70 208 84"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
+
+      {/* Pancake 2 */}
+      <path
+        d="M56 108C88 122 182 122 214 108"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
+
+      {/* Pancake 3 */}
+      <path
+        d="M58 132C90 148 182 148 214 132"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
+
+      {/* Syrup */}
+      <path
+        d="M128 90C142 106 138 120 122 132"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      {/* Steam */}
+      <path
+        d="M110 42C98 58 122 64 108 80"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M150 46C138 60 160 66 148 82"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function IceCreamLineArt({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Scoop */}
+      <path
+        d="M116 86C98 74 98 48 116 34C132 20 156 24 170 42C190 40 206 54 206 74C206 92 190 104 168 102"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* Cone */}
+      <path
+        d="M104 108L148 186L194 108"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
+
+      {/* Cone lines */}
+      <path
+        d="M130 142H176"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M142 164H166"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      {/* Rim */}
+      <path
+        d="M88 102H206"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function SushiRollLineArt({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Left roll */}
+      <circle
+        cx="92"
+        cy="104"
+        r="42"
+        stroke="currentColor"
+        strokeWidth="16"
+      />
+
+      <circle
+        cx="92"
+        cy="104"
+        r="18"
+        stroke="currentColor"
+        strokeWidth="12"
+      />
+
+      {/* Right roll */}
+      <circle
+        cx="170"
+        cy="104"
+        r="42"
+        stroke="currentColor"
+        strokeWidth="16"
+      />
+
+      <circle
+        cx="170"
+        cy="104"
+        r="18"
+        stroke="currentColor"
+        strokeWidth="12"
+      />
+
+      {/* Plate */}
+      <path
+        d="M48 166H214"
+        stroke="currentColor"
+        strokeWidth="14"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function JollofRiceLineArt({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Bowl */}
+      <path
+        d="M56 96H204C198 150 174 180 130 180C86 180 62 150 56 96Z"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinejoin="round"
+      />
+
+      {/* Rice mound */}
+      <path
+        d="M70 96C86 60 174 60 190 96"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
+
+      {/* Rice texture */}
+      <path
+        d="M92 84L102 92"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M126 74L136 84"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M160 82L170 92"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function GrilledChickenLineArt({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Chicken */}
+      <path
+        d="M72 114C72 62 118 34 162 46C204 58 222 104 198 144C178 178 130 182 94 160C80 152 72 136 72 114Z"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinejoin="round"
+      />
+
+      {/* Bone */}
+      <path
+        d="M192 92L232 66"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
+
+      <circle
+        cx="238"
+        cy="60"
+        r="8"
+        stroke="currentColor"
+        strokeWidth="10"
+      />
+
+      <circle
+        cx="226"
+        cy="74"
+        r="8"
+        stroke="currentColor"
+        strokeWidth="10"
+      />
+
+      {/* Grill marks */}
+      <path
+        d="M110 82L146 118"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M134 70L170 106"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function TacoLineArt({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Shell */}
+      <path
+        d="M56 144C56 88 92 52 130 52C170 52 204 88 204 144"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+      />
+
+      {/* Filling */}
+      <path
+        d="M76 116C92 94 108 120 126 102C142 84 160 120 182 102"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M86 134C102 122 120 144 138 130C156 116 172 140 188 128"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      {/* Base */}
+      <path
+        d="M54 144H206"
+        stroke="currentColor"
+        strokeWidth="14"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function SaladBowlLineArt({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Bowl */}
+      <path
+        d="M56 92H204C198 150 174 178 130 178C86 178 62 150 56 92Z"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinejoin="round"
+      />
+
+      {/* Leaves */}
+      <path
+        d="M94 88C84 62 110 52 122 76"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M132 82C130 56 154 56 156 82"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M168 88C180 62 200 70 190 92"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      {/* Tomato */}
+      <circle
+        cx="128"
+        cy="104"
+        r="8"
+        stroke="currentColor"
+        strokeWidth="10"
+      />
+    </svg>
+  );
+}
+
+function SeafoodLineArt({
+  className = "",
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 260 200"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Shrimp */}
+      <path
+        d="M82 120C82 74 126 52 166 68C196 80 204 114 184 140C164 164 124 164 98 146"
+        stroke="currentColor"
+        strokeWidth="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* Tail */}
+      <path
+        d="M176 68L204 46"
+        stroke="currentColor"
+        strokeWidth="14"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M190 82L220 62"
+        stroke="currentColor"
+        strokeWidth="14"
+        strokeLinecap="round"
+      />
+
+      {/* Segments */}
+      <path
+        d="M108 86L120 98"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M132 96L144 110"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M154 108L166 122"
+        stroke="currentColor"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+
+      {/* Eye */}
+      <circle
+        cx="100"
+        cy="94"
+        r="4"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+type RestaurantLineArtKind =
+  | "bakery"
+  | "breakfast"
+  | "cafe"
+  | "dessert"
+  | "grilled-chicken"
+  | "jollof"
+  | "local-meal"
+  | "meat-pie"
+  | "noodles"
+  | "pizza"
+  | "salad"
+  | "seafood"
+  | "shawarma"
+  | "swallow"
+  | "suya"
+  | "sushi"
+  | "taco"
+  | "drinks"
+  | "burger";
+
+function getRestaurantLineArtKind(restaurant: PassportRestaurant): RestaurantLineArtKind {
+  const text = `${restaurant.name} ${restaurant.cuisine}`.toLowerCase();
+
+  if (text.includes("swallow") || text.includes("soup")) return "swallow";
+  if (text.includes("mama put")) return "local-meal";
+  if (text.includes("jollof") || text.includes("nigerian")) return "jollof";
+  if (text.includes("suya") || text.includes("asun")) return "suya";
+  if (text.includes("chicken") || text.includes("wings")) return "grilled-chicken";
+  if (text.includes("shawarma") || text.includes("wrap")) return "shawarma";
+  if (text.includes("taco")) return "taco";
+  if (text.includes("pizza")) return "pizza";
+  if (text.includes("sushi")) return "sushi";
+  if (text.includes("seafood") || text.includes("fish") || text.includes("shrimp")) return "seafood";
+  if (text.includes("salad")) return "salad";
+  if (text.includes("burger")) return "burger";
+  if (text.includes("noodle") || text.includes("ramen")) return "noodles";
+  if (text.includes("coffee") || text.includes("cafe")) return "cafe";
+  if (text.includes("dessert") || text.includes("sweet") || text.includes("ice cream")) return "dessert";
+  if (text.includes("breakfast") || text.includes("pancake")) return "breakfast";
+  if (text.includes("bakery") || text.includes("croissant")) return "bakery";
+  if (text.includes("drink") || text.includes("smoothie") || text.includes("juice")) {
+    return "drinks";
+  }
+  if (text.includes("small chop") || text.includes("pastr") || text.includes("snack") || text.includes("bites")) {
+    return "meat-pie";
+  }
+  if (text.includes("grill")) {
+    return "suya";
+  }
+
+  return "burger";
+}
+
+function RestaurantFoodLineArt({
+  restaurant,
+  className = "",
+}: {
+  restaurant: PassportRestaurant;
+  className?: string;
+}) {
+  const kind = getRestaurantLineArtKind(restaurant);
+
+  if (kind === "bakery") return <CroissantLineArt className={className} />;
+  if (kind === "breakfast") return <PancakesLineArt className={className} />;
+  if (kind === "cafe") return <CoffeeCupLineArt className={className} />;
+  if (kind === "dessert") return <IceCreamLineArt className={className} />;
+  if (kind === "grilled-chicken") return <GrilledChickenLineArt className={className} />;
+  if (kind === "jollof") return <JollofRiceLineArt className={className} />;
+  if (kind === "local-meal") return <LocalMealBowlLineArt className={className} />;
+  if (kind === "meat-pie") return <MeatPieLineArt className={className} />;
+  if (kind === "noodles") return <RamenBowlLineArt className={className} />;
+  if (kind === "pizza") return <PizzaSliceLineArt className={className} />;
+  if (kind === "salad") return <SaladBowlLineArt className={className} />;
+  if (kind === "seafood") return <SeafoodLineArt className={className} />;
+  if (kind === "shawarma") return <ShawarmaWrapLineArt className={className} />;
+  if (kind === "swallow") return <SwallowSoupLineArt className={className} />;
+  if (kind === "suya") return <SuyaSkewerLineArt className={className} />;
+  if (kind === "sushi") return <SushiRollLineArt className={className} />;
+  if (kind === "taco") return <TacoLineArt className={className} />;
+  if (kind === "drinks") return <DrinksCupLineArt className={className} />;
+
+  return <BurgerLineArt className={className} />;
 }
 
 function QrCodeMark() {
@@ -516,43 +1334,58 @@ function RestaurantMembershipCard({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative h-[14.65rem] w-full shrink-0 text-[#17100d] outline-none"
+      className="group relative h-[11.75rem] w-full shrink-0 text-[#17100d] outline-none sm:h-[12.15rem]"
+      style={{ "--card-accent": accent } as CSSProperties}
     >
       <div
-        className="relative h-full w-full overflow-hidden rounded-[1.05rem] border border-[#17100d]/16 bg-[#cfa982]"
+        className={`relative h-full w-full overflow-hidden rounded-[1.35rem] bg-[#cfa982] ring-1 ring-[#17100d]/16 transition-colors duration-300 ${highlighted ? "ring-2 ring-[var(--card-accent)]" : ""
+          }`}
         style={{
           backgroundImage:
-            "radial-gradient(circle at 18% 22%, rgba(255,255,255,.18) 0 1px, transparent 1.4px), radial-gradient(circle at 80% 58%, rgba(23,16,13,.11) 0 1px, transparent 1.5px), linear-gradient(105deg, rgba(255,255,255,.18), transparent 42%)",
+            "radial-gradient(circle at 18% 22%, rgba(255,255,255,.2) 0 1px, transparent 1.4px), radial-gradient(circle at 80% 58%, rgba(23,16,13,.11) 0 1px, transparent 1.5px), linear-gradient(105deg, rgba(255,255,255,.14), transparent 42%)",
           backgroundSize: "13px 13px, 17px 17px, 100% 100%",
         }}
       >
         <motion.div
           initial={false}
+          animate={{ opacity: isOpen ? 0.12 : 0.94 }}
+          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-none absolute -right-[3.35rem] top-0 h-[14.4rem] w-[16.4rem] text-[#151515]"
+        >
+          <RestaurantFoodLineArt
+            restaurant={restaurant}
+            className="h-full w-full"
+          />
+        </motion.div>
+        <motion.div
+          initial={false}
           animate={
             isOpen
-              ? { x: "-38%", opacity: 0 }
+              ? { x: "-30%", opacity: 0 }
               : { x: "0%", opacity: 1 }
           }
           transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 px-7 py-7 will-change-transform"
+          className="absolute inset-0 px-6 py-6 will-change-transform sm:px-7"
         >
-          <BurgerLineArt className="absolute -right-12 -top-7 h-[16rem] w-[18rem] text-[#080605]" />
-          <div className="relative z-10 flex h-full max-w-[55%] flex-col justify-center">
-            <span className="grid h-13 w-13 place-items-center rounded-full bg-[#080605] text-[#f5d4ad]">
-              <UtensilsCrossed className="h-6 w-6" strokeWidth={2.35} />
-            </span>
-            <h3 className="mt-5 line-clamp-2 font-display text-[1.62rem] font-black uppercase leading-[0.9] tracking-[-0.06em] text-[#080605]">
+          <div className="relative z-10 flex h-full max-w-[56%] flex-col justify-center">
+            <p className="text-[0.68rem] font-black tracking-[0.08em] text-[var(--card-accent)]">
+              {restaurant.eta} • {restaurant.rating}★
+            </p>
+            <h3 className="mt-3 line-clamp-2 font-display text-[1.58rem] font-black leading-[0.92] tracking-[-0.055em] text-[#151515] sm:text-[1.72rem]">
               {restaurant.name}
             </h3>
-            <p className="mt-2 line-clamp-1 text-[0.82rem] font-semibold uppercase tracking-[0.08em] text-[#2e211b]">
+            <p className="mt-2 line-clamp-1 text-[0.82rem] font-semibold text-[#5f5148]">
               {restaurant.cuisine}
             </p>
-            <span
-              className="mt-4 w-max rounded-full px-3 py-1 text-[0.62rem] font-black uppercase tracking-[0.13em] text-white"
-              style={{ backgroundColor: accent }}
+            <LinkArrow
+              href="/restaurants"
+              variant="light"
+              ariaLabel={`View ${restaurant.name}`}
+              onClick={(event) => event.stopPropagation()}
+              className="mt-5 [--link-arrow-min-width:7.2rem] border-[#2a211d]/18 pb-1 text-[0.62rem] font-black text-[#2a211d]"
             >
-              {restaurant.badge}
-            </span>
+              View
+            </LinkArrow>
           </div>
         </motion.div>
 
@@ -564,44 +1397,51 @@ function RestaurantMembershipCard({
               : { x: "42%", opacity: 0 }
           }
           transition={{ duration: 0.56, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 px-6 py-5 will-change-transform"
+          className="absolute inset-0 z-20 bg-[#cfa982] px-6 py-5 will-change-transform"
           style={{ pointerEvents: isOpen ? "auto" : "none" }}
         >
-          <div className="grid h-full grid-cols-[1fr_auto] gap-5">
+          <div className="h-full pr-16">
             <div className="min-w-0">
-              <h3 className="line-clamp-2 font-display text-[1.75rem] font-black leading-[0.92] tracking-[-0.07em] text-[#080605]">
+              <h3 className="line-clamp-2 font-display text-[1.55rem] font-black leading-[0.92] tracking-[-0.06em] text-[#151515]">
                 {restaurant.name}
               </h3>
-              <div className="mt-4 grid gap-2 text-[0.75rem] font-black text-[#221713]">
-                <span className="flex items-center gap-2">
-                  <Clock3 className="h-4 w-4 text-[#080605]" strokeWidth={2.3} />
-                  {restaurant.eta} delivery window
+              <p className="mt-2 line-clamp-2 max-w-[16rem] text-[0.75rem] font-semibold leading-relaxed text-[#5f5148]">
+                {restaurant.description}
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2 text-[0.68rem] font-black text-[#2a211d]">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2a211d]/7 px-2.5 py-1">
+                  <Clock3 className="h-3.5 w-3.5" strokeWidth={2.3} />
+                  {restaurant.eta}
                 </span>
-                <span className="flex items-center gap-2">
-                  <Star className="h-4 w-4 fill-[#080605] text-[#080605]" strokeWidth={2.3} />
-                  {restaurant.rating} rated kitchen
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2a211d]/7 px-2.5 py-1">
+                  <Star className="h-3.5 w-3.5 text-[var(--card-accent)]" strokeWidth={2.3} />
+                  {restaurant.rating}
                 </span>
-                <span className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-[#080605]" strokeWidth={2.3} />
-                  {restaurant.deliveryFrom} delivery fee
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2a211d]/7 px-2.5 py-1">
+                  <MapPin className="h-3.5 w-3.5" strokeWidth={2.3} />
+                  {restaurant.deliveryFrom}
                 </span>
               </div>
             </div>
-            <QrCodeMark />
+            <div className="hidden">
+              <QrCodeMark />
+            </div>
           </div>
 
-          <div className="absolute inset-x-6 bottom-[3.15rem] h-px bg-[#17100d]/28" />
+          <div className="absolute inset-x-6 bottom-[3.05rem] h-px bg-[#17100d]/12" />
           <div className="absolute inset-x-6 bottom-4 flex items-center justify-between gap-3">
-            <p className="line-clamp-1 text-[0.68rem] font-black text-[#080605]">
-              Visit QuickBite: {restaurant.avgOrder} avg order
+            <p className="line-clamp-1 text-[0.68rem] font-black text-[#2a211d]">
+              {restaurant.avgOrder} avg order
             </p>
-            <Link
+            <LinkArrow
               href="/restaurants"
               onClick={(event) => event.stopPropagation()}
-              className="rounded-full bg-[#080605] px-4 py-2 text-[0.66rem] font-black uppercase tracking-[0.08em] text-[#f5d4ad] transition-colors hover:bg-[var(--passport-accent)] hover:text-white"
+              variant="light"
+              ariaLabel={`Open ${restaurant.name}`}
+              className="[--link-arrow-min-width:6.8rem] border-[#2a211d]/18 pb-1 text-[0.62rem] font-black text-[#2a211d]"
             >
-              View
-            </Link>
+              Open
+            </LinkArrow>
           </div>
         </motion.div>
       </div>
@@ -610,6 +1450,7 @@ function RestaurantMembershipCard({
 }
 
 export default function QuickBitePassportHub() {
+  const sectionRef = useRef<HTMLElement>(null);
   const spreadRef = useRef<HTMLDivElement>(null);
   const leftPageRef = useRef<HTMLDivElement>(null);
   const rightPageRef = useRef<HTMLDivElement>(null);
@@ -634,7 +1475,13 @@ export default function QuickBitePassportHub() {
   );
 
   const handleCityChange = (nextCityId: string) => {
-    if (nextCityId === selectedCityId || isAnimatingRef.current) return;
+    if (
+      nextCityId === selectedCityId ||
+      isAnimatingRef.current ||
+      !passportCities.some((city) => city.id === nextCityId)
+    ) {
+      return;
+    }
 
     setSelectedCityId(nextCityId);
 
@@ -654,9 +1501,6 @@ export default function QuickBitePassportHub() {
     isAnimatingRef.current = true;
     const postcards = spread.querySelectorAll("[data-passport-postcard]");
     const spine = spread.querySelector("[data-passport-spine]");
-    const leftCurl = spread.querySelector("[data-page-curl-left]");
-    const rightCurl = spread.querySelector("[data-page-curl-right]");
-    const thickness = spread.querySelector("[data-page-thickness]");
     const underlay = spread.querySelector("[data-page-underlay]");
     const stamp = stampRef.current;
 
@@ -697,17 +1541,6 @@ export default function QuickBitePassportHub() {
         },
         0.05,
       )
-      .to(
-        [leftCurl, rightCurl],
-        {
-          autoAlpha: 1,
-          scale: 1.22,
-          rotate: (index) => (index === 0 ? -10 : 8),
-          duration: 0.5,
-        },
-        0.08,
-      )
-      .to(thickness, { autoAlpha: 1, scaleX: 1.8, duration: 0.52 }, 0.12)
       .fromTo(
         underlay,
         { x: 34, autoAlpha: 0 },
@@ -764,8 +1597,6 @@ export default function QuickBitePassportHub() {
       }
 
       const spine = spread.querySelector("[data-passport-spine]");
-      const curls = spread.querySelectorAll("[data-page-curl-left],[data-page-curl-right]");
-      const thickness = spread.querySelector("[data-page-thickness]");
       const underlay = spread.querySelector("[data-page-underlay]");
       const postcards = spread.querySelectorAll("[data-passport-postcard]");
 
@@ -773,8 +1604,6 @@ export default function QuickBitePassportHub() {
         transformPerspective: 1300,
         transformStyle: "preserve-3d",
       });
-      gsap.set(curls, { autoAlpha: 0 });
-      gsap.set(thickness, { autoAlpha: 0, scaleX: 0.75 });
       gsap.set(underlay, { autoAlpha: 0 });
 
       const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
@@ -865,11 +1694,67 @@ export default function QuickBitePassportHub() {
     { scope: spreadRef, dependencies: [activeCityId, selectedArea] },
   );
 
+  useGSAP(
+    () => {
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const path = section.querySelector<SVGPathElement>(
+        "[data-passport-app-bike-path]",
+      );
+      const bike = section.querySelector<SVGElement>(
+        "[data-passport-app-wave-bike]",
+      );
+      if (!path || !bike) return;
+
+      gsap.set(bike, {
+        xPercent: -50,
+        yPercent: -66,
+        transformOrigin: "50% 66%",
+        autoAlpha: 1,
+      });
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set(bike, {
+          motionPath: {
+            path,
+            align: path,
+            alignOrigin: [0.5, 0.66],
+            autoRotate: true,
+            start: 0.12,
+            end: 0.12,
+          },
+        });
+        return;
+      }
+
+      const tween = gsap.to(bike, {
+        motionPath: {
+          path,
+          align: path,
+          alignOrigin: [0.5, 0.66],
+          autoRotate: true,
+          start: 0,
+          end: 1,
+        },
+        duration: 24,
+        ease: "none",
+        repeat: -1,
+      });
+
+      return () => {
+        tween.kill();
+      };
+    },
+    { scope: sectionRef },
+  );
+
   return (
     <section
+      ref={sectionRef}
       id="restaurants"
       data-nav-theme="dark"
-      className="relative overflow-hidden bg-[#2a211d] py-12 text-[#fffaf3] sm:py-18 lg:py-20"
+      className="relative overflow-hidden bg-[#2a211d] pb-36 pt-12 text-[#fffaf3] sm:pb-48 sm:pt-18 lg:pb-52 lg:pt-44"
       style={
         {
           "--passport-accent": activeCity.accent,
@@ -879,62 +1764,28 @@ export default function QuickBitePassportHub() {
     >
       <span id="cities" className="absolute top-0" aria-hidden="true" />
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-10 right-0 h-96 w-96 rounded-full bg-[var(--passport-accent)]/16 blur-3xl"
-      />
-      <Image
-        src="/food/jollof.svg"
-        alt=""
-        width={150}
-        height={150}
-        className="pointer-events-none absolute right-[8%] top-14 hidden w-28 rotate-12 opacity-[0.07] lg:block"
-      />
-      <Image
-        src="/food/drinks.svg"
-        alt=""
-        width={130}
-        height={130}
-        className="pointer-events-none absolute bottom-12 left-[7%] hidden w-24 -rotate-12 opacity-[0.07] lg:block"
-      />
-
       <Container className="relative z-10">
         <div
           data-section-motion-header
-          className="mb-9 mt-32 grid gap-7 lg:grid-cols-[minmax(0,0.98fr)_minmax(22rem,0.62fr)] lg:items-end"
+          className="mb-10 flex max-w-[60rem] flex-col items-start gap-6 md:flex-row md:items-center md:justify-between"
         >
-          <div className="max-w-3xl">
-            <h2 className="font-display text-[2.85rem] font-black leading-[0.9] tracking-[-0.07em] sm:text-[4rem]">
-              Travel Nigeria
-              <span className="block">through food.</span>
-            </h2>
-            <p className="mt-5 max-w-2xl text-sm font-semibold leading-relaxed text-[#fffaf3]/68 sm:text-[1.05rem]">
-              Every destination unlocks local kitchens, hidden favourites and
-              neighbourhood discoveries. Choose where today&apos;s food journey
-              begins.
-            </p>
-          </div>
-
-          <div className="rounded-[2rem] bg-[#fffaf3]/8 p-3 ring-1 ring-[#fffaf3]/10 backdrop-blur-sm">
-            <p className="mb-3 px-2 text-[0.65rem] font-black uppercase tracking-[0.2em] text-[#fffaf3]/55">
-              Open your digital food passport
-            </p>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <CityStampSelector
-                cities={passportCities}
-                selectedCity={selectedCity}
-                onSelect={handleCityChange}
-              />
+          <div className="flex w-full flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="contents">
+              <h2 className="font-display text-[2.85rem] font-black leading-[0.9] tracking-[-0.07em] sm:text-[4rem]">
+                Discover food
+                <span className="block text-[var(--passport-accent)]">
+                  by destination.
+                </span>
+              </h2>
               <MagneticFillButton
                 href="/restaurants"
                 ariaLabel="Explore kitchens"
                 variant="brand"
                 customFillClass="bg-[#fffaf3]"
                 customHoverTextColor="#2a211d"
-                className="h-12 rounded-[1.05rem] bg-[var(--passport-accent)] px-5 text-sm font-black text-white"
+                className="h-12 w-max rounded-pill !bg-[var(--passport-accent)] px-7 text-sm font-black text-white sm:h-14 sm:px-9"
               >
-                <KitchenCompassIcon className="h-5 w-5" />
-                Explore -&gt;
+                Explore kitchens →
               </MagneticFillButton>
             </div>
           </div>
@@ -942,65 +1793,34 @@ export default function QuickBitePassportHub() {
 
         <div
           ref={spreadRef}
-          className="relative rounded-[2.35rem] bg-[#3a2418] p-1.5 [perspective:1400px]"
+          className="relative z-20 mt-8 rounded-[2.35rem] bg-[#3a2418] p-1.5 [perspective:1400px] h-full"
         >
-          <div className="absolute inset-x-8 -bottom-5 h-14 rounded-[100%] bg-[#3a2418]/22 blur-2xl" />
-          <div
-            aria-hidden="true"
-            className="absolute -left-2 bottom-8 top-8 hidden w-5 rounded-l-[1.6rem] bg-[linear-gradient(90deg,#fffaf3,#ead0b7_58%,#c39b7a)] lg:block"
-          />
-          <div
-            aria-hidden="true"
-            className="absolute -right-2 bottom-8 top-8 hidden w-5 rounded-r-[1.6rem] bg-[linear-gradient(90deg,#c39b7a,#ead0b7_42%,#fffaf3)] lg:block"
-          />
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-12 -top-2 hidden h-5 rounded-t-[2rem] bg-[repeating-linear-gradient(90deg,#fffaf3_0_1.7rem,#ead0b7_1.7rem_1.82rem)] lg:block"
-          />
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-12 -bottom-2 hidden h-5 rounded-b-[2rem] bg-[repeating-linear-gradient(90deg,#ead0b7_0_0.12rem,#fffaf3_0.12rem_1.8rem)] lg:block"
-          />
           <div
             data-page-underlay
             aria-hidden="true"
             className="absolute inset-3 rounded-[2rem] bg-[#2a211d]"
           />
-          <div className="relative grid overflow-hidden rounded-[2rem] bg-[#f8efe3] lg:h-[39rem] lg:grid-cols-2">
+          <div className="relative grid overflow-hidden rounded-[2rem] bg-[#f8efe3]  lg:grid-cols-2">
             <div
               data-passport-spine
               aria-hidden="true"
               className="absolute bottom-0 left-1/2 top-0 z-30 hidden w-10 -translate-x-1/2 origin-center rounded-full bg-[linear-gradient(90deg,transparent,rgba(58,36,24,.18),rgba(255,255,255,.28),rgba(58,36,24,.12),transparent)] lg:block"
             />
-            <div
-              data-page-thickness
-              aria-hidden="true"
-              className="absolute bottom-6 left-1/2 top-6 z-20 hidden w-2 -translate-x-1/2 rounded-full bg-[#c7a98e]/80 lg:block"
-            />
 
             <div
               ref={leftPageRef}
-              className="group relative overflow-hidden bg-[var(--passport-paper)] p-5 sm:p-7 lg:h-[39rem] lg:p-8"
+              className="group relative overflow-hidden bg-[var(--passport-paper)] p-4 sm:p-6 lg:h-[40rem] lg:p-7"
             >
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 opacity-[0.28] [background-image:radial-gradient(#3a2418_0.7px,transparent_0.7px)] [background-size:17px_17px]"
-              />
-              <div
-                data-page-curl-left
-                aria-hidden="true"
-                className="absolute right-0 top-0 h-24 w-24 rounded-bl-[4rem] bg-[linear-gradient(135deg,rgba(255,255,255,.88),rgba(231,204,180,.58),rgba(58,36,24,.04))] opacity-0"
-              />
               <div className="relative z-10 flex h-full min-h-0 flex-col">
                 <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
-                  <h3 className="font-serif text-[3.2rem] font-black leading-[0.82] tracking-[-0.09em] text-[#2a211d] sm:text-[4.25rem]">
+                  <h3 className="text-[2.7rem] font-black leading-[0.82] text-[#2a211d] sm:text-[3.55rem] lg:text-[3.85rem]">
                     {activeCity.name}
                   </h3>
 
                   <AnimatedStamp city={activeCity} stampRef={stampRef} inkRef={inkRef} />
                 </div>
 
-                <div className="mt-5 min-h-[23rem] flex-1 overflow-hidden rounded-[1.55rem] bg-[#f4e3d0] ring-1 ring-[#3a2418]/10">
+                <div className="relative mt-5 max-h-[30rem] flex-1 overflow-hidden rounded-[1.55rem] bg-[#f4e3d0] ring-1 ring-[#3a2418]/10">
                   <PassportLeafletMap
                     city={activeCity}
                     neighbourhoods={activeCity.nodes}
@@ -1011,20 +1831,20 @@ export default function QuickBitePassportHub() {
                     }
                     onHoverRestaurant={setHighlightedRestaurant}
                   />
+                </div>
 
-                  <div className="pointer-events-none absolute inset-x-4 z-30 flex justify-center">
-                    <div className="flex max-w-[92%] items-center gap-2 rounded-pill bg-[#fffaf3]/94 px-4 py-2 text-[0.72rem] font-bold text-[#2a211d] ring-1 ring-[#2a211d]/12 backdrop-blur">
-                      <span className="grid h-5 w-5 place-items-center rounded-full bg-[var(--passport-accent)] text-white">
-                        <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none">
-                          <path
-                            d="M12 21S5.8 15.9 5.8 10.6A6.2 6.2 0 0 1 12 4.4a6.2 6.2 0 0 1 6.2 6.2C18.2 15.9 12 21 12 21Z"
-                            fill="currentColor"
-                          />
-                          <circle cx="12" cy="10.6" r="2.1" fill="#fffaf3" />
-                        </svg>
-                      </span>
-                      Click a live food stop to filter nearby kitchens
-                    </div>
+                <div className="pointer-events-none mt-4 flex w-full justify-center">
+                  <div className="flex max-w-[92%] items-center gap-2 rounded-pill bg-[#fffaf3]/94 px-4 py-2 text-[0.72rem] font-bold text-[#2a211d] ring-1 ring-[#2a211d]/12 backdrop-blur">
+                    <span className="grid h-5 w-5 place-items-center rounded-full bg-[var(--passport-accent)] text-white">
+                      <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none">
+                        <path
+                          d="M12 21S5.8 15.9 5.8 10.6A6.2 6.2 0 0 1 12 4.4a6.2 6.2 0 0 1 6.2 6.2C18.2 15.9 12 21 12 21Z"
+                          fill="currentColor"
+                        />
+                        <circle cx="12" cy="10.6" r="2.1" fill="#fffaf3" />
+                      </svg>
+                    </span>
+                    Click a live food stop to filter nearby kitchens
                   </div>
                 </div>
               </div>
@@ -1032,74 +1852,58 @@ export default function QuickBitePassportHub() {
 
             <div
               ref={rightPageRef}
-              className="group relative overflow-hidden bg-[#fffaf3] p-5 sm:p-7 lg:flex lg:h-[39rem] lg:flex-col lg:p-8"
+              className="group relative overflow-hidden bg-[#fffaf3] p-4 sm:p-6 lg:flex lg:h-[40rem] lg:flex-col lg:p-7"
             >
-              <div
-                data-page-curl-right
-                aria-hidden="true"
-                className="absolute right-0 top-0 h-24 w-24 rounded-bl-[4rem] bg-[linear-gradient(135deg,rgba(255,255,255,.9),rgba(239,224,207,.72),rgba(58,36,24,.04))] opacity-0"
-              />
               <div className="relative z-10 flex min-h-0 flex-1 flex-col">
-                <div className="relative overflow-hidden rounded-[1.55rem] bg-[#2a211d] p-4 text-white sm:p-5">
-                  <div
-                    aria-hidden="true"
-                    className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[var(--passport-accent)]/18"
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="absolute right-4 top-4 h-20 w-20 rounded-full border border-dashed border-white/12"
-                  />
-
-                  <div className="relative z-10 flex items-start justify-between gap-4">
+                <div className="relative rounded-[1.45rem] bg-[#fffaf3] p-4 text-[#2a211d] ring-1 ring-[#2a211d]/10 sm:p-5">
+                  <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
-                      <p className="text-[0.62rem] font-black uppercase tracking-[0.22em] text-[var(--passport-accent)]">
-                        Stamped discoveries
-                      </p>
-                      <h3 className="mt-2 max-w-[22rem] font-display text-[2rem] font-black leading-[0.9] tracking-[-0.065em] text-[#fffaf3] sm:text-[2.55rem]">
-                        {activeCity.name} food postcards
+                      <h3 className="font-display text-[2.25rem] font-black leading-[0.86] tracking-[-0.075em] text-[#2a211d] sm:text-[2.85rem]">
+                        Kitchen Guide
                       </h3>
                     </div>
 
-                    <span className="grid h-13 w-13 shrink-0 place-items-center rounded-[1rem] bg-[#fffaf3] text-[#2a211d]">
-                      <Compass className="h-6 w-6 text-[var(--passport-accent)]" strokeWidth={2.25} />
-                    </span>
+                    {/* <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#2a211d] text-[#fffaf3]">
+                      <MapPin className="h-5 w-5 text-[var(--passport-accent)]" strokeWidth={2.35} />
+                    </span> */}
                   </div>
 
-                  <div className="relative z-10 mt-4 flex flex-wrap items-center gap-2">
-                    <span className="rounded-pill bg-[#fffaf3]/10 px-3 py-1.5 text-[0.68rem] font-black uppercase tracking-[0.14em] text-[#fffaf3]/78">
-                      {selectedNode?.name ?? "All food routes"}
-                    </span>
-                    <span className="rounded-pill bg-[var(--passport-accent)] px-3 py-1.5 text-[0.68rem] font-black uppercase tracking-[0.14em] text-white">
-                      Live kitchens
-                    </span>
-                  </div>
+                  <div className="my-2 h-px bg-[#2a211d]/10" />
 
-                  <div className="relative z-10 mt-4 grid grid-cols-3 gap-2">
-                    <span className="rounded-[1rem] bg-[#fffaf3] p-3 text-[#2a211d]">
-                      <Clock3 className="h-4 w-4 text-[var(--passport-accent)]" strokeWidth={2.35} />
-                      <span className="mt-2 block text-[0.58rem] font-black uppercase tracking-[0.14em] text-[#8f6a57]">
-                        ETA
-                      </span>
-                      <strong className="block text-lg leading-none">{activeCity.avgEta}</strong>
+                  <div className="mt-4 flex flex-wrap items-end gap-2 text-[0.76rem] font-black text-[#2a211d]">
+                    <div>
+                      <p className="mb-3 text-[0.64rem] font-black uppercase tracking-[0.14em] text-[#9a7a66]">
+                        Destinations
+                      </p>
+                      <CityStampSelector
+                        cities={passportCities}
+                        selectedCity={selectedCity}
+                        onSelect={handleCityChange}
+                      />
+                    </div>
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2a211d]/6 px-3 py-1.5">
+                      <Clock3 className="h-3.5 w-3.5 text-[var(--passport-accent)]" strokeWidth={2.35} />
+                      {activeCity.avgEta}
                     </span>
-                    <span className="rounded-[1rem] bg-[#fffaf3] p-3 text-[#2a211d]">
-                      <Store className="h-4 w-4 text-[var(--passport-accent)]" strokeWidth={2.35} />
-                      <span className="mt-2 block text-[0.58rem] font-black uppercase tracking-[0.14em] text-[#8f6a57]">
-                        Spots
-                      </span>
-                      <strong className="block text-lg leading-none">{activeCity.restaurantCount}</strong>
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2a211d]/6 px-3 py-1.5">
+                      <Store className="h-3.5 w-3.5 text-[var(--passport-accent)]" strokeWidth={2.35} />
+                      {activeCity.restaurantCount} Restaurants
                     </span>
-                    <span className="rounded-[1rem] bg-[#fffaf3] p-3 text-[#2a211d]">
-                      <Star className="h-4 w-4 fill-[var(--passport-accent)] text-[var(--passport-accent)]" strokeWidth={2.35} />
-                      <span className="mt-2 block text-[0.58rem] font-black uppercase tracking-[0.14em] text-[#8f6a57]">
-                        Rating
-                      </span>
-                      <strong className="block text-lg leading-none">{activeCity.avgRating}</strong>
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2a211d]/6 px-3 py-1.5">
+                      <Star className="h-3.5 w-3.5 text-[var(--passport-accent)]" strokeWidth={2.35} />
+                      {activeCity.avgRating}
                     </span>
                   </div>
                 </div>
 
-                <div className="passport-card-scroll mt-5 min-h-0 flex-1 space-y-4 overflow-y-auto pb-2 pr-3">
+                <div
+                  className="passport-card-scroll mt-4 h-[23rem] min-h-0 space-y-3 overflow-y-auto overscroll-contain pb-2 pr-3 sm:h-[25rem] lg:h-auto lg:flex-1"
+                  data-lenis-prevent
+                  data-lenis-prevent-touch
+                  data-lenis-prevent-wheel
+                  onWheel={keepPassportCardScroll}
+                  tabIndex={0}
+                >
                   <AnimatePresence mode="popLayout">
                     {cityRestaurants.map((restaurant) => (
                       <RestaurantMembershipCard
@@ -1121,6 +1925,45 @@ export default function QuickBitePassportHub() {
           filter the restaurant membership cards.
         </p>
       </Container>
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-[-1px] z-0 h-36 overflow-hidden sm:h-44"
+      >
+        <svg
+          className="h-full w-full overflow-hidden text-[#fffaf5]"
+          viewBox="0 0 1440 210"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0 65C136 110 244 105 392 72C545 38 626 117 770 143C915 169 987 86 1126 59C1255 34 1328 89 1440 55V210H0V65Z"
+            fill="currentColor"
+          />
+          <path
+            data-passport-app-bike-path
+            d="M0 65C136 110 244 105 392 72C545 38 626 117 770 143C915 169 987 86 1126 59C1255 34 1328 89 1440 55"
+            fill="none"
+            stroke="#f0d7c2"
+            strokeLinecap="round"
+            strokeWidth="4"
+          />
+          <path
+            d="M22 93C154 132 266 120 406 96C548 72 628 143 764 166C918 191 998 108 1138 87C1258 69 1322 113 1418 86"
+            fill="none"
+            stroke="#c9aa96"
+            strokeDasharray="8 12"
+            strokeLinecap="round"
+            strokeOpacity=".72"
+            strokeWidth="3"
+          />
+          <image
+            data-passport-app-wave-bike
+            href="/quickbite-delivery-bike.svg"
+            width="178"
+            height="104"
+          />
+        </svg>
+      </div>
     </section>
   );
 }

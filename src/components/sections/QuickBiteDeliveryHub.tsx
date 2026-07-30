@@ -247,7 +247,7 @@ function RestaurantDiscoveryCard({
       transition={{ delay: index * 0.06, duration: 0.44, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -7 }}
     >
-      <div className="pointer-events-none absolute -inset-1 rounded-[1.6rem] bg-black/30 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-50" />
+      <div className="pointer-events-none absolute -inset-1 rounded-[1.6rem] bg-[#2a211d]/30 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-50" />
       <Link
         href="/restaurants"
         className="relative flex min-h-[8.25rem] overflow-hidden rounded-[1.45rem] bg-white/92 p-4 text-[#24180f] ring-1 ring-black/5 backdrop-blur"
@@ -830,7 +830,7 @@ export default function QuickBiteDeliveryHub() {
                 })}
               </div>
 
-              <div className="absolute bottom-6 left-6 z-30 flex items-center gap-3 rounded-pill bg-black/34 px-4 py-3 text-xs font-black uppercase tracking-[0.16em] text-white/70 ring-1 ring-white/10 backdrop-blur">
+              <div className="absolute bottom-6 left-6 z-30 flex items-center gap-3 rounded-pill bg-[#2a211d]/34 px-4 py-3 text-xs font-black uppercase tracking-[0.16em] text-white/70 ring-1 ring-white/10 backdrop-blur">
                 <Signal className="h-4 w-4 text-[var(--hub-accent)]" strokeWidth={2.4} />
                 {selectedNode ? `${selectedNode.name} route selected` : "Live delivery routes"}
               </div>
