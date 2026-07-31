@@ -37,17 +37,17 @@ function MenuGlyph({ open }: { open: boolean }) {
   const ease = [0.22, 1, 0.36, 1] as const;
 
   return (
-    <div className="flex h-12 items-center justify-center overflow-hidden">
+    <div className="flex h-12 items-center justify-center overflow-hidden [--menu-letter-width:14px] [--menu-m-width:17px] lg:[--menu-letter-width:19px] lg:[--menu-m-width:23px] xl:[--menu-letter-width:21px] xl:[--menu-m-width:24px]">
       <motion.svg
         viewBox="0 0 18 14"
-        animate={{ width: open ? 0 : 15, opacity: open ? 0 : 1, marginRight: open ? 0 : 3 }}
+        animate={{ width: open ? 0 : "var(--menu-m-width)", opacity: open ? 0 : 1, marginRight: open ? 0 : 4 }}
         transition={{ duration: 0.4, ease }}
-        className="h-[0.95rem] shrink-0 sm:h-[1.1rem]"
+        className="h-[1.05rem] shrink-0 sm:h-[1.35rem] lg:h-[1.6rem] xl:h-[1.72rem]"
       >
         <path d="M1 13V1H9V13M9 1H17V13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
       </motion.svg>
 
-      <svg className="h-[0.95rem] w-[0.95rem] shrink-0 overflow-visible sm:h-[1.1rem] sm:w-[1.1rem]" viewBox="0 0 14 14">
+      <svg className="h-[0.9rem] w-[0.9rem] shrink-0 overflow-visible sm:h-[1.05rem] sm:w-[1.05rem] lg:h-[1.2rem] lg:w-[1.2rem]" viewBox="0 0 14 14">
         <motion.line x1="1" y1="1" x2="13" y2="1" stroke="var(--nav-icon, #f06400)" strokeWidth="2" strokeLinecap="square"
           animate={{ y2: open ? 13 : 1 }} transition={{ duration: 0.4, ease }} />
         <motion.line x1="1" y1="7" x2="13" y2="7" stroke="var(--nav-icon, #f06400)" strokeWidth="2" strokeLinecap="square"
@@ -58,18 +58,18 @@ function MenuGlyph({ open }: { open: boolean }) {
 
       <motion.svg
         viewBox="0 0 14 14"
-        animate={{ width: open ? 0 : 13, opacity: open ? 0 : 1, marginLeft: open ? 0 : 3 }}
+        animate={{ width: open ? 0 : "var(--menu-letter-width)", opacity: open ? 0 : 1, marginLeft: open ? 0 : 4 }}
         transition={{ duration: 0.4, ease }}
-        className="h-[0.95rem] shrink-0 sm:h-[1.1rem]"
+        className="h-[1.05rem] shrink-0 sm:h-[1.35rem] lg:h-[1.6rem] xl:h-[1.72rem]"
       >
         <path d="M1 13V1H13V13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
       </motion.svg>
 
       <motion.svg
         viewBox="0 0 14 14"
-        animate={{ width: open ? 0 : 13, opacity: open ? 0 : 1, marginLeft: open ? 0 : 3 }}
+        animate={{ width: open ? 0 : "var(--menu-letter-width)", opacity: open ? 0 : 1, marginLeft: open ? 0 : 4 }}
         transition={{ duration: 0.4, ease }}
-        className="h-[0.95rem] shrink-0 sm:h-[1.1rem]"
+        className="h-[1.05rem] shrink-0 sm:h-[1.55rem] lg:h-[1.78rem] xl:h-[1.92rem]"
       >
         <path d="M1 1V13H13V1" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
       </motion.svg>
@@ -203,7 +203,7 @@ export default function Header() {
     <header
       ref={navRef}
       style={navThemeDefaults}
-      className="pointer-events-none fixed inset-x-0 top-0 z-50 overflow-x-clip px-0 sm:top-5 sm:px-6 lg:px-8 xl:top-8"
+      className="pointer-events-none fixed inset-x-0 top-0 z-[120] overflow-x-clip px-0 sm:top-5 sm:px-6 lg:px-8 xl:top-8"
       onKeyDown={(event) => {
         if (event.key === "Escape") closePanels();
       }}
@@ -248,7 +248,7 @@ export default function Header() {
         <motion.div
           data-intro-nav-shell
           data-nav-surface
-          className={`${navPill} pointer-events-auto relative flex h-[var(--nav-closed-height)] w-[var(--nav-menu-closed-width)] justify-self-stretch overflow-hidden rounded-[1.55rem] sm:justify-self-end sm:rounded-[2rem] xl:rounded-[2.45rem] [--nav-closed-height:3.4rem] [--nav-menu-closed-width:calc(100vw-1rem)] [--nav-menu-open-width:calc(100vw-1rem)] sm:[--nav-menu-closed-width:28rem] sm:[--nav-menu-open-width:28rem] sm:[--nav-closed-height:4rem] lg:[--nav-menu-closed-width:30rem] lg:[--nav-menu-open-width:30rem] xl:[--nav-menu-closed-width:32rem] xl:[--nav-menu-open-width:32rem] xl:[--nav-closed-height:4.9rem]`}
+          className={`${navPill} pointer-events-auto relative flex h-[var(--nav-closed-height)] w-[var(--nav-menu-closed-width)] justify-self-stretch overflow-hidden rounded-none sm:justify-self-end sm:rounded-[2rem] xl:rounded-[2.45rem] [--nav-closed-height:4.25rem] [--nav-menu-closed-width:100vw] [--nav-menu-open-width:100vw] sm:[--nav-menu-closed-width:28rem] sm:[--nav-menu-open-width:28rem] sm:[--nav-closed-height:4rem] lg:[--nav-menu-closed-width:30rem] lg:[--nav-menu-open-width:30rem] xl:[--nav-menu-closed-width:32rem] xl:[--nav-menu-open-width:32rem] xl:[--nav-closed-height:4.9rem]`}
           data-menu-open={menuOpen ? "true" : "false"}
           style={{ transformOrigin: "top right" }}
           animate={{
@@ -329,7 +329,7 @@ export default function Header() {
                 aria-controls="site-menu"
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 data-nav-icon
-                className="ml-auto flex h-9 min-w-[2.9rem] cursor-pointer items-center justify-center gap-2 rounded-[0.95rem] bg-transparent px-1.5 text-xs font-black uppercase tracking-[0.08em] text-[var(--nav-icon)] outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-[#F15F00] focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:h-10 sm:min-w-[6.7rem] sm:px-2.5 xl:h-12 xl:min-w-[7.4rem]"
+                className="ml-auto flex h-9 min-w-[5.15rem] cursor-pointer items-center justify-center gap-2 rounded-[0.95rem] bg-transparent px-1.5 text-xs font-black uppercase tracking-[0.08em] text-[var(--nav-icon)] outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-[#F15F00] focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:h-10 sm:min-w-[6.7rem] sm:px-2.5 xl:h-12 xl:min-w-[7.4rem]"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
                 transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}

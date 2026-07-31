@@ -1772,9 +1772,17 @@ export default function QuickBitePassportHub() {
           <div className="flex w-full flex-col items-center text-center gap-6 md:flex-row md:text-left md:items-center md:justify-between">
             <div className="contents">
               <h2 className="font-display text-[2.85rem] font-black leading-[0.9] tracking-[-0.07em] sm:text-[4rem]">
-                Discover food
-                <span className="block text-[var(--passport-accent)]">
-                  by destination.
+                <span className="block sm:hidden">
+                  Food
+                  <span className="block text-[var(--passport-accent)]">
+                    by city.
+                  </span>
+                </span>
+                <span className="hidden sm:block">
+                  Discover food
+                  <span className="block text-[var(--passport-accent)]">
+                    by destination.
+                  </span>
                 </span>
               </h2>
               <MagneticFillButton
@@ -1920,7 +1928,7 @@ export default function QuickBitePassportHub() {
           </div>
         </div>
 
-        <p className="mx-auto mt-5 max-w-xl text-center text-xs font-semibold leading-relaxed text-[#f5eadc]/68">
+        <p className="hidden sm:block mx-auto mt-5 max-w-xl text-center text-xs font-semibold leading-relaxed text-[#f5eadc]/68">
           Select a destination, pan the map, then tap a neighbourhood marker to
           filter the restaurant membership cards.
         </p>

@@ -3,7 +3,7 @@ import {
   expansionCities,
   liveCity,
   liveCityState,
-  restaurants,
+  restaurants as baseRestaurants,
   type Restaurant,
 } from "@/content/site";
 import type {
@@ -135,6 +135,75 @@ const restaurantDescriptions = [
   "Fresh drinks and light meals for soft landings between heavier plates.",
 ];
 
+const passportOnlyRestaurants: Restaurant[] = [
+  {
+    name: "Campus Shawarma",
+    cuisine: "Shawarma • Wraps • Chicken",
+    rating: 4.7,
+    deliveryFrom: "₦500",
+    eta: "18–28 min",
+    image: "/images/food/hero-fast.webp",
+  },
+  {
+    name: "Burger House",
+    cuisine: "Burgers • Fries • Fast Food",
+    rating: 4.6,
+    deliveryFrom: "₦650",
+    eta: "25–35 min",
+    image: "/images/food/hero-hot.webp",
+  },
+  {
+    name: "Noodle House",
+    cuisine: "Noodles • Ramen • Stir Fry",
+    rating: 4.5,
+    deliveryFrom: "₦450",
+    eta: "20–30 min",
+    image: "/images/food/hero-fresh.webp",
+  },
+  {
+    name: "Coffee Corner",
+    cuisine: "Coffee • Cafe • Pastries",
+    rating: 4.8,
+    deliveryFrom: "₦350",
+    eta: "15–25 min",
+    image: "/images/food/restaurant-smoothie.webp",
+  },
+  {
+    name: "Sweet Treats",
+    cuisine: "Dessert • Ice Cream • Cakes",
+    rating: 4.7,
+    deliveryFrom: "₦400",
+    eta: "18–26 min",
+    image: "/images/food/restaurant-smoothie.webp",
+  },
+  {
+    name: "Breakfast Club",
+    cuisine: "Breakfast • Pancakes • Tea",
+    rating: 4.6,
+    deliveryFrom: "₦500",
+    eta: "20–30 min",
+    image: "/images/food/hero-local.webp",
+  },
+  {
+    name: "Bakery Lane",
+    cuisine: "Bakery • Croissant • Bread",
+    rating: 4.5,
+    deliveryFrom: "₦350",
+    eta: "15–25 min",
+    image: "/images/food/partner-kitchen.webp",
+  },
+  {
+    name: "Taco Stop",
+    cuisine: "Tacos • Spiced Beef • Salsa",
+    rating: 4.6,
+    deliveryFrom: "₦600",
+    eta: "25–35 min",
+    image: "/images/food/hero-hot.webp",
+  },
+];
+
+const passportRestaurantPool = [...baseRestaurants, ...passportOnlyRestaurants];
+
 function slugify(value: string) {
   return value
     .toLowerCase()
@@ -206,8 +275,9 @@ export function getCityRestaurants(
   const offset = Math.max(0, cityIndex + nodeIndex);
   const base = selectedNode?.coordinates ?? city.center;
 
-  return Array.from({ length: restaurants.length }, (_, index) => {
-    const restaurant = restaurants[(offset + index) % restaurants.length];
+  return Array.from({ length: passportRestaurantPool.length }, (_, index) => {
+    const restaurant =
+      passportRestaurantPool[(offset + index) % passportRestaurantPool.length];
     const [latOffset, lngOffset] =
       restaurantOffsets[index % restaurantOffsets.length];
 
