@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import Reveal from "./Reveal";
 
 export default function SectionHeading({
   eyebrow,
@@ -22,7 +21,7 @@ export default function SectionHeading({
   const eyebrowColor = tone === "light" ? "text-brand-light" : "text-brand-dark";
 
   return (
-    <Reveal
+    <div
       className={`max-w-2xl ${alignment} ${className}`}
       data-section-motion-header
     >
@@ -39,6 +38,6 @@ export default function SectionHeading({
       {subtitle ? (
         <p className={`mt-4 text-lg leading-relaxed ${subColor}`}>{subtitle}</p>
       ) : null}
-    </Reveal>
+    </div>
   );
 }

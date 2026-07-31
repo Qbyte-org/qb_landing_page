@@ -34,7 +34,7 @@ export default function Hero() {
         <Container className="relative z-20 max-w-[103rem]">
           <div
             data-hero-copy
-            className="max-w-6xl sm:pl-10 xl:pl-32"
+            className="max-w-6xl sm:pl-10 xl:pl-32 max-sm:mt-20"
           >
             <h1
               data-hero-title

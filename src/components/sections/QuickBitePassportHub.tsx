@@ -1334,7 +1334,7 @@ function RestaurantMembershipCard({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative h-[11.75rem] w-full shrink-0 text-[#17100d] outline-none sm:h-[12.15rem]"
+      className="group relative h-[14.85rem] w-full shrink-0 text-[#17100d] outline-none sm:h-[13.15rem]"
       style={{ "--card-accent": accent } as CSSProperties}
     >
       <div
@@ -1348,9 +1348,9 @@ function RestaurantMembershipCard({
       >
         <motion.div
           initial={false}
-          animate={{ opacity: isOpen ? 0.12 : 0.94 }}
+          animate={{ opacity: isOpen ? 0.08 : 0.5 }}
           transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          className="pointer-events-none absolute -right-[3.35rem] top-0 h-[14.4rem] w-[16.4rem] text-[#151515]"
+          className="pointer-events-none absolute -right-[6.9rem] top-6 h-[10.4rem] w-[14.2rem] text-[#151515] sm:-right-[4.8rem] sm:top-2 sm:h-[12.4rem] sm:w-[15.5rem] lg:-right-[3.75rem]"
         >
           <RestaurantFoodLineArt
             restaurant={restaurant}
@@ -1365,16 +1365,16 @@ function RestaurantMembershipCard({
               : { x: "0%", opacity: 1 }
           }
           transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 px-6 py-6 will-change-transform sm:px-7"
+          className="absolute inset-0 z-10 px-5 py-5 will-change-transform sm:px-6 sm:py-6 lg:px-7"
         >
-          <div className="relative z-10 flex h-full max-w-[56%] flex-col justify-center">
+          <div className="relative z-10 flex h-full max-w-[68%] flex-col justify-center sm:max-w-[60%]">
             <p className="text-[0.68rem] font-black tracking-[0.08em] text-[var(--card-accent)]">
               {restaurant.eta} • {restaurant.rating}★
             </p>
-            <h3 className="mt-3 line-clamp-2 font-display text-[1.58rem] font-black leading-[0.92] tracking-[-0.055em] text-[#151515] sm:text-[1.72rem]">
+            <h3 className="mt-2 line-clamp-2 font-display text-[1.42rem] font-black leading-[0.92] tracking-[-0.055em] text-[#151515] sm:mt-3 sm:text-[1.65rem]">
               {restaurant.name}
             </h3>
-            <p className="mt-2 line-clamp-1 text-[0.82rem] font-semibold text-[#5f5148]">
+            <p className="mt-2 line-clamp-1 text-[0.78rem] font-semibold text-[#5f5148] sm:text-[0.82rem]">
               {restaurant.cuisine}
             </p>
             <LinkArrow
@@ -1382,7 +1382,7 @@ function RestaurantMembershipCard({
               variant="light"
               ariaLabel={`View ${restaurant.name}`}
               onClick={(event) => event.stopPropagation()}
-              className="mt-5 [--link-arrow-min-width:7.2rem] border-[#2a211d]/18 pb-1 text-[0.62rem] font-black text-[#2a211d]"
+              className="mt-4 [--link-arrow-min-width:7.2rem] border-[#2a211d]/18 pb-1 text-[0.62rem] font-black text-[#2a211d] sm:mt-5"
             >
               View
             </LinkArrow>
@@ -1428,7 +1428,7 @@ function RestaurantMembershipCard({
             </div>
           </div>
 
-          <div className="absolute inset-x-6 bottom-[3.05rem] h-px bg-[#17100d]/12" />
+          <div className="absolute inset-x-6 bottom-[3.5rem] h-px bg-[#17100d]/12" />
           <div className="absolute inset-x-6 bottom-4 flex items-center justify-between gap-3">
             <p className="line-clamp-1 text-[0.68rem] font-black text-[#2a211d]">
               {restaurant.avgOrder} avg order
@@ -1709,7 +1709,7 @@ export default function QuickBitePassportHub() {
 
       gsap.set(bike, {
         xPercent: -50,
-        yPercent: -66,
+        yPercent: -62,
         transformOrigin: "50% 66%",
         autoAlpha: 1,
       });
@@ -1754,7 +1754,7 @@ export default function QuickBitePassportHub() {
       ref={sectionRef}
       id="restaurants"
       data-nav-theme="dark"
-      className="relative overflow-hidden bg-[#2a211d] pb-36 pt-12 text-[#fffaf3] sm:pb-48 sm:pt-18 lg:pb-52 lg:pt-44"
+      className="relative overflow-hidden bg-[#2a211d] pb-[7rem] pt-10 text-[#fffaf3] sm:pb-[9rem] sm:pt-14 lg:pb-[14rem] lg:pt-32"
       style={
         {
           "--passport-accent": activeCity.accent,
@@ -1767,9 +1767,9 @@ export default function QuickBitePassportHub() {
       <Container className="relative z-10">
         <div
           data-section-motion-header
-          className="mb-10 flex max-w-[60rem] flex-col items-start gap-6 md:flex-row md:items-center md:justify-between"
+          className="mx-auto mb-10 flex max-w-[60rem] flex-col items-center text-center md:text-left md:flex-row md:items-center md:justify-between"
         >
-          <div className="flex w-full flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
+          <div className="flex w-full flex-col items-center text-center gap-6 md:flex-row md:text-left md:items-center md:justify-between">
             <div className="contents">
               <h2 className="font-display text-[2.85rem] font-black leading-[0.9] tracking-[-0.07em] sm:text-[4rem]">
                 Discover food
@@ -1793,14 +1793,14 @@ export default function QuickBitePassportHub() {
 
         <div
           ref={spreadRef}
-          className="relative z-20 mt-8 rounded-[2.35rem] bg-[#3a2418] p-1.5 [perspective:1400px] h-full"
+          className="relative z-20 mt-8 sm:rounded-[2.35rem] bg-[#3a2418] p-1.5 max-sm:-m-4 [perspective:1400px] h-full"
         >
           <div
             data-page-underlay
             aria-hidden="true"
-            className="absolute inset-3 rounded-[2rem] bg-[#2a211d]"
+            className="absolute inset-3 sm:rounded-[2rem] bg-[#2a211d]"
           />
-          <div className="relative grid overflow-hidden rounded-[2rem] bg-[#f8efe3]  lg:grid-cols-2">
+          <div className="relative grid overflow-hidden sm:rounded-[2rem] bg-[#f8efe3]  lg:grid-cols-2">
             <div
               data-passport-spine
               aria-hidden="true"
@@ -1928,10 +1928,10 @@ export default function QuickBitePassportHub() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-[-1px] z-0 h-36 overflow-hidden sm:h-44"
+        className="pointer-events-none absolute inset-x-0 bottom-[-1px] z-0 h-20 overflow-x-clip overflow-y-visible min-[480px]:h-28 sm:h-52 sm:overflow-visible"
       >
         <svg
-          className="h-full w-full overflow-hidden text-[#fffaf5]"
+          className="absolute left-1/2 top-0 h-full w-[178vw] -translate-x-1/2 overflow-visible text-[#fffaf5] sm:static sm:w-full sm:translate-x-0"
           viewBox="0 0 1440 210"
           preserveAspectRatio="none"
         >
@@ -1959,8 +1959,8 @@ export default function QuickBitePassportHub() {
           <image
             data-passport-app-wave-bike
             href="/quickbite-delivery-bike.svg"
-            width="178"
-            height="104"
+            width="238"
+            height="140"
           />
         </svg>
       </div>

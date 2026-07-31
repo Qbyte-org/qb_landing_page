@@ -40,14 +40,14 @@ function MenuGlyph({ open }: { open: boolean }) {
     <div className="flex h-12 items-center justify-center overflow-hidden">
       <motion.svg
         viewBox="0 0 18 14"
-        animate={{ width: open ? 0 : 22, opacity: open ? 0 : 1, marginRight: open ? 0 : 5 }}
+        animate={{ width: open ? 0 : 15, opacity: open ? 0 : 1, marginRight: open ? 0 : 3 }}
         transition={{ duration: 0.4, ease }}
-        className="h-[1.1rem] shrink-0"
+        className="h-[0.95rem] shrink-0 sm:h-[1.1rem]"
       >
         <path d="M1 13V1H9V13M9 1H17V13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
       </motion.svg>
 
-      <svg className="h-[1.1rem] w-[1.1rem] shrink-0 overflow-visible" viewBox="0 0 14 14">
+      <svg className="h-[0.95rem] w-[0.95rem] shrink-0 overflow-visible sm:h-[1.1rem] sm:w-[1.1rem]" viewBox="0 0 14 14">
         <motion.line x1="1" y1="1" x2="13" y2="1" stroke="var(--nav-icon, #f06400)" strokeWidth="2" strokeLinecap="square"
           animate={{ y2: open ? 13 : 1 }} transition={{ duration: 0.4, ease }} />
         <motion.line x1="1" y1="7" x2="13" y2="7" stroke="var(--nav-icon, #f06400)" strokeWidth="2" strokeLinecap="square"
@@ -58,18 +58,18 @@ function MenuGlyph({ open }: { open: boolean }) {
 
       <motion.svg
         viewBox="0 0 14 14"
-        animate={{ width: open ? 0 : 18, opacity: open ? 0 : 1, marginLeft: open ? 0 : 5 }}
+        animate={{ width: open ? 0 : 13, opacity: open ? 0 : 1, marginLeft: open ? 0 : 3 }}
         transition={{ duration: 0.4, ease }}
-        className="h-[1.1rem] shrink-0"
+        className="h-[0.95rem] shrink-0 sm:h-[1.1rem]"
       >
         <path d="M1 13V1H13V13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
       </motion.svg>
 
       <motion.svg
         viewBox="0 0 14 14"
-        animate={{ width: open ? 0 : 18, opacity: open ? 0 : 1, marginLeft: open ? 0 : 5 }}
+        animate={{ width: open ? 0 : 13, opacity: open ? 0 : 1, marginLeft: open ? 0 : 3 }}
         transition={{ duration: 0.4, ease }}
-        className="h-[1.1rem] shrink-0"
+        className="h-[0.95rem] shrink-0 sm:h-[1.1rem]"
       >
         <path d="M1 1V13H13V1" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
       </motion.svg>
@@ -203,21 +203,21 @@ export default function Header() {
     <header
       ref={navRef}
       style={navThemeDefaults}
-      className="pointer-events-none fixed inset-x-0 top-4 z-50 overflow-x-clip px-4 sm:top-5 sm:px-6 lg:px-8 xl:top-8"
+      className="pointer-events-none fixed inset-x-0 top-0 z-50 overflow-x-clip px-0 sm:top-5 sm:px-6 lg:px-8 xl:top-8"
       onKeyDown={(event) => {
         if (event.key === "Escape") closePanels();
       }}
     >
       <div
         data-intro-nav-parent
-        className="relative z-10 mx-auto grid max-w-7xl grid-cols-[auto_auto] items-start justify-between gap-2 sm:gap-4"
+        className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-start sm:grid-cols-[auto_auto] sm:justify-between sm:gap-4"
       >
         {/* Logo */}
         <div
           data-header-logo
           data-intro-nav-shell
           data-nav-surface
-          className={`${navPill} pointer-events-auto flex h-12 w-[11.5rem] cursor-pointer items-center justify-center rounded-pill px-3 sm:h-16 sm:w-[14rem] sm:px-5 xl:h-[4.9rem] xl:w-[13.25rem]`}
+          className={`${navPill} pointer-events-auto hidden h-12 w-[11.5rem] cursor-pointer items-center justify-center rounded-pill px-3 sm:flex sm:h-16 sm:w-[14rem] sm:px-5 xl:h-[4.9rem] xl:w-[13.25rem]`}
         >
           <div
             data-intro-nav-content
@@ -248,7 +248,7 @@ export default function Header() {
         <motion.div
           data-intro-nav-shell
           data-nav-surface
-          className={`${navPill} pointer-events-auto relative flex h-[var(--nav-closed-height)] w-[var(--nav-menu-closed-width)] justify-self-end overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] xl:rounded-[2.45rem] [--nav-closed-height:3rem] [--nav-menu-closed-width:10rem] [--nav-menu-open-width:min(32rem,calc(100vw-2rem))] sm:[--nav-menu-closed-width:28rem] sm:[--nav-menu-open-width:28rem] sm:[--nav-closed-height:4rem] lg:[--nav-menu-closed-width:30rem] lg:[--nav-menu-open-width:30rem] xl:[--nav-menu-closed-width:32rem] xl:[--nav-menu-open-width:32rem] xl:[--nav-closed-height:4.9rem]`}
+          className={`${navPill} pointer-events-auto relative flex h-[var(--nav-closed-height)] w-[var(--nav-menu-closed-width)] justify-self-stretch overflow-hidden rounded-[1.55rem] sm:justify-self-end sm:rounded-[2rem] xl:rounded-[2.45rem] [--nav-closed-height:3.4rem] [--nav-menu-closed-width:calc(100vw-1rem)] [--nav-menu-open-width:calc(100vw-1rem)] sm:[--nav-menu-closed-width:28rem] sm:[--nav-menu-open-width:28rem] sm:[--nav-closed-height:4rem] lg:[--nav-menu-closed-width:30rem] lg:[--nav-menu-open-width:30rem] xl:[--nav-menu-closed-width:32rem] xl:[--nav-menu-open-width:32rem] xl:[--nav-closed-height:4.9rem]`}
           data-menu-open={menuOpen ? "true" : "false"}
           style={{ transformOrigin: "top right" }}
           animate={{
@@ -265,8 +265,27 @@ export default function Header() {
           <div className="flex h-full w-full flex-col">
             <div
               data-intro-nav-content
-              className="flex h-[var(--nav-closed-height)] w-full shrink-0 items-center gap-2 px-2.5 sm:gap-3 sm:px-3.5 xl:px-4"
+              className="flex h-[var(--nav-closed-height)] w-full shrink-0 items-center gap-2 px-2 sm:gap-3 sm:px-3.5 xl:px-4"
             >
+              <Link
+                href="/"
+                onClick={closePanels}
+                aria-label="QuickBite home"
+                className="flex min-w-0 flex-1 items-center gap-2 pl-1 text-white sm:hidden"
+              >
+                <Image
+                  src="/quickbite-mark.svg"
+                  alt=""
+                  width={56}
+                  height={56}
+                  className="h-9 w-9 shrink-0 object-contain"
+                />
+                <span className="truncate font-display text-[1.05rem] font-black leading-none tracking-[-0.05em]">
+                  <span data-nav-text>Quick</span>
+                  <span data-nav-icon>Bite</span>
+                </span>
+              </Link>
+
               <span className="hidden sm:block">
                 <MagneticFillButton
                   href="/restaurants"
@@ -280,15 +299,17 @@ export default function Header() {
                 </MagneticFillButton>
               </span>
 
-              <MagneticFillButton
-                href="/restaurants"
-                variant="brand"
-                dataNavAction
-                className="h-9 rounded-pill bg-[#F15F00] px-4 text-xs font-extrabold sm:h-10 sm:px-5 xl:h-12 xl:text-base"
-              >
-                Order now
-                <ListOrderedIcon data-nav-icon className="h-4 w-4" strokeWidth={2.35} aria-hidden="true" />
-              </MagneticFillButton>
+              <span className="hidden sm:block">
+                <MagneticFillButton
+                  href="/restaurants"
+                  variant="brand"
+                  dataNavAction
+                  className="h-9 rounded-pill bg-[#F15F00] px-3 text-xs font-extrabold sm:h-10 sm:px-5 xl:h-12 xl:text-base"
+                >
+                  Order<span className="hidden sm:inline">&nbsp;now</span>
+                  <ListOrderedIcon data-nav-icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.35} aria-hidden="true" />
+                </MagneticFillButton>
+              </span>
 
               {/* <motion.button
                 type="button"
@@ -308,12 +329,12 @@ export default function Header() {
                 aria-controls="site-menu"
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 data-nav-icon
-                className="ml-auto flex h-9 min-w-[6.2rem] cursor-pointer items-center justify-center gap-2 rounded-[0.95rem] bg-transparent px-2.5 text-xs font-black uppercase tracking-[0.08em] text-[var(--nav-icon)] outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-[#F15F00] focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:h-10 sm:min-w-[6.7rem] xl:h-12 xl:min-w-[7.4rem]"
+                className="ml-auto flex h-9 min-w-[2.9rem] cursor-pointer items-center justify-center gap-2 rounded-[0.95rem] bg-transparent px-1.5 text-xs font-black uppercase tracking-[0.08em] text-[var(--nav-icon)] outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-[#F15F00] focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:h-10 sm:min-w-[6.7rem] sm:px-2.5 xl:h-12 xl:min-w-[7.4rem]"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
                 transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
               >
-                <span className="leading-none text-base">
+                <span className="hidden leading-none text-base sm:inline">
                   {menuOpen ? "Close" : ""}
                 </span>
                 <MenuGlyph open={menuOpen} />
@@ -340,7 +361,8 @@ export default function Header() {
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   className="px-7 pb-4 pt-4 text-[var(--nav-foreground)] sm:px-9 xl:pt-6"
                 >
-                  <ul className="grid w-full gap-3 sm:gap-4">
+                  {/* Desktop Links */}
+                  <ul className="hidden w-full gap-3 sm:grid sm:gap-4">
                     {menuLinks.map((link) => (
                       <li key={`${link.href}-${link.label}`} className="w-full">
                         <LinkArrow
@@ -354,6 +376,45 @@ export default function Header() {
                         >
                           {link.label}
                         </LinkArrow>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mb-6 grid grid-cols-2 gap-2 sm:hidden">
+                    <MagneticFillButton
+                      href="/restaurants"
+                      onClick={closePanels}
+                      variant="ghost"
+                      themeAware
+                      dataNavChip
+                      className="h-11 rounded-pill px-4 text-xs font-extrabold"
+                    >
+                      Find food
+                      <MapPin data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.3} aria-hidden="true" />
+                    </MagneticFillButton>
+                    <MagneticFillButton
+                      href="/restaurants"
+                      onClick={closePanels}
+                      variant="brand"
+                      dataNavAction
+                      className="h-11 rounded-pill bg-[#F15F00] px-4 text-xs font-extrabold"
+                    >
+                      Order now
+                      <ListOrderedIcon data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.35} aria-hidden="true" />
+                    </MagneticFillButton>
+                  </div>
+
+                  {/* Mobile Links */}
+                  <ul className="flex w-full flex-col gap-5 pt-2 sm:hidden">
+                    {menuLinks.map((link) => (
+                      <li key={`${link.href}-${link.label}-mobile`} className="w-full">
+                        <Link
+                          href={link.href}
+                          onClick={closePanels}
+                          className="block font-display text-[1.55rem] font-black leading-none tracking-[-0.055em] text-[var(--nav-foreground)] transition-colors hover:text-[var(--nav-icon)]"
+                        >
+                          {link.label}
+                        </Link>
                       </li>
                     ))}
                   </ul>

@@ -2,10 +2,10 @@ export function HomeToCategoriesWave() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-x-0 -top-20 z-10 h-32 overflow-hidden sm:-top-28 sm:h-[10.5rem]"
+      className="pointer-events-none absolute inset-x-0 -top-8 z-10 h-[7.5rem] overflow-x-clip overflow-y-visible sm:-top-24 sm:h-52 sm:overflow-visible"
     >
       <svg
-        className="h-full w-full overflow-hidden text-[#fffaf5]"
+        className="absolute left-1/2 top-0 h-full w-[178vw] -translate-x-1/2 overflow-visible text-[#fffaf5] sm:static sm:w-full sm:translate-x-0"
         viewBox="0 0 1440 210"
         preserveAspectRatio="none"
       >
@@ -33,8 +33,8 @@ export function HomeToCategoriesWave() {
         <image
           data-home-wave-bike
           href="/quickbite-delivery-bike.svg"
-          width="150"
-          height="88"
+          width="178"
+          height="104"
         />
       </svg>
     </div>
@@ -45,10 +45,10 @@ export function CategoriesToHowWave() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-x-0 bottom-[-1px] z-20 h-32 overflow-hidden sm:h-40"
+      className="pointer-events-none absolute inset-x-0 bottom-[-1px] z-20 h-40 overflow-x-clip overflow-y-visible sm:h-48 sm:overflow-visible"
     >
       <svg
-        className="h-full w-full overflow-hidden text-[#2a211d]"
+        className="absolute left-1/2 top-0 h-full w-[178vw] -translate-x-1/2 overflow-visible text-[#2a211d] sm:static sm:w-full sm:translate-x-0"
         viewBox="0 0 1440 210"
         preserveAspectRatio="none"
       >
@@ -76,8 +76,8 @@ export function CategoriesToHowWave() {
         <image
           data-between-wave-bike
           href="/quickbite-delivery-bike.svg"
-          width="158"
-          height="92"
+          width="178"
+          height="104"
         />
       </svg>
     </div>

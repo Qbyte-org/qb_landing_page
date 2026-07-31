@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { motion } from "motion/react";
 import {
@@ -33,7 +34,7 @@ export default function HowItWorks() {
       <div className="relative z-10 px-4 pb-8 pt-14 sm:px-6 sm:pb-10 sm:pt-18 lg:px-8 lg:pb-12 lg:pt-20">
         <div
           data-section-motion-header
-          className="mx-auto flex max-w-[60rem] flex-col items-start gap-6 md:flex-row md:items-center md:justify-between"
+          className="mx-auto flex max-w-[60rem] flex-col items-center text-center md:text-left md:flex-row md:justify-between gap-6 md:gap-0"
         >
           <h2 className="font-display text-[2.85rem] font-black leading-[0.9] tracking-[-0.07em] sm:text-[4rem]">
             How It Works
@@ -68,14 +69,23 @@ export default function HowItWorks() {
 
         <div className="relative z-10 grid lg:grid-cols-[54%_46%]">
           <div className="relative min-h-[23rem] px-4 py-8 sm:px-6 lg:min-h-[28rem] lg:px-8 lg:py-10 xl:px-[5vw]">
-            <div className="grid gap-6 md:grid-cols-[8rem_1fr] lg:grid-cols-[10rem_1fr]">
-              <div className="pt-2 font-display font-black leading-none tracking-[-0.08em] md:pt-6 lg:pt-8">
-                <span className="text-[3.25rem] text-white sm:text-[4rem]">
-                  {activeIndex + 1}
-                </span>
-                <span className="ml-2 align-[1.1rem] text-xl text-white/75 sm:text-2xl">
-                  /{totalSteps}
-                </span>
+            <div className="relative z-10 grid gap-6 md:grid-cols-[8rem_1fr] lg:grid-cols-[16rem_1fr]">
+              <div className="flex items-start justify-between gap-5 pt-2 font-display font-black leading-none tracking-[-0.08em] md:block md:pt-6 lg:pt-8">
+                <div>
+                  <span className="text-[3.25rem] text-white sm:text-[4rem]">
+                    {activeIndex + 1}
+                  </span>
+                  <span className="ml-2 align-[1.1rem] text-xl text-white/75 sm:text-2xl">
+                    /{totalSteps}
+                  </span>
+                </div>
+                <Image
+                  src={activeStep.plate}
+                  alt=""
+                  width={220}
+                  height={110}
+                  className="pointer-events-none mt-[-0.25rem] block w-[8.75rem] shrink-0 object-contain opacity-90 md:hidden"
+                />
               </div>
 
               <div>
@@ -83,13 +93,13 @@ export default function HowItWorks() {
                 <ProcessControls onPrevious={goToPrevious} onNext={goToNext} />
               </div>
             </div>
-            {/* <Image
+            <Image
               src={activeStep.plate}
               alt=""
               width={360}
               height={190}
-              className="pointer-events-none absolute -bottom-4 left-[-2%] z-0 w-[28rem] object-contain drop-shadow-none lg:bottom-[-1.5rem]"
-            /> */}
+              className="pointer-events-none absolute bottom-[-0.5rem] left-2 z-0 hidden w-[13rem] object-contain opacity-85 drop-shadow-none sm:w-[17rem] lg:bottom-[-1.25rem] lg:left-[1.5rem] lg:block lg:w-[22rem] xl:left-[3vw]"
+            />
           </div>
 
           <ProcessVisualPanel activeStep={activeStep} activeIndex={activeIndex} />

@@ -65,12 +65,14 @@ export default function Categories() {
           bikeSelector: "[data-home-wave-bike]",
           duration: 22,
           reducedStart: 0.34,
+          yPercent: -38,
         },
         {
           pathSelector: "[data-between-bike-path]",
           bikeSelector: "[data-between-wave-bike]",
           duration: 24,
           reducedStart: 0.64,
+          yPercent: -48,
         },
       ];
       const tweens: gsap.core.Tween[] = [];
@@ -78,7 +80,7 @@ export default function Categories() {
         "(prefers-reduced-motion: reduce)",
       ).matches;
 
-      waveBikes.forEach(({ pathSelector, bikeSelector, duration, reducedStart }) => {
+      waveBikes.forEach(({ pathSelector, bikeSelector, duration, reducedStart, yPercent }) => {
         const path = sectionRef.current?.querySelector<SVGPathElement>(
           pathSelector,
         );
@@ -89,7 +91,7 @@ export default function Categories() {
 
         gsap.set(bike, {
           xPercent: -50,
-          yPercent: -66,
+          yPercent,
           transformOrigin: "50% 66%",
           autoAlpha: 1,
         });
@@ -138,7 +140,7 @@ export default function Categories() {
       ref={sectionRef}
       id="categories"
       data-nav-theme="neutral"
-      className="relative overflow-visible bg-[#fffaf5] pb-[5.5rem] pt-[4.5rem] sm:pb-[8.5rem] sm:pt-24 lg:pb-40"
+      className="relative overflow-visible bg-[#fffaf5] pb-[9.5rem] pt-[7.5rem] sm:pb-[8.5rem] sm:pt-24 lg:pb-40"
     >
       <CategoriesDecor />
       <HomeToCategoriesWave />
