@@ -35,12 +35,24 @@ const navThemeDefaults = {
 
 function MenuGlyph({ open }: { open: boolean }) {
   const ease = [0.22, 1, 0.36, 1] as const;
+  const closedOpacity = open ? 0 : 1;
+  const letterState = {
+    width: open ? 0 : "var(--menu-letter-width)",
+    opacity: closedOpacity,
+    marginLeft: open ? 0 : 4,
+  };
+  const mState = {
+    width: open ? 0 : "var(--menu-m-width)",
+    opacity: closedOpacity,
+    marginRight: open ? 0 : 4,
+  };
 
   return (
     <div className="flex h-12 items-center justify-center overflow-hidden [--menu-letter-width:14px] [--menu-m-width:17px] lg:[--menu-letter-width:19px] lg:[--menu-m-width:23px] xl:[--menu-letter-width:21px] xl:[--menu-m-width:24px]">
       <motion.svg
         viewBox="0 0 18 14"
-        animate={{ width: open ? 0 : "var(--menu-m-width)", opacity: open ? 0 : 1, marginRight: open ? 0 : 4 }}
+        initial={mState}
+        animate={mState}
         transition={{ duration: 0.4, ease }}
         className="h-[1.05rem] shrink-0 sm:h-[1.35rem] lg:h-[1.6rem] xl:h-[1.72rem]"
       >
@@ -49,16 +61,20 @@ function MenuGlyph({ open }: { open: boolean }) {
 
       <svg className="h-[0.9rem] w-[0.9rem] shrink-0 overflow-visible sm:h-[1.05rem] sm:w-[1.05rem] lg:h-[1.2rem] lg:w-[1.2rem]" viewBox="0 0 14 14">
         <motion.line x1="1" y1="1" x2="13" y2="1" stroke="var(--nav-icon, #f06400)" strokeWidth="2" strokeLinecap="square"
+          initial={{ y2: open ? 13 : 1 }}
           animate={{ y2: open ? 13 : 1 }} transition={{ duration: 0.4, ease }} />
         <motion.line x1="1" y1="7" x2="13" y2="7" stroke="var(--nav-icon, #f06400)" strokeWidth="2" strokeLinecap="square"
-          animate={{ opacity: open ? 0 : 1, scaleX: open ? 0 : 1 }} transition={{ duration: 0.3, ease }} />
+          initial={{ opacity: closedOpacity, scaleX: closedOpacity }}
+          animate={{ opacity: closedOpacity, scaleX: closedOpacity }} transition={{ duration: 0.3, ease }} />
         <motion.line x1="1" y1="13" x2="13" y2="13" stroke="var(--nav-icon, #f06400)" strokeWidth="2" strokeLinecap="square"
+          initial={{ y2: open ? 1 : 13 }}
           animate={{ y2: open ? 1 : 13 }} transition={{ duration: 0.4, ease }} />
       </svg>
 
       <motion.svg
         viewBox="0 0 14 14"
-        animate={{ width: open ? 0 : "var(--menu-letter-width)", opacity: open ? 0 : 1, marginLeft: open ? 0 : 4 }}
+        initial={letterState}
+        animate={letterState}
         transition={{ duration: 0.4, ease }}
         className="h-[1.05rem] shrink-0 sm:h-[1.35rem] lg:h-[1.6rem] xl:h-[1.72rem]"
       >
@@ -67,7 +83,8 @@ function MenuGlyph({ open }: { open: boolean }) {
 
       <motion.svg
         viewBox="0 0 14 14"
-        animate={{ width: open ? 0 : "var(--menu-letter-width)", opacity: open ? 0 : 1, marginLeft: open ? 0 : 4 }}
+        initial={letterState}
+        animate={letterState}
         transition={{ duration: 0.4, ease }}
         className="h-[1.05rem] shrink-0 sm:h-[1.55rem] lg:h-[1.78rem] xl:h-[1.92rem]"
       >
