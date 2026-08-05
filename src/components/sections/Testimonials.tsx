@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import Container from "../ui/Container";
 import Reveal from "../ui/Reveal";
+import SectionHeading from "../ui/SectionHeading";
 import { testimonials } from "@/content/site";
 
 const extraTestimonials = [
@@ -222,22 +223,15 @@ export default function Testimonials() {
   return (
     <section data-nav-theme="light" className="bg-[#fffaf5] py-16 sm:py-24">
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[1fr_0.66fr] lg:items-end">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.24em] text-[#6d5c52]">
-              What our community says
-            </p>
-            <h2 className="mt-5 max-w-5xl font-display text-[3.4rem] font-black leading-[1.02] tracking-[-0.075em] text-[#241813] sm:text-[5.5rem] lg:text-[6.6rem]">
-              4.9 is our average
-              <span className="block text-[#f06400]">across QuickBite.</span>
-            </h2>
-          </div>
+        <SectionHeading
+          title="What our community says"
+          subtitle="A 4.9 average rating from food lovers, riders and local kitchens using QuickBite."
+        />
 
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-2">
-            {ratingSummaries.map((summary) => (
-              <RatingTile key={summary.label} summary={summary} />
-            ))}
-          </div>
+        <div className="mx-auto mt-10 grid max-w-3xl gap-3 sm:grid-cols-2">
+          {ratingSummaries.map((summary) => (
+            <RatingTile key={summary.label} summary={summary} />
+          ))}
         </div>
 
         <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
