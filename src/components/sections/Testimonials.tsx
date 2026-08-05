@@ -213,10 +213,10 @@ function TrustPanel() {
                     strokeWidth={2.35}
                     aria-hidden="true"
                   />
-                  <p className="font-display text-2xl font-black tracking-[-0.06em]">
+                  <div className="font-display text-2xl font-black tracking-[-0.06em]">
                     <ScrollOdometer value={metric.value} duration={1400} />
                     {metric.suffix}
-                  </p>
+                  </div>
                   <p className="mt-1 text-xs font-black uppercase tracking-[0.13em] text-[#8a6b5a]">
                     {metric.label}
                   </p>
@@ -281,7 +281,7 @@ function MediaStoryCard({
     <StoryCardShell story={story} index={index}>
       <AuthorRow testimonial={story.testimonial} />
 
-      <div className="relative z-10 mt-6 flex-1 overflow-hidden rounded-[1.35rem] bg-[#2a211d]">
+      <div className="relative z-10 mt-6 min-h-[17rem] flex-1 overflow-hidden rounded-[1.35rem] bg-[#2a211d] sm:min-h-[20rem]">
         {story.image ? (
           <Image
             src={story.image}
