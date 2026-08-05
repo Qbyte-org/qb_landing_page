@@ -199,27 +199,29 @@ function TrustPanel() {
             </div>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+          <div className="overflow-hidden rounded-[1.35rem] bg-[#fffaf5]/82 ring-1 ring-[#2a211d]/7">
             {trustMetrics.map((metric) => {
               const Icon = metric.icon;
 
               return (
                 <div
                   key={metric.label}
-                  className="rounded-[1.35rem] bg-[#fffaf5]/82 p-4 ring-1 ring-[#2a211d]/7"
+                  className="grid grid-cols-[auto_1fr_auto] items-center gap-3 border-b border-dashed border-[#2a211d]/12 px-4 py-3.5 last:border-b-0"
                 >
-                  <Icon
-                    className="mb-5 h-5 w-5 text-[#f06400]"
-                    strokeWidth={2.35}
-                    aria-hidden="true"
-                  />
-                  <div className="font-display text-2xl font-black tracking-[-0.06em]">
-                    <ScrollOdometer value={metric.value} duration={1400} />
-                    {metric.suffix}
-                  </div>
-                  <p className="mt-1 text-xs font-black uppercase tracking-[0.13em] text-[#8a6b5a]">
+                  <span className="grid h-9 w-9 place-items-center rounded-full bg-[#f4dfcc]/70 text-[#f06400]">
+                    <Icon
+                      className="h-4 w-4"
+                      strokeWidth={2.35}
+                      aria-hidden="true"
+                    />
+                  </span>
+                  <p className="text-xs font-black uppercase tracking-[0.13em] text-[#8a6b5a]">
                     {metric.label}
                   </p>
+                  <div className="text-right font-display text-xl font-black tracking-[-0.06em] text-[#241813]">
+                    <ScrollOdometer value={metric.value} duration={1400} />
+                    <span>{metric.suffix}</span>
+                  </div>
                 </div>
               );
             })}
