@@ -1,5 +1,7 @@
+"use client";
+
 import Image from "next/image";
-import type { ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
 import {
   MessageCircle,
   Play,
@@ -9,6 +11,7 @@ import {
   Store,
 } from "lucide-react";
 import { testimonials } from "@/content/site";
+import { gsap, useGSAP } from "@/lib/gsap";
 import Container from "../ui/Container";
 import Reveal from "../ui/Reveal";
 import ScrollOdometer from "../ui/ScrollOdometer";
@@ -38,6 +41,30 @@ const extraTestimonials = [
     initials: "DO",
     accent: "#2a211d",
   },
+  {
+    quote:
+      "My hostel address is saved, my usual order is two taps away, and the rider updates make late-night food less stressful.",
+    name: "Mariam Yusuf",
+    role: "Customer • Moremi Hall",
+    initials: "MY",
+    accent: "#f4dfcc",
+  },
+  {
+    quote:
+      "QuickBite brings us new customers without making our counter chaotic. The order notes are simple and useful.",
+    name: "Kunle Ajayi",
+    role: "Restaurant Owner • Sabo",
+    initials: "KA",
+    accent: "#22c55e",
+  },
+  {
+    quote:
+      "I can see the pickup point, customer location and payout clearly. It helps me plan routes without guessing.",
+    name: "Grace Effiong",
+    role: "Rider • Mayfair",
+    initials: "GE",
+    accent: "#ff6b00",
+  },
 ];
 
 const testimonialCards = [...testimonials, ...extraTestimonials];
@@ -51,7 +78,7 @@ type StoryCard = {
   label: string;
   image?: string;
   title?: string;
-  layout: string;
+  mediaClassName?: string;
 };
 
 const storyCards: StoryCard[] = [
@@ -61,15 +88,12 @@ const storyCards: StoryCard[] = [
     label: "Customer story",
     title: "Campus lunch that still arrives hot.",
     image: "/images/food/hero-local.webp",
-    layout:
-      "md:col-span-1 xl:col-start-1 xl:row-start-1 xl:row-span-4",
+    mediaClassName: "min-h-[16rem] sm:min-h-[18rem]",
   },
   {
     kind: "quote",
     testimonial: testimonialCards[1],
     label: "Vendor note",
-    layout:
-      "md:col-span-1 xl:col-start-5 xl:row-start-1 xl:row-span-3",
   },
   {
     kind: "video",
@@ -77,15 +101,12 @@ const storyCards: StoryCard[] = [
     label: "Rider route",
     title: "Every drop is easier to follow.",
     image: "/images/food/partner-kitchen.webp",
-    layout:
-      "md:col-span-1 xl:col-start-9 xl:row-start-1 xl:row-span-4",
+    mediaClassName: "min-h-[14.5rem] sm:min-h-[17rem]",
   },
   {
     kind: "quote",
     testimonial: testimonialCards[3],
     label: "Repeat order",
-    layout:
-      "md:col-span-1 xl:col-start-1 xl:row-start-5 xl:row-span-4",
   },
   {
     kind: "image",
@@ -93,17 +114,52 @@ const storyCards: StoryCard[] = [
     label: "Partner story",
     title: "Clear handoffs from kitchen to rider.",
     image: "/images/food/hero-hot.webp",
-    layout:
-      "md:col-span-2 xl:col-span-4 xl:col-start-5 xl:row-start-4 xl:row-span-5",
+    mediaClassName: "min-h-[18rem] sm:min-h-[22rem]",
   },
   {
     kind: "quote",
     testimonial: testimonialCards[5],
     label: "Delivery note",
-    layout:
-      "md:col-span-1 xl:col-start-9 xl:row-start-5 xl:row-span-4",
+  },
+  {
+    kind: "image",
+    testimonial: testimonialCards[6],
+    label: "Saved favourite",
+    title: "Reorders that remember the small things.",
+    image: "/images/food/hero-fresh.webp",
+    mediaClassName: "min-h-[13rem] sm:min-h-[15rem]",
+  },
+  {
+    kind: "quote",
+    testimonial: testimonialCards[7],
+    label: "Kitchen log",
+  },
+  {
+    kind: "video",
+    testimonial: testimonialCards[8],
+    label: "Route note",
+    title: "Riders see the whole trip clearly.",
+    image: "/images/food/hero-fast.webp",
+    mediaClassName: "min-h-[15rem] sm:min-h-[18.5rem]",
   },
 ];
+
+const masonryMotion = {
+  desktop: {
+    offsets: [0, 56, 22],
+    travel: [-58, -132, -88],
+  },
+  tablet: {
+    offsets: [0, 44],
+    travel: [-54, -102],
+  },
+} as const;
+
+function splitIntoColumns<T>(items: T[], columnCount: number) {
+  return Array.from({ length: columnCount }, (_, columnIndex) =>
+    items.filter((_, itemIndex) => itemIndex % columnCount === columnIndex),
+  );
+}
 
 const trustMetrics = [
   {
@@ -233,17 +289,15 @@ function TrustPanel() {
 }
 
 function StoryCardShell({
-  story,
   index,
   children,
 }: {
-  story: StoryCard;
   index: number;
   children: ReactNode;
 }) {
   return (
-    <Reveal delay={index * 0.06} className={story.layout}>
-      <figure className="group relative flex h-full min-h-[22rem] flex-col overflow-hidden rounded-[2rem] bg-[#f4dfcc]/48 p-5 text-[#241813] ring-1 ring-[#2a211d]/8 transition duration-500 hover:-translate-y-1.5 hover:bg-[#f4dfcc]/68 hover:ring-[#f06400]/25 sm:p-6">
+    <Reveal delay={(index % 6) * 0.045}>
+      <figure className="group relative flex flex-col overflow-hidden rounded-[2rem] bg-[#f4dfcc]/48 p-5 text-[#241813] ring-1 ring-[#2a211d]/8 transition duration-500 hover:-translate-y-1.5 hover:bg-[#f4dfcc]/68 hover:ring-[#f06400]/25 sm:p-6">
         <div
           aria-hidden="true"
           className="absolute inset-0 opacity-[0.07] [background-image:radial-gradient(circle,rgba(42,33,29,.42)_1px,transparent_1.35px)] [background-size:14px_14px]"
@@ -265,6 +319,15 @@ function AuthorRow({ testimonial }: { testimonial: TestimonialSource }) {
         <span className="mt-1 block text-sm font-semibold text-[#6d5c52] sm:text-base">
           {testimonial.role}
         </span>
+        <span className="mt-3 flex flex-wrap items-center gap-2">
+          <StarRow
+            label="5 out of 5 testimonial rating"
+            starClassName="h-3.5 w-3.5"
+          />
+          <span className="-rotate-2 rounded-full border border-dashed border-[#f06400]/45 bg-[#fffaf5]/70 px-2.5 py-1 text-[0.55rem] font-black uppercase tracking-[0.14em] text-[#f06400]">
+            Verified bite
+          </span>
+        </span>
       </span>
     </figcaption>
   );
@@ -280,10 +343,10 @@ function MediaStoryCard({
   const isVideo = story.kind === "video";
 
   return (
-    <StoryCardShell story={story} index={index}>
+    <StoryCardShell index={index}>
       <AuthorRow testimonial={story.testimonial} />
 
-      <div className="relative z-10 mt-6 min-h-[17rem] flex-1 overflow-hidden rounded-[1.35rem] bg-[#2a211d] sm:min-h-[20rem]">
+      <div className={`relative z-10 mt-6 overflow-hidden rounded-[1.35rem] bg-[#2a211d] ${story.mediaClassName ?? "min-h-[16rem] sm:min-h-[19rem]"}`}>
         {story.image ? (
           <Image
             src={story.image}
@@ -328,7 +391,7 @@ function QuoteStoryCard({
   index: number;
 }) {
   return (
-    <StoryCardShell story={story} index={index}>
+    <StoryCardShell index={index}>
       <div className="relative z-10 flex items-start justify-between gap-4">
         <span className="rounded-full bg-[#fffaf5] px-3 py-1.5 text-[0.68rem] font-black uppercase tracking-[0.14em] text-[#f06400]">
           {story.label}
@@ -339,7 +402,7 @@ function QuoteStoryCard({
         />
       </div>
 
-      <blockquote className="relative z-10 my-8 flex flex-1 items-center text-[1.55rem] font-black leading-[1.14] tracking-[-0.055em] text-[#241813] sm:text-[1.85rem] xl:text-[2rem]">
+      <blockquote className="relative z-10 my-8 text-[1.5rem] font-black leading-[1.14] tracking-[-0.055em] text-[#241813] sm:text-[1.75rem] xl:text-[1.95rem]">
         “{story.testimonial.quote}”
       </blockquote>
 
@@ -362,9 +425,159 @@ function TestimonialStoryCard({
   return <MediaStoryCard story={story} index={index} />;
 }
 
-export default function Testimonials() {
+function MasonryGrid({
+  mode,
+  columnCount,
+  className,
+}: {
+  mode: "mobile" | "tablet" | "desktop";
+  columnCount: number;
+  className: string;
+}) {
+  const columns = splitIntoColumns(storyCards, columnCount);
+  const preset =
+    mode === "desktop"
+      ? masonryMotion.desktop
+      : mode === "tablet"
+        ? masonryMotion.tablet
+        : undefined;
+
   return (
-    <section data-nav-theme="light" className="bg-[#fffaf5] py-16 sm:py-24">
+    <div data-testimonial-grid={mode} className={className}>
+      {columns.map((column, columnIndex) => {
+        const offset = preset?.offsets[columnIndex] ?? 0;
+        const travel = preset?.travel[columnIndex] ?? 0;
+
+        return (
+          <div
+            key={`${mode}-column-${columnIndex}`}
+            data-testimonial-column
+            data-testimonial-start-offset={offset}
+            data-testimonial-travel={travel}
+            className="flex min-w-0 flex-col gap-4 sm:gap-5"
+            style={{
+              transform: offset
+                ? `translate3d(0, ${offset}px, 0)`
+                : undefined,
+            }}
+          >
+            {column.map((story) => {
+              const originalIndex = storyCards.indexOf(story);
+
+              return (
+                <TestimonialStoryCard
+                  key={`${mode}-${story.testimonial.name}-${story.label}`}
+                  story={story}
+                  index={originalIndex}
+                />
+              );
+            })}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+export default function Testimonials() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const allColumns = gsap.utils.toArray<HTMLElement>(
+        section.querySelectorAll("[data-testimonial-column]"),
+      );
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set(allColumns, { clearProps: "transform,willChange" });
+        return;
+      }
+
+      const setupColumns = (gridSelector: string) => {
+        const grid = section.querySelector<HTMLElement>(gridSelector);
+        if (!grid) return undefined;
+
+        const columns = gsap.utils.toArray<HTMLElement>(
+          grid.querySelectorAll("[data-testimonial-column]"),
+        );
+
+        columns.forEach((column) => {
+          const startOffset = Number(
+            column.dataset.testimonialStartOffset ?? 0,
+          );
+          const requestedTravel = Number(column.dataset.testimonialTravel ?? 0);
+
+          gsap.set(column, { y: startOffset });
+
+          gsap.to(column, {
+            // Per-column rates are deliberately different; retune the values
+            // in `masonryMotion` above if the drift needs more/less contrast.
+            y: () => {
+              const gridHeight = grid.scrollHeight;
+              const columnHeight = column.scrollHeight;
+              const spareSpace = Math.max(
+                56,
+                gridHeight - columnHeight + Math.abs(startOffset) + 72,
+              );
+              const safeTravel = gsap.utils.clamp(
+                -spareSpace,
+                spareSpace,
+                requestedTravel,
+              );
+
+              return startOffset + safeTravel;
+            },
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top 82%",
+              end: "bottom top",
+              scrub: 1.25,
+              invalidateOnRefresh: true,
+              onEnter: () => gsap.set(column, { willChange: "transform" }),
+              onEnterBack: () =>
+                gsap.set(column, { willChange: "transform" }),
+              onLeave: () => gsap.set(column, { willChange: "auto" }),
+              onLeaveBack: () => gsap.set(column, { willChange: "auto" }),
+            },
+          });
+        });
+
+        return () => {
+          gsap.set(columns, { clearProps: "transform,willChange" });
+        };
+      };
+
+      const media = gsap.matchMedia();
+
+      media.add("(min-width: 1280px)", () =>
+        setupColumns("[data-testimonial-grid='desktop']"),
+      );
+      media.add("(min-width: 768px) and (max-width: 1279px)", () =>
+        setupColumns("[data-testimonial-grid='tablet']"),
+      );
+      media.add("(max-width: 767px)", () => {
+        const mobileColumns = section.querySelectorAll(
+          "[data-testimonial-grid='mobile'] [data-testimonial-column]",
+        );
+
+        gsap.set(mobileColumns, { clearProps: "transform,willChange" });
+      });
+
+      return () => media.revert();
+    },
+    { scope: sectionRef },
+  );
+
+  return (
+    <section
+      ref={sectionRef}
+      data-nav-theme="light"
+      className="bg-[#fffaf5] py-16 sm:py-24"
+    >
       <Container>
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(21rem,30rem)] lg:items-end">
           <Reveal direction="up">
@@ -388,15 +601,21 @@ export default function Testimonials() {
           <TrustPanel />
         </div>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-2 xl:auto-rows-[5.7rem] xl:grid-cols-12 xl:gap-5">
-          {storyCards.map((story, index) => (
-            <TestimonialStoryCard
-              key={`${story.testimonial.name}-${story.label}`}
-              story={story}
-              index={index}
-            />
-          ))}
-        </div>
+        <MasonryGrid
+          mode="mobile"
+          columnCount={1}
+          className="mt-12 grid gap-4 md:hidden"
+        />
+        <MasonryGrid
+          mode="tablet"
+          columnCount={2}
+          className="mt-12 hidden gap-5 pb-16 md:grid md:grid-cols-2 xl:hidden"
+        />
+        <MasonryGrid
+          mode="desktop"
+          columnCount={3}
+          className="mt-14 hidden gap-5 pb-20 xl:grid xl:grid-cols-3"
+        />
       </Container>
     </section>
   );
