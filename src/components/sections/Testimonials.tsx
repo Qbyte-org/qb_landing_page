@@ -11,7 +11,7 @@ import {
   Store,
 } from "lucide-react";
 import { testimonials } from "@/content/site";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import Container from "../ui/Container";
 import Reveal from "../ui/Reveal";
 import ScrollOdometer from "../ui/ScrollOdometer";
@@ -490,15 +490,38 @@ export default function Testimonials() {
       const allColumns = gsap.utils.toArray<HTMLElement>(
         section.querySelectorAll("[data-testimonial-column]"),
       );
+      const activeAnimations: gsap.core.Tween[] = [];
+      const activeTriggers: ScrollTrigger[] = [];
+
+      const resetColumns = () => {
+        activeTriggers.splice(0).forEach((trigger) => trigger.kill());
+        activeAnimations.splice(0).forEach((animation) => animation.kill());
+        gsap.set(allColumns, { clearProps: "transform,willChange" });
+      };
 
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        gsap.set(allColumns, { clearProps: "transform,willChange" });
-        return;
+        resetColumns();
+        return resetColumns;
       }
 
-      const setupColumns = (gridSelector: string) => {
+      const getActiveGridSelector = () => {
+        if (window.innerWidth >= 1280) {
+          return "[data-testimonial-grid='desktop']";
+        }
+
+        if (window.innerWidth >= 768) {
+          return "[data-testimonial-grid='tablet']";
+        }
+
+        return "[data-testimonial-grid='mobile']";
+      };
+
+      const setupColumns = () => {
+        resetColumns();
+
+        const gridSelector = getActiveGridSelector();
         const grid = section.querySelector<HTMLElement>(gridSelector);
-        if (!grid) return undefined;
+        if (!grid || gridSelector.includes("mobile")) return;
 
         const columns = gsap.utils.toArray<HTMLElement>(
           grid.querySelectorAll("[data-testimonial-column]"),
@@ -512,7 +535,7 @@ export default function Testimonials() {
 
           gsap.set(column, { y: startOffset });
 
-          gsap.to(column, {
+          const animation = gsap.to(column, {
             // Per-column rates are deliberately different; retune the values
             // in `masonryMotion` above if the drift needs more/less contrast.
             y: () => {
@@ -531,45 +554,46 @@ export default function Testimonials() {
               return startOffset + safeTravel;
             },
             ease: "none",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 82%",
-              end: "bottom top",
-              scrub: 1.25,
-              invalidateOnRefresh: true,
-              onEnter: () => gsap.set(column, { willChange: "transform" }),
-              onEnterBack: () =>
-                gsap.set(column, { willChange: "transform" }),
-              onLeave: () => gsap.set(column, { willChange: "auto" }),
-              onLeaveBack: () => gsap.set(column, { willChange: "auto" }),
-            },
+            paused: true,
           });
-        });
 
-        return () => {
-          gsap.set(columns, { clearProps: "transform,willChange" });
-        };
+          const trigger = ScrollTrigger.create({
+            trigger: section,
+            start: "top 82%",
+            end: "bottom top",
+            scrub: 1.25,
+            animation,
+            invalidateOnRefresh: true,
+            onEnter: () => gsap.set(column, { willChange: "transform" }),
+            onEnterBack: () => gsap.set(column, { willChange: "transform" }),
+            onLeave: () => gsap.set(column, { willChange: "auto" }),
+            onLeaveBack: () => gsap.set(column, { willChange: "auto" }),
+          });
+
+          activeAnimations.push(animation);
+          activeTriggers.push(trigger);
+        });
       };
 
-      const media = gsap.matchMedia();
+      let resizeFrame = 0;
+      const handleResize = () => {
+        window.cancelAnimationFrame(resizeFrame);
+        resizeFrame = window.requestAnimationFrame(() => {
+          setupColumns();
+          ScrollTrigger.refresh();
+        });
+      };
 
-      media.add("(min-width: 1280px)", () =>
-        setupColumns("[data-testimonial-grid='desktop']"),
-      );
-      media.add("(min-width: 768px) and (max-width: 1279px)", () =>
-        setupColumns("[data-testimonial-grid='tablet']"),
-      );
-      media.add("(max-width: 767px)", () => {
-        const mobileColumns = section.querySelectorAll(
-          "[data-testimonial-grid='mobile'] [data-testimonial-column]",
-        );
+      setupColumns();
+      window.addEventListener("resize", handleResize);
 
-        gsap.set(mobileColumns, { clearProps: "transform,willChange" });
-      });
-
-      return () => media.revert();
+      return () => {
+        window.removeEventListener("resize", handleResize);
+        window.cancelAnimationFrame(resizeFrame);
+        resetColumns();
+      };
     },
-    { scope: sectionRef },
+    { dependencies: [] },
   );
 
   return (
