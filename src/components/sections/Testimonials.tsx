@@ -11,7 +11,7 @@ import {
   Store,
 } from "lucide-react";
 import { testimonials } from "@/content/site";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP } from "@/lib/gsap";
 import Container from "../ui/Container";
 import Reveal from "../ui/Reveal";
 import ScrollOdometer from "../ui/ScrollOdometer";
@@ -490,19 +490,14 @@ export default function Testimonials() {
       const allColumns = gsap.utils.toArray<HTMLElement>(
         section.querySelectorAll("[data-testimonial-column]"),
       );
-      const activeAnimations: gsap.core.Tween[] = [];
-      const activeTriggers: ScrollTrigger[] = [];
+      const reducedMotionQuery = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      );
+      let animationFrame = 0;
 
       const resetColumns = () => {
-        activeTriggers.splice(0).forEach((trigger) => trigger.kill());
-        activeAnimations.splice(0).forEach((animation) => animation.kill());
         gsap.set(allColumns, { clearProps: "transform,willChange" });
       };
-
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        resetColumns();
-        return resetColumns;
-      }
 
       const getActiveGridSelector = () => {
         if (window.innerWidth >= 1280) {
@@ -516,15 +511,27 @@ export default function Testimonials() {
         return "[data-testimonial-grid='mobile']";
       };
 
-      const setupColumns = () => {
-        resetColumns();
-
+      const updateColumns = () => {
+        animationFrame = 0;
         const gridSelector = getActiveGridSelector();
         const grid = section.querySelector<HTMLElement>(gridSelector);
-        if (!grid || gridSelector.includes("mobile")) return;
+
+        if (!grid || gridSelector.includes("mobile") || reducedMotionQuery.matches) {
+          resetColumns();
+          return;
+        }
 
         const columns = gsap.utils.toArray<HTMLElement>(
           grid.querySelectorAll("[data-testimonial-column]"),
+        );
+        const rect = section.getBoundingClientRect();
+        const viewportHeight = window.innerHeight || 1;
+        const startPoint = viewportHeight * 0.82;
+        const scrollRange = rect.height + startPoint;
+        const progress = gsap.utils.clamp(
+          0,
+          1,
+          (startPoint - rect.top) / scrollRange,
         );
 
         columns.forEach((column) => {
@@ -532,64 +539,41 @@ export default function Testimonials() {
             column.dataset.testimonialStartOffset ?? 0,
           );
           const requestedTravel = Number(column.dataset.testimonialTravel ?? 0);
+          const gridHeight = grid.scrollHeight;
+          const columnHeight = column.scrollHeight;
+          const spareSpace = Math.max(
+            56,
+            gridHeight - columnHeight + Math.abs(startOffset) + 72,
+          );
+          const safeTravel = gsap.utils.clamp(
+            -spareSpace,
+            spareSpace,
+            requestedTravel,
+          );
 
-          gsap.set(column, { y: startOffset });
-
-          const animation = gsap.to(column, {
-            // Per-column rates are deliberately different; retune the values
-            // in `masonryMotion` above if the drift needs more/less contrast.
-            y: () => {
-              const gridHeight = grid.scrollHeight;
-              const columnHeight = column.scrollHeight;
-              const spareSpace = Math.max(
-                56,
-                gridHeight - columnHeight + Math.abs(startOffset) + 72,
-              );
-              const safeTravel = gsap.utils.clamp(
-                -spareSpace,
-                spareSpace,
-                requestedTravel,
-              );
-
-              return startOffset + safeTravel;
-            },
-            ease: "none",
-            paused: true,
+          gsap.set(column, {
+            y: startOffset + safeTravel * progress,
+            willChange: "transform",
           });
-
-          const trigger = ScrollTrigger.create({
-            trigger: section,
-            start: "top 82%",
-            end: "bottom top",
-            scrub: 1.25,
-            animation,
-            invalidateOnRefresh: true,
-            onEnter: () => gsap.set(column, { willChange: "transform" }),
-            onEnterBack: () => gsap.set(column, { willChange: "transform" }),
-            onLeave: () => gsap.set(column, { willChange: "auto" }),
-            onLeaveBack: () => gsap.set(column, { willChange: "auto" }),
-          });
-
-          activeAnimations.push(animation);
-          activeTriggers.push(trigger);
         });
       };
 
-      let resizeFrame = 0;
-      const handleResize = () => {
-        window.cancelAnimationFrame(resizeFrame);
-        resizeFrame = window.requestAnimationFrame(() => {
-          setupColumns();
-          ScrollTrigger.refresh();
-        });
+      const requestUpdate = () => {
+        if (animationFrame) return;
+        animationFrame = window.requestAnimationFrame(updateColumns);
       };
 
-      setupColumns();
-      window.addEventListener("resize", handleResize);
+      resetColumns();
+      updateColumns();
+      window.addEventListener("scroll", requestUpdate, { passive: true });
+      window.addEventListener("resize", requestUpdate);
+      reducedMotionQuery.addEventListener("change", requestUpdate);
 
       return () => {
-        window.removeEventListener("resize", handleResize);
-        window.cancelAnimationFrame(resizeFrame);
+        window.removeEventListener("scroll", requestUpdate);
+        window.removeEventListener("resize", requestUpdate);
+        reducedMotionQuery.removeEventListener("change", requestUpdate);
+        window.cancelAnimationFrame(animationFrame);
         resetColumns();
       };
     },
