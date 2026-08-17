@@ -306,7 +306,7 @@ export default function Header() {
                   dataNavAction
                   className="h-9 rounded-pill bg-[#F15F00] px-3 text-xs font-extrabold sm:h-10 sm:px-5 xl:h-12 xl:text-base"
                 >
-                  Order<span className="hidden sm:inline">&nbsp;now</span>
+                  Order now
                   <ListOrderedIcon data-nav-icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.35} aria-hidden="true" />
                 </MagneticFillButton>
               </span>
