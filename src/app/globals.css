@@ -152,7 +152,8 @@ html {
   scrollbar-width: thin;
   scrollbar-color: rgba(239, 95, 0, 0.8) rgba(58, 36, 24, 0.08);
   scrollbar-gutter: stable;
-  overscroll-behavior: contain;
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: auto;
   touch-action: pan-y;
 }
 
