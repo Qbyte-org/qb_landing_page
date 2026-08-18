@@ -2,7 +2,7 @@ export function HomeToCategoriesWave() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-x-0 -top-8 z-10 h-[7.5rem] overflow-x-clip overflow-y-visible sm:-top-24 sm:h-52 sm:overflow-visible"
+      className="pointer-events-none absolute inset-x-0 -top-[4.75rem] z-10 h-[7.5rem] overflow-x-clip overflow-y-visible sm:-top-32 sm:h-52 sm:overflow-visible"
     >
       <svg
         className="absolute left-1/2 top-0 h-full w-[178vw] -translate-x-1/2 overflow-visible text-[#fffaf5] sm:static sm:w-full sm:translate-x-0"

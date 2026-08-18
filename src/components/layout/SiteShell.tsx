@@ -9,6 +9,8 @@ import Footer from "./Footer";
 import SmoothScroll from "./SmoothScroll";
 import BackToTopButton from "../ui/BackToTopButton";
 import StickyOrderBar from "../ui/StickyOrderBar";
+import QuickBiteBentoLoader from "../loader/QuickBiteBentoLoader";
+import { useState, useEffect } from "react";
 
 export default function SiteShell({
   children,
@@ -18,9 +20,34 @@ export default function SiteShell({
   heroIntro?: boolean;
 }) {
   const shellRef = useRef<HTMLDivElement>(null);
+  const [showLoader, setShowLoader] = useState(false);
+  const [loaderFinished, setLoaderFinished] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    if (heroIntro) {
+      const hasPlayed = sessionStorage.getItem("qb_bento_played");
+      if (!hasPlayed) {
+        setShowLoader(true);
+      } else {
+        setLoaderFinished(true);
+      }
+    } else {
+      setLoaderFinished(true);
+    }
+  }, [heroIntro]);
+
+  const handleLoaderComplete = () => {
+    sessionStorage.setItem("qb_bento_played", "true");
+    setShowLoader(false);
+    setLoaderFinished(true);
+  };
 
   useGSAP(
     () => {
+      if (heroIntro && !loaderFinished) return;
+
       const reducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       ).matches;
@@ -162,17 +189,22 @@ export default function SiteShell({
           1.04,
         );
     },
-    { scope: shellRef, dependencies: [heroIntro] },
+    { scope: shellRef, dependencies: [heroIntro, loaderFinished] },
   );
 
   return (
-    <div ref={shellRef} className="flex min-h-full flex-col">
-      <SmoothScroll />
-      <Header />
-      <main className="flex-1">{children}</main>
-      <Footer />
-      <BackToTopButton />
-      <StickyOrderBar />
-    </div>
+    <>
+      {isClient && showLoader && (
+        <QuickBiteBentoLoader onComplete={handleLoaderComplete} />
+      )}
+      <div ref={shellRef} className="flex min-h-full flex-col">
+        <SmoothScroll />
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+        <BackToTopButton />
+        <StickyOrderBar />
+      </div>
+    </>
   );
 }
