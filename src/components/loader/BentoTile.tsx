@@ -1,33 +1,38 @@
 import React, { forwardRef } from "react";
 import Image from "next/image";
-import Logo from "../ui/Logo";
 import { BentoTileData } from "./loaderData";
-import { cn } from "@/lib/utils";
+
 
 interface BentoTileProps {
   data: BentoTileData;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 const BentoTile = forwardRef<HTMLDivElement, BentoTileProps>(
-  ({ data, className }, ref) => {
+  ({ data, className, style }, ref) => {
     return (
       <div
         ref={ref}
-        className={cn(
-          "relative overflow-hidden rounded-2xl sm:rounded-3xl",
-          className
-        )}
+        className={`relative overflow-hidden rounded-2xl sm:rounded-3xl${className ? " " + className : ""}`}
         style={{
           backgroundColor: data.backgroundColor || "transparent",
           color: data.textColor || "inherit",
+          ...style,
         }}
       >
         <div data-bento-inner className="absolute inset-0 h-full w-full">
           {data.type === "brand" && (
             <div className="flex h-full w-full items-center justify-center p-6">
-              <div data-brand-mark className="flex items-center gap-3">
-                <Logo className="h-10 text-white sm:h-12" markOnly />
+              <div data-brand-mark className="flex flex-col items-center gap-3 sm:flex-row">
+                <div className="relative h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0">
+                  <Image
+                    src="/quickbite-logo-light.svg"
+                    alt="QuickBite"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
                 <div data-brand-wordmark className="overflow-hidden">
                   <span className="block font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
                     QuickBite

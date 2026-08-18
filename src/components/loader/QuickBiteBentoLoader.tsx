@@ -3,9 +3,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { animation } from "@/lib/animation";
-import { getGridLayout, calculateEntranceData, TileLayout } from "./loaderLayout";
+import { getGridLayout, calculateEntranceData } from "./loaderLayout";
 import BentoTile from "./BentoTile";
-import { cn } from "@/lib/utils";
+
 
 interface QuickBiteBentoLoaderProps {
   onComplete: () => void;
