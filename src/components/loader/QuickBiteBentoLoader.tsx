@@ -45,6 +45,7 @@ export default function QuickBiteBentoLoader({
       const tl = gsap.timeline({
         onComplete: () => {
           document.body.style.overflow = "";
+          onComplete();
         },
       });
 
@@ -170,17 +171,10 @@ export default function QuickBiteBentoLoader({
         }
       });
 
-      // 4. Outro Transition — fire hero intro at the START of the outro so
-      //    the page reveal overlaps the tiles flying out (zero perceived gap).
+      // 4. Outro Transition — tiles accelerate outward, container fades out.
+      //    onComplete fires after the container fully fades so the hero intro
+      //    plays in full from the start with no loader covering it.
       const outroStart = 2.8;
-
-      tl.call(
-        () => {
-          onComplete();
-        },
-        [],
-        outroStart
-      );
 
       tileAnimations.forEach((anim) => {
         if (!anim) return;
