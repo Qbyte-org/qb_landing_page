@@ -53,7 +53,27 @@ export default function SiteShell({
       }
 
       // ── heroIntro page: wait until loader signals done ───────────────
-      if (!loaderDone) return;
+      if (!loaderDone) {
+        // Immediately hide elements so they don't flash behind the loader
+        // as it fades out, before the intro animation kicks in.
+        gsap.set(
+          [
+            "[data-intro-nav-parent]",
+            "[data-intro-nav-shell]",
+            "[data-intro-nav-content] > *",
+            "[data-hero-map-detail]",
+            "[data-hero-title] > span",
+            "[data-hero-actions] > *",
+            "[data-hero-float]",
+            "[data-hero-next-image]",
+            "[data-hero-image-stage]",
+            "[data-hero-image-media]",
+          ].join(","),
+          { autoAlpha: 0 }
+        );
+        return;
+      }
+
 
       // gsap.from() immediately sets elements to the "from" state and
       // then animates them to their natural CSS state.  Because the
