@@ -20,6 +20,32 @@ export default function SiteShell({
 }) {
   const shellRef = useRef<HTMLDivElement>(null);
 
+  // ── Immediately hide hero intro elements so they're invisible while
+  //    the bento loader is covering the screen. Without this, elements
+  //    render fully visible behind the loader and gsap.from() has
+  //    nothing to animate from when runHeroIntro is called.
+  useGSAP(
+    () => {
+      if (!heroIntro) return;
+      gsap.set(
+        [
+          "[data-intro-nav-parent]",
+          "[data-intro-nav-shell]",
+          "[data-intro-nav-content] > *",
+          "[data-hero-map-detail]",
+          "[data-hero-title] > span",
+          "[data-hero-actions] > *",
+          "[data-hero-float]",
+          "[data-hero-next-image]",
+          "[data-hero-image-stage]",
+          "[data-hero-image-media]",
+        ],
+        { autoAlpha: 0 },
+      );
+    },
+    { scope: shellRef, dependencies: [heroIntro] },
+  );
+
   // Build the intro timeline immediately — a ref-based callback so it can be
   // called synchronously from the loader's onComplete without any React state
   // round-trip (which would add a full render cycle of delay).
