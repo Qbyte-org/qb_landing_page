@@ -5,6 +5,8 @@ import Image from "next/image";
 import Container from "../ui/Container";
 import MagneticFillButton from "../ui/MagneticFillButton";
 import { gsap, useGSAP } from "@/lib/gsap";
+import { CategoriesToHowWave, HomeToCategoriesWave } from "./categories/CategoryWaveDivider";
+import CategoriesDecor from "./categories/CategoriesDecor";
 
 function AppStoreIcon() {
   return (
@@ -54,9 +56,8 @@ function StoreButton({
       customFillClass={store === "App Store" ? "bg-[#2a211d]" : "bg-[#f06400]"}
       customHoverTextColor="#fffaf5"
       ariaLabel={store === "App Store" ? "Download on the App Store" : "Get it on Google Play"}
-      className={`h-11 min-w-[8.8rem] rounded-[0.65rem] px-3 text-[#fffaf5] before:pointer-events-none before:absolute before:inset-y-0 before:-left-14 before:z-[1] before:w-8 before:rotate-12 before:bg-[#fffaf5]/35 before:blur-sm before:transition-transform before:duration-700 hover:before:translate-x-[15rem] sm:h-12 sm:min-w-[9.75rem] sm:px-4 ${
-        store === "App Store" ? "bg-[#f06400]" : "bg-[#2a211d]"
-      }`}
+      className={`h-11 min-w-[8.8rem] rounded-[0.65rem] px-3 text-[#fffaf5] before:pointer-events-none before:absolute before:inset-y-0 before:-left-14 before:z-[1] before:w-8 before:rotate-12 before:bg-[#fffaf5]/35 before:blur-sm before:transition-transform before:duration-700 hover:before:translate-x-[15rem] sm:h-12 sm:min-w-[9.75rem] sm:px-4 ${store === "App Store" ? "bg-[#f06400]" : "bg-[#2a211d]"
+        }`}
     >
       <span className="shrink-0 text-[#fffaf5]">{icon}</span>
       <span className="text-left leading-none">
@@ -123,6 +124,9 @@ export default function AppShowcase() {
       data-nav-theme="light"
       className="relative isolate overflow-hidden bg-[#fffaf5] py-10 text-[#241813] sm:py-14 lg:py-16"
     >
+      {/* <CategoriesDecor /> */}
+      {/* <HomeToCategoriesWave /> */}
+      {/* <CategoriesToHowWave /> */}
       <Container>
         <div
           data-app-banner
