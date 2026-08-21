@@ -358,7 +358,7 @@ export default function Waitlist() {
               </div>
             </section>
 
-            <section className="relative z-10 mt-12 overflow-hidden px-4 py-16 sm:mt-20 sm:px-6 sm:py-20">
+            {/* <section className="relative z-10 mt-12 overflow-hidden px-4 py-16 sm:mt-20 sm:px-6 sm:py-20">
               <BackgroundRipple />
               <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-[#2a211d]/35 via-transparent to-[#2a211d]/35" />
               <div className="relative z-20 mx-auto max-w-5xl">
@@ -513,7 +513,7 @@ export default function Waitlist() {
               <footer className="relative z-10 mt-16 px-6 pb-4 text-center text-sm text-[#8a6b5a]">
                 Copyright 2026 QuickBite Waitlist
               </footer>
-            </section>
+            </section> */}
           </motion.div>
         )}
       </AnimatePresence>
