@@ -157,7 +157,7 @@ export default function Waitlist() {
   };
 
   return (
-    <main className="qb-waitlist relative isolate min-h-screen overflow-x-clip bg-[#050505] text-white">
+    <main className="qb-waitlist relative isolate min-h-screen overflow-x-clip bg-[#2a211d] text-[#fffaf5]">
       <AnimatedBackground />
       <AnimatePresence mode="wait">
         {isBooting ? (
@@ -169,7 +169,7 @@ export default function Waitlist() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: reduceMotion ? 0 : 0.35 }}
-            className="fixed inset-0 z-50 flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#050505]/88 px-6 backdrop-blur-[2px]"
+            className="fixed inset-0 z-50 flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#2a211d]/90 px-6 backdrop-blur-[2px]"
           >
             <motion.div
               initial={{ opacity: 0 }}
@@ -202,9 +202,9 @@ export default function Waitlist() {
                 ))}
               </p>
 
-              <div className="relative mt-7 h-px w-[min(18rem,70vw)] overflow-hidden bg-white/10">
+              <div className="relative mt-7 h-px w-[min(18rem,70vw)] overflow-hidden bg-[#fffaf5]/[0.14]">
                 <motion.span
-                  className="qb-loader-progress block h-full origin-left bg-[#ff6b00]"
+                  className="qb-loader-progress block h-full origin-left bg-[#f06400]"
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{
@@ -250,7 +250,7 @@ export default function Waitlist() {
                 <motion.div
                   {...rise}
                   transition={{ duration: reduceMotion ? 0 : 0.75 }}
-                  className="hero-panel relative overflow-hidden rounded-[32px] bg-[#03050b51] p-4 py-6 backdrop-blur-[14px] transition-colors duration-300 hover:bg-[#03050b70] sm:p-8 sm:py-10"
+                  className="hero-panel relative overflow-hidden rounded-[32px] bg-[#fffaf5]/[0.07] p-4 py-6 backdrop-blur-[14px] transition-colors duration-300 hover:bg-[#fffaf5]/[0.1] sm:p-8 sm:py-10"
                 >
                   <div className="relative flex items-center justify-center max-sm:mt-10">
                     <motion.h1
@@ -258,13 +258,13 @@ export default function Waitlist() {
                       transition={{ duration: 0.55 }}
                       className="font-display mb-4 inline-block text-center text-3xl font-bold sm:text-5xl"
                     >
-                      <span className="bg-gradient-to-b from-white to-zinc-500 bg-clip-text text-transparent">
+                      <span className="bg-gradient-to-b from-[#fffaf5] to-[#c9aa96] bg-clip-text text-transparent">
                         Join our waitlist!
                       </span>
                     </motion.h1>
                   </div>
 
-                  <p className="relative mb-4 px-2 text-center text-sm leading-relaxed text-zinc-400 sm:mb-6 sm:px-0">
+                  <p className="relative mb-4 px-2 text-center text-sm leading-relaxed text-[#f0d7c2] sm:mb-6 sm:px-0">
                     Be first to know when QuickBite starts delivering fast, fresh meals from local favourites near you.
                   </p>
 
@@ -283,9 +283,9 @@ export default function Waitlist() {
                         placeholder="Enter your email address"
                         disabled={isLoading}
                         required
-                        className="relative z-10 w-full bg-transparent px-4 py-2 text-base text-white outline-none placeholder:text-zinc-600 disabled:opacity-60"
+                        className="relative z-10 w-full bg-transparent px-4 py-2 text-base text-[#fffaf5] outline-none placeholder:text-[#c9aa96] disabled:opacity-60"
                       />
-                      <div className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(32%_50%_at_24.325%_25.675%,rgb(255,255,255)_0%,rgba(255,255,255,0)_100%)] opacity-[0.03] blur-[10px]" />
+                      <div className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(32%_50%_at_24.325%_25.675%,rgb(255,250,245)_0%,rgba(255,250,245,0)_100%)] opacity-[0.05] blur-[10px]" />
                     </HoverBorderGradient>
 
                     <motion.button
@@ -293,7 +293,7 @@ export default function Waitlist() {
                       whileTap={reduceMotion || isLoading ? undefined : { scale: 0.98 }}
                       disabled={isLoading || !email.trim()}
                       type="submit"
-                      className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-white px-8 py-3 font-semibold text-black transition-all hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-50 sm:min-w-[140px]"
+                      className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-[#f06400] px-8 py-3 font-semibold text-[#fffaf5] transition-all hover:bg-[#ff7a1a] disabled:cursor-not-allowed disabled:opacity-50 sm:min-w-[140px]"
                     >
                       {isLoading ? (
                         <>
@@ -310,22 +310,22 @@ export default function Waitlist() {
                     initial={{ opacity: 0, y: reduceMotion ? 0 : 18 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: reduceMotion ? 0 : 0.45, duration: 0.45 }}
-                    className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#03050b51] p-6 backdrop-blur-[14px]"
+                    className="relative overflow-hidden rounded-2xl border border-[#fffaf5]/[0.1] bg-[#fffaf5]/[0.07] p-6 backdrop-blur-[14px]"
                   >
                     <div className="relative z-10 flex items-start justify-between">
                       <div className="flex gap-4 max-sm:flex-col">
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-[#03050b51] backdrop-blur-[14px]">
-                          <Zap className="h-5 w-5 text-orange-400" aria-hidden="true" />
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#fffaf5]/[0.1] bg-[#fffaf5]/[0.07] backdrop-blur-[14px]">
+                          <Zap className="h-5 w-5 text-[#f06400]" aria-hidden="true" />
                         </div>
                         <div className="min-w-0 flex-1">
-                          <p className="mb-1 text-xs text-zinc-500">QuickBite early access</p>
-                          <h2 className="mb-2 text-lg font-semibold text-white">Your first order starts here</h2>
-                          <p className="text-sm leading-6 text-zinc-400">
+                          <p className="mb-1 text-xs text-[#c9aa96]">QuickBite early access</p>
+                          <h2 className="mb-2 text-lg font-semibold text-[#fffaf5]">Your first order starts here</h2>
+                          <p className="text-sm leading-6 text-[#f0d7c2]">
                             Get launch updates, priority access, and the first look at restaurants joining QuickBite in Ile-Ife.
                           </p>
                         </div>
                       </div>
-                      <ArrowUpRight className="h-5 w-5 shrink-0 text-zinc-500" aria-hidden="true" />
+                      <ArrowUpRight className="h-5 w-5 shrink-0 text-[#c9aa96]" aria-hidden="true" />
                     </div>
 
                     <div className="mt-4 flex flex-wrap gap-2">
@@ -334,7 +334,7 @@ export default function Waitlist() {
                         "Live tracking",
                         "Secure payments",
                       ].map((label) => (
-                        <span key={label} className="rounded-full bg-zinc-800/55 px-3 py-1 text-xs text-zinc-300">
+                        <span key={label} className="rounded-full bg-[#fffaf5]/[0.1] px-3 py-1 text-xs text-[#f0d7c2]">
                           {label}
                         </span>
                       ))}
@@ -347,11 +347,11 @@ export default function Waitlist() {
                     transition={{ delay: reduceMotion ? 0 : 0.65 }}
                     className="mt-8 flex justify-center"
                   >
-                    <div className="relative flex w-[14rem] items-center gap-3 overflow-hidden rounded-xl border border-white/10 bg-white/[0.02] p-1 backdrop-blur-xl">
-                      <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.02]">
-                        <MapPin className="h-5 w-5 text-orange-400" aria-hidden="true" />
+                    <div className="relative flex w-[14rem] items-center gap-3 overflow-hidden rounded-xl border border-[#fffaf5]/[0.12] bg-[#fffaf5]/[0.07] p-1 backdrop-blur-xl">
+                      <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#fffaf5]/[0.12] bg-[#fffaf5]/[0.08]">
+                        <MapPin className="h-5 w-5 text-[#f06400]" aria-hidden="true" />
                       </span>
-                      <span className="relative z-10 text-sm font-medium text-zinc-200">Launching in Ile-Ife</span>
+                      <span className="relative z-10 text-sm font-medium text-[#fffaf5]">Launching in Ile-Ife</span>
                     </div>
                   </motion.div>
                 </motion.div>
@@ -360,7 +360,7 @@ export default function Waitlist() {
 
             <section className="relative z-10 mt-12 overflow-hidden px-4 py-16 sm:mt-20 sm:px-6 sm:py-20">
               <BackgroundRipple />
-              <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-black/30 via-transparent to-black/30" />
+              <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-[#2a211d]/35 via-transparent to-[#2a211d]/35" />
               <div className="relative z-20 mx-auto max-w-5xl">
                 <motion.div
                   initial={{ opacity: 0, y: reduceMotion ? 0 : 25 }}
@@ -370,12 +370,12 @@ export default function Waitlist() {
                   className="mb-10 text-center sm:mb-12"
                 >
                   <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                    <span className="inline-block rounded-full border border-zinc-800 bg-zinc-900/60 px-4 py-2 text-sm text-zinc-300">
+                    <span className="inline-block rounded-full border border-[#fffaf5]/[0.12] bg-[#fffaf5]/[0.08] px-4 py-2 text-sm text-[#f0d7c2]">
                       Built for everyone
                     </span>
                     <h2 className="font-display text-3xl font-bold sm:text-4xl">One local delivery network</h2>
                   </div>
-                  <p className="mx-auto mt-5 max-w-2xl leading-7 text-zinc-400">
+                  <p className="mx-auto mt-5 max-w-2xl leading-7 text-[#f0d7c2]">
                     QuickBite brings customers, independent kitchens, restaurants, and riders together for a faster way to order locally.
                   </p>
                 </motion.div>
@@ -393,11 +393,11 @@ export default function Waitlist() {
                         whileHover={reduceMotion ? undefined : { scale: 1.04, y: -2 }}
                         className="glass-card relative flex min-w-52 items-center gap-3 overflow-hidden rounded-2xl px-6 py-4"
                       >
-                        <div className="absolute right-0 bottom-0 h-1/2 w-1/3 rounded-tl-3xl bg-orange-500/15 blur-2xl" />
-                        <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-orange-500/15">
-                          <Icon className="h-4 w-4 text-orange-400" aria-hidden="true" />
+                        <div className="absolute right-0 bottom-0 h-1/2 w-1/3 rounded-tl-3xl bg-[#f06400]/[0.18] blur-2xl" />
+                        <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-[#f06400]/[0.18]">
+                          <Icon className="h-4 w-4 text-[#f06400]" aria-hidden="true" />
                         </span>
-                        <span className="relative font-medium text-white">{audience.name}</span>
+                        <span className="relative font-medium text-[#fffaf5]">{audience.name}</span>
                       </motion.div>
                     );
                   })}
@@ -430,7 +430,7 @@ export default function Waitlist() {
                   <button
                     type="button"
                     onClick={() => document.getElementById("waitlist-hero")?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" })}
-                    className="inline-flex min-h-12 items-center gap-2 rounded-full bg-white px-8 py-3 font-semibold text-black transition-colors hover:bg-orange-50"
+                    className="inline-flex min-h-12 items-center gap-2 rounded-full bg-[#f06400] px-8 py-3 font-semibold text-[#fffaf5] transition-colors hover:bg-[#ff7a1a]"
                   >
                     Join Waitlist
                     <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -470,7 +470,7 @@ export default function Waitlist() {
                     />
                   </div>
 
-                  <p className="relative mx-auto mt-5 max-w-xl text-center text-sm leading-6 text-zinc-400 sm:text-base">
+                  <p className="relative mx-auto mt-5 max-w-xl text-center text-sm leading-6 text-[#f0d7c2] sm:text-base">
                     Questions about ordering, partnering, or riding with QuickBite? Our team would love to hear from you.
                   </p>
 
@@ -479,38 +479,38 @@ export default function Waitlist() {
                       href="mailto:support@quickbite.ng"
                       className="contact-item group"
                     >
-                      <Mail className="h-6 w-6 text-zinc-400 transition-colors group-hover:text-orange-400" aria-hidden="true" />
-                      <span className="mt-3 font-semibold text-white">Email us</span>
-                      <span className="mt-1 break-all text-sm text-zinc-400">support@quickbite.ng</span>
+                      <Mail className="h-6 w-6 text-[#c9aa96] transition-colors group-hover:text-[#f06400]" aria-hidden="true" />
+                      <span className="mt-3 font-semibold text-[#fffaf5]">Email us</span>
+                      <span className="mt-1 break-all text-sm text-[#f0d7c2]">support@quickbite.ng</span>
                     </a>
 
                     <div className="contact-item">
-                      <MapPin className="h-6 w-6 text-zinc-400" aria-hidden="true" />
-                      <span className="mt-3 font-semibold text-white">Launching in</span>
-                      <span className="mt-1 text-sm text-zinc-400">Ile-Ife, Nigeria</span>
+                      <MapPin className="h-6 w-6 text-[#c9aa96]" aria-hidden="true" />
+                      <span className="mt-3 font-semibold text-[#fffaf5]">Launching in</span>
+                      <span className="mt-1 text-sm text-[#f0d7c2]">Ile-Ife, Nigeria</span>
                     </div>
 
                     <div className="contact-item">
-                      <Users className="h-6 w-6 text-zinc-400" aria-hidden="true" />
-                      <span className="mt-3 font-semibold text-white">Built for</span>
-                      <span className="mt-1 text-sm text-zinc-400">Customers, vendors & riders</span>
+                      <Users className="h-6 w-6 text-[#c9aa96]" aria-hidden="true" />
+                      <span className="mt-3 font-semibold text-[#fffaf5]">Built for</span>
+                      <span className="mt-1 text-sm text-[#f0d7c2]">Customers, vendors & riders</span>
                     </div>
                   </div>
 
-                  <div className="relative mt-8 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs text-zinc-500">
+                  <div className="relative mt-8 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs text-[#c9aa96]">
                     <span className="inline-flex items-center gap-1.5">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-orange-400" aria-hidden="true" />
+                      <CheckCircle2 className="h-3.5 w-3.5 text-[#f06400]" aria-hidden="true" />
                       Fast. Fresh. Delivered.
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <Clock3 className="h-3.5 w-3.5 text-orange-400" aria-hidden="true" />
+                      <Clock3 className="h-3.5 w-3.5 text-[#f06400]" aria-hidden="true" />
                       Coming soon
                     </span>
                   </div>
                 </div>
               </motion.div>
 
-              <footer className="relative z-10 mt-16 px-6 pb-4 text-center text-sm text-zinc-600">
+              <footer className="relative z-10 mt-16 px-6 pb-4 text-center text-sm text-[#8a6b5a]">
                 Copyright 2026 QuickBite Waitlist
               </footer>
             </section>
@@ -520,3 +520,4 @@ export default function Waitlist() {
     </main>
   );
 }
+

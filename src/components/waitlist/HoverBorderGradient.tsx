@@ -4,14 +4,14 @@ import { motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useEffect, useState } from "react";
 
 const MOVING_HIGHLIGHTS = [
-  "radial-gradient(20.7% 50% at 50% 0%, rgb(255 255 255) 0%, rgba(255, 255, 255, 0.05) 100%)",
-  "radial-gradient(16.2% 41.2% at 100% 50%, rgb(255 255 255) 0%, rgba(255, 255, 255, 0.05) 100%)",
-  "radial-gradient(20.7% 50% at 50% 100%, rgb(255 255 255) 0%, rgba(255, 255, 255, 0.05) 100%)",
-  "radial-gradient(16.6% 43.1% at 0% 50%, rgb(255 255 255) 0%, rgba(255, 255, 255, 0.05) 100%)",
+  "radial-gradient(20.7% 50% at 50% 0%, rgb(255 250 245) 0%, rgba(240, 100, 0, 0.12) 100%)",
+  "radial-gradient(16.2% 41.2% at 100% 50%, rgb(240 215 194) 0%, rgba(255, 250, 245, 0.08) 100%)",
+  "radial-gradient(20.7% 50% at 50% 100%, rgb(255 250 245) 0%, rgba(240, 100, 0, 0.12) 100%)",
+  "radial-gradient(16.6% 43.1% at 0% 50%, rgb(240 215 194) 0%, rgba(255, 250, 245, 0.08) 100%)",
 ];
 
 const HOVER_HIGHLIGHT =
-  "radial-gradient(32% 50% at 24.325% 25.675%, rgb(255 255 255) 0%, rgba(255, 255, 255, 0.1) 100%)";
+  "radial-gradient(32% 50% at 24.325% 25.675%, rgb(255 250 245) 0%, rgba(240, 100, 0, 0.22) 100%)";
 
 type HoverBorderGradientProps = {
   children: ReactNode;
@@ -40,11 +40,11 @@ export default function HoverBorderGradient({
 
   return (
     <div
-      className={`relative flex h-min w-full items-center overflow-hidden rounded-full border-[1.5px] border-white/10 bg-black/20 p-px transition-colors duration-500 hover:bg-black/10 ${className}`}
+      className={`relative flex h-min w-full items-center overflow-hidden rounded-full border-[1.5px] border-[#fffaf5]/15 bg-[#2a211d]/55 p-px transition-colors duration-500 hover:bg-[#2a211d]/38 ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative z-10 w-full rounded-[inherit] bg-black px-4 py-2">
+      <div className="relative z-10 w-full rounded-[inherit] bg-[#241813] px-4 py-2">
         {children}
       </div>
       <motion.div
