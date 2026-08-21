@@ -41,6 +41,18 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Waitlist
+
+The standalone launch page is available at `/waitlist`. Signups are saved in
+the visitor's browser by default. To also deliver signups through EmailJS,
+configure these deployment environment variables:
+
+```text
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=
+```
+
 ## Quality checks
 
 ```bash
