@@ -1,0 +1,246 @@
+.qb-waitlist {
+  --qb-waitlist-background: #2a211d;
+  --qb-waitlist-foreground: #fffaf5;
+  --qb-waitlist-brand: #f06400;
+  --qb-waitlist-cream: #fffaf5;
+  --qb-waitlist-cream-soft: #f4dfcc;
+  --qb-waitlist-muted: #f0d7c2;
+  --qb-waitlist-muted-strong: #c9aa96;
+  background: var(--qb-waitlist-background);
+  color: var(--qb-waitlist-foreground);
+  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+.qb-waitlist .glass-panel {
+  border: 1px solid rgba(255, 250, 245, 0.1);
+  background: rgba(255, 250, 245, 0.075);
+  box-shadow: 0 0 48px rgba(240, 100, 0, 0.045) !important;
+  backdrop-filter: blur(14px);
+  transition:
+    background-color 300ms ease,
+    border-color 300ms ease;
+}
+
+.qb-waitlist .glass-panel:hover {
+  border-color: rgba(240, 100, 0, 0.26);
+  background: rgba(255, 250, 245, 0.105);
+}
+
+.qb-waitlist .glass-card {
+  border: 1px solid rgba(255, 250, 245, 0.1);
+  background: rgba(255, 250, 245, 0.07);
+  box-shadow: 0 0 30px rgba(240, 100, 0, 0.04) !important;
+  backdrop-filter: blur(14px);
+}
+
+.qb-waitlist .outline-display {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(240, 215, 194, 0.28);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 250, 245, 0.14),
+    transparent
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  filter: drop-shadow(0 0 45px rgba(240, 100, 0, 0.075));
+  user-select: none;
+}
+
+.qb-waitlist .loader-letter {
+  display: inline-block;
+  color: transparent;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 250, 245, 0.82),
+    rgba(240, 215, 194, 0.22)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  filter: drop-shadow(0 0 24px rgba(240, 100, 0, 0.12));
+  will-change: transform, opacity;
+}
+
+.qb-waitlist .qb-loader-progress {
+  box-shadow: 0 0 12px rgba(240, 100, 0, 0.75) !important;
+}
+
+.qb-waitlist .hero-panel {
+  border: 1px solid rgba(255, 250, 245, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 250, 245, 0.06),
+    0 0 48px rgba(240, 100, 0, 0.04) !important;
+}
+
+.qb-waitlist .hero-panel::before,
+.qb-waitlist .hero-panel::after {
+  content: "";
+  position: absolute;
+  top: 8%;
+  width: 34px;
+  height: 84%;
+  border-radius: 999px;
+  background: rgba(255, 250, 245, 0.22);
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+.qb-waitlist .hero-panel::before {
+  left: -32px;
+}
+
+.qb-waitlist .hero-panel::after {
+  right: -32px;
+}
+
+.qb-waitlist .contact-item {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 148px;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+  border: 1px solid rgba(255, 250, 245, 0.11);
+  border-radius: 16px;
+  background: rgba(255, 250, 245, 0.055);
+  padding: 20px;
+  backdrop-filter: blur(14px);
+  transition:
+    transform 250ms ease,
+    background-color 250ms ease,
+    border-color 250ms ease;
+}
+
+.qb-waitlist .contact-item::after {
+  content: "";
+  position: absolute;
+  right: -25%;
+  bottom: -35%;
+  width: 70%;
+  height: 70%;
+  border-radius: 999px;
+  background: rgba(240, 100, 0, 0.13);
+  filter: blur(22px);
+}
+
+.qb-waitlist .contact-item > * {
+  position: relative;
+  z-index: 1;
+}
+
+.qb-waitlist a.contact-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(240, 100, 0, 0.28);
+  background: rgba(255, 250, 245, 0.08);
+}
+
+.qb-waitlist .background-grid {
+  background-image:
+    linear-gradient(rgba(255, 250, 245, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 250, 245, 0.035) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: radial-gradient(circle at center, black, transparent 72%);
+}
+
+.qb-waitlist .background-glow {
+  position: absolute;
+  width: 42rem;
+  height: 18rem;
+  border-radius: 50%;
+  background: rgba(240, 100, 0, 0.14);
+  filter: blur(90px);
+}
+
+.qb-waitlist .background-glow-top {
+  top: -10rem;
+  left: 5%;
+}
+
+.qb-waitlist .background-glow-bottom {
+  right: -12rem;
+  bottom: 10%;
+}
+
+.qb-waitlist .particle {
+  position: absolute;
+  display: block;
+  border-radius: 999px;
+  background: rgba(240, 215, 194, 0.42);
+  animation: qb-particle-drift ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.qb-waitlist .ripple-grid {
+  background-image:
+    linear-gradient(rgba(240, 215, 194, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240, 215, 194, 0.16) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(ellipse at top, black 12%, transparent 78%);
+  cursor: crosshair;
+}
+
+.qb-waitlist .ripple-wave {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(240, 100, 0, 0.85);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: qb-ripple-wave 1.15s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes qb-particle-drift {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0) scale(0.7);
+  }
+  50% {
+    opacity: 0.65;
+    transform: translate3d(var(--particle-drift), -26px, 0) scale(1.15);
+  }
+}
+
+@keyframes qb-ripple-wave {
+  from {
+    opacity: 0.85;
+    filter: drop-shadow(0 0 0 rgba(240, 100, 0, 0.3));
+  }
+  to {
+    width: min(90vw, 720px);
+    height: min(90vw, 720px);
+    opacity: 0;
+    filter: drop-shadow(0 0 40px rgba(240, 100, 0, 0));
+  }
+}
+
+@media (max-width: 639px) {
+  .qb-waitlist .glass-panel {
+    backdrop-filter: blur(11px);
+  }
+
+  .qb-waitlist .contact-item {
+    min-height: 128px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .qb-waitlist .background-glow {
+    width: 24rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qb-waitlist,
+  .qb-waitlist *,
+  .qb-waitlist *::before,
+  .qb-waitlist *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

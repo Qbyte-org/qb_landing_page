@@ -18,6 +18,7 @@ const menuLinks = [
   { label: "For Partners", href: "/partners", asset: "/menu/company-card.svg" },
   { label: "Riders", href: "/riders", asset: "/menu/rider-bike.svg" },
   { label: "Company", href: "/company", asset: "/menu/company-card.svg" },
+  { label: "Waitlist", href: "/waitlist", asset: "/menu/app-phone.svg" },
   { label: "Cities", href: "/#cities", asset: "/menu/city-pin.svg" },
   { label: "Get the app", href: "/#app", asset: "/menu/app-phone.svg" },
   { label: "Contact Us", href: "/company", asset: "/menu/contact-bubble.svg" },
