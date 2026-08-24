@@ -84,6 +84,59 @@ function readWaitlist(): WaitlistEntry[] {
   }
 }
 
+function AnimatedTextOutline({ text, className }: { text: string; className?: string }) {
+  const gradientId = `text-grad-${text.replace(/\W+/g, "-").toLowerCase()}`;
+  const traceDelay = text.toLowerCase().includes("soon") ? "-2.6s" : "0s";
+
+  return (
+    <span className={`coming-soon-outline relative block w-full ${className}`}>
+      {/* Invisible HTML text to keep exact layout size */}
+      <span className="invisible select-none">{text}</span>
+      <svg
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        aria-hidden="true"
+        focusable="false"
+        overflow="visible"
+      >
+        <defs>
+          <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="rgba(255, 250, 245, 0.14)" />
+            <stop offset="100%" stopColor="transparent" />
+          </linearGradient>
+        </defs>
+        <text
+          x="50%"
+          y="50%"
+          textAnchor="middle"
+          dominantBaseline="central"
+          fill={`url(#${gradientId})`}
+          stroke="rgba(240, 215, 194, 0.28)"
+          strokeWidth="1px"
+          className="coming-soon-outline__text"
+        >
+          {text}
+        </text>
+        <text
+          x="50%"
+          y="50%"
+          textAnchor="middle"
+          dominantBaseline="central"
+          fill="transparent"
+          stroke="#f06400"
+          strokeWidth="3px"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeDasharray="120 520"
+          className="coming-soon-outline__text coming-soon-outline__trace"
+          style={{ animationDelay: traceDelay }}
+        >
+          {text}
+        </text>
+      </svg>
+    </span>
+  );
+}
+
 export default function Waitlist() {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -237,12 +290,14 @@ export default function Waitlist() {
                   transition={{ duration: reduceMotion ? 0 : 1.8 }}
                   className="absolute inset-0 text-center text-[20vw] font-bold leading-none tracking-wider"
                 >
-                  <span className="outline-display absolute top-[-0.08em] left-1/2 block -translate-x-1/2">
-                    Coming
-                  </span>
-                  <span className="outline-display absolute bottom-[-0.02em] left-1/2 block -translate-x-1/2">
-                    soon!
-                  </span>
+                  <AnimatedTextOutline
+                    text="Coming"
+                    className="absolute top-[-0.08em] left-1/2 -translate-x-1/2"
+                  />
+                  <AnimatedTextOutline
+                    text="soon!"
+                    className="absolute bottom-[-0.02em] left-1/2 -translate-x-1/2"
+                  />
                 </motion.div>
               </div>
 
