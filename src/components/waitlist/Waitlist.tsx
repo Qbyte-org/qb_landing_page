@@ -7,20 +7,26 @@ import {
   ArrowUpRight,
   BadgeCheck,
   CheckCircle2,
+  CircleDollarSign,
   Clock3,
   CreditCard,
   LoaderCircle,
   Mail,
   MapPin,
+  MessageCircle,
   Navigation,
+  Send,
   ShoppingBasket,
+  Crown,
   Store,
+  Timer,
   Truck,
   Users,
   UtensilsCrossed,
   Zap,
 } from "lucide-react";
 import { Toaster, toast } from "sonner";
+import MagneticFillButton from "../ui/MagneticFillButton";
 
 import AnimatedBackground from "./AnimatedBackground";
 import BackgroundRipple from "./BackgroundRipple";
@@ -86,6 +92,7 @@ function readWaitlist(): WaitlistEntry[] {
 
 export default function Waitlist() {
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isBooting, setIsBooting] = useState(true);
   const reduceMotion = useReducedMotion();
@@ -128,6 +135,7 @@ export default function Waitlist() {
           templateId,
           {
             email: normalizedEmail,
+            phone: phone.trim() || "Not provided",
             name: normalizedEmail.split("@")[0],
             reply_to: "support@quickbite.ng",
             from_name: "QuickBite Team",
@@ -139,10 +147,11 @@ export default function Waitlist() {
 
       const updatedEntries = [
         ...entries,
-        { email: normalizedEmail, date: new Date().toISOString() },
+        { email: normalizedEmail, phone: phone.trim(), date: new Date().toISOString() },
       ];
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedEntries));
       setEmail("");
+      setPhone("");
       toast.success("You are on the QuickBite waitlist. We will keep you posted.");
     } catch {
       toast.error("We could not add you right now. Please try again.");
@@ -228,72 +237,84 @@ export default function Waitlist() {
 
             <section
               id="waitlist-hero"
-              className="relative z-10 flex min-h-[100svh] items-center justify-center px-6"
+              className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6"
             >
               <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
-                <motion.div
-                  initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.94 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: reduceMotion ? 0 : 1.8 }}
-                  className="absolute inset-0 text-center text-[20vw] font-bold leading-none tracking-wider"
-                >
-                  <span className="outline-display absolute top-[-0.08em] left-1/2 block -translate-x-1/2">
-                    Coming
-                  </span>
-                  <span className="outline-display absolute bottom-[-0.02em] left-1/2 block -translate-x-1/2">
-                    soon!
-                  </span>
-                </motion.div>
+                <h1 className="outline-display text-center text-[20vw] font-bold leading-none tracking-wider text-transparent">
+                  Coming<br />soon!
+                </h1>
               </div>
 
-              <div className="relative z-10 mx-auto w-full max-w-2xl">
+              <div className="relative z-10 mx-auto w-full max-w-xl">
                 <motion.div
                   {...rise}
                   transition={{ duration: reduceMotion ? 0 : 0.75 }}
-                  className="hero-panel relative overflow-hidden rounded-[32px] bg-[#fffaf5]/[0.07] p-4 py-6 backdrop-blur-[14px] transition-colors duration-300 hover:bg-[#fffaf5]/[0.1] sm:p-8 sm:py-10"
+                  className="hero-panel relative overflow-hidden rounded-t-[32px] bg-[#fffaf5]/[0.07] p-4 py-6 backdrop-blur-[14px] transition-colors duration-300 hover:bg-[#fffaf5]/[0.1] sm:p-8 sm:py-10"
                 >
                   <div className="relative flex items-center justify-center max-sm:mt-10">
-                    <motion.h1
-                      whileHover={reduceMotion ? undefined : { rotateX: [0, 90, 0] }}
-                      transition={{ duration: 0.55 }}
-                      className="font-display mb-4 inline-block text-center text-3xl font-bold sm:text-5xl"
-                    >
+                    <h1 className="font-display mb-4 inline-block text-center text-3xl font-bold sm:text-5xl">
                       <span className="bg-gradient-to-b from-[#fffaf5] to-[#c9aa96] bg-clip-text text-transparent">
                         Join our waitlist!
                       </span>
-                    </motion.h1>
+                    </h1>
                   </div>
 
                   <p className="relative mb-4 px-2 text-center text-sm leading-relaxed text-[#f0d7c2] sm:mb-6 sm:px-0">
                     Be first to know when QuickBite starts delivering fast, fresh meals from local favourites near you.
                   </p>
 
-                  <form onSubmit={handleSubmit} className="relative mb-8 flex w-full flex-col gap-3 sm:flex-row">
-                    <HoverBorderGradient className="flex-1">
-                      <label htmlFor="waitlist-email" className="sr-only">
-                        Email address
-                      </label>
-                      <input
-                        id="waitlist-email"
-                        type="email"
-                        autoComplete="email"
-                        inputMode="email"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                        placeholder="Enter your email address"
-                        disabled={isLoading}
-                        required
-                        className="relative z-10 w-full bg-transparent px-4 py-2 text-base text-[#fffaf5] outline-none placeholder:text-[#c9aa96] disabled:opacity-60"
-                      />
-                      <div className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(32%_50%_at_24.325%_25.675%,rgb(255,250,245)_0%,rgba(255,250,245,0)_100%)] opacity-[0.05] blur-[10px]" />
-                    </HoverBorderGradient>
+                  <form onSubmit={handleSubmit} className="relative mb-8 flex w-full flex-col gap-4">
+                    <div className="flex w-full flex-col gap-4">
+                      <HoverBorderGradient className="w-full" containerClassName="relative flex h-[56px] w-full items-center px-4 rounded-[inherit]">
+                        <input
+                          id="waitlist-email"
+                          type="email"
+                          autoComplete="email"
+                          inputMode="email"
+                          value={email}
+                          onChange={(event) => setEmail(event.target.value)}
+                          placeholder=" "
+                          disabled={isLoading}
+                          required
+                          className="peer relative z-10 w-full appearance-none bg-none text-base text-[#fffaf5] placeholder-transparent border-none shadow-none outline-none focus:border-none focus:ring-0 focus:!outline-none focus-visible:!outline-none disabled:opacity-60"
+                        />
+                        <label
+                          htmlFor="waitlist-email"
+                          className="pointer-events-none absolute left-4 top-0 z-20 -translate-y-1/2 bg-[#241813] px-1 text-xs text-[#c9aa96] transition-all duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs peer-focus:text-[#f06400] rounded-full"
+                        >
+                          Email address
+                        </label>
+                        <div className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[radial-gradient(32%_50%_at_24.325%_25.675%,rgb(255,250,245)_0%,rgba(255,250,245,0)_100%)] opacity-[0.05] blur-[10px]" />
+                      </HoverBorderGradient>
 
-                    <motion.button
-                      whileHover={reduceMotion || isLoading ? undefined : { scale: 1.02 }}
-                      whileTap={reduceMotion || isLoading ? undefined : { scale: 0.98 }}
+                      <HoverBorderGradient className="w-full" containerClassName="relative flex h-[56px] w-full items-center px-4 rounded-[inherit]">
+                        <input
+                          id="waitlist-phone"
+                          type="tel"
+                          autoComplete="tel"
+                          inputMode="tel"
+                          value={phone}
+                          onChange={(event) => setPhone(event.target.value)}
+                          placeholder=" "
+                          disabled={isLoading}
+                          className="peer relative z-10 w-full appearance-none bg-none text-base text-[#fffaf5] placeholder-transparent border-none shadow-none outline-none focus:border-none focus:ring-0 focus:!outline-none focus-visible:!outline-none disabled:opacity-60"
+                        />
+                        <label
+                          htmlFor="waitlist-phone"
+                          className="pointer-events-none absolute left-4 top-0 z-20 -translate-y-1/2 bg-[#241813] px-1 text-xs text-[#c9aa96] transition-all duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs peer-focus:text-[#f06400] rounded-full" 
+                        >
+                          Phone number (optional)
+                        </label>
+                        <div className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[radial-gradient(32%_50%_at_24.325%_25.675%,rgb(255,250,245)_0%,rgba(255,250,245,0)_100%)] opacity-[0.05] blur-[10px]" />
+                      </HoverBorderGradient>
+                    </div>
+
+                    <MagneticFillButton
                       disabled={isLoading || !email.trim()}
                       type="submit"
-                      className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-[#f06400] px-8 py-3 font-semibold text-[#fffaf5] transition-all hover:bg-[#ff7a1a] disabled:cursor-not-allowed disabled:opacity-50 sm:min-w-[140px]"
+                      className="mt-2 inline-flex min-h-12 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-[#f06400] px-8 py-3 font-semibold text-[#fffaf5] disabled:cursor-not-allowed disabled:opacity-50"
+                      customFillClass="bg-[#241813] border-2 border-dashed border-[#f06400] shadow-[0_0_20px_rgba(240,100,0,0.08)]"
+                      customHoverTextColor="#fffaf5"
                     >
                       {isLoading ? (
                         <>
@@ -303,62 +324,67 @@ export default function Waitlist() {
                       ) : (
                         "Join Waitlist"
                       )}
-                    </motion.button>
+                    </MagneticFillButton>
                   </form>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: reduceMotion ? 0 : 18 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: reduceMotion ? 0 : 0.45, duration: 0.45 }}
-                    className="relative overflow-hidden rounded-2xl border border-[#fffaf5]/[0.1] bg-[#fffaf5]/[0.07] p-6 backdrop-blur-[14px]"
-                  >
-                    <div className="relative z-10 flex items-start justify-between">
-                      <div className="flex gap-4 max-sm:flex-col">
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#fffaf5]/[0.1] bg-[#fffaf5]/[0.07] backdrop-blur-[14px]">
-                          <Zap className="h-5 w-5 text-[#f06400]" aria-hidden="true" />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="mb-1 text-xs text-[#c9aa96]">QuickBite early access</p>
-                          <h2 className="mb-2 text-lg font-semibold text-[#fffaf5]">Your first order starts here</h2>
-                          <p className="text-sm leading-6 text-[#f0d7c2]">
-                            Get launch updates, priority access, and the first look at restaurants joining QuickBite in Ile-Ife.
-                          </p>
-                        </div>
-                      </div>
-                      <ArrowUpRight className="h-5 w-5 shrink-0 text-[#c9aa96]" aria-hidden="true" />
-                    </div>
-
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {[
-                        "Local restaurants",
-                        "Live tracking",
-                        "Secure payments",
-                      ].map((label) => (
-                        <span key={label} className="rounded-full bg-[#fffaf5]/[0.1] px-3 py-1 text-xs text-[#f0d7c2]">
-                          {label}
-                        </span>
-                      ))}
-                    </div>
-                  </motion.div>
 
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: reduceMotion ? 0 : 0.65 }}
-                    className="mt-8 flex justify-center"
+                    className="mt-8 flex flex-wrap justify-center gap-4"
                   >
-                    <div className="relative flex w-[14rem] items-center gap-3 overflow-hidden rounded-xl border border-[#fffaf5]/[0.12] bg-[#fffaf5]/[0.07] p-1 backdrop-blur-xl">
-                      <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#fffaf5]/[0.12] bg-[#fffaf5]/[0.08]">
-                        <MapPin className="h-5 w-5 text-[#f06400]" aria-hidden="true" />
+                    <div className="relative flex w-[14rem] items-center gap-3 overflow-hidden rounded-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.14] p-1 shadow-[0_0_20px_rgba(240,100,0,0.08)] backdrop-blur-xl">
+                      <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16] hover:bg-[#ff7a1a]/[0.25] hover:border-[#ff7a1a]">
+                        <MapPin className="h-5 w-5 text-[#ffffff]" aria-hidden="true" />
                       </span>
-                      <span className="relative z-10 text-sm font-medium text-[#fffaf5]">Launching in Ile-Ife</span>
+                      <span className="relative z-10 text-sm font-semibold text-white">Launching in Ile-Ife</span>
+                    </div>
+
+                    <div className="relative flex items-center gap-1 overflow-hidden rounded-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.14] p-1 shadow-[0_0_20px_rgba(240,100,0,0.08)] backdrop-blur-xl">
+                      <span className="relative z-10 mr-2 pl-3 text-sm font-semibold text-white">Follow us</span>
+                      <a href="#" className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#fffaf5]/[0.28] bg-[#fffaf5]/[0.16] transition-colors hover:bg-[#ff7a1a]/[0.25] hover:border-[#ff7a1a]">
+                        <span className="sr-only">QuickBite updates</span>
+                        <MessageCircle className="h-5 w-5 text-[#ffffff]" aria-hidden="true" />
+                      </a>
+                      <a href="#" className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#fffaf5]/[0.28] bg-[#fffaf5]/[0.16] transition-colors hover:bg-[#ff7a1a]/[0.25] hover:border-[#ff7a1a]">
+                        <span className="sr-only">Send QuickBite a message</span>
+                        <Send className="h-5 w-5 text-[#ffffff]" aria-hidden="true" />
+                      </a>
                     </div>
                   </motion.div>
                 </motion.div>
               </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: reduceMotion ? 0 : 0.85 }}
+                className="relative z-10 flex items-center justify-center gap-4.5"
+              >
+                <div className="relative flex items-center gap-3 overflow-hidden rounded-b-xl border border-[#fffaf51a] bg-[#fffaf5]/[0.14] p-1 pr-4 shadow-[0_0_20px_rgba(240,100,0,0.08)] backdrop-blur-xl">
+                  <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-b-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16]">
+                    <Crown className="h-5 w-5 text-[#ffffff]" aria-hidden="true" />
+                  </span>
+                  <span className="relative z-10 text-sm font-semibold text-white">Early bird perks</span>
+                </div>
+
+                <div className="relative flex items-center gap-3 overflow-hidden rounded-b-xl border border-[#fffaf51a] bg-[#fffaf5]/[0.14] p-1 pr-4 shadow-[0_0_20px_rgba(240,100,0,0.08)] backdrop-blur-xl">
+                  <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-b-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16]">
+                    <Timer className="h-5 w-5 text-[#ffffff]" aria-hidden="true" />
+                  </span>
+                  <span className="relative z-10 text-sm font-semibold text-white">Fast delivery</span>
+                </div>
+
+                <div className="relative flex items-center gap-3 overflow-hidden rounded-b-xl border border-[#fffaf51a] bg-[#fffaf5]/[0.14] p-1 pr-4 shadow-[0_0_20px_rgba(240,100,0,0.08)] backdrop-blur-xl">
+                  <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-b-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16]">
+                    <CircleDollarSign className="h-5 w-5 text-[#ffffff]" aria-hidden="true" />
+                  </span>
+                  <span className="relative z-10 text-sm font-semibold text-white">No hidden fees</span>
+                </div>
+              </motion.div>
             </section>
 
-            <section className="relative z-10 mt-12 overflow-hidden px-4 py-16 sm:mt-20 sm:px-6 sm:py-20">
+            {/* <section className="relative z-10 mt-12 overflow-hidden px-4 py-16 sm:mt-20 sm:px-6 sm:py-20">
               <BackgroundRipple />
               <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-[#2a211d]/35 via-transparent to-[#2a211d]/35" />
               <div className="relative z-20 mx-auto max-w-5xl">
@@ -513,7 +539,7 @@ export default function Waitlist() {
               <footer className="relative z-10 mt-16 px-6 pb-4 text-center text-sm text-[#8a6b5a]">
                 Copyright 2026 QuickBite Waitlist
               </footer>
-            </section>
+            </section> */}
           </motion.div>
         )}
       </AnimatePresence>

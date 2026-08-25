@@ -16,12 +16,14 @@ const HOVER_HIGHLIGHT =
 type HoverBorderGradientProps = {
   children: ReactNode;
   className?: string;
+  containerClassName?: string;
   duration?: number;
 };
 
 export default function HoverBorderGradient({
   children,
   className = "",
+  containerClassName = "px-4 py-2",
   duration = 2,
 }: HoverBorderGradientProps) {
   const [isHovered, setIsHovered] = useState(false);
@@ -40,25 +42,27 @@ export default function HoverBorderGradient({
 
   return (
     <div
-      className={`relative flex h-min w-full items-center overflow-hidden rounded-full border-[1.5px] border-[#fffaf5]/15 bg-[#2a211d]/55 p-px transition-colors duration-500 hover:bg-[#2a211d]/38 ${className}`}
+      className={`relative flex h-min w-full items-center rounded-full border-[1.5px] border-[#fffaf5]/15 bg-[#2a211d]/55 p-px transition-colors duration-500 hover:bg-[#2a211d]/38 ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative z-10 w-full rounded-[inherit] bg-[#241813] px-4 py-2">
+      <div className={`relative z-10 w-full rounded-[inherit] bg-[#241813] ${containerClassName}`}>
         {children}
       </div>
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 rounded-[inherit]"
-        initial={false}
-        animate={{
-          background: isHovered
-            ? HOVER_HIGHLIGHT
-            : MOVING_HIGHLIGHTS[highlightIndex],
-        }}
-        transition={{ duration: reduceMotion ? 0 : duration, ease: "linear" }}
-        style={{ filter: "blur(2px) brightness(1.5)" }}
-      />
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[inherit]">
+        <motion.div
+          aria-hidden="true"
+          className="absolute inset-0"
+          initial={false}
+          animate={{
+            background: isHovered
+              ? HOVER_HIGHLIGHT
+              : MOVING_HIGHLIGHTS[highlightIndex],
+          }}
+          transition={{ duration: reduceMotion ? 0 : duration, ease: "linear" }}
+          style={{ filter: "blur(2px) brightness(1.5)" }}
+        />
+      </div>
     </div>
   );
 }
