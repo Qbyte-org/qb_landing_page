@@ -83,7 +83,7 @@
 }
 
 .qb-waitlist .hero-panel {
-  border: 1px solid rgba(255, 250, 245, 0.1);
+  border: 1px solid #fffaf51a;
   box-shadow:
     inset 0 1px 0 rgba(255, 250, 245, 0.06),
     0 0 48px rgba(240, 100, 0, 0.04) !important;
