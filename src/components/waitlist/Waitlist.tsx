@@ -331,24 +331,24 @@ export default function Waitlist() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: reduceMotion ? 0 : 0.65 }}
-                    className="mt-8 flex flex-wrap justify-center gap-4"
+                    className="mt-8 flex flex-row justify-center gap-2 sm:gap-4"
                   >
-                    <div className="relative flex w-[14rem] items-center gap-3 overflow-hidden rounded-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.14] p-1 shadow-[0_0_20px_rgba(240,100,0,0.08)] backdrop-blur-xl">
-                      <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16] hover:bg-[#ff7a1a]/[0.25] hover:border-[#ff7a1a]">
-                        <MapPin className="h-5 w-5 text-[#ffffff]" aria-hidden="true" />
+                    <div className="relative flex w-auto items-center gap-2 sm:gap-3 overflow-hidden rounded-xl border border-[#fffaf51a] bg-[#fffaf5]/[0.14] p-1 shadow-[0_0_20px_rgba(240,100,0,0.08)] backdrop-blur-xl">
+                      <span className="relative z-10 flex h-9 w-9 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16] transition-colors hover:bg-[#ff7a1a]/[0.25] hover:border-[#ff7a1a]">
+                        <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-[#ffffff]" aria-hidden="true" />
                       </span>
-                      <span className="relative z-10 text-sm font-semibold text-white">Launching in Ile-Ife</span>
+                      <span className="relative z-10 whitespace-nowrap pr-2 sm:pr-4 text-[11px] sm:text-sm font-semibold text-white">Launching in Ile-Ife</span>
                     </div>
 
-                    <div className="relative flex items-center gap-1 overflow-hidden rounded-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.14] p-1 shadow-[0_0_20px_rgba(240,100,0,0.08)] backdrop-blur-xl">
-                      <span className="relative z-10 mr-2 pl-3 text-sm font-semibold text-white">Follow us</span>
-                      <a href="#" className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#fffaf5]/[0.28] bg-[#fffaf5]/[0.16] transition-colors hover:bg-[#ff7a1a]/[0.25] hover:border-[#ff7a1a]">
+                    <div className="relative flex w-auto items-center gap-1 overflow-hidden rounded-xl border border-[#fffaf51a] bg-[#fffaf5]/[0.14] p-1 shadow-[0_0_20px_rgba(240,100,0,0.08)] backdrop-blur-xl">
+                      <span className="relative z-10 mr-1 sm:mr-2 whitespace-nowrap pl-2 sm:pl-3 text-[11px] sm:text-sm font-semibold text-white hidden min-[400px]:inline-block">Follow us</span>
+                      <a href="#" className="relative z-10 flex h-9 w-9 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16] transition-colors hover:bg-[#ff7a1a]/[0.25] hover:border-[#ff7a1a]">
                         <span className="sr-only">QuickBite updates</span>
-                        <MessageCircle className="h-5 w-5 text-[#ffffff]" aria-hidden="true" />
+                        <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 text-[#ffffff]" aria-hidden="true" />
                       </a>
-                      <a href="#" className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#fffaf5]/[0.28] bg-[#fffaf5]/[0.16] transition-colors hover:bg-[#ff7a1a]/[0.25] hover:border-[#ff7a1a]">
+                      <a href="#" className="relative z-10 flex h-9 w-9 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16] transition-colors hover:bg-[#ff7a1a]/[0.25] hover:border-[#ff7a1a]">
                         <span className="sr-only">Send QuickBite a message</span>
-                        <Send className="h-5 w-5 text-[#ffffff]" aria-hidden="true" />
+                        <Send className="h-4 w-4 sm:h-5 sm:w-5 text-[#ffffff]" aria-hidden="true" />
                       </a>
                     </div>
                   </motion.div>
@@ -359,27 +359,27 @@ export default function Waitlist() {
                 initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: reduceMotion ? 0 : 0.85 }}
-                className="relative z-10 flex items-center justify-center gap-4.5"
+                className="relative z-10 mx-auto mt-2 flex flex-row items-center justify-center gap-5 sm:gap-4.5 w-full"
               >
-                <div className="relative flex items-center gap-3 overflow-hidden rounded-b-xl border border-[#fffaf51a] bg-[#fffaf5]/[0.14] p-1 pr-4 shadow-[0_0_20px_rgba(240,100,0,0.08)] backdrop-blur-xl">
-                  <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-b-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16]">
-                    <Crown className="h-5 w-5 text-[#ffffff]" aria-hidden="true" />
+                <div className="relative flex w-auto items-center gap-3 sm:gap-3 overflow-hidden rounded-b-xl border border-[#fffaf51a] bg-[#fffaf5]/[0.14] p-2 pr-7 sm:p-1 sm:pr-4 shadow-[0_0_20px_rgba(240,100,0,0.08)] backdrop-blur-xl">
+                  <span className="relative z-10 flex h-7 w-7 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-b-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16] transition-colors hover:bg-[#ff7a1a]/[0.25] hover:border-[#ff7a1a]">
+                    <Crown className="h-3 w-3 sm:h-5 sm:w-5 text-[#ffffff]" aria-hidden="true" />
                   </span>
-                  <span className="relative z-10 text-sm font-semibold text-white">Early bird perks</span>
+                  <span className="relative z-10 whitespace-nowrap text-[9px] min-[380px]:text-[10px] sm:text-sm font-semibold text-white">Early bird perks</span>
                 </div>
 
-                <div className="relative flex items-center gap-3 overflow-hidden rounded-b-xl border border-[#fffaf51a] bg-[#fffaf5]/[0.14] p-1 pr-4 shadow-[0_0_20px_rgba(240,100,0,0.08)] backdrop-blur-xl">
-                  <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-b-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16]">
-                    <Timer className="h-5 w-5 text-[#ffffff]" aria-hidden="true" />
+                <div className="relative flex w-auto items-center gap-3 sm:gap-3 overflow-hidden rounded-b-xl border border-[#fffaf51a] bg-[#fffaf5]/[0.14] p-2 pr-7 sm:p-1 sm:pr-4 shadow-[0_0_20px_rgba(240,100,0,0.08)] backdrop-blur-xl">
+                  <span className="relative z-10 flex h-7 w-7 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-b-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16] transition-colors hover:bg-[#ff7a1a]/[0.25] hover:border-[#ff7a1a]">
+                    <Timer className="h-3 w-3 sm:h-5 sm:w-5 text-[#ffffff]" aria-hidden="true" />
                   </span>
-                  <span className="relative z-10 text-sm font-semibold text-white">Fast delivery</span>
+                  <span className="relative z-10 whitespace-nowrap text-[9px] min-[380px]:text-[10px] sm:text-sm font-semibold text-white">Fast delivery</span>
                 </div>
 
-                <div className="relative flex items-center gap-3 overflow-hidden rounded-b-xl border border-[#fffaf51a] bg-[#fffaf5]/[0.14] p-1 pr-4 shadow-[0_0_20px_rgba(240,100,0,0.08)] backdrop-blur-xl">
-                  <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-b-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16]">
-                    <CircleDollarSign className="h-5 w-5 text-[#ffffff]" aria-hidden="true" />
+                <div className="relative flex w-auto items-center gap-3 sm:gap-3 overflow-hidden rounded-b-xl border border-[#fffaf51a] bg-[#fffaf5]/[0.14] p-2 pr-7 sm:p-1 sm:pr-4 shadow-[0_0_20px_rgba(240,100,0,0.08)] backdrop-blur-xl">
+                  <span className="relative z-10 flex h-7 w-7 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-b-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16] transition-colors hover:bg-[#ff7a1a]/[0.25] hover:border-[#ff7a1a]">
+                    <CircleDollarSign className="h-3 w-3 sm:h-5 sm:w-5 text-[#ffffff]" aria-hidden="true" />
                   </span>
-                  <span className="relative z-10 text-sm font-semibold text-white">No hidden fees</span>
+                  <span className="relative z-10 whitespace-nowrap text-[9px] min-[380px]:text-[10px] sm:text-sm font-semibold text-white">No hidden fees</span>
                 </div>
               </motion.div>
             </section>
