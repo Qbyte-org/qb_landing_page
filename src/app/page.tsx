@@ -17,6 +17,7 @@ export default function Home() {
       <HowItWorks />
       <QuickBitePassportHub />
       <AppShowcase />
+
       <ForPartners />
       <ForRiders />
       <Testimonials />
