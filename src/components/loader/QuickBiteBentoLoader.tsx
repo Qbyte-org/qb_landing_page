@@ -1,253 +1,181 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import { ArrowRight, ArrowUpRight, Utensils } from "lucide-react";
 import { gsap, useGSAP } from "@/lib/gsap";
-import { animation } from "@/lib/animation";
-import { getGridLayout, calculateEntranceData } from "./loaderLayout";
-import BentoTile from "./BentoTile";
-
 
 interface QuickBiteBentoLoaderProps {
   onComplete: () => void;
 }
 
+// A fixed pattern keeps the decorative ticket identical on server and client.
+const barcode = [2, 1, 4, 2, 1, 3, 1, 2, 4, 1, 2, 1, 3, 2, 1, 4, 2, 1, 3, 1];
+
 export default function QuickBiteBentoLoader({
   onComplete,
 }: QuickBiteBentoLoaderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-  const tileRefs = useRef<Map<string, HTMLDivElement>>(new Map());
-  const [layout, setLayout] = useState<ReturnType<typeof getGridLayout> | null>(
-    null
-  );
-
-  // Layout calculation
-  useEffect(() => {
-    const handleResize = () => {
-      setLayout(getGridLayout(window.innerWidth, window.innerHeight));
-    };
-
-    handleResize(); // Initial calculation
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const skipRef = useRef<(() => void) | null>(null);
+  const completedRef = useRef(false);
 
   useGSAP(
     () => {
-      if (!layout || !containerRef.current || !gridRef.current) return;
+      const container = containerRef.current;
+      if (!container) return;
 
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
+      const previousOverflow = document.body.style.overflow;
+      let timeline: gsap.core.Timeline | undefined;
+      let deferredCompletion: gsap.core.Tween | undefined;
 
-      // Ensure body cannot scroll while loader is active
-      document.body.style.overflow = "hidden";
+      const complete = () => {
+        if (completedRef.current) return;
+        completedRef.current = true;
+        timeline?.kill();
+        deferredCompletion?.kill();
+        document.body.style.overflow = previousOverflow;
+        onComplete();
+      };
 
-      const tl = gsap.timeline({
-        onComplete: () => {
-          document.body.style.overflow = "";
-          onComplete();
-        },
-      });
+      skipRef.current = complete;
 
-      // 1. Initial State: Fade in background subtly
-      tl.fromTo(
-        containerRef.current,
-        { autoAlpha: 0 },
-        { autoAlpha: 1, duration: 0.3, ease: "power2.out" }
-      );
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        // No entrance or delay for people who prefer less motion.
+        deferredCompletion = gsap.delayedCall(0, complete);
+      } else {
+        document.body.style.overflow = "hidden";
+        timeline = gsap.timeline({ onComplete: complete });
+        timeline
+          .from("[data-loader-ticket]", {
+            y: 24,
+            opacity: 0,
+            duration: 0.46,
+            ease: "power3.out",
+          })
+          .from(
+            "[data-loader-copy]",
+            {
+              y: 10,
+              opacity: 0,
+              duration: 0.3,
+              stagger: 0.05,
+              ease: "power2.out",
+            },
+            0.12,
+          )
+          .from(
+            "[data-loader-seal]",
+            {
+              scale: 0.75,
+              rotation: -18,
+              opacity: 0,
+              duration: 0.34,
+              ease: "back.out(1.3)",
+            },
+            0.3,
+          )
+          .to(
+            "[data-loader-ticket]",
+            { y: -12, opacity: 0, duration: 0.24, ease: "power2.in" },
+            0.98,
+          )
+          .to(container, { opacity: 0, duration: 0.24 }, 1.08);
+      }
 
-      // Collect entrance data for each tile
-      const tileAnimations = layout.tiles.map((tile) => {
-        const el = tileRefs.current.get(tile.id);
-        if (!el) return null;
-
-        const rect = el.getBoundingClientRect();
-        const calc = calculateEntranceData(rect, viewportWidth, viewportHeight);
-
-        return { tile, el, calc };
-      }).filter(Boolean);
-
-      // 2. Bento Grid Assembly
-      tileAnimations.forEach((anim) => {
-        if (!anim) return;
-        const { tile, el, calc } = anim;
-
-        // Base entrance vector depending on direction from center
-        const distanceMultiplier = 120 + calc.normalizedDistance * 200;
-        const startX = Math.cos(calc.angle) * distanceMultiplier;
-        const startY = Math.sin(calc.angle) * distanceMultiplier;
-
-        // Custom timings based on priority
-        const delayOffset = tile.data.priority * 0.08;
-
-        const innerImage = el.querySelector("[data-bento-image-wrapper] img");
-        const brandWordmark = el.querySelector("[data-brand-wordmark]");
-        const brandMark = el.querySelector("[data-brand-mark] svg");
-        const routeLine = el.querySelector("[data-bento-route]");
-
-        // Base Tile Entrance
-        tl.fromTo(
-          el,
-          {
-            autoAlpha: 0,
-            x: startX,
-            y: startY,
-            scale: 0.85,
-            rotation: calc.normalizedDistance * 10 * (Math.random() > 0.5 ? 1 : -1),
-          },
-          {
-            autoAlpha: 1,
-            x: 0,
-            y: 0,
-            scale: 1,
-            rotation: 0,
-            duration: 1.2,
-            ease: animation.ease.premium,
-          },
-          0.1 + delayOffset
-        );
-
-        // Image Cinematic Zoom
-        if (innerImage) {
-          tl.fromTo(
-            innerImage,
-            { scale: 1.2 },
-            { scale: 1, duration: 1.6, ease: animation.ease.premium },
-            0.1 + delayOffset
-          );
-        }
-
-        // Brand Text Reveal
-        if (brandWordmark && brandMark) {
-          tl.fromTo(
-            brandWordmark,
-            { width: 0, opacity: 0 },
-            { width: "auto", opacity: 1, duration: 0.8, ease: "power3.out" },
-            0.1 + delayOffset + 0.5 // Start revealing text as tile settles
-          );
-        }
-
-        if (routeLine) {
-           tl.fromTo(
-            routeLine,
-            { scaleX: 0 },
-            { scaleX: 1, duration: 1.2, ease: "power2.inOut" },
-            0.1 + delayOffset + 0.4
-          );
-        }
-      });
-
-      // 3. Subtle Idle State
-      tileAnimations.forEach((anim) => {
-        if (!anim) return;
-        const { el, calc } = anim;
-        const innerImage = el.querySelector("[data-bento-image-wrapper] img");
-        
-        // Minor floating
-        tl.to(
-          el,
-          {
-            y: `+=${Math.sin(calc.angle) * 4}`,
-            x: `+=${Math.cos(calc.angle) * 4}`,
-            duration: 2,
-            yoyo: true,
-            repeat: 1,
-            ease: "sine.inOut",
-          },
-          1.8
-        );
-
-        if (innerImage) {
-           tl.to(
-             innerImage,
-             {
-               scale: 1.05,
-               objectPosition: "52% 50%",
-               duration: 4,
-               ease: "sine.inOut",
-             },
-             1.8
-           );
-        }
-      });
-
-      // 4. Outro Transition — tiles accelerate outward, container fades out.
-      //    onComplete fires after the container fully fades so the hero intro
-      //    plays in full from the start with no loader covering it.
-      const outroStart = 2.8;
-
-      tileAnimations.forEach((anim) => {
-        if (!anim) return;
-        const { el, calc } = anim;
-
-        const distanceMultiplier = 300 + calc.normalizedDistance * 500;
-        const exitX = Math.cos(calc.angle) * distanceMultiplier;
-        const exitY = Math.sin(calc.angle) * distanceMultiplier;
-
-        tl.to(
-          el,
-          {
-            x: exitX,
-            y: exitY,
-            autoAlpha: 0,
-            scale: 1.2,
-            duration: 0.8,
-            ease: "power4.in", // Accelerate out
-          },
-          outroStart + calc.normalizedDistance * 0.1
-        );
-      });
-
-      tl.to(
-        containerRef.current,
-        {
-          autoAlpha: 0,
-          duration: 0.4,
-          ease: "power2.in",
-        },
-        outroStart + 0.4
-      );
-
+      return () => {
+        timeline?.kill();
+        deferredCompletion?.kill();
+        skipRef.current = null;
+        document.body.style.overflow = previousOverflow;
+      };
     },
-    { scope: containerRef, dependencies: [layout] }
+    { scope: containerRef },
   );
-
-  if (!layout) return null;
 
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-[#2a211d] p-4 sm:p-8"
-      style={{ visibility: "hidden" }} // Handled by GSAP
+      data-quickbite-loader
+      data-lenis-prevent
+      aria-label="Welcome to QuickBite"
+      className="fixed inset-0 z-[9999] flex touch-none flex-col justify-between overflow-y-auto bg-cream-200 px-5 py-5 text-ink sm:px-10 sm:py-8"
     >
-      <div
-        ref={gridRef}
-        className="grid w-full h-full max-w-[1400px] max-h-[1000px]"
-        style={{
-          gridTemplateColumns: `repeat(${layout.columns}, minmax(0, 1fr))`,
-          gridTemplateRows: `repeat(${layout.rows}, minmax(0, 1fr))`,
-          gap: `${layout.gap}px`,
-        }}
-      >
-        {layout.tiles.map((tile) => (
-          <BentoTile
-            key={tile.id}
-            data={tile.data}
-            ref={(el) => {
-              if (el) tileRefs.current.set(tile.id, el);
-            }}
-            style={{
-              gridColumn: `span ${tile.colSpan}`,
-              gridRow: `span ${tile.rowSpan}`,
-            }}
-          />
-        ))}
+      <div className="flex shrink-0 items-center justify-between gap-4 text-xs font-medium sm:text-sm">
+        <span className="font-display font-bold">QuickBite</span>
+        <span className="text-cocoa">A little local goodness.</span>
       </div>
-      
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-         <span className="text-sm font-medium text-white/50 animate-pulse">
-           Preparing your QuickBite experience...
-         </span>
+
+      <div className="grid flex-1 place-items-center py-7 sm:py-10">
+        <div
+          data-loader-ticket
+          className="relative grid w-full max-w-[54rem] overflow-hidden rounded-2xl border border-ink/15 bg-paper sm:grid-cols-[minmax(0,1fr)_12rem] lg:grid-cols-[minmax(0,1fr)_15rem]"
+        >
+          <div className="p-6 sm:p-10 lg:p-12">
+            <div data-loader-copy className="mb-6 flex items-center gap-2.5 sm:mb-10">
+              <span className="grid size-8 place-items-center rounded-full bg-peach text-brand-dark">
+                <Utensils aria-hidden="true" className="size-4" />
+              </span>
+              <span className="text-[0.65rem] font-medium uppercase tracking-[0.2em] sm:text-xs">
+                From your neighbourhood
+              </span>
+            </div>
+
+            <p data-loader-copy className="font-display text-[clamp(2rem,5.5vw,4rem)] font-extrabold leading-[1.08] tracking-tight">
+              Good food.<br />
+              <span className="text-brand-dark">Great moments.</span>
+            </p>
+            <p data-loader-copy className="mt-4 max-w-64 text-sm leading-relaxed text-cocoa sm:mt-5 sm:text-base">
+              Your favourite flavours, just a bite away.
+            </p>
+
+            <div data-loader-copy className="mt-6 flex items-center justify-between gap-4 border-t border-ink/15 pt-4 sm:mt-10 sm:pt-5">
+              <span className="text-xs font-medium sm:text-sm">Find. Order. Enjoy.</span>
+              <ArrowUpRight aria-hidden="true" className="size-5 text-brand-dark" />
+            </div>
+          </div>
+
+          <div
+            aria-hidden="true"
+            className="relative flex items-center justify-between gap-5 border-t border-dashed border-ink/25 bg-peach/60 px-6 py-4 sm:flex-col sm:justify-center sm:gap-10 sm:border-l sm:border-t-0 sm:px-6 sm:py-10"
+          >
+            <span className="absolute -left-2.5 -top-2.5 size-5 rounded-full border border-ink/15 bg-cream-200" />
+            <span className="absolute -right-2.5 -top-2.5 size-5 rounded-full border border-ink/15 bg-cream-200 sm:-bottom-2.5 sm:-left-2.5 sm:right-auto sm:top-auto" />
+
+            <div data-loader-seal className="relative grid size-16 shrink-0 place-items-center text-paper sm:size-28">
+              <svg viewBox="0 0 100 100" className="absolute inset-0 size-full text-brand-dark">
+                <path
+                  fill="currentColor"
+                  d="m50 0 8 12 13-7 2 15 15 1-5 14 13 8-11 10 10 12-15 5 1 15-15-1-6 14-12-9-10 11-8-13-14 4-1-15-14-3 7-13-12-8 12-9-5-14 15-1 2-15 13 7Z"
+                />
+              </svg>
+              <span className="relative -rotate-12 text-center font-display text-xs font-bold leading-tight sm:text-lg">
+                Made<br />for you.
+              </span>
+            </div>
+
+            <div className="min-w-0 text-center">
+              <div className="mx-auto flex h-8 max-w-32 items-stretch justify-center gap-[3px] overflow-hidden text-ink sm:h-16">
+                {barcode.map((width, index) => (
+                  <span key={index} className="shrink-0 bg-current" style={{ width }} />
+                ))}
+              </div>
+              <p className="mt-2 text-[0.55rem] font-medium uppercase tracking-[0.25em] sm:mt-3 sm:text-[0.6rem]">
+                Your next good bite
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex shrink-0 items-center justify-between gap-4">
+        <p role="status" className="text-xs text-cocoa sm:text-sm">Welcome to QuickBite.</p>
+        <button
+          type="button"
+          onClick={() => skipRef.current?.()}
+          className="group inline-flex min-h-11 items-center gap-2 rounded-full border border-ink/20 px-4 text-xs font-medium transition-colors hover:bg-paper focus-visible:outline-offset-4 sm:text-sm"
+        >
+          Skip intro
+          <ArrowRight aria-hidden="true" className="size-4 transition-transform duration-200 motion-safe:group-hover:translate-x-0.5" />
+        </button>
       </div>
     </div>
   );
