@@ -186,7 +186,7 @@ export default function BackToTopButton() {
     <div
       ref={buttonRef}
       style={defaultThemeVariables}
-      className="fixed bottom-[5.75rem] right-4 z-[90] h-11 w-11 sm:bottom-7 sm:right-7 sm:h-14 sm:w-14"
+      className="fixed bottom-[5.75rem] right-4 z-[90] h-11 w-11 sm:right-7 sm:h-14 sm:w-14 lg:bottom-7"
     >
       <MagneticFillButton
         type="button"
