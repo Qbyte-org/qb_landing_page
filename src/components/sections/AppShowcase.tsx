@@ -1,12 +1,11 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import Container from "../ui/Container";
-import MagneticFillButton from "../ui/MagneticFillButton";
-import { gsap, useGSAP } from "@/lib/gsap";
-import { CategoriesToHowWave, HomeToCategoriesWave } from "./categories/CategoryWaveDivider";
-import CategoriesDecor from "./categories/CategoriesDecor";
+import Link from "next/link";
+import { ArrowUpRight, Smartphone } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { appFeatures } from "@/content/site";
 
 function AppStoreIcon() {
   return (
@@ -24,163 +23,154 @@ function GooglePlayIcon() {
   );
 }
 
-function PhoneBadgeIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      className="h-3.5 w-3.5"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2.4"
-    >
-      <rect x="7" y="2.75" width="10" height="18.5" rx="2.5" />
-      <path d="M10.5 18.25h3" />
-    </svg>
-  );
-}
+const featureLabels = [
+  "Follow your order",
+  "Mix your favourites",
+  "Save your places",
+  "Pay your way",
+];
 
-function StoreButton({
-  store,
-  icon,
-}: {
-  store: "App Store" | "Google Play";
-  icon: ReactNode;
-}) {
-  return (
-    <MagneticFillButton
-      href="#"
-      variant="dark"
-      customFillClass={store === "App Store" ? "bg-[#2a211d]" : "bg-[#f06400]"}
-      customHoverTextColor="#fffaf5"
-      ariaLabel={store === "App Store" ? "Download on the App Store" : "Get it on Google Play"}
-      className={`h-11 min-w-[8.8rem] rounded-[0.65rem] px-3 text-[#fffaf5] before:pointer-events-none before:absolute before:inset-y-0 before:-left-14 before:z-[1] before:w-8 before:rotate-12 before:bg-[#fffaf5]/35 before:blur-sm before:transition-transform before:duration-700 hover:before:translate-x-[15rem] sm:h-12 sm:min-w-[9.75rem] sm:px-4 ${store === "App Store" ? "bg-[#f06400]" : "bg-[#2a211d]"
-        }`}
-    >
-      <span className="shrink-0 text-[#fffaf5]">{icon}</span>
-      <span className="text-left leading-none">
-        <span className="block text-[0.52rem] font-bold uppercase tracking-[0.07em] text-[#fffaf5]/75">
-          {store === "App Store" ? "Download on the" : "Get it on"}
-        </span>
-        <span className="mt-1 block text-[0.82rem] font-black tracking-[-0.03em] text-[#fffaf5] sm:text-sm">
-          {store}
-        </span>
-      </span>
-    </MagneticFillButton>
-  );
-}
+const entrance = { y: [18, 0], opacity: [0.8, 1] };
 
 export default function AppShowcase() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useGSAP(
-    () => {
-      const section = sectionRef.current;
-      if (!section) return;
-
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const banner = section.querySelector<HTMLElement>("[data-app-banner]");
-      const copy = gsap.utils.toArray<HTMLElement>(
-        section.querySelectorAll("[data-app-copy]"),
-      );
-
-      if (reducedMotion) {
-        gsap.set([banner, ...copy], { clearProps: "all" });
-        return;
-      }
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top 88%",
-        },
-      });
-
-      tl.from(banner, {
-        y: 28,
-        duration: 0.7,
-        ease: "power3.out",
-      })
-        .from(
-          copy,
-          {
-            y: 18,
-            duration: 0.48,
-            stagger: 0.08,
-            ease: "power3.out",
-          },
-          "-=0.35",
-        );
-    },
-    { scope: sectionRef },
-  );
+  const [{ index: activeFeature, hasSelectedFeature }, setFeatureSelection] = useState({
+    index: 0,
+    hasSelectedFeature: false,
+  });
+  const reducedMotion = useReducedMotion();
+  const feature = appFeatures[activeFeature];
+  const FeatureIcon = feature.icon;
 
   return (
     <section
-      ref={sectionRef}
       id="app"
-      data-nav-theme="light"
-      className="relative isolate overflow-hidden bg-[#fffaf5] py-10 text-[#241813] sm:py-14 lg:py-16"
+      data-nav-theme="dark"
+      aria-labelledby="app-showcase-title"
+      className="relative isolate scroll-mt-24 overflow-hidden bg-[#2a211d] text-[#fffaf5]"
     >
-      {/* <CategoriesDecor /> */}
-      {/* <HomeToCategoriesWave /> */}
-      {/* <CategoriesToHowWave /> */}
-      <Container>
-        <div
-          data-app-banner
-          className="relative mx-auto grid max-w-6xl overflow-hidden rounded-[1.8rem] bg-[#fffaf5] px-5 py-7 ring-1 ring-[#2a211d]/8 sm:rounded-[2.25rem] sm:px-8 sm:py-8 lg:min-h-[19.5rem] lg:grid-cols-[0.72fr_1fr] lg:items-center lg:gap-8 lg:px-12"
-        >
-          <div className="relative z-10 min-h-[15rem] sm:min-h-[18rem] lg:min-h-[19.5rem]">
-            <div
-              data-app-phone
-              className="absolute -left-12 bottom-[-9.5rem] z-20 w-[20rem] rotate-[-14deg] sm:-left-14 sm:bottom-[-12rem] sm:w-[25.5rem] lg:-left-16 lg:bottom-[-13.75rem] lg:w-[29rem]"
+      <motion.div
+        data-app-banner
+        initial={false}
+        whileInView={reducedMotion === false ? entrance : undefined}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        className="grid w-full lg:grid-cols-2"
+      >
+        <div className="flex min-w-0 flex-col justify-center px-6 py-14 sm:px-10 sm:py-16 lg:px-[5vw] lg:py-20 2xl:py-24">
+          <div className="mx-auto w-full max-w-[46rem]">
+            <p className="flex items-center gap-2.5 text-xs font-medium uppercase tracking-[0.14em] text-[#fffaf5]/75">
+              <Smartphone aria-hidden="true" className="size-4 text-[#f06400]" />
+              QuickBite, in your pocket
+            </p>
+
+            <h2
+              id="app-showcase-title"
+              className="section-heading mt-6"
             >
+              Your next bite.
+              <span className="block text-[#ffe7d7]">Right here.</span>
+            </h2>
+
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-[#fffaf5]/75 sm:text-lg">
+              The kitchens you love. The order you know by heart.
+              All in one place, ready for your next craving.
+            </p>
+
+            <div role="group" aria-label="Explore QuickBite app features" className="mt-8 grid grid-cols-2 gap-3 sm:mt-10">
+              {appFeatures.map(({ title, icon: Icon }, index) => (
+                <button
+                  key={title}
+                  type="button"
+                  aria-pressed={activeFeature === index}
+                  aria-controls="app-feature-preview"
+                  onClick={() => setFeatureSelection({ index, hasSelectedFeature: true })}
+                  className={`flex min-h-20 items-center gap-2.5 rounded-card border p-3 text-left text-sm font-medium leading-snug transition-colors duration-200 focus-visible:outline-[#fffaf5]! sm:min-h-22 sm:gap-3 sm:p-4 sm:text-base ${activeFeature === index ? "border-[#fffaf5] bg-[#fffaf5] text-[#2a211d]" : "border-[#fffaf5]/20 text-[#fffaf5]/85 hover:border-[#fffaf5]/40 hover:bg-[#fffaf5]/5"}`}
+                >
+                  <Icon aria-hidden="true" className={`size-4 shrink-0 sm:size-5 ${activeFeature === index ? "text-[#f06400]" : "text-[#ffe7d7]"}`} strokeWidth={1.75} />
+                  {featureLabels[index] ?? title}
+                </button>
+              ))}
+            </div>
+
+            <p aria-hidden="true" className="mt-4 min-h-14 border-l-2 border-[#f06400] pl-4 text-sm leading-relaxed text-[#fffaf5]/75 lg:hidden">
+              {feature.description}
+            </p>
+
+            <div className="mt-8 border-t border-[#fffaf5]/15 pt-7 sm:mt-10 sm:pt-8">
+              <Link
+                href="/waitlist"
+                className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-pill bg-[#fffaf5] px-6 py-3 text-base font-semibold text-[#2a211d] transition-colors duration-200 hover:bg-[#ffe7d7] focus-visible:outline-[#fffaf5]!"
+              >
+                Get launch updates
+                <ArrowUpRight aria-hidden="true" className="size-4 transition-transform duration-200 motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5" />
+              </Link>
+              <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-[#fffaf5]/75">
+                <span>Coming to</span>
+                <span className="inline-flex items-center gap-1.5"><AppStoreIcon /> iOS</span>
+                <span className="inline-flex items-center gap-1.5"><GooglePlayIcon /> Android</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <figure className="relative isolate flex min-w-0 flex-col overflow-hidden bg-[#ffe7d7] px-6 py-8 text-[#2a211d] sm:px-10 sm:py-10 lg:px-[4vw] lg:py-12">
+          <figcaption className="relative z-10 flex items-center justify-between gap-4 border-b border-[#2a211d]/15 pb-5 text-[0.625rem] font-semibold uppercase tracking-[0.13em] sm:text-xs">
+            <span>A little less effort.<br className="sm:hidden" /> A lot more flavour.</span>
+            <span className="shrink-0 whitespace-nowrap rounded-pill border border-[#2a211d]/25 px-3 py-1.5">App preview</span>
+          </figcaption>
+
+          <div className="relative mx-auto min-h-[26rem] w-full max-w-[45rem] flex-1 sm:min-h-[33rem] lg:min-h-[30rem]">
+            <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[88%] max-w-[31rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f06400]" />
+            <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-full max-w-[37rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#2a211d]/15" />
+            <span aria-hidden="true" className="pointer-events-none absolute bottom-9 left-0 font-display text-[clamp(2.75rem,6vw,6rem)] font-extrabold leading-none tracking-tight text-[#2a211d]/10">
+              QUICKBITE
+            </span>
+            <div className="absolute inset-x-0 bottom-5 top-5 sm:inset-x-5 sm:bottom-6 sm:top-6">
               <Image
-                src="/images/phone.png"
-                alt="QuickBite mobile app preview"
-                width={433}
-                height={577}
-                sizes="(min-width: 1024px) 392px, 74vw"
-                priority
-                className="pointer-events-none h-auto w-full select-none object-contain"
+                src="/images/phone2.png"
+                alt="QuickBite app home screen showing restaurant categories, a lunch offer, and a previous order"
+                fill
+                loading="lazy"
+                sizes="(min-width: 1536px) 380px, (min-width: 640px) 320px, 250px"
+                className="select-none object-contain motion-safe:-rotate-6"
               />
             </div>
           </div>
 
-          <div className="relative z-10 flex flex-col items-start justify-center pb-2 lg:pb-0">
-            <span
-              data-app-copy
-              className="inline-flex items-center gap-2 rounded-full bg-[#ffe7d7] px-3.5 py-1.5 text-[0.68rem] font-black uppercase tracking-[0.12em] text-[#f06400]"
+          <div
+            id="app-feature-preview"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            className="relative z-10 mx-auto min-h-44 w-full max-w-[45rem] border-t border-[#2a211d]/20 py-6 sm:min-h-36 sm:py-7"
+          >
+            <motion.div
+              key={feature.title}
+              // Keep the server and first client render identical. Animate only
+              // after a selection, when the browser's motion preference is known.
+              initial={hasSelectedFeature && reducedMotion === false ? { opacity: 0, y: 6 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reducedMotion ? 0 : 0.2 }}
+              className="flex items-start gap-3 sm:gap-4"
             >
-              <PhoneBadgeIcon />
-              Get the App
-            </span>
-
-            <h2
-              data-app-copy
-              className="mt-4 max-w-md font-display text-[2.1rem] font-black leading-[0.96] tracking-[-0.06em] text-[#241813] sm:text-4xl lg:text-[2.75rem]"
-            >
-              Download our
-              <br />
-              <span className="text-[#f06400]">mobile app</span>
-            </h2>
-
-            <p
-              data-app-copy
-              className="mt-4 max-w-md text-sm font-semibold leading-relaxed text-[#745f54] sm:text-base"
-            >
-              Enjoy faster ordering, exclusive offers and real-time tracking.
-            </p>
-
-            <div data-app-copy className="mt-5 flex flex-wrap items-center gap-3">
-              <StoreButton store="App Store" icon={<AppStoreIcon />} />
-              <StoreButton store="Google Play" icon={<GooglePlayIcon />} />
-            </div>
+              <span className="mt-0.5 grid size-10 shrink-0 place-items-center rounded-full bg-[#2a211d] text-[#fffaf5] sm:size-12">
+                <FeatureIcon aria-hidden="true" className="size-5" strokeWidth={1.75} />
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="font-display text-lg font-semibold leading-snug sm:text-xl">
+                  {feature.title}
+                </p>
+                <p className="mt-2 max-w-md text-sm leading-relaxed text-[#6d5c52] sm:text-base">
+                  {feature.description}
+                </p>
+              </div>
+              <span aria-hidden="true" className="mt-1.5 shrink-0 font-mono text-xs text-[#6d5c52]">
+                {String(activeFeature + 1).padStart(2, "0")}/{String(appFeatures.length).padStart(2, "0")}
+              </span>
+            </motion.div>
           </div>
-        </div>
-      </Container>
+        </figure>
+      </motion.div>
     </section>
   );
 }
