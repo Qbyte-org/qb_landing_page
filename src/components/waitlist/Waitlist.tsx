@@ -90,8 +90,12 @@ function readWaitlist(): WaitlistEntry[] {
   }
 }
 
-export default function Waitlist() {
-  const [email, setEmail] = useState("");
+export default function Waitlist({
+  initialEmail = "",
+}: {
+  initialEmail?: string;
+}) {
+  const [email, setEmail] = useState(initialEmail);
   const [phone, setPhone] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isBooting, setIsBooting] = useState(true);
