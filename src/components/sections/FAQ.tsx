@@ -6,7 +6,11 @@ import { faqs } from "@/content/site";
 
 export default function FAQ() {
   return (
-    <section data-nav-theme="neutral" className="bg-cream py-16 sm:py-24">
+    <section
+      id="faq"
+      data-nav-theme="neutral"
+      className="scroll-mt-24 bg-cream py-16 sm:py-24"
+    >
       <Container>
         <SectionHeading
           title="Frequently asked questions"

@@ -2,6 +2,7 @@ import SiteShell from "@/components/layout/SiteShell";
 import AppShowcase from "@/components/sections/AppShowcase";
 import Categories from "@/components/sections/Categories";
 import FAQ from "@/components/sections/FAQ";
+import FinalCTA from "@/components/sections/FinalCTA";
 import ForPartners from "@/components/sections/ForPartners";
 import ForRiders from "@/components/sections/ForRiders";
 import Hero from "@/components/sections/Hero";
@@ -18,11 +19,11 @@ export default function Home() {
       <QuickBitePassportHub />
       <AppShowcase />
 
-      <ForPartners />
-      <ForRiders />
+      {/* <ForPartners /> */}
+      {/* <ForRiders /> */}
       <Testimonials />
       <FAQ />
-      {/* <FinalCTA /> */}
+      <FinalCTA />
       {/* <TrustBar /> */}
     </SiteShell>
   );

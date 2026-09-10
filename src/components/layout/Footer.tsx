@@ -1,118 +1,136 @@
 import Link from "next/link";
+import { Mail, MapPin } from "lucide-react";
 import Container from "../ui/Container";
 import Logo from "../ui/Logo";
+import FooterNewsletter from "./FooterNewsletter";
 
-const columns: { title: string; links: { label: string; href: string }[] }[] = [
+const navigation = [
   {
-    title: "Company",
+    title: "Discover",
     links: [
-      { label: "About us", href: "/company" },
+      { label: "Browse restaurants", href: "/restaurants" },
       { label: "How it works", href: "/#how" },
-      { label: "Cities", href: "/#cities" },
-      { label: "Careers", href: "/company" },
+      { label: "Delivery areas", href: "/#cities" },
+      { label: "Get the app", href: "/#app" },
+    ],
+  },
+  {
+    title: "Work with us",
+    links: [
+      { label: "Restaurant partners", href: "/partners" },
+      { label: "Delivery riders", href: "/riders" },
+      { label: "About QuickBite", href: "/company" },
       { label: "Join the waitlist", href: "/waitlist" },
     ],
   },
   {
-    title: "Partners",
+    title: "Support",
     links: [
-      { label: "Become a partner", href: "/partners" },
-      { label: "Restaurants", href: "/restaurants" },
-      { label: "Partner support", href: "/partners" },
-    ],
-  },
-  {
-    title: "Riders",
-    links: [
-      { label: "Ride with us", href: "/riders" },
-      { label: "Dispatch partners", href: "/riders" },
-      { label: "Rider support", href: "/riders" },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { label: "Terms of service", href: "/legal/terms" },
-      { label: "Privacy policy", href: "/legal/privacy" },
-      { label: "Cookie policy", href: "/legal/cookies" },
+      { label: "FAQs", href: "/#faq" },
+      { label: "Contact support", href: "mailto:support@quickbite.ng" },
+      { label: "Delete account", href: "/delete-account" },
       { label: "Refund policy", href: "/legal/refunds" },
-      { label: "Contact", href: "/company" },
     ],
   },
-];
+] as const;
 
-const socials: { label: string; href: string; path: string }[] = [
-  {
-    label: "Instagram",
-    href: "#",
-    path: "M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.1.4.3 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.1-1 .3-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.1-.4-.3-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.1 1-.3 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4Zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3Zm6.8-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5Z",
-  },
-  {
-    label: "X",
-    href: "#",
-    path: "M17.5 3h3l-6.6 7.5L21.8 21h-6l-4.7-6.1L5.7 21H2.6l7-8L2.5 3h6.1l4.3 5.6Zm-1 16h1.7L7.6 4.8H5.8Z",
-  },
-  {
-    label: "TikTok",
-    href: "#",
-    path: "M16.5 3c.3 2 1.5 3.6 3.5 3.9v2.7c-1.3.1-2.5-.2-3.6-.8v5.6a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v2.8a2.8 2.8 0 1 0 2 2.7V3Z",
-  },
-];
+const legalLinks = [
+  { label: "Privacy", href: "/legal/privacy" },
+  { label: "Terms", href: "/legal/terms" },
+  { label: "Cookies", href: "/legal/cookies" },
+] as const;
 
 export default function Footer() {
   return (
-    <footer data-nav-theme="dark" className="bg-navy text-white">
-      <Container className="py-14">
-        <div className="grid gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-4">
-            <Logo variant="light" />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">
-              Fast. Fresh. Delivered. QuickBite connects you with the best food
-              from restaurants and home kitchens across Ile-Ife — and soon, all
-              of Nigeria.
-            </p>
-            <div className="mt-6 flex items-center gap-3">
-              {socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  aria-label={s.label}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-pill bg-white/10 text-white transition-colors hover:bg-brand"
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d={s.path} />
-                  </svg>
-                </a>
+    <footer
+      data-nav-theme="dark"
+      className="relative overflow-hidden bg-[#2a211d] text-[#fffaf5]"
+    >
+      <Container className="relative pb-28 pt-10 sm:pt-14 lg:pb-12 lg:pt-16">
+        <div className="grid gap-8 lg:grid-cols-[minmax(18rem,4fr)_minmax(0,7fr)_4.5rem] lg:gap-10">
+          <FooterNewsletter />
+
+          <nav aria-label="Footer navigation" className="py-2 lg:px-2">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:gap-x-8">
+              {navigation.map((column) => (
+                <div key={column.title} className="min-w-0">
+                  <h3 className="text-xs font-bold text-[#f06400]">
+                    {column.title}
+                  </h3>
+                  <ul className="mt-5 space-y-3.5">
+                    {column.links.map((link) => (
+                      <li key={link.label}>
+                        <Link
+                          href={link.href}
+                          className="inline-block text-sm font-semibold leading-snug text-[#fffaf5]/75 transition-[color,transform] duration-200 hover:translate-x-0.5 hover:text-[#fffaf5] focus-visible:text-[#fffaf5] sm:text-base"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
+            </div>
+          </nav>
+
+          <div
+            aria-hidden="true"
+            className="relative hidden min-h-[21rem] border-l border-dashed border-[#f06400]/55 lg:block before:absolute before:inset-y-3 before:left-5 before:w-8 before:bg-[repeating-linear-gradient(to_bottom,rgba(255,250,245,.78)_0,rgba(255,250,245,.78)_3px,transparent_3px,transparent_9px)] before:[mask-image:linear-gradient(to_bottom,transparent,black_8%,black_92%,transparent)] after:absolute after:inset-y-10 after:left-8 after:w-3 after:bg-[repeating-linear-gradient(to_bottom,#f06400_0,#f06400_5px,transparent_5px,transparent_14px)] after:[mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
+          />
+        </div>
+
+        <div className="mt-12 border-t border-[#fffaf5]/12 pt-7 sm:mt-14">
+          <div className="grid gap-7 lg:grid-cols-[1fr_auto] lg:items-end">
+            <div>
+              <Logo variant="light" width={150} height={33} />
+              <p className="mt-4 max-w-lg text-sm leading-relaxed text-[#f0d7c2]/75">
+                Fast, fresh meals from trusted local kitchens, delivered across
+                Ile-Ife and built to go further.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center lg:justify-end">
+              <Link
+                href="/#cities"
+                className="inline-flex w-fit items-center gap-2 rounded-pill border border-[#fffaf5]/15 px-4 py-2 text-sm font-semibold text-[#fffaf5]/80 transition-colors hover:border-[#f06400]/70 hover:text-white"
+              >
+                <MapPin
+                  className="h-4 w-4 text-[#f06400]"
+                  aria-hidden="true"
+                />
+                Ile-Ife, Osun State
+              </Link>
+              <a
+                href="mailto:hello@quickbite.ng"
+                className="inline-flex w-fit items-center gap-2 rounded-pill border border-[#fffaf5]/15 px-4 py-2 text-sm font-semibold text-[#fffaf5]/80 transition-colors hover:border-[#f06400]/70 hover:text-white"
+              >
+                <Mail
+                  className="h-4 w-4 text-[#f06400]"
+                  aria-hidden="true"
+                />
+                hello@quickbite.ng
+              </a>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:col-span-8">
-            {columns.map((col) => (
-              <div key={col.title}>
-                <h3 className="text-sm font-bold uppercase tracking-wider text-white/50">
-                  {col.title}
-                </h3>
-                <ul className="mt-4 space-y-3">
-                  {col.links.map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-white/75 transition-colors hover:text-brand-light"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <div className="mt-7 flex flex-col gap-5 border-t border-[#fffaf5]/10 pt-6 text-sm text-[#fffaf5]/55 sm:flex-row sm:items-center sm:justify-between">
+            <p>&copy; 2026 QuickBite. All rights reserved.</p>
+            <nav aria-label="Legal">
+              <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                {legalLinks.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="transition-colors hover:text-[#fffaf5] focus-visible:text-[#fffaf5]"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
-        </div>
-
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm text-white/50 sm:flex-row">
-          <p>© 2026 QuickBite. Ile-Ife, Osun State, Nigeria. All rights reserved.</p>
-          <p>Built in Ile-Ife for Nigeria — payments powered by Paystack.</p>
         </div>
       </Container>
     </footer>
