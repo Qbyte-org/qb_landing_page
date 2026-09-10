@@ -4,49 +4,52 @@ export default function FooterNewsletter() {
   return (
     <section
       aria-labelledby="footer-newsletter-title"
-      className="relative overflow-hidden rounded-card bg-[#fffaf5] p-6 text-[#241813] sm:p-8 lg:min-h-[21rem]"
+      className="relative overflow-hidden rounded-xl2 bg-[#fff0e4] p-8 text-[#1a1a2e] sm:p-10 lg:p-12 lg:min-h-[26rem] flex flex-col"
     >
+      {/* Textured dot pattern */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.16] [background-image:radial-gradient(rgba(42,33,29,.38)_0.8px,transparent_0.8px)] [background-size:13px_13px]"
+        className="pointer-events-none absolute inset-0 opacity-[0.25] [background-image:radial-gradient(rgba(42,33,29,.25)_1px,transparent_1px)] [background-size:16px_16px]"
       />
-      <div className="relative flex h-full flex-col">
-        <p className="text-xs font-bold text-[#f06400]">QuickBite updates</p>
+      
+      <div className="relative z-10 flex h-full flex-col">
         <h2
           id="footer-newsletter-title"
-          className="mt-4 font-display text-3xl font-bold leading-tight sm:text-4xl"
+          className="font-display text-3xl font-extrabold leading-[1.1] tracking-tight sm:text-4xl"
         >
-          Stay in the loop.
+          Stay in the loop!
         </h2>
-        <p className="mt-4 max-w-sm text-sm leading-relaxed text-[#6d5c52] sm:text-base">
-          Get first word on new kitchens, launch access, local offers, and the
-          latest ways to order with QuickBite.
+        
+        <p className="mt-4 max-w-sm text-sm leading-relaxed text-[#1a1a2e]/75 sm:text-base">
+          Get first access to exclusive local offers, updates on new kitchens, and the latest QuickBite features.
         </p>
 
-        <form action="/waitlist" method="get" className="mt-8 lg:mt-auto">
-          <label htmlFor="footer-email" className="text-sm font-bold">
+        <form action="/waitlist" method="get" className="mt-10 lg:mt-auto relative max-w-md">
+          <label htmlFor="footer-email" className="sr-only">
             Email address
           </label>
-          <div className="mt-2 flex items-center gap-3 border-b border-[#2a211d]/35 pb-2 focus-within:border-[#f06400]">
-            <input
-              id="footer-email"
-              name="email"
-              type="email"
-              inputMode="email"
-              autoComplete="email"
-              required
-              maxLength={254}
-              placeholder="you@example.com"
-              className="min-w-0 flex-1 bg-transparent py-2 text-base text-[#241813] outline-none placeholder:text-[#8a6b5a]"
-            />
+          <div className="flex items-end gap-3 border-b border-[#1a1a2e]/20 pb-2 focus-within:border-[#f06400] transition-colors">
+            <div className="flex-1">
+              <span className="block text-xs font-bold text-[#1a1a2e]/70 mb-1">Email address</span>
+              <input
+                id="footer-email"
+                name="email"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                required
+                maxLength={254}
+                className="w-full bg-transparent py-1 text-base text-[#1a1a2e] outline-none placeholder:text-[#1a1a2e]/30"
+              />
+            </div>
             <button
               type="submit"
-              aria-label="Continue to the QuickBite waitlist"
-              title="Continue to waitlist"
-              className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#2a211d] text-[#fffaf5] transition-transform duration-300 hover:scale-[1.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f06400] focus-visible:ring-offset-2 focus-visible:ring-offset-[#fffaf5] active:scale-[0.97]"
+              aria-label="Subscribe to newsletter"
+              title="Subscribe"
+              className="group flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-transparent text-[#1a1a2e] transition-transform duration-300 hover:scale-[1.05] focus-visible:outline-none active:scale-[0.97]"
             >
               <ArrowRight
-                className="h-5 w-5"
+                className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
                 strokeWidth={2.25}
                 aria-hidden="true"
               />
