@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import SiteShell from "@/components/layout/SiteShell";
 
 export const metadata: Metadata = {
@@ -119,12 +120,12 @@ export default function DeleteAccountPage() {
         {/* Footer note */}
         <p className="mt-6 text-xs leading-relaxed text-muted">
           Changed your mind?{" "}
-          <a
+          <Link
             href="/"
             className="font-medium text-brand underline underline-offset-2 hover:text-brand-dark"
           >
             Go back to QuickBite
-          </a>{" "}
+          </Link>{" "}
           — we&apos;d love to keep you around.
         </p>
       </section>

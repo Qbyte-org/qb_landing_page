@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <filter id="paper">
+    <feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="3" stitchTiles="stitch"/>
+    <feDiffuseLighting surfaceScale="2" diffuseConstant="1" lighting-color="#fffaf5">
+      <feDistantLight azimuth="45" elevation="55"/>
+    </feDiffuseLighting>
+  </filter>
+  <path fill="#fffaf5" d="M0 0h128v128H0z" filter="url(#paper)"/>
+</svg>
