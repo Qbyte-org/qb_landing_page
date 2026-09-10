@@ -23,6 +23,10 @@
   --color-foreground: var(--foreground);
   --color-cream: #fff7f0;
   --color-cream-200: #fff0e4;
+  --color-ink: #2a211d;
+  --color-paper: #fffaf5;
+  --color-cocoa: #6d5c52;
+  --color-peach: #ffe7d7;
   --color-muted: #6b7280;
   --color-border: #f0e6dc;
 
@@ -35,6 +39,20 @@
   --radius-xl2: 1.25rem;
   --radius-pill: 9999px;
 
+}
+
+@utility section-heading {
+  font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+  font-size: 2.85rem;
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.07em;
+}
+
+@media (min-width: 640px) {
+  .section-heading {
+    font-size: 4rem;
+  }
 }
 
 body {

@@ -5,7 +5,7 @@ export function HomeToCategoriesWave() {
       className="pointer-events-none absolute inset-x-0 -top-[4.6rem] z-10 h-[7.5rem] overflow-x-clip overflow-y-visible sm:-top-32 sm:h-52 sm:overflow-visible"
     >
       <svg
-        className="absolute left-1/2 top-0 h-full w-[178vw] -translate-x-1/2 overflow-visible text-[#fffaf5] sm:static sm:w-full sm:translate-x-0"
+        className="absolute left-1/2 top-0 h-full w-[178vw] -translate-x-1/2 overflow-visible text-paper sm:static sm:w-full sm:translate-x-0"
         viewBox="0 0 1440 210"
         preserveAspectRatio="none"
       >
@@ -48,7 +48,7 @@ export function CategoriesToHowWave() {
       className="pointer-events-none absolute inset-x-0 bottom-[-1px] z-20 h-40 overflow-x-clip overflow-y-visible sm:h-48 sm:overflow-visible"
     >
       <svg
-        className="absolute left-1/2 top-0 h-full w-[178vw] -translate-x-1/2 overflow-visible text-[#2a211d] sm:static sm:w-full sm:translate-x-0"
+        className="absolute left-1/2 top-0 h-full w-[178vw] -translate-x-1/2 overflow-visible text-ink sm:static sm:w-full sm:translate-x-0"
         viewBox="0 0 1440 210"
         preserveAspectRatio="none"
       >

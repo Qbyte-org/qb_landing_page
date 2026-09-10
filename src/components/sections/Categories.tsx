@@ -140,7 +140,7 @@ export default function Categories() {
       ref={sectionRef}
       id="categories"
       data-nav-theme="neutral"
-      className="relative overflow-visible bg-[#fffaf5] pb-[9.5rem] pt-[7.5rem] sm:pb-[8.5rem] sm:pt-24 lg:pb-40"
+      className="relative overflow-visible bg-paper pb-[9.5rem] pt-[7.5rem] text-ink sm:pb-[8.5rem] sm:pt-24 lg:pb-40"
     >
       <CategoriesDecor />
       <HomeToCategoriesWave />
@@ -164,6 +164,7 @@ export default function Categories() {
         </div> */}
 
         <SectionHeading
+          warm
           title="What are you in the mood for?"
           subtitle="From smoky jollof to late-night small chops, pick a category and dig in."
         />
@@ -176,11 +177,11 @@ export default function Categories() {
       >
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#fffaf5] to-transparent sm:w-28"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-paper to-transparent sm:w-28"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#fffaf5] to-transparent sm:w-28"
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-paper to-transparent sm:w-28"
         />
 
         <div
