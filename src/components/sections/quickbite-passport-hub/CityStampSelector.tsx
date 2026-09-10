@@ -24,10 +24,10 @@ export default function CityStampSelector({
             onClick={() => onSelect(city.id)}
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.97 }}
-            className={`inline-flex cursor-pointer items-center gap-2 rounded-full px-3 py-1.5 text-[0.8rem] font-black transition-colors sm:px-3.5 sm:py-2 sm:text-sm ${
+            className={`inline-flex cursor-pointer items-center gap-2 rounded-full px-3 py-1.5 text-[0.8rem] font-semibold transition-colors sm:px-3.5 sm:py-2 sm:text-sm ${
               active
-                ? "bg-[#2a211d] text-white"
-                : "bg-white text-[#5d4639] hover:bg-[#f5eadc]"
+                ? "bg-ink text-paper"
+                : "bg-cream-200 text-cocoa hover:bg-peach"
             }`}
           >
             {active ? (

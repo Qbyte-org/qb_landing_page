@@ -12,11 +12,11 @@ export default function HeroImageStage({
   return (
     <div
       data-hero-next-image
-      className="relative h-[15rem] w-full overflow-visible bg-[#2a211d] sm:h-[20rem] lg:h-[clamp(19rem,38svh,28rem)] xl:h-[clamp(23rem,40svh,32rem)]"
+      className="relative h-[15rem] w-full overflow-visible bg-ink sm:h-[20rem] lg:h-[clamp(19rem,38svh,28rem)] xl:h-[clamp(23rem,40svh,32rem)]"
     >
       <div
         data-hero-image-stage
-        className="absolute left-0 top-0 h-full w-full overflow-hidden rounded-tl-[2.25rem] bg-[#2a211d] sm:rounded-tl-[3.25rem] xl:rounded-tl-[4.5rem]"
+        className="absolute left-0 top-0 h-full w-full overflow-hidden rounded-tl-[2.25rem] bg-ink sm:rounded-tl-[3.25rem] xl:rounded-tl-[4.5rem]"
       >
         <AnimatePresence initial={false}>
           <motion.div
