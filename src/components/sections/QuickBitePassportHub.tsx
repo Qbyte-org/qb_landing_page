@@ -56,7 +56,7 @@ import {
 const PassportLeafletMap = dynamic(() => import("./PassportLeafletMap"), {
   ssr: false,
   loading: () => (
-    <div className="grid h-full min-h-[18rem] place-items-center rounded-[1.6rem] bg-[#f4e3d0] text-xs font-black uppercase tracking-[0.22em] text-[#8f6a57]">
+    <div className="grid h-full min-h-[18rem] place-items-center rounded-[1.6rem] bg-cream-200 text-xs font-semibold uppercase tracking-[0.22em] text-cocoa">
       Preparing destination map
     </div>
   ),
@@ -157,11 +157,11 @@ function RestaurantFoodLineArt({
 
 function QrCodeMark() {
   return (
-    <div className="grid h-[5.75rem] w-[5.75rem] grid-cols-9 gap-[0.15rem] rounded-[0.25rem] bg-[#17100d] p-1.5">
+    <div className="grid h-[5.75rem] w-[5.75rem] grid-cols-9 gap-[0.15rem] rounded-[0.25rem] bg-ink p-1.5">
       {Array.from({ length: 81 }).map((_, index) => (
         <span
           key={index}
-          className={qrCells.has(index) ? "bg-[#cfa982]" : "bg-[#17100d]"}
+          className={qrCells.has(index) ? "bg-cream-200" : "bg-ink"}
         />
       ))}
     </div>
@@ -199,23 +199,22 @@ function RestaurantMembershipCard({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative h-[14.85rem] w-full shrink-0 text-[#17100d] outline-none sm:h-[13.15rem]"
+      className="group relative h-[14.85rem] w-full shrink-0 rounded-[1.35rem] text-ink outline-none focus-visible:outline-2 focus-visible:outline-brand sm:h-[13.15rem]"
       style={{ "--card-accent": accent } as CSSProperties}
     >
       <div
-        className={`relative h-full w-full overflow-hidden rounded-[1.35rem] bg-[#cfa982] ring-1 ring-[#17100d]/16 transition-colors duration-300 ${highlighted ? "ring-2 ring-[var(--card-accent)]" : ""
+        className={`relative h-full w-full overflow-hidden rounded-[1.35rem] border bg-cream-200 transition-colors duration-300 ${highlighted ? "border-[var(--card-accent)]" : "border-ink/10"
           }`}
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 18% 22%, rgba(255,255,255,.2) 0 1px, transparent 1.4px), radial-gradient(circle at 80% 58%, rgba(23,16,13,.11) 0 1px, transparent 1.5px), linear-gradient(105deg, rgba(255,255,255,.14), transparent 42%)",
-          backgroundSize: "13px 13px, 17px 17px, 100% 100%",
-        }}
       >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[url('/images/footer-grain.svg')] opacity-10"
+        />
         <motion.div
           initial={false}
           animate={{ opacity: isOpen ? 0.08 : 0.5 }}
           transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          className="pointer-events-none absolute -right-[6.9rem] top-6 h-[10.4rem] w-[14.2rem] text-[#151515] sm:-right-[4.8rem] sm:top-2 sm:h-[12.4rem] sm:w-[15.5rem] lg:-right-[3.75rem]"
+          className="pointer-events-none absolute -right-[6.9rem] top-6 h-[10.4rem] w-[14.2rem] text-ink sm:-right-[4.8rem] sm:top-2 sm:h-[12.4rem] sm:w-[15.5rem] lg:-right-[3.75rem]"
         >
           <RestaurantFoodLineArt
             restaurant={restaurant}
@@ -233,13 +232,13 @@ function RestaurantMembershipCard({
           className="absolute inset-0 z-10 px-5 py-5 will-change-transform sm:px-6 sm:py-6 lg:px-7"
         >
           <div className="relative z-10 flex h-full max-w-[68%] flex-col justify-center sm:max-w-[60%]">
-            <p className="text-[0.68rem] font-black tracking-[0.08em] text-[var(--card-accent)]">
+            <p className="text-[0.68rem] font-semibold tracking-[0.08em] text-[var(--card-accent)]">
               {restaurant.eta} • {restaurant.rating}★
             </p>
-            <h3 className="mt-2 line-clamp-2 font-display text-[1.42rem] font-black leading-[0.92] tracking-[-0.055em] text-[#151515] sm:mt-3 sm:text-[1.65rem]">
+            <h3 className="mt-2 line-clamp-2 font-display text-[1.42rem] font-semibold leading-[0.92] tracking-[-0.055em] text-ink sm:mt-3 sm:text-[1.65rem]">
               {restaurant.name}
             </h3>
-            <p className="mt-2 line-clamp-1 text-[0.78rem] font-semibold text-[#5f5148] sm:text-[0.82rem]">
+            <p className="mt-2 line-clamp-1 text-[0.78rem] font-semibold text-cocoa sm:text-[0.82rem]">
               {restaurant.cuisine}
             </p>
             <LinkArrow
@@ -247,7 +246,7 @@ function RestaurantMembershipCard({
               variant="light"
               ariaLabel={`View ${restaurant.name}`}
               onClick={(event) => event.stopPropagation()}
-              className="mt-4 [--link-arrow-min-width:7.2rem] border-[#2a211d]/18 pb-1 text-[0.62rem] font-black text-[#2a211d] sm:mt-5"
+              className="mt-4 [--link-arrow-min-width:7.2rem] border-ink/18 pb-1 text-[0.62rem] font-semibold text-ink sm:mt-5"
             >
               View
             </LinkArrow>
@@ -262,27 +261,31 @@ function RestaurantMembershipCard({
               : { x: "42%", opacity: 0 }
           }
           transition={{ duration: 0.56, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 z-20 bg-[#cfa982] px-6 py-5 will-change-transform"
+          className="absolute inset-0 z-20 bg-cream-200 px-6 py-5 will-change-transform"
           style={{ pointerEvents: isOpen ? "auto" : "none" }}
         >
-          <div className="h-full pr-16">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-[url('/images/footer-grain.svg')] opacity-10"
+          />
+          <div className="relative z-10 h-full pr-16">
             <div className="min-w-0">
-              <h3 className="line-clamp-2 font-display text-[1.55rem] font-black leading-[0.92] tracking-[-0.06em] text-[#151515]">
+              <h3 className="line-clamp-2 font-display text-[1.55rem] font-semibold leading-[0.92] tracking-[-0.06em] text-ink">
                 {restaurant.name}
               </h3>
-              <p className="mt-2 line-clamp-2 max-w-[16rem] text-[0.75rem] font-semibold leading-relaxed text-[#5f5148]">
+              <p className="mt-2 line-clamp-2 max-w-[16rem] text-[0.75rem] font-semibold leading-relaxed text-cocoa">
                 {restaurant.description}
               </p>
-              <div className="mt-4 flex flex-wrap gap-2 text-[0.68rem] font-black text-[#2a211d]">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2a211d]/7 px-2.5 py-1">
+              <div className="mt-4 flex flex-wrap gap-2 text-[0.68rem] font-semibold text-ink">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/7 px-2.5 py-1">
                   <Clock3 className="h-3.5 w-3.5" strokeWidth={2.3} />
                   {restaurant.eta}
                 </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2a211d]/7 px-2.5 py-1">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/7 px-2.5 py-1">
                   <Star className="h-3.5 w-3.5 text-[var(--card-accent)]" strokeWidth={2.3} />
                   {restaurant.rating}
                 </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2a211d]/7 px-2.5 py-1">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/7 px-2.5 py-1">
                   <MapPin className="h-3.5 w-3.5" strokeWidth={2.3} />
                   {restaurant.deliveryFrom}
                 </span>
@@ -293,9 +296,9 @@ function RestaurantMembershipCard({
             </div>
           </div>
 
-          <div className="absolute inset-x-6 bottom-[3.5rem] h-px bg-[#17100d]/12" />
-          <div className="absolute inset-x-6 bottom-4 flex items-center justify-between gap-3">
-            <p className="line-clamp-1 text-[0.68rem] font-black text-[#2a211d]">
+          <div className="absolute inset-x-6 bottom-[3.5rem] z-10 border-t border-dashed border-ink/20" />
+          <div className="absolute inset-x-6 bottom-4 z-10 flex items-center justify-between gap-3">
+            <p className="line-clamp-1 text-[0.68rem] font-semibold text-ink">
               {restaurant.avgOrder} avg order
             </p>
             <LinkArrow
@@ -303,7 +306,7 @@ function RestaurantMembershipCard({
               onClick={(event) => event.stopPropagation()}
               variant="light"
               ariaLabel={`Open ${restaurant.name}`}
-              className="[--link-arrow-min-width:6.8rem] border-[#2a211d]/18 pb-1 text-[0.62rem] font-black text-[#2a211d]"
+              className="[--link-arrow-min-width:6.8rem] border-ink/18 pb-1 text-[0.62rem] font-semibold text-ink"
             >
               Open
             </LinkArrow>
@@ -619,7 +622,7 @@ export default function QuickBitePassportHub() {
       ref={sectionRef}
       id="restaurants"
       data-nav-theme="dark"
-      className="relative overflow-hidden bg-[#2a211d] pb-[7rem] pt-10 text-[#fffaf3] sm:pb-[9rem] sm:pt-14 lg:pb-[14rem] lg:pt-32"
+      className="relative overflow-hidden bg-ink pb-[7rem] pt-10 text-paper sm:pb-[9rem] sm:pt-14 lg:pb-[14rem] lg:pt-32"
       style={
         {
           "--passport-accent": activeCity.accent,
@@ -636,7 +639,7 @@ export default function QuickBitePassportHub() {
         >
           <div className="flex w-full flex-col items-center text-center gap-6 md:flex-row md:text-left md:items-center md:justify-between">
             <div className="contents">
-              <h2 className="font-display text-[2.85rem] font-black leading-[0.9] tracking-[-0.07em] sm:text-[4rem]">
+              <h2 className="section-heading">
                 <span className="block sm:hidden">
                   Food
                   <span className="block text-[var(--passport-accent)]">
@@ -654,9 +657,9 @@ export default function QuickBitePassportHub() {
                 href="/restaurants"
                 ariaLabel="Explore kitchens"
                 variant="brand"
-                customFillClass="bg-[#fffaf3]"
+                customFillClass="bg-paper"
                 customHoverTextColor="#2a211d"
-                className="h-12 w-max rounded-pill !bg-[var(--passport-accent)] px-7 text-sm font-black text-white sm:h-14 sm:px-9"
+                className="h-12 w-max rounded-pill !bg-[var(--passport-accent)] px-7 text-sm font-semibold !text-ink sm:h-14 sm:px-9"
               >
                 Explore kitchens →
               </MagneticFillButton>
@@ -666,14 +669,14 @@ export default function QuickBitePassportHub() {
 
         <div
           ref={spreadRef}
-          className="relative z-20 mt-8 sm:rounded-[2.35rem] bg-[#3a2418] p-1.5 max-sm:-m-4 [perspective:1400px] h-full"
+          className="relative z-20 mt-8 sm:rounded-[2.35rem] bg-ink p-1.5 max-sm:-m-4 [perspective:1400px] h-full"
         >
           <div
             data-page-underlay
             aria-hidden="true"
-            className="absolute inset-3 sm:rounded-[2rem] bg-[#2a211d]"
+            className="absolute inset-3 sm:rounded-[2rem] bg-ink"
           />
-          <div className="relative grid overflow-hidden sm:rounded-[2rem] bg-[#f8efe3]  lg:grid-cols-2">
+          <div className="relative grid overflow-hidden sm:rounded-[2rem] bg-paper  lg:grid-cols-2">
             <div
               data-passport-spine
               aria-hidden="true"
@@ -686,14 +689,14 @@ export default function QuickBitePassportHub() {
             >
               <div className="relative z-10 flex h-full min-h-0 flex-col">
                 <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
-                  <h3 className="text-[2.7rem] font-black leading-[0.82] text-[#2a211d] sm:text-[3.55rem] lg:text-[3.85rem]">
+                  <h3 className="text-[2.7rem] font-semibold leading-[0.82] text-ink sm:text-[3.55rem] lg:text-[3.85rem]">
                     {activeCity.name}
                   </h3>
 
                   <AnimatedStamp city={activeCity} stampRef={stampRef} inkRef={inkRef} />
                 </div>
 
-                <div className="relative mt-5 max-h-[30rem] flex-1 overflow-hidden rounded-[1.55rem] bg-[#f4e3d0] ring-1 ring-[#3a2418]/10">
+                <div className="relative mt-5 max-h-[30rem] flex-1 overflow-hidden rounded-[1.55rem] bg-cream-200">
                   <PassportLeafletMap
                     city={activeCity}
                     neighbourhoods={activeCity.nodes}
@@ -707,14 +710,14 @@ export default function QuickBitePassportHub() {
                 </div>
 
                 <div className="pointer-events-none mt-4 flex w-full justify-center">
-                  <div className="flex max-w-[92%] items-center gap-2 rounded-pill bg-[#fffaf3]/94 px-4 py-2 text-[0.72rem] font-bold text-[#2a211d] ring-1 ring-[#2a211d]/12 backdrop-blur">
+                  <div className="flex max-w-[92%] items-center gap-2 rounded-pill border border-ink/10 bg-paper/94 px-4 py-2 text-[0.72rem] font-medium text-ink backdrop-blur">
                     <span className="grid h-5 w-5 place-items-center rounded-full bg-[var(--passport-accent)] text-white">
                       <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none">
                         <path
                           d="M12 21S5.8 15.9 5.8 10.6A6.2 6.2 0 0 1 12 4.4a6.2 6.2 0 0 1 6.2 6.2C18.2 15.9 12 21 12 21Z"
                           fill="currentColor"
                         />
-                        <circle cx="12" cy="10.6" r="2.1" fill="#fffaf3" />
+                        <circle cx="12" cy="10.6" r="2.1" fill="var(--color-paper)" />
                       </svg>
                     </span>
                     Click a live food stop to filter nearby kitchens
@@ -725,27 +728,27 @@ export default function QuickBitePassportHub() {
 
             <div
               ref={rightPageRef}
-              className="group relative overflow-hidden bg-[#fffaf3] p-4 sm:p-6 lg:flex lg:h-[40rem] lg:flex-col lg:p-7"
+              className="group relative overflow-hidden bg-paper p-4 sm:p-6 lg:flex lg:h-[40rem] lg:flex-col lg:p-7"
             >
               <div className="relative z-10 flex min-h-0 flex-1 flex-col">
-                <div className="relative rounded-[1.45rem] bg-[#fffaf3] p-4 text-[#2a211d] ring-1 ring-[#2a211d]/10 sm:p-5">
+                <div className="relative rounded-[1.45rem] border border-ink/10 bg-paper p-4 text-ink sm:p-5">
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
-                      <h3 className="font-display text-[2.25rem] font-black leading-[0.86] tracking-[-0.075em] text-[#2a211d] sm:text-[2.85rem]">
+                      <h3 className="font-display text-[2.25rem] font-semibold leading-[0.86] tracking-[-0.075em] text-ink sm:text-[2.85rem]">
                         Kitchen Guide
                       </h3>
                     </div>
 
-                    {/* <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#2a211d] text-[#fffaf3]">
+                    {/* <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-ink text-paper">
                       <MapPin className="h-5 w-5 text-[var(--passport-accent)]" strokeWidth={2.35} />
                     </span> */}
                   </div>
 
-                  <div className="my-2 h-px bg-[#2a211d]/10" />
+                  <div className="my-2 border-t border-dashed border-ink/20" />
 
-                  <div className="mt-4 flex flex-wrap items-end gap-2 text-[0.76rem] font-black text-[#2a211d]">
+                  <div className="mt-4 flex flex-wrap items-end gap-2 text-[0.76rem] font-semibold text-ink">
                     <div>
-                      <p className="mb-3 text-[0.64rem] font-black uppercase tracking-[0.14em] text-[#9a7a66]">
+                      <p className="mb-3 text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-cocoa">
                         Destinations
                       </p>
                       <CityStampSelector
@@ -754,15 +757,15 @@ export default function QuickBitePassportHub() {
                         onSelect={handleCityChange}
                       />
                     </div>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2a211d]/6 px-3 py-1.5">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/6 px-3 py-1.5">
                       <Clock3 className="h-3.5 w-3.5 text-[var(--passport-accent)]" strokeWidth={2.35} />
                       {activeCity.avgEta}
                     </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2a211d]/6 px-3 py-1.5">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/6 px-3 py-1.5">
                       <Store className="h-3.5 w-3.5 text-[var(--passport-accent)]" strokeWidth={2.35} />
                       {activeCity.restaurantCount} Restaurants
                     </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2a211d]/6 px-3 py-1.5">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/6 px-3 py-1.5">
                       <Star className="h-3.5 w-3.5 text-[var(--passport-accent)]" strokeWidth={2.35} />
                       {activeCity.avgRating}
                     </span>
@@ -794,7 +797,7 @@ export default function QuickBitePassportHub() {
           </div>
         </div>
 
-        <p className="hidden sm:block mx-auto mt-5 max-w-xl text-center text-xs font-semibold leading-relaxed text-[#f5eadc]/68">
+        <p className="hidden sm:block mx-auto mt-5 max-w-xl text-center text-xs font-semibold leading-relaxed text-paper/65">
           Select a destination, pan the map, then tap a neighbourhood marker to
           filter the restaurant membership cards.
         </p>
@@ -805,7 +808,7 @@ export default function QuickBitePassportHub() {
         className="pointer-events-none absolute inset-x-0 bottom-[-1px] z-0 h-20 overflow-x-clip overflow-y-visible min-[480px]:h-28 sm:h-52 sm:overflow-visible"
       >
         <svg
-          className="absolute left-1/2 top-0 h-full w-[178vw] -translate-x-1/2 overflow-visible text-[#fffaf5] sm:static sm:w-full sm:translate-x-0"
+          className="absolute left-1/2 top-0 h-full w-[178vw] -translate-x-1/2 overflow-visible  text-cream-200 sm:static sm:w-full sm:translate-x-0"
           viewBox="0 0 1440 210"
           preserveAspectRatio="none"
         >
@@ -830,12 +833,12 @@ export default function QuickBitePassportHub() {
             strokeOpacity=".72"
             strokeWidth="3"
           />
-          <image
+          {/* <image
             data-passport-app-wave-bike
             href="/quickbite-delivery-bike.svg"
             width="238"
             height="140"
-          />
+          /> */}
         </svg>
       </div>
     </section>

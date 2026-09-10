@@ -6,6 +6,7 @@ export default function SectionHeading({
   subtitle,
   align = "center",
   tone = "dark",
+  warm = false,
   className = "",
 }: {
   eyebrow?: string;
@@ -13,11 +14,12 @@ export default function SectionHeading({
   subtitle?: ReactNode;
   align?: "center" | "left";
   tone?: "dark" | "light";
+  warm?: boolean;
   className?: string;
 }) {
   const alignment = align === "center" ? "text-center mx-auto" : "text-left";
-  const titleColor = tone === "light" ? "text-white" : "text-navy";
-  const subColor = tone === "light" ? "text-white/70" : "text-muted";
+  const titleColor = tone === "light" ? (warm ? "text-paper" : "text-white") : (warm ? "text-ink" : "text-navy");
+  const subColor = tone === "light" ? (warm ? "text-paper/70" : "text-white/70") : (warm ? "text-cocoa" : "text-muted");
   const eyebrowColor = tone === "light" ? "text-brand-light" : "text-brand-dark";
 
   return (
@@ -31,7 +33,7 @@ export default function SectionHeading({
         </p>
       ) : null}
       <h2
-        className={`font-display text-[2.85rem] font-black leading-[1.1] tracking-[-0.07em] sm:text-[4rem] ${titleColor}`}
+        className={`section-heading ${titleColor}`}
       >
         {title}
       </h2>
