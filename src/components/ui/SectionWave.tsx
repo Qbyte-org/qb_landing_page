@@ -1,15 +1,20 @@
 type SectionWaveProps = {
   to: "ink" | "paper";
   placement?: "flow" | "bottom";
+  splitBackground?: boolean;
 };
 
-export default function SectionWave({ to, placement = "flow" }: SectionWaveProps) {
+export default function SectionWave({ to, placement = "flow", splitBackground = false }: SectionWaveProps) {
   return (
     <div
       aria-hidden="true"
       data-section-wave={to}
-      className={`pointer-events-none h-20 overflow-hidden sm:h-28 lg:h-36 ${to === "ink" ? "bg-paper text-ink" : "bg-ink text-paper"} ${placement === "bottom" ? "absolute inset-x-0 -bottom-px z-0" : "relative"}`}
+      data-wave-split={splitBackground || undefined}
+      className={`pointer-events-none h-20 overflow-hidden sm:h-28 lg:h-36 ${to === "ink" ? "bg-paper text-[#1c120f]" : "bg-[#1c120f] text-paper"} ${placement === "bottom" ? "absolute inset-x-0 -bottom-px z-0" : "relative"}`}
     >
+      {splitBackground && (
+        <div className="absolute inset-y-0 left-0 hidden w-1/2 bg-cream-200 lg:block" />
+      )}
       <svg
         className="absolute left-1/2 top-0 h-full w-[178%] -translate-x-1/2 sm:w-full"
         viewBox="0 0 1440 210"

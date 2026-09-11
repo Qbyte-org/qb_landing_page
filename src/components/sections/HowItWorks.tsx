@@ -30,9 +30,9 @@ export default function HowItWorks() {
     <section
       id="how"
       data-nav-theme="dark"
-      className="relative -mt-px overflow-hidden bg-ink text-white"
+      className="relative -mt-px overflow-hidden bg-[#1c120f] text-white"
     >
-      <SectionWave to="ink" />
+      <SectionWave to="ink" splitBackground />
       <div className="relative z-10 px-4 pb-8 pt-14 sm:px-6 sm:pb-10 sm:pt-18 lg:px-8 lg:pb-12 lg:pt-20">
         <div
           data-section-motion-header
@@ -47,14 +47,14 @@ export default function HowItWorks() {
             variant="brand"
             customFillClass="bg-paper"
             customHoverTextColor="#2a211d"
-            className="h-12 w-max rounded-pill border-0 !bg-brand px-7 text-base font-semibold !text-white sm:h-14 sm:px-9"
+            className="h-14 w-max rounded-pill border-0 !bg-brand px-8 text-lg font-semibold !text-white sm:h-16 sm:px-10 sm:text-xl"
           >
             Learn more
           </MagneticFillButton>
         </div>
       </div>
 
-      <div className="relative min-h-[25rem] overflow-hidden bg-[#1c120f] lg:min-h-[28rem]">
+      <div className="relative min-h-[25rem] overflow-hidden bg-ink lg:min-h-[28rem]">
         <div
           aria-hidden="true"
           className="absolute right-0 top-0 z-30 hidden h-full w-1 bg-paper/20 lg:block"
@@ -70,7 +70,7 @@ export default function HowItWorks() {
           <div className="relative min-h-[23rem] px-4 py-8 sm:px-6 lg:min-h-[28rem] lg:px-8 lg:py-10 xl:px-[5vw]">
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute bottom-0 left-0 hidden h-[44%] w-[17rem] bg-ink lg:block"
+              className="pointer-events-none absolute bottom-0 left-0 hidden h-[44%] w-[17rem] bg-[#1c120f] lg:block"
             />
             <div className="relative z-10 grid gap-6 md:grid-cols-[8rem_1fr] lg:grid-cols-[16rem_1fr]">
               <div className="flex items-start justify-between gap-5 pt-2 font-display font-semibold leading-none tracking-[-0.08em] md:block md:pt-6 lg:pt-8">
