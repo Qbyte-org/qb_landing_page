@@ -33,6 +33,10 @@ const districtColors = [
   "#d9b38c",
 ];
 
+const orangeMarkerColors = new Set([
+  "#f15f00", "#ef5f00", "#ff6b00", "#c86b2b", "#f3a629", "#b86024",
+]);
+
 const districtSlots = [
   { x: 10, y: 12 },
   { x: 26, y: 28 },
@@ -161,6 +165,7 @@ export default function PassportLeafletMap({
           const active = selectedNode?.name === node.name;
           const slot = districtSlots[index % districtSlots.length];
           const color = getColor(index, active, city.accent);
+          const isOrange = orangeMarkerColors.has(color.toLowerCase());
 
           return (
             <motion.button
@@ -179,7 +184,7 @@ export default function PassportLeafletMap({
                 } as CSSProperties
               }
             >
-              <span className="inline-flex max-w-[8.8rem] items-center gap-1.5 rounded-[0.45rem] border-2 border-[#2a211d] bg-[var(--marker-color)] px-2.5 py-1 text-sm font-black leading-none text-[#4f372d] sm:text-base">
+              <span className={`inline-flex max-w-[8.8rem] items-center gap-1.5 rounded-[0.45rem] border-2 border-[#2a211d] bg-[var(--marker-color)] px-2.5 py-1 text-sm font-black leading-none sm:text-base ${isOrange ? "text-white" : "text-[#4f372d]"}`}>
                 <span className="h-2 w-2 shrink-0 rounded-full border-2 border-[#2a211d] bg-[#fffaf3]" />
                 <span className="truncate">{truncateLabel(node.name)}</span>
               </span>

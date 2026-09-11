@@ -80,7 +80,7 @@ export default function CategoryCard({ category }: { category: Category }) {
             variant="brand"
             customFillClass="bg-paper"
             customHoverTextColor="#2a211d"
-            className="h-11 w-max shrink-0 rounded-pill border-0 !bg-brand px-5 text-[0.78rem] font-semibold uppercase tracking-[0.08em] !text-ink sm:mb-1 sm:h-12 sm:px-6 sm:text-[0.84rem]"
+            className="h-11 w-max shrink-0 rounded-pill border-0 !bg-brand px-5 text-[0.78rem] font-semibold uppercase tracking-[0.08em] !text-white sm:mb-1 sm:h-12 sm:px-6 sm:text-[0.84rem]"
           >
             Order now
           </MagneticFillButton>
