@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
+import MagneticFillButton from "../ui/MagneticFillButton";
+import SectionWave from "../ui/SectionWave";
 
 export default function FinalCTA() {
   const reducedMotion = useReducedMotion();
@@ -13,14 +14,15 @@ export default function FinalCTA() {
       id="final-cta"
       data-nav-theme="dark"
       aria-labelledby="final-cta-title"
-      className="overflow-hidden bg-ink pt-14 text-paper scroll-mt-24 sm:pt-20 lg:pt-24"
+      className="overflow-hidden bg-[#1c120f] text-paper scroll-mt-24"
     >
+      <SectionWave to="ink" />
       <motion.div
         initial={false}
         whileInView={reducedMotion === false ? { y: [16, 0], opacity: [0.75, 1] } : undefined}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        className="mx-auto grid w-[90%] max-w-[1800px] gap-3 sm:grid-cols-[minmax(0,1fr)_clamp(8rem,12vw,15rem)] sm:gap-4"
+        className="mx-auto grid w-[90%] max-w-[1800px] gap-3 pt-14 sm:grid-cols-[minmax(0,1fr)_clamp(8rem,12vw,15rem)] sm:gap-4 sm:pt-20 lg:pt-24"
       >
         <div
           data-cta-copy
@@ -58,13 +60,16 @@ export default function FinalCTA() {
             <p className="max-w-72 text-lg font-medium uppercase leading-tight sm:text-xl lg:text-[clamp(1.1rem,1.6vw,1.875rem)] 2xl:max-w-none">
               Your next favourite meal starts here!
             </p>
-            <Link
+            <MagneticFillButton
               href="/restaurants"
-              className="group mt-1 inline-flex min-h-11 items-center gap-1 text-base font-medium text-peach decoration-[#f06400] underline-offset-4 hover:underline focus-visible:rounded-sm sm:text-lg"
+              variant="light"
+              customFillClass="bg-brand"
+              customHoverTextColor="#ffffff"
+              className="group mt-4 min-h-12 rounded-pill bg-cream-200! px-5 py-3 text-base text-ink! sm:text-lg"
             >
               Explore restaurants
               <ArrowUpRight aria-hidden="true" className="size-4 text-[#f06400] transition-transform duration-200 motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5" />
-            </Link>
+            </MagneticFillButton>
           </div>
         </div>
 
@@ -73,8 +78,8 @@ export default function FinalCTA() {
           className="group relative min-h-40 overflow-hidden rounded-4xl bg-[#382c26] sm:min-h-0"
         >
           <Image
-            src="/images/food/hero-fast.webp"
-            alt="Golden samosas with fresh peppers and dipping sauce"
+            src="/images/food/pinterest/puff-puff.webp"
+            alt="Golden Nigerian puff-puff"
             fill
             loading="lazy"
             sizes="(min-width: 2000px) 240px, (min-width: 1067px) 12vw, (min-width: 640px) 128px, 90vw"
