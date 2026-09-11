@@ -64,7 +64,7 @@ export default function Hero() {
               variant="brand"
               customFillClass="bg-paper"
               customHoverTextColor="#2a211d"
-              className="pointer-events-auto h-14 cursor-pointer rounded-4xl border-brand bg-brand! px-7 text-base font-semibold text-ink! sm:h-[3.75rem] sm:px-8"
+              className="pointer-events-auto h-14 cursor-pointer rounded-4xl border-brand bg-brand! px-7 text-base font-semibold text-white! sm:h-[3.75rem] sm:px-8"
             >
               Order now
               <ArrowRight className="h-5 w-5" strokeWidth={2.35} aria-hidden="true" />

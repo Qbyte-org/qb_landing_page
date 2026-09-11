@@ -31,7 +31,7 @@ const navThemeDefaults = {
   "--nav-chip": "#fffaf5",
   "--nav-chip-text": "#2a211d",
   "--nav-action": "#ff6b00",
-  "--nav-action-text": "#2a211d",
+  "--nav-action-text": "#ffffff",
 } as CSSProperties;
 
 function MenuGlyph({ open }: { open: boolean }) {
