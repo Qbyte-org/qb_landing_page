@@ -14,7 +14,7 @@ export default function FooterNewsletter() {
       <div className="relative">
         <h2
           id="footer-newsletter-title"
-          className="font-display text-3xl font-semibold leading-tight sm:text-4xl lg:text-3xl xl:text-4xl min-[1800px]:text-[2.5rem]"
+          className="font-display text-3xl font-semibold leading-tight tracking-[0.01em]! sm:text-4xl lg:text-3xl xl:text-4xl min-[1800px]:text-[2.5rem]"
         >
           Stay in the loop!
         </h2>

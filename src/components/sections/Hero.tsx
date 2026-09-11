@@ -39,7 +39,7 @@ export default function Hero() {
             <h1
               data-hero-title
               aria-label={`Real food, delivered ${activeSlide.word}`}
-              className="font-display text-[2.7rem] font-semibold leading-[1.03] text-paper min-[430px]:text-[3.1rem] sm:text-5xl md:text-6xl lg:text-[5.2rem] xl:text-[5.9rem]"
+              className="font-display text-[2.7rem] font-semibold leading-[1.03] tracking-[0.01em]! text-paper min-[430px]:text-[3.1rem] sm:text-5xl md:text-6xl lg:text-[5.2rem] xl:text-[5.9rem]"
             >
               <span className="block">Real food,</span>
               <span className="block">
