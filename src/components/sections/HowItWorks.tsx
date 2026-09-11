@@ -11,6 +11,7 @@ import ProcessControls from "./how-it-works/ProcessControls";
 import ProcessStepCopy from "./how-it-works/ProcessStepCopy";
 import ProcessVisualPanel from "./how-it-works/ProcessVisualPanel";
 import MagneticFillButton from "../ui/MagneticFillButton";
+import SectionWave from "../ui/SectionWave";
 
 export default function HowItWorks() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -31,6 +32,7 @@ export default function HowItWorks() {
       data-nav-theme="dark"
       className="relative -mt-px overflow-hidden bg-ink text-white"
     >
+      <SectionWave to="ink" />
       <div className="relative z-10 px-4 pb-8 pt-14 sm:px-6 sm:pb-10 sm:pt-18 lg:px-8 lg:pb-12 lg:pt-20">
         <div
           data-section-motion-header

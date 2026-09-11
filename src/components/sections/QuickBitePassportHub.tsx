@@ -52,6 +52,7 @@ import {
   SwallowSoupLineArt,
   TacoLineArt,
 } from "../ui/LineArt";
+import SectionWave from "../ui/SectionWave";
 
 const PassportLeafletMap = dynamic(() => import("./PassportLeafletMap"), {
   ssr: false,
@@ -568,7 +569,7 @@ export default function QuickBitePassportHub() {
       if (!section) return;
 
       const path = section.querySelector<SVGPathElement>(
-        "[data-passport-app-bike-path]",
+        "[data-section-wave-path]",
       );
       const bike = section.querySelector<SVGElement>(
         "[data-passport-app-wave-bike]",
@@ -799,44 +800,7 @@ export default function QuickBitePassportHub() {
         </p>
       </Container>
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-[-1px] z-0 h-20 overflow-x-clip overflow-y-visible min-[480px]:h-28 sm:h-52 sm:overflow-visible"
-      >
-        <svg
-          className="absolute left-1/2 top-0 h-full w-[178vw] -translate-x-1/2 overflow-visible  text-cream-200 sm:static sm:w-full sm:translate-x-0"
-          viewBox="0 0 1440 210"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0 65C136 110 244 105 392 72C545 38 626 117 770 143C915 169 987 86 1126 59C1255 34 1328 89 1440 55V210H0V65Z"
-            fill="currentColor"
-          />
-          <path
-            data-passport-app-bike-path
-            d="M0 65C136 110 244 105 392 72C545 38 626 117 770 143C915 169 987 86 1126 59C1255 34 1328 89 1440 55"
-            fill="none"
-            stroke="#f0d7c2"
-            strokeLinecap="round"
-            strokeWidth="4"
-          />
-          <path
-            d="M22 93C154 132 266 120 406 96C548 72 628 143 764 166C918 191 998 108 1138 87C1258 69 1322 113 1418 86"
-            fill="none"
-            stroke="#c9aa96"
-            strokeDasharray="8 12"
-            strokeLinecap="round"
-            strokeOpacity=".72"
-            strokeWidth="3"
-          />
-          {/* <image
-            data-passport-app-wave-bike
-            href="/quickbite-delivery-bike.svg"
-            width="238"
-            height="140"
-          /> */}
-        </svg>
-      </div>
+      <SectionWave to="paper" placement="bottom" />
     </section>
   );
 }
