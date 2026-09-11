@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Smartphone } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { appFeatures } from "@/content/site";
+import AppPreviewPanel from "./AppPreviewPanel";
 
 function AppStoreIcon() {
   return (
@@ -39,7 +39,6 @@ export default function AppShowcase() {
   });
   const reducedMotion = useReducedMotion();
   const feature = appFeatures[activeFeature];
-  const FeatureIcon = feature.icon;
 
   return (
     <section
@@ -113,63 +112,11 @@ export default function AppShowcase() {
           </div>
         </div>
 
-        <figure className="relative isolate flex min-w-0 flex-col overflow-hidden bg-[#ffe7d7] px-6 py-8 text-[#2a211d] sm:px-10 sm:py-10 lg:px-[4vw] lg:py-12">
-          <figcaption className="relative z-10 flex items-center justify-between gap-4 border-b border-[#2a211d]/15 pb-5 text-[0.625rem] font-semibold uppercase tracking-[0.13em] sm:text-xs">
-            <span>A little less effort.<br className="sm:hidden" /> A lot more flavour.</span>
-            <span className="shrink-0 whitespace-nowrap rounded-pill border border-[#2a211d]/25 px-3 py-1.5">App preview</span>
-          </figcaption>
-
-          <div className="relative mx-auto min-h-[26rem] w-full max-w-[45rem] flex-1 sm:min-h-[33rem] lg:min-h-[30rem]">
-            <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[88%] max-w-[31rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f06400]" />
-            <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-full max-w-[37rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#2a211d]/15" />
-            <span aria-hidden="true" className="pointer-events-none absolute bottom-9 left-0 font-display text-[clamp(2.75rem,6vw,6rem)] font-extrabold leading-none tracking-tight text-[#2a211d]/10">
-              QUICKBITE
-            </span>
-            <div className="absolute inset-x-0 bottom-5 top-5 sm:inset-x-5 sm:bottom-6 sm:top-6">
-              <Image
-                src="/images/phone2.png"
-                alt="QuickBite app home screen showing restaurant categories, a lunch offer, and a previous order"
-                fill
-                loading="lazy"
-                sizes="(min-width: 1536px) 380px, (min-width: 640px) 320px, 250px"
-                className="select-none object-contain motion-safe:-rotate-6"
-              />
-            </div>
-          </div>
-
-          <div
-            id="app-feature-preview"
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-            className="relative z-10 mx-auto min-h-44 w-full max-w-[45rem] border-t border-[#2a211d]/20 py-6 sm:min-h-36 sm:py-7"
-          >
-            <motion.div
-              key={feature.title}
-              // Keep the server and first client render identical. Animate only
-              // after a selection, when the browser's motion preference is known.
-              initial={hasSelectedFeature && reducedMotion === false ? { opacity: 0, y: 6 } : false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: reducedMotion ? 0 : 0.2 }}
-              className="flex items-start gap-3 sm:gap-4"
-            >
-              <span className="mt-0.5 grid size-10 shrink-0 place-items-center rounded-full bg-[#2a211d] text-[#fffaf5] sm:size-12">
-                <FeatureIcon aria-hidden="true" className="size-5" strokeWidth={1.75} />
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="font-display text-lg font-semibold leading-snug sm:text-xl">
-                  {feature.title}
-                </p>
-                <p className="mt-2 max-w-md text-sm leading-relaxed text-[#6d5c52] sm:text-base">
-                  {feature.description}
-                </p>
-              </div>
-              <span aria-hidden="true" className="mt-1.5 shrink-0 font-mono text-xs text-[#6d5c52]">
-                {String(activeFeature + 1).padStart(2, "0")}/{String(appFeatures.length).padStart(2, "0")}
-              </span>
-            </motion.div>
-          </div>
-        </figure>
+        <AppPreviewPanel
+          activeFeature={activeFeature}
+          hasSelectedFeature={hasSelectedFeature}
+          reducedMotion={reducedMotion}
+        />
       </motion.div>
     </section>
   );
