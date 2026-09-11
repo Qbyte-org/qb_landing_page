@@ -29,7 +29,7 @@ export default function HowItWorks() {
     <section
       id="how"
       data-nav-theme="dark"
-      className="relative -mt-px overflow-hidden bg-ink text-paper"
+      className="relative -mt-px overflow-hidden bg-ink text-white"
     >
       <div className="relative z-10 px-4 pb-8 pt-14 sm:px-6 sm:pb-10 sm:pt-18 lg:px-8 lg:pb-12 lg:pt-20">
         <div
@@ -45,19 +45,14 @@ export default function HowItWorks() {
             variant="brand"
             customFillClass="bg-paper"
             customHoverTextColor="#2a211d"
-            className="h-12 w-max rounded-pill border-0 !bg-brand px-7 text-base font-semibold !text-ink sm:h-14 sm:px-9"
+            className="h-12 w-max rounded-pill border-0 !bg-brand px-7 text-base font-semibold !text-white sm:h-14 sm:px-9"
           >
             Learn more
           </MagneticFillButton>
         </div>
       </div>
 
-      <div className="relative min-h-[25rem] overflow-hidden bg-ink lg:min-h-[28rem]">
-        <div
-          aria-hidden="true"
-          className="absolute left-0 bottom-0 hidden h-[44%] w-[17rem] bg-ink lg:block"
-        />
-
+      <div className="relative min-h-[25rem] overflow-hidden bg-[#1c120f] lg:min-h-[28rem]">
         <div
           aria-hidden="true"
           className="absolute right-0 top-0 z-30 hidden h-full w-1 bg-paper/20 lg:block"
@@ -69,15 +64,19 @@ export default function HowItWorks() {
           />
         </div>
 
-        <div className="relative z-10 grid bg-[#1c120f] lg:grid-cols-[54%_46%]">
+        <div className="relative z-10 grid lg:grid-cols-[54%_46%]">
           <div className="relative min-h-[23rem] px-4 py-8 sm:px-6 lg:min-h-[28rem] lg:px-8 lg:py-10 xl:px-[5vw]">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute bottom-0 left-0 hidden h-[44%] w-[17rem] bg-ink lg:block"
+            />
             <div className="relative z-10 grid gap-6 md:grid-cols-[8rem_1fr] lg:grid-cols-[16rem_1fr]">
               <div className="flex items-start justify-between gap-5 pt-2 font-display font-semibold leading-none tracking-[-0.08em] md:block md:pt-6 lg:pt-8">
                 <div>
-                  <span className="text-[3.25rem] text-paper sm:text-[4rem]">
+                  <span className="text-[3.25rem] text-white sm:text-[4rem]">
                     {activeIndex + 1}
                   </span>
-                  <span className="ml-2 align-[1.1rem] text-xl text-paper/65 sm:text-2xl">
+                  <span className="ml-2 align-[1.1rem] text-xl text-white/75 sm:text-2xl">
                     /{totalSteps}
                   </span>
                 </div>
@@ -95,13 +94,13 @@ export default function HowItWorks() {
                 <ProcessControls onPrevious={goToPrevious} onNext={goToNext} />
               </div>
             </div>
-            <Image
+            {/* <Image
               src={activeStep.plate}
               alt=""
               width={360}
               height={190}
               className="pointer-events-none absolute bottom-[-0.5rem] left-2 z-0 hidden w-[13rem] object-contain opacity-85 drop-shadow-none sm:w-[17rem] lg:bottom-[-1.25rem] lg:left-[1.5rem] lg:block lg:w-[22rem] xl:left-[3vw]"
-            />
+            /> */}
           </div>
 
           <ProcessVisualPanel activeStep={activeStep} activeIndex={activeIndex} />
