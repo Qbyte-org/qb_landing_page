@@ -36,10 +36,12 @@ export default function CategoryCard({ category }: { category: Category }) {
 
       <Image
         src={category.image}
-        alt={`${category.name} cutout`}
+        alt={category.imageAlt ?? category.name}
         width={410}
         height={310}
-        className="absolute -top-2 left-5 z-10 h-40 w-60 rotate-[-5deg] object-contain sm:left-8 sm:h-52 sm:w-[19rem] lg:w-[21rem]"
+        loading="lazy"
+        sizes="(min-width: 1024px) 336px, (min-width: 640px) 304px, 240px"
+        className="absolute -top-2 left-5 z-10 h-40 w-60 rotate-[-5deg] rounded-[2rem] border-4 border-paper object-cover sm:left-8 sm:h-52 sm:w-[19rem] lg:w-[21rem]"
       />
 
       <div className="absolute right-6 top-20 z-20 grid h-[4.3rem] w-[4.3rem] place-items-center rounded-full border border-ink/10 bg-paper text-center text-[0.55rem] font-semibold uppercase leading-tight text-ink sm:right-8 sm:top-[5.5rem] sm:h-[4.85rem] sm:w-[4.85rem]">
@@ -80,7 +82,7 @@ export default function CategoryCard({ category }: { category: Category }) {
             variant="brand"
             customFillClass="bg-paper"
             customHoverTextColor="#2a211d"
-            className="h-11 w-max shrink-0 rounded-pill border-0 !bg-brand px-5 text-[0.78rem] font-semibold uppercase tracking-[0.08em] !text-white sm:mb-1 sm:h-12 sm:px-6 sm:text-[0.84rem]"
+            className="h-12 w-max shrink-0 rounded-pill border-0 !bg-brand px-6 text-base font-semibold tracking-[0.02em] !text-white sm:mb-1 sm:h-14 sm:px-7 sm:text-lg"
           >
             Order now
           </MagneticFillButton>
