@@ -3,107 +3,108 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { motion } from "motion/react";
-import Container from "../ui/Container";
+import { motion, useReducedMotion } from "motion/react";
 
 export default function FinalCTA() {
+  const reducedMotion = useReducedMotion();
+
   return (
     <section
       id="final-cta"
-      data-nav-theme="dark"
+      data-nav-theme="neutral"
       aria-labelledby="final-cta-title"
-      className="relative overflow-visible bg-[#2a211d] py-14 sm:py-20 lg:py-24"
+      className="overflow-hidden bg-cream-200 pt-14 text-[#2a211d] scroll-mt-24 sm:pt-20 lg:pt-24"
     >
-      {/* Top curved SVG (Transitions from previous section to this dark section) */}
+      <motion.div
+        initial={false}
+        whileInView={reducedMotion === false ? { y: [16, 0], opacity: [0.75, 1] } : undefined}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        className="mx-auto grid w-[90%] max-w-[1800px] gap-3 sm:grid-cols-[minmax(0,1fr)_clamp(8rem,12vw,15rem)] sm:gap-4"
+      >
+        <div
+          data-cta-copy
+          className="relative isolate flex min-h-64 flex-col justify-between gap-14 overflow-hidden rounded-4xl bg-[#fffaf5] p-6 sm:min-h-48 sm:gap-8 sm:p-7 lg:min-h-40 lg:flex-row lg:items-center lg:gap-4 lg:px-10 lg:py-8 xl:min-h-44 2xl:min-h-48 2xl:px-14"
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 600 260"
+            className="pointer-events-none absolute -bottom-12 left-[18%] -z-10 h-64 w-[38rem] max-w-none text-[#f06400] sm:left-[5%] lg:-bottom-[2.8vw] lg:left-1/2 lg:h-auto lg:w-[60%] lg:-translate-x-1/2"
+          >
+            <g stroke="currentColor" strokeOpacity=".18" strokeWidth="0.8">
+              <path d="M290 220 5 75M290 220 80 0M290 220 160 0M290 220 230 0M290 220 295 0M290 220 360 0M290 220 440 0M290 220 550 0M290 220 600 85M290 220 600 185M290 220 590 260M290 220 20 260M290 220 0 175" />
+            </g>
+            <path
+              fill="currentColor"
+              d="M290 158Q302 174 313 163Q317 182 332 176Q331 195 349 196Q338 211 354 220Q338 229 349 244Q331 245 332 264Q317 258 313 277Q302 266 290 282Q278 266 267 277Q263 258 248 264Q249 245 231 244Q242 229 226 220Q242 211 231 196Q249 195 248 176Q263 182 267 163Q278 174 290 158Z"
+            />
+          </svg>
+
+          <h2
+            id="final-cta-title"
+            className="max-w-72 font-display text-[1.9rem] font-extrabold leading-tight sm:max-w-none sm:text-3xl lg:whitespace-nowrap lg:text-[clamp(1.65rem,2.45vw,3rem)]"
+          >
+            Find, Order &amp; Enjoy
+          </h2>
+
+          <div className="relative self-start lg:ml-auto lg:max-w-[18rem] lg:self-auto lg:text-right 2xl:max-w-[23rem]">
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 40 40"
+              className="pointer-events-none absolute -right-1 -top-8 size-7 text-[#f06400] lg:-top-12 lg:right-14"
+            >
+              <path fill="currentColor" d="m20 0 3 12 8-8-3 12 12-2-10 8 9 7-12-1 1 12-8-10-7 10 1-12-12 1 10-8-12-7 12 2L8 4l9 8Z" />
+            </svg>
+            <p className="max-w-72 text-lg font-medium uppercase leading-tight sm:text-xl lg:text-[clamp(1.1rem,1.6vw,1.875rem)] 2xl:max-w-none">
+              Your next favourite meal starts here!
+            </p>
+            <Link
+              href="/restaurants"
+              className="group mt-1 inline-flex min-h-11 items-center gap-1 text-base font-medium decoration-[#f06400] underline-offset-4 hover:underline focus-visible:rounded-sm sm:text-lg"
+            >
+              Explore restaurants
+              <ArrowUpRight aria-hidden="true" className="size-4 text-[#f06400] transition-transform duration-200 motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5" />
+            </Link>
+          </div>
+        </div>
+
+        <div
+          data-cta-media
+          className="group relative min-h-40 overflow-hidden rounded-4xl bg-[#f4dfcc] sm:min-h-0"
+        >
+          <Image
+            src="/images/food/hero-fast.webp"
+            alt="Golden samosas with fresh peppers and dipping sauce"
+            fill
+            loading="lazy"
+            sizes="(min-width: 2000px) 240px, (min-width: 1067px) 12vw, (min-width: 640px) 128px, 90vw"
+            className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
+          />
+        </div>
+      </motion.div>
+
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 -translate-y-[99%] z-20 h-40 overflow-x-clip overflow-y-visible sm:h-48 sm:overflow-visible"
+        className="pointer-events-none mx-auto mt-12 h-[20vw] max-h-72 w-full select-none overflow-hidden [perspective:600px] sm:mt-16 lg:mt-5 lg:h-[15vw]"
       >
         <svg
-          className="absolute left-1/2 top-0 h-full w-[178vw] -translate-x-1/2 overflow-visible text-[#2a211d] sm:static sm:w-full sm:translate-x-0"
-          viewBox="0 0 1440 210"
+          viewBox="0 0 1400 250"
+          className="h-full w-full origin-bottom text-[#2a211d]/20 blur-[1px] [transform:rotateX(32deg)_scale(1.12)] sm:blur-[2px]"
           preserveAspectRatio="none"
         >
-          <path
-            d="M0 65C136 110 244 105 392 72C545 38 626 117 770 143C915 169 987 86 1126 59C1255 34 1328 89 1440 55V210H0V65Z"
+          <text
+            x="700"
+            y="220"
+            textAnchor="middle"
+            textLength="1350"
+            lengthAdjust="spacingAndGlyphs"
             fill="currentColor"
-          />
-          <path
-            d="M0 65C136 110 244 105 392 72C545 38 626 117 770 143C915 169 987 86 1126 59C1255 34 1328 89 1440 55"
-            fill="none"
-            stroke="#f0d7c2"
-            strokeLinecap="round"
-            strokeWidth="4"
-          />
-          <path
-            d="M22 93C154 132 266 120 406 96C548 72 628 143 764 166C918 191 998 108 1138 87C1258 69 1322 113 1418 86"
-            fill="none"
-            stroke="#c9aa96"
-            strokeDasharray="8 12"
-            strokeLinecap="round"
-            strokeOpacity=".72"
-            strokeWidth="3"
-          />
+            className="font-display text-[245px] font-extrabold"
+          >
+            QUICKBITE
+          </text>
         </svg>
       </div>
-
-      <Container>
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative isolate flex flex-col lg:flex-row lg:items-center justify-between overflow-hidden rounded-xl2 bg-[#1c120f] text-white shadow-sm"
-        >
-          {/* Decorative Background Element (Sunburst/Star motif) */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.03] pointer-events-none" aria-hidden="true">
-            <svg width="600" height="600" viewBox="0 0 100 100" className="text-white animate-[spin_60s_linear_infinite]">
-              <path fill="currentColor" d="M50 0 L53 35 L85 15 L65 47 L100 50 L65 53 L85 85 L53 65 L50 100 L47 65 L15 85 L35 53 L0 50 L35 47 L15 15 L47 35 Z" />
-            </svg>
-          </div>
-
-          <div className="relative z-10 flex flex-1 flex-col justify-center px-6 py-10 sm:px-10 lg:py-16 lg:px-14 xl:px-16">
-            <div className="max-w-xl">
-              <h2
-                id="final-cta-title"
-                className="font-display text-4xl font-extrabold leading-[1.02] tracking-tight sm:text-5xl lg:text-6xl text-white"
-              >
-                Good food is just a few taps away.
-              </h2>
-              
-              <div className="mt-6 flex flex-col items-start gap-8 sm:flex-row sm:items-center lg:mt-10">
-                <p className="max-w-sm text-base leading-relaxed text-white/75 sm:text-lg">
-                  Find trusted local kitchens, pick what you are craving, and follow every order from the first tap to your door.
-                </p>
-                
-                <Link
-                  href="/restaurants"
-                  className="group inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-pill bg-[#f06400] px-6 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:scale-[1.02] hover:bg-[#e25f00] hover:shadow-lg hover:shadow-[#f06400]/20 active:scale-[0.98]"
-                >
-                  Explore restaurants
-                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative z-10 w-full shrink-0 lg:w-[35%] xl:w-[38%]">
-            <div className="aspect-[4/3] w-full lg:aspect-auto lg:h-full lg:min-h-[26rem] p-4 lg:p-6 lg:pl-0">
-              <div className="relative h-full w-full overflow-hidden rounded-xl bg-[#2a211d]">
-                <Image
-                  src="/images/food/hero-fast.webp"
-                  alt="Golden samosas served with peppers and dipping sauces"
-                  fill
-                  loading="lazy"
-                  quality={72}
-                  sizes="(min-width: 1024px) 40vw, 100vw"
-                  className="object-cover object-center transition-transform duration-700 hover:scale-[1.03]"
-                />
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </Container>
     </section>
   );
 }

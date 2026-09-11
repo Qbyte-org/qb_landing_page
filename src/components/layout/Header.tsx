@@ -10,7 +10,7 @@ import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import LinkArrow from "../ui/LinkArrow";
 import MagneticFillButton from "../ui/MagneticFillButton";
 
-const navPill = "bg-[#2a211d] text-white";
+const navPill = "bg-ink text-paper";
 
 const menuLinks = [
   { label: "Home", href: "/", asset: "/menu/delivery-bag.svg" },
@@ -25,12 +25,12 @@ const menuLinks = [
 ];
 
 const navThemeDefaults = {
-  "--nav-foreground": "#ffffff",
-  "--nav-muted": "#ffd8bd",
-  "--nav-icon": "#f06400",
-  "--nav-chip": "#ffffff",
-  "--nav-chip-text": "#24180f",
-  "--nav-action": "#f15f00",
+  "--nav-foreground": "#fffaf5",
+  "--nav-muted": "#ffe7d7",
+  "--nav-icon": "#ff6b00",
+  "--nav-chip": "#fffaf5",
+  "--nav-chip-text": "#2a211d",
+  "--nav-action": "#ff6b00",
   "--nav-action-text": "#ffffff",
 } as CSSProperties;
 
@@ -61,13 +61,13 @@ function MenuGlyph({ open }: { open: boolean }) {
       </motion.svg>
 
       <svg className="h-[0.9rem] w-[0.9rem] shrink-0 overflow-visible sm:h-[1.05rem] sm:w-[1.05rem] lg:h-[1.2rem] lg:w-[1.2rem]" viewBox="0 0 14 14">
-        <motion.line x1="1" y1="1" x2="13" y2="1" stroke="var(--nav-icon, #f06400)" strokeWidth="2" strokeLinecap="square"
+        <motion.line x1="1" y1="1" x2="13" y2="1" stroke="var(--nav-icon, #ff6b00)" strokeWidth="2" strokeLinecap="square"
           initial={{ y2: open ? 13 : 1 }}
           animate={{ y2: open ? 13 : 1 }} transition={{ duration: 0.4, ease }} />
-        <motion.line x1="1" y1="7" x2="13" y2="7" stroke="var(--nav-icon, #f06400)" strokeWidth="2" strokeLinecap="square"
+        <motion.line x1="1" y1="7" x2="13" y2="7" stroke="var(--nav-icon, #ff6b00)" strokeWidth="2" strokeLinecap="square"
           initial={{ opacity: closedOpacity, scaleX: closedOpacity }}
           animate={{ opacity: closedOpacity, scaleX: closedOpacity }} transition={{ duration: 0.3, ease }} />
-        <motion.line x1="1" y1="13" x2="13" y2="13" stroke="var(--nav-icon, #f06400)" strokeWidth="2" strokeLinecap="square"
+        <motion.line x1="1" y1="13" x2="13" y2="13" stroke="var(--nav-icon, #ff6b00)" strokeWidth="2" strokeLinecap="square"
           initial={{ y2: open ? 1 : 13 }}
           animate={{ y2: open ? 1 : 13 }} transition={{ duration: 0.4, ease }} />
       </svg>
@@ -289,7 +289,7 @@ export default function Header() {
                 href="/"
                 onClick={closePanels}
                 aria-label="QuickBite home"
-                className="flex min-w-0 flex-1 items-center gap-2 pl-1 text-white sm:hidden"
+                className="flex min-w-0 flex-1 items-center gap-2 pl-1 text-paper sm:hidden"
               >
                 <Image
                   src="/quickbite-mark.svg"
@@ -310,7 +310,7 @@ export default function Header() {
                   variant="ghost"
                   themeAware
                   dataNavChip
-                  className="h-9 rounded-pill px-4 text-xs font-extrabold sm:h-10 sm:px-5 xl:h-12 xl:px-6 xl:text-base"
+                  className="h-9 rounded-pill px-4 text-xs font-semibold sm:h-10 sm:px-5 xl:h-12 xl:px-6 xl:text-base"
                 >
                   Find food
                   <MapPin data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.3} aria-hidden="true" />
@@ -322,7 +322,9 @@ export default function Header() {
                   href="/restaurants"
                   variant="brand"
                   dataNavAction
-                  className="h-9 rounded-pill bg-[#F15F00] px-3 text-xs font-extrabold sm:h-10 sm:px-5 xl:h-12 xl:text-base"
+                  customFillClass="bg-paper"
+                  customHoverTextColor="#2a211d"
+                  className="h-9 rounded-pill bg-[var(--nav-action)]! px-3 text-xs font-semibold text-[var(--nav-action-text)]! sm:h-10 sm:px-5 xl:h-12 xl:text-base"
                 >
                   Order now
                   <ListOrderedIcon data-nav-icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.35} aria-hidden="true" />
@@ -347,7 +349,7 @@ export default function Header() {
                 aria-controls="site-menu"
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 data-nav-icon
-                className="ml-auto flex h-9 min-w-[5.15rem] cursor-pointer items-center justify-center gap-2 rounded-[0.95rem] bg-transparent px-1.5 text-xs font-black uppercase tracking-[0.08em] text-[var(--nav-icon)] outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-[#F15F00] focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:h-10 sm:min-w-[6.7rem] sm:px-2.5 xl:h-12 xl:min-w-[7.4rem]"
+                className="ml-auto flex h-9 min-w-[5.15rem] cursor-pointer items-center justify-center gap-2 rounded-[0.95rem] bg-transparent px-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--nav-icon)] outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink sm:h-10 sm:min-w-[6.7rem] sm:px-2.5 xl:h-12 xl:min-w-[7.4rem]"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
                 transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
@@ -389,7 +391,7 @@ export default function Header() {
                           variant="dark"
                           dataNavText
                           imageSrc={link.asset}
-                          className="w-full !text-[var(--nav-foreground)] [--link-arrow-expanded-spacing:0.14em] [--link-arrow-image-size:2rem] [--link-arrow-min-width:100%] [--link-arrow-spacing:0em] border-0 pb-0 font-display text-2xl font-extrabold normal-case leading-none tracking-normal [border-bottom-width:0] sm:text-[2.05rem] sm:[--link-arrow-image-size:2.35rem]"
+                          className="w-full !text-[var(--nav-foreground)] [--link-arrow-expanded-spacing:0.14em] [--link-arrow-image-size:2rem] [--link-arrow-min-width:100%] [--link-arrow-spacing:0em] border-0 pb-0 font-display text-2xl font-semibold normal-case leading-none tracking-normal [border-bottom-width:0] sm:text-[2.05rem] sm:[--link-arrow-image-size:2.35rem]"
                           textClassName="tracking-normal"
                         >
                           {link.label}
@@ -405,7 +407,7 @@ export default function Header() {
                       variant="ghost"
                       themeAware
                       dataNavChip
-                      className="h-11 rounded-pill px-4 text-xs font-extrabold"
+                      className="h-11 rounded-pill px-4 text-xs font-semibold"
                     >
                       Find food
                       <MapPin data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.3} aria-hidden="true" />
@@ -415,7 +417,9 @@ export default function Header() {
                       onClick={closePanels}
                       variant="brand"
                       dataNavAction
-                      className="h-11 rounded-pill bg-[#F15F00] px-4 text-xs font-extrabold"
+                      customFillClass="bg-paper"
+                      customHoverTextColor="#2a211d"
+                      className="h-11 rounded-pill bg-[var(--nav-action)]! px-4 text-xs font-semibold text-[var(--nav-action-text)]!"
                     >
                       Order now
                       <ListOrderedIcon data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.35} aria-hidden="true" />
@@ -429,7 +433,7 @@ export default function Header() {
                         <Link
                           href={link.href}
                           onClick={closePanels}
-                          className="block font-display text-[1.55rem] font-black leading-none tracking-[-0.055em] text-[var(--nav-foreground)] transition-colors hover:text-[var(--nav-icon)]"
+                          className="block font-display text-[1.55rem] font-semibold leading-none tracking-[-0.055em] text-[var(--nav-foreground)] transition-colors hover:text-[var(--nav-icon)]"
                         >
                           {link.label}
                         </Link>

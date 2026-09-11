@@ -20,11 +20,8 @@ export default function SiteShell({
 }) {
   const shellRef = useRef<HTMLDivElement>(null);
 
-  // loaderDone starts true on pages without a loader,
-  // false on the homepage so the hero intro waits for the loader.
-  // onComplete is called at the START of the loader outro (t=2.8s),
-  // giving a ~16ms React re-render gap that is imperceptible because
-  // the loader outro animation is still playing over the top.
+  // The homepage intro starts once the welcome ticket finishes or is skipped.
+  // Other pages stay immediately available without mounting the loader.
   const [loaderDone, setLoaderDone] = useState(!heroIntro);
 
   useGSAP(
@@ -55,11 +52,8 @@ export default function SiteShell({
       // ── heroIntro page: wait until loader signals done ───────────────
       if (!loaderDone) return;
 
-      // gsap.from() immediately sets elements to the "from" state and
-      // then animates them to their natural CSS state.  Because the
-      // loader (z-index 9999) still covers the viewport for another
-      // ~1 s during its outro, the user never sees elements snap to
-      // their "from" state — they only see the smooth animate-in.
+      // useGSAP starts the existing hero sequence before the next paint once
+      // the loader is removed, including when the visitor skips the intro.
       if (reducedMotion) {
         gsap.set(
           [
@@ -194,10 +188,10 @@ export default function SiteShell({
 
   return (
     <>
-      {heroIntro && (
+      {heroIntro && !loaderDone && (
         <QuickBiteBentoLoader onComplete={() => setLoaderDone(true)} />
       )}
-      <div ref={shellRef} className="flex min-h-full flex-col">
+      <div ref={shellRef} inert={!loaderDone} className="flex min-h-full flex-col">
         <SmoothScroll />
         <Header />
         <main className="flex-1">{children}</main>

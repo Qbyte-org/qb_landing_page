@@ -15,9 +15,10 @@ export default function Home() {
     <SiteShell heroIntro>
       <Hero />
       <Categories />
+      <AppShowcase />
+    
       <HowItWorks />
       <QuickBitePassportHub />
-      <AppShowcase />
 
       {/* <ForPartners /> */}
       {/* <ForRiders /> */}

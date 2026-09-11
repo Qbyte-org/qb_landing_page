@@ -1,20 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, type ReactNode } from "react";
-import {
-  MessageCircle,
-  Play,
-  Quote,
-  ShoppingBag,
-  Star,
-  Store,
-} from "lucide-react";
+import { useSyncExternalStore, type ReactNode } from "react";
+import { Bike, MapPin, Quote, Store, UtensilsCrossed } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import { testimonials } from "@/content/site";
-import { gsap, useGSAP } from "@/lib/gsap";
 import Container from "../ui/Container";
-import Reveal from "../ui/Reveal";
-import ScrollOdometer from "../ui/ScrollOdometer";
 
 const extraTestimonials = [
   {
@@ -69,561 +60,280 @@ const extraTestimonials = [
 
 const testimonialCards = [...testimonials, ...extraTestimonials];
 
-type StoryKind = "image" | "quote" | "video";
 type TestimonialSource = (typeof testimonialCards)[number];
 
 type StoryCard = {
-  kind: StoryKind;
+  kind: "image" | "quote" | "illustration";
   testimonial: TestimonialSource;
   label: string;
   image?: string;
+  imageAlt?: string;
   title?: string;
   mediaClassName?: string;
 };
 
 const storyCards: StoryCard[] = [
   {
-    kind: "image",
+    kind: "illustration",
     testimonial: testimonialCards[0],
-    label: "Customer story",
-    title: "Campus lunch that still arrives hot.",
-    image: "/images/food/hero-local.webp",
+    label: "Campus favourites",
+    title: "A little comfort between lectures.",
+    image: "/food/jollof.svg",
+    imageAlt: "Illustration of jollof rice with chicken",
     mediaClassName: "min-h-[16rem] sm:min-h-[18rem]",
   },
   {
     kind: "quote",
     testimonial: testimonialCards[1],
-    label: "Vendor note",
+    label: "From the kitchen",
   },
   {
-    kind: "video",
+    kind: "illustration",
     testimonial: testimonialCards[2],
-    label: "Rider route",
-    title: "Every drop is easier to follow.",
-    image: "/images/food/partner-kitchen.webp",
+    label: "Life on the road",
+    title: "Around Ife, one delivery at a time.",
+    image: "/quickbite-delivery-bike.svg",
+    imageAlt: "Illustration of a QuickBite delivery bike",
     mediaClassName: "min-h-[14.5rem] sm:min-h-[17rem]",
   },
   {
     kind: "quote",
     testimonial: testimonialCards[3],
-    label: "Repeat order",
+    label: "More to the table",
   },
   {
     kind: "image",
     testimonial: testimonialCards[4],
-    label: "Partner story",
-    title: "Clear handoffs from kitchen to rider.",
-    image: "/images/food/hero-hot.webp",
+    label: "Behind the counter",
+    title: "Good food starts with teamwork.",
+    image: "/images/food/partner-kitchen.webp",
+    imageAlt: "People preparing and sharing food in a kitchen",
     mediaClassName: "min-h-[18rem] sm:min-h-[22rem]",
   },
   {
     kind: "quote",
     testimonial: testimonialCards[5],
-    label: "Delivery note",
+    label: "The daily route",
   },
   {
     kind: "image",
     testimonial: testimonialCards[6],
-    label: "Saved favourite",
-    title: "Reorders that remember the small things.",
+    label: "The usual, please",
+    title: "For the cravings that feel like home.",
     image: "/images/food/hero-fresh.webp",
+    imageAlt: "A spread of takeaway meals with vegetables and dipping sauces",
     mediaClassName: "min-h-[13rem] sm:min-h-[15rem]",
   },
   {
     kind: "quote",
     testimonial: testimonialCards[7],
-    label: "Kitchen log",
+    label: "Local kitchen, big heart",
   },
   {
-    kind: "video",
+    kind: "illustration",
     testimonial: testimonialCards[8],
-    label: "Route note",
-    title: "Riders see the whole trip clearly.",
-    image: "/images/food/hero-fast.webp",
+    label: "Across the neighbourhood",
+    title: "Every good meal has a last mile.",
+    image: "/quickbite-delivery-bike.svg",
+    imageAlt: "Illustration of a QuickBite delivery bike",
     mediaClassName: "min-h-[15rem] sm:min-h-[18.5rem]",
   },
 ];
 
-const masonryMotion = {
-  desktop: {
-    offsets: [0, 56, 22],
-    travel: [-58, -132, -88],
-  },
-  tablet: {
-    offsets: [0, 44],
-    travel: [-54, -102],
-  },
-} as const;
-
-function splitIntoColumns<T>(items: T[], columnCount: number) {
-  return Array.from({ length: columnCount }, (_, columnIndex) =>
-    items.filter((_, itemIndex) => itemIndex % columnCount === columnIndex),
-  );
-}
-
-const trustMetrics = [
-  {
-    value: 12000,
-    suffix: "+",
-    label: "Reviews",
-    icon: MessageCircle,
-  },
-  {
-    value: 150000,
-    suffix: "+",
-    label: "Orders",
-    icon: ShoppingBag,
-  },
-  {
-    value: 98,
-    suffix: "%",
-    label: "Would recommend",
-    icon: Store,
-  },
+const communityDetails = [
+  { title: "Food lovers", detail: "A seat at the table.", icon: UtensilsCrossed },
+  { title: "Local kitchens", detail: "The heart of every meal.", icon: Store },
+  { title: "Delivery riders", detail: "Bringing it all together.", icon: Bike },
 ] as const;
 
-function StarRow({
-  label = "5 out of 5 stars",
-  className = "",
-  starClassName = "h-4 w-4",
+// Only regroup at the two layout breakpoints; cards keep their natural height.
+// A stable server snapshot keeps the first client render hydration-safe.
+function subscribeToColumns(onChange: () => void) {
+  const queries = ["(min-width: 768px)", "(min-width: 1280px)"].map((query) => window.matchMedia(query));
+  queries.forEach((query) => query.addEventListener("change", onChange));
+  return () => queries.forEach((query) => query.removeEventListener("change", onChange));
+}
+
+function getColumnCount() {
+  return window.matchMedia("(min-width: 1280px)").matches ? 3 : window.matchMedia("(min-width: 768px)").matches ? 2 : 1;
+}
+
+function getServerColumnCount() {
+  return 1;
+}
+
+function CommunityPanel() {
+  return (
+    <aside aria-labelledby="testimonial-community-title" className="relative overflow-hidden rounded-card bg-[#ffe7d7] p-6 sm:p-7">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[url('/images/footer-grain.svg')] bg-size-[128px_128px] opacity-20 mix-blend-multiply"
+      />
+      <div className="relative">
+        <p className="text-xs font-medium uppercase tracking-[0.14em] text-[#6d5c52]">
+          Around the table
+        </p>
+        <h3 id="testimonial-community-title" className="mt-3 max-w-64 font-display text-2xl font-semibold leading-tight">
+          One community.<br />Many good stories.
+        </h3>
+        <ul className="mt-6 border-t border-dashed border-[#2a211d]/20">
+          {communityDetails.map(({ title, detail, icon: Icon }) => (
+            <li key={title} className="flex items-center gap-4 border-b border-dashed border-[#2a211d]/20 py-3.5 last:border-b-0 last:pb-0">
+              <span className="grid size-10 shrink-0 place-items-center rounded-full border border-[#2a211d]/15 bg-[#fffaf5]/60 text-[#f06400]">
+                <Icon aria-hidden="true" className="size-4" strokeWidth={1.75} />
+              </span>
+              <div>
+                <p className="text-sm font-semibold">{title}</p>
+                <p className="mt-0.5 text-sm text-[#6d5c52]">{detail}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </aside>
+  );
+}
+
+function StoryCardShell({ children }: { children: ReactNode }) {
+  return (
+    <figure className="group relative flex min-w-0 shrink-0 flex-col overflow-hidden rounded-card border border-[#2a211d]/10 bg-[#fffaf5] p-5 text-[#2a211d] transition-colors duration-300 hover:border-[#2a211d]/25 sm:p-6">
+      {children}
+    </figure>
+  );
+}
+
+function AuthorRow({
+  testimonial,
+  withDivider = false,
 }: {
-  label?: string;
-  className?: string;
-  starClassName?: string;
+  testimonial: TestimonialSource;
+  withDivider?: boolean;
 }) {
-  return (
-    <div className={`flex gap-0.5 ${className}`} aria-label={label}>
-      {Array.from({ length: 5 }).map((_, index) => (
-        <Star
-          key={index}
-          className={`${starClassName} fill-[#f06400] text-[#f06400]`}
-          aria-hidden="true"
-        />
-      ))}
-    </div>
-  );
-}
-
-function Avatar({
-  initials,
-  accent,
-}: {
-  initials: string;
-  accent: string;
-}) {
-  const isLight = accent === "#f4dfcc" || accent === "#ffe7d7";
+  const [role, location] = testimonial.role.split(" • ");
 
   return (
-    <span
-      className="grid h-12 w-12 shrink-0 place-items-center rounded-full text-xs font-black sm:h-14 sm:w-14 sm:text-sm"
-      style={{
-        backgroundColor: accent,
-        color: isLight ? "#241813" : "#fffaf5",
-      }}
-      aria-hidden="true"
-    >
-      {initials}
-    </span>
-  );
-}
-
-function TrustPanel() {
-  return (
-    <Reveal direction="left" delay={0.1}>
-      <aside className="relative overflow-hidden rounded-[2rem] bg-[#f4dfcc]/55 p-5 text-[#241813] ring-1 ring-[#2a211d]/8 sm:p-6 lg:p-7">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(circle,rgba(42,33,29,.48)_1px,transparent_1.35px)] [background-size:15px_15px]"
-        />
-
-        <div className="relative z-10 flex flex-col gap-6">
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.2em] text-[#8a6b5a]">
-              Community trust
-            </p>
-            <div className="mt-4 flex flex-wrap items-end gap-3">
-              <StarRow
-                label="4.9 average rating"
-                starClassName="h-5 w-5"
-              />
-              <p className="font-display text-3xl font-black tracking-[-0.07em] text-[#2a211d]">
-                4.9
-              </p>
-              <p className="pb-1 text-sm font-black text-[#6d5c52]">
-                Average Rating
-              </p>
-            </div>
-          </div>
-
-          <div className="overflow-hidden rounded-[1.35rem] bg-[#fffaf5]/82 ring-1 ring-[#2a211d]/7">
-            {trustMetrics.map((metric) => {
-              const Icon = metric.icon;
-
-              return (
-                <div
-                  key={metric.label}
-                  className="grid grid-cols-[auto_1fr_auto] items-center gap-3 border-b border-dashed border-[#2a211d]/12 px-4 py-3.5 last:border-b-0"
-                >
-                  <span className="grid h-9 w-9 place-items-center rounded-full bg-[#f4dfcc]/70 text-[#f06400]">
-                    <Icon
-                      className="h-4 w-4"
-                      strokeWidth={2.35}
-                      aria-hidden="true"
-                    />
-                  </span>
-                  <p className="text-xs font-black uppercase tracking-[0.13em] text-[#8a6b5a]">
-                    {metric.label}
-                  </p>
-                  <div className="text-right font-display text-xl font-black tracking-[-0.06em] text-[#241813]">
-                    <ScrollOdometer value={metric.value} duration={1400} />
-                    <span>{metric.suffix}</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </aside>
-    </Reveal>
-  );
-}
-
-function StoryCardShell({
-  index,
-  children,
-}: {
-  index: number;
-  children: ReactNode;
-}) {
-  return (
-    <Reveal delay={(index % 6) * 0.045}>
-      <figure className="group relative flex flex-col overflow-hidden rounded-[2rem] bg-[#f4dfcc]/48 p-5 text-[#241813] ring-1 ring-[#2a211d]/8 transition duration-500 hover:-translate-y-1.5 hover:bg-[#f4dfcc]/68 hover:ring-[#f06400]/25 sm:p-6">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-[0.07] [background-image:radial-gradient(circle,rgba(42,33,29,.42)_1px,transparent_1.35px)] [background-size:14px_14px]"
-        />
-        {children}
-      </figure>
-    </Reveal>
-  );
-}
-
-function AuthorRow({ testimonial }: { testimonial: TestimonialSource }) {
-  return (
-    <figcaption className="relative z-10 flex items-center gap-4">
-      <Avatar initials={testimonial.initials} accent={testimonial.accent} />
+    <figcaption className={`relative flex shrink-0 items-center gap-3 ${withDivider ? "border-t border-dashed border-[#2a211d]/20 pt-5" : ""}`}>
+      <span aria-hidden="true" className="grid size-11 shrink-0 place-items-center rounded-full border border-[#2a211d]/10 bg-cream-200 font-display text-sm font-semibold">
+        {testimonial.initials}
+      </span>
       <span className="min-w-0">
-        <span className="block text-lg font-black tracking-[-0.04em] text-[#241813] sm:text-xl">
+        <span className="block text-base font-semibold leading-snug sm:text-lg">
           {testimonial.name}
         </span>
-        <span className="mt-1 block text-sm font-semibold text-[#6d5c52] sm:text-base">
-          {testimonial.role}
+        <span className="mt-1 block text-xs text-[#6d5c52] sm:text-sm">
+          {role}
         </span>
-        <span className="mt-3 flex flex-wrap items-center gap-2">
-          <StarRow
-            label="5 out of 5 testimonial rating"
-            starClassName="h-3.5 w-3.5"
-          />
-          <span className="-rotate-2 rounded-full border border-dashed border-[#f06400]/45 bg-[#fffaf5]/70 px-2.5 py-1 text-[0.55rem] font-black uppercase tracking-[0.14em] text-[#f06400]">
-            Verified bite
+        {location ? (
+          <span className="mt-1 flex items-center gap-1 text-xs text-[#6d5c52]">
+            <MapPin aria-hidden="true" className="size-3 shrink-0" />
+            {location}
           </span>
-        </span>
+        ) : null}
       </span>
     </figcaption>
   );
 }
 
-function MediaStoryCard({
-  story,
-  index,
-}: {
-  story: StoryCard;
-  index: number;
-}) {
-  const isVideo = story.kind === "video";
+function MediaStoryCard({ story }: { story: StoryCard }) {
+  const isIllustration = story.kind === "illustration";
 
   return (
-    <StoryCardShell index={index}>
+    <StoryCardShell>
       <AuthorRow testimonial={story.testimonial} />
-
-      <div className={`relative z-10 mt-6 overflow-hidden rounded-[1.35rem] bg-[#2a211d] ${story.mediaClassName ?? "min-h-[16rem] sm:min-h-[19rem]"}`}>
+      <div className={`relative mt-5 shrink-0 overflow-hidden rounded-card ${isIllustration ? "bg-cream-200" : "bg-[#2a211d]"} ${story.mediaClassName ?? "min-h-[16rem]"}`}>
         {story.image ? (
           <Image
             src={story.image}
-            alt={`${story.label} testimonial visual`}
+            alt={story.imageAlt ?? ""}
             fill
-            sizes="(min-width: 1280px) 31vw, (min-width: 768px) 50vw, 100vw"
-            className="object-cover opacity-[0.82] transition duration-700 group-hover:scale-[1.025]"
+            loading="lazy"
+            sizes="(min-width: 1280px) 360px, (min-width: 768px) 44vw, 88vw"
+            className={`transition-transform duration-500 motion-safe:group-hover:scale-[1.025] ${isIllustration ? "object-contain px-5 pb-20 pt-12" : "object-cover"}`}
           />
         ) : null}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(42,33,29,0)_30%,rgba(42,33,29,.78))]" />
-        <span className="absolute left-4 top-4 rounded-full bg-[#fffaf5] px-3 py-1.5 text-[0.68rem] font-black uppercase tracking-[0.14em] text-[#f06400]">
-          {story.label}
-        </span>
-        {isVideo ? (
-          <span className="absolute left-1/2 top-1/2 grid h-12 w-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-[#fffaf5]/94 text-[#f06400] motion-safe:animate-pulse">
-            <Play
-              className="h-4 w-4 fill-current"
-              strokeWidth={2.5}
-              aria-hidden="true"
-            />
-          </span>
+        {!isIllustration ? (
+          <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-[#2a211d]/95 via-[#2a211d]/10 to-transparent" />
         ) : null}
         {story.title ? (
-          <p className="absolute bottom-4 left-4 right-4 font-display text-2xl font-black leading-[1.05] tracking-[-0.06em] text-white sm:text-3xl">
+          <p className={`absolute bottom-4 left-4 right-4 font-display text-xl font-semibold leading-tight sm:text-2xl ${isIllustration ? "text-[#2a211d]" : "text-[#fffaf5]"}`}>
             {story.title}
           </p>
         ) : null}
       </div>
-
-      <blockquote className="relative z-10 mt-5 text-base font-semibold leading-relaxed text-[#6d5c52]">
-        “{story.testimonial.quote}”
+      <blockquote className="mt-5 shrink-0 border-t border-dashed border-[#2a211d]/20 pt-5 text-base leading-relaxed">
+        &ldquo;{story.testimonial.quote}&rdquo;
       </blockquote>
     </StoryCardShell>
   );
 }
 
-function QuoteStoryCard({
-  story,
-  index,
-}: {
-  story: StoryCard;
-  index: number;
-}) {
+function QuoteStoryCard({ story, index }: { story: StoryCard; index: number }) {
   return (
-    <StoryCardShell index={index}>
-      <div className="relative z-10 flex items-start justify-between gap-4">
-        <span className="rounded-full bg-[#fffaf5] px-3 py-1.5 text-[0.68rem] font-black uppercase tracking-[0.14em] text-[#f06400]">
-          {story.label}
-        </span>
-        <Quote
-          className="h-10 w-10 fill-[#2a211d]/8 text-[#2a211d]/8 transition duration-500 group-hover:fill-[#f06400]/18 group-hover:text-[#f06400]/18"
-          aria-hidden="true"
-        />
+    <StoryCardShell>
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[url('/images/footer-grain.svg')] bg-size-[128px_128px] opacity-10 mix-blend-multiply" />
+      <div className="relative flex flex-col">
+        <div className="flex items-end justify-between gap-3">
+          {/* <StoryLabel label={story.label} /> */}
+          <Quote aria-hidden="true" className="mt-7 size-8 text-[#f06400]" strokeWidth={1.5} />
+          <span aria-hidden="true" className="font-mono text-xs text-[#6d5c52]">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        </div>
+        <blockquote className="mb-7 mt-3 font-display text-[1.4rem] font-semibold leading-[1.35] sm:text-2xl xl:text-[1.65rem]">
+          {story.testimonial.quote}
+        </blockquote>
       </div>
-
-      <blockquote className="relative z-10 my-8 text-[1.5rem] font-black leading-[1.14] tracking-[-0.055em] text-[#241813] sm:text-[1.75rem] xl:text-[1.95rem]">
-        “{story.testimonial.quote}”
-      </blockquote>
-
-      <AuthorRow testimonial={story.testimonial} />
+      <AuthorRow testimonial={story.testimonial} withDivider />
     </StoryCardShell>
-  );
-}
-
-function TestimonialStoryCard({
-  story,
-  index,
-}: {
-  story: StoryCard;
-  index: number;
-}) {
-  if (story.kind === "quote") {
-    return <QuoteStoryCard story={story} index={index} />;
-  }
-
-  return <MediaStoryCard story={story} index={index} />;
-}
-
-function MasonryGrid({
-  mode,
-  columnCount,
-  className,
-}: {
-  mode: "mobile" | "tablet" | "desktop";
-  columnCount: number;
-  className: string;
-}) {
-  const columns = splitIntoColumns(storyCards, columnCount);
-  const preset =
-    mode === "desktop"
-      ? masonryMotion.desktop
-      : mode === "tablet"
-        ? masonryMotion.tablet
-        : undefined;
-
-  return (
-    <div data-testimonial-grid={mode} className={className}>
-      {columns.map((column, columnIndex) => {
-        const offset = preset?.offsets[columnIndex] ?? 0;
-        const travel = preset?.travel[columnIndex] ?? 0;
-
-        return (
-          <div
-            key={`${mode}-column-${columnIndex}`}
-            data-testimonial-column
-            data-testimonial-start-offset={offset}
-            data-testimonial-travel={travel}
-            className="flex min-w-0 flex-col gap-4 sm:gap-5"
-            style={{
-              transform: offset
-                ? `translate3d(0, ${offset}px, 0)`
-                : undefined,
-            }}
-          >
-            {column.map((story) => {
-              const originalIndex = storyCards.indexOf(story);
-
-              return (
-                <TestimonialStoryCard
-                  key={`${mode}-${story.testimonial.name}-${story.label}`}
-                  story={story}
-                  index={originalIndex}
-                />
-              );
-            })}
-          </div>
-        );
-      })}
-    </div>
   );
 }
 
 export default function Testimonials() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useGSAP(
-    () => {
-      const section = sectionRef.current;
-      if (!section) return;
-
-      const allColumns = gsap.utils.toArray<HTMLElement>(
-        section.querySelectorAll("[data-testimonial-column]"),
-      );
-      const reducedMotionQuery = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      );
-      let animationFrame = 0;
-
-      const resetColumns = () => {
-        gsap.set(allColumns, { clearProps: "transform,willChange" });
-      };
-
-      const getActiveGridSelector = () => {
-        if (window.innerWidth >= 1280) {
-          return "[data-testimonial-grid='desktop']";
-        }
-
-        if (window.innerWidth >= 768) {
-          return "[data-testimonial-grid='tablet']";
-        }
-
-        return "[data-testimonial-grid='mobile']";
-      };
-
-      const updateColumns = () => {
-        animationFrame = 0;
-        const gridSelector = getActiveGridSelector();
-        const grid = section.querySelector<HTMLElement>(gridSelector);
-
-        if (!grid || gridSelector.includes("mobile") || reducedMotionQuery.matches) {
-          resetColumns();
-          return;
-        }
-
-        const columns = gsap.utils.toArray<HTMLElement>(
-          grid.querySelectorAll("[data-testimonial-column]"),
-        );
-        const rect = section.getBoundingClientRect();
-        const viewportHeight = window.innerHeight || 1;
-        const startPoint = viewportHeight * 0.82;
-        const scrollRange = rect.height + startPoint;
-        const progress = gsap.utils.clamp(
-          0,
-          1,
-          (startPoint - rect.top) / scrollRange,
-        );
-
-        columns.forEach((column) => {
-          const startOffset = Number(
-            column.dataset.testimonialStartOffset ?? 0,
-          );
-          const requestedTravel = Number(column.dataset.testimonialTravel ?? 0);
-          const gridHeight = grid.scrollHeight;
-          const columnHeight = column.scrollHeight;
-          const spareSpace = Math.max(
-            56,
-            gridHeight - columnHeight + Math.abs(startOffset) + 72,
-          );
-          const safeTravel = gsap.utils.clamp(
-            -spareSpace,
-            spareSpace,
-            requestedTravel,
-          );
-
-          gsap.set(column, {
-            y: startOffset + safeTravel * progress,
-            willChange: "transform",
-          });
-        });
-      };
-
-      const requestUpdate = () => {
-        if (animationFrame) return;
-        animationFrame = window.requestAnimationFrame(updateColumns);
-      };
-
-      resetColumns();
-      updateColumns();
-      window.addEventListener("scroll", requestUpdate, { passive: true });
-      window.addEventListener("resize", requestUpdate);
-      reducedMotionQuery.addEventListener("change", requestUpdate);
-
-      return () => {
-        window.removeEventListener("scroll", requestUpdate);
-        window.removeEventListener("resize", requestUpdate);
-        reducedMotionQuery.removeEventListener("change", requestUpdate);
-        window.cancelAnimationFrame(animationFrame);
-        resetColumns();
-      };
-    },
-    { dependencies: [] },
+  const reducedMotion = useReducedMotion();
+  const columnCount = useSyncExternalStore(subscribeToColumns, getColumnCount, getServerColumnCount);
+  const columns = Array.from({ length: columnCount }, (_, columnIndex) =>
+    storyCards.map((story, index) => ({ story, index })).filter(({ index }) => index % columnCount === columnIndex),
   );
 
   return (
     <section
-      ref={sectionRef}
-      data-nav-theme="light"
-      className="bg-[#fffaf5] py-16 sm:py-24"
+      id="testimonials"
+      data-nav-theme="neutral"
+      aria-labelledby="testimonials-title"
+      className="scroll-mt-24 overflow-hidden bg-cream-200 py-16 text-[#2a211d] sm:py-24"
     >
       <Container>
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(21rem,30rem)] lg:items-end">
-          <Reveal direction="up">
-            <div className="max-w-4xl">
-              <p className="mb-4 text-xs font-black uppercase tracking-[0.24em] text-[#8a6b5a]">
-                Testimonials
-              </p>
-              <h2 className="font-display text-[3.15rem] font-black leading-[0.98] tracking-[-0.08em] text-[#241813] sm:text-[4.6rem] lg:text-[5.7rem]">
-                Every order has
-                <span className="block text-[#f06400]">
-                  a story worth sharing.
-                </span>
-              </h2>
-              <p className="mt-6 max-w-2xl text-lg font-semibold leading-relaxed text-[#6d5c52] sm:text-xl">
-                From customers and vendors to riders, hear how QuickBite fits
-                into everyday food runs.
-              </p>
+        <motion.div
+          initial={false}
+          whileInView={reducedMotion === false ? { opacity: [0.75, 1], y: [16, 0] } : undefined}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(21rem,26rem)] lg:items-center lg:gap-12"
+        >
+          <div>
+            <h2 id="testimonials-title" className="section-heading">
+              Good food.
+              <span className="block">Better together.</span>
+            </h2>
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-[#6d5c52] sm:text-lg">
+              From campus cravings to the kitchen counter, meet the food lovers,
+              local kitchens and riders behind the everyday food run.
+            </p>
+          </div>
+          <CommunityPanel />
+        </motion.div>
+
+        <div data-testimonial-grid className={`mt-12 grid items-stretch gap-4 sm:gap-5 xl:mt-14 ${columnCount === 3 ? "grid-cols-3" : columnCount === 2 ? "grid-cols-2" : "grid-cols-1"}`}>
+          {columns.map((column, columnIndex) => (
+            <div key={columnIndex} data-testimonial-column className="flex min-w-0 flex-col justify-between gap-4 sm:gap-5">
+              {column.map(({ story, index }) => story.kind === "quote" ? (
+                <QuoteStoryCard key={story.testimonial.name} story={story} index={index} />
+              ) : (
+                <MediaStoryCard key={story.testimonial.name} story={story} />
+              ))}
             </div>
-          </Reveal>
-
-          <TrustPanel />
+          ))}
         </div>
-
-        <MasonryGrid
-          mode="mobile"
-          columnCount={1}
-          className="mt-12 grid gap-4 md:hidden"
-        />
-        <MasonryGrid
-          mode="tablet"
-          columnCount={2}
-          className="mt-12 hidden gap-5 pb-16 md:grid md:grid-cols-2 xl:hidden"
-        />
-        <MasonryGrid
-          mode="desktop"
-          columnCount={3}
-          className="mt-14 hidden gap-5 pb-20 xl:grid xl:grid-cols-3"
-        />
       </Container>
     </section>
   );

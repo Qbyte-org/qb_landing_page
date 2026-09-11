@@ -53,7 +53,7 @@ const variants: Record<
   dark: {
     root: "bg-navy text-white",
     fill: "bg-brand-light",
-    hoverText: "text-navy",
+    hoverText: "text-white",
   },
   light: {
     root: "bg-white text-brand-dark",
@@ -80,7 +80,7 @@ const themeAwareStyles = {
 
 const variantHoverTextColors: Record<MagneticFillVariant, string> = {
   brand: "#1a1a2e",
-  dark: "#1a1a2e",
+  dark: "#ffffff",
   light: "#ffffff",
   white: "#ffffff",
   ghost: "#ffffff",

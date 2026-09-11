@@ -26,7 +26,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       data-nav-theme="hero"
-      className="relative overflow-hidden bg-[#2a211d] text-white"
+      className="relative overflow-hidden bg-ink text-paper"
     >
       <div className="relative pb-12 pt-30 sm:pb-14 sm:pt-38 lg:pb-16 lg:pt-48 xl:pt-52">
         <HeroDecor />
@@ -39,14 +39,14 @@ export default function Hero() {
             <h1
               data-hero-title
               aria-label={`Real food, delivered ${activeSlide.word}`}
-              className="font-display text-[2.7rem] font-extrabold leading-[1.03] text-white min-[430px]:text-[3.1rem] sm:text-5xl md:text-6xl lg:text-[5.2rem] xl:text-[5.9rem]"
+              className="font-display text-[2.7rem] font-semibold leading-[1.03] text-paper min-[430px]:text-[3.1rem] sm:text-5xl md:text-6xl lg:text-[5.2rem] xl:text-[5.9rem]"
             >
               <span className="block">Real food,</span>
               <span className="block">
                 delivered{" "}
                 <TypewriterText
                   words={rotatingHeadlines}
-                  className="inline-grid text-[#F15F00]"
+                  className="inline-grid text-brand"
                   typeSpeed={92}
                   deleteSpeed={58}
                   pause={4200}
@@ -62,7 +62,9 @@ export default function Hero() {
             <MagneticFillButton
               href="/restaurants"
               variant="brand"
-              className="pointer-events-auto h-14 cursor-pointer rounded-4xl border-[#F15F00] bg-[#F15F00] px-7 text-base font-extrabold sm:h-[3.75rem] sm:px-8"
+              customFillClass="bg-paper"
+              customHoverTextColor="#2a211d"
+              className="pointer-events-auto h-14 cursor-pointer rounded-4xl border-brand bg-brand! px-7 text-base font-semibold text-white! sm:h-[3.75rem] sm:px-8"
             >
               Order now
               <ArrowRight className="h-5 w-5" strokeWidth={2.35} aria-hidden="true" />

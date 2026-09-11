@@ -5,7 +5,7 @@ export default function CategoriesDecor() {
     <>
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.24] [background-image:radial-gradient(#3a2418_0.65px,transparent_0.65px)] [background-size:18px_18px]"
+        className="pointer-events-none absolute inset-0 opacity-[0.14] [background-image:radial-gradient(var(--color-ink)_0.65px,transparent_0.65px)] [background-size:18px_18px]"
       />
       <Image
         src="/food/jollof.svg"
