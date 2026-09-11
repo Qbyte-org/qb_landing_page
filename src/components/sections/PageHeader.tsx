@@ -26,7 +26,7 @@ export default function PageHeader({
               {eyebrow}
             </span>
           ) : null}
-          <h1 className="mx-auto max-w-3xl font-display text-4xl font-extrabold leading-[1.05] text-navy sm:text-5xl">
+          <h1 className="mx-auto max-w-3xl font-display text-4xl font-extrabold leading-[1.05] tracking-[0.01em]! text-navy sm:text-5xl">
             {title}
           </h1>
           {subtitle ? (
