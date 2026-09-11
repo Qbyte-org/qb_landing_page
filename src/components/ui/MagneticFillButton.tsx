@@ -1,11 +1,12 @@
 "use client";
 
-import Link from "next/link";
+import LinkArrow from "./LinkArrow";
 import {
   useCallback,
   useRef,
   useState,
   type FocusEventHandler,
+  type HTMLAttributes,
   type MouseEvent as ReactMouseEvent,
   type MouseEventHandler,
   type ReactNode,
@@ -19,18 +20,23 @@ export type MagneticFillVariant =
   | "white"
   | "ghost";
 
-type MagneticElement = HTMLButtonElement | HTMLAnchorElement;
+type MagneticElement = HTMLElement;
 
-export interface MagneticFillButtonProps {
+export interface MagneticFillButtonProps extends Omit<HTMLAttributes<MagneticElement>, "children"> {
+  as?: "button" | "summary";
   variant?: MagneticFillVariant;
+  /** @deprecated Hover surfaces now use the shared cream/ink palette. */
   customFillClass?: string;
+  /** @deprecated Hover surfaces now use the shared cream/ink palette. */
   customHoverTextColor?: string;
   children: ReactNode;
   className?: string;
+  contentClassName?: string;
   href?: string;
   external?: boolean;
   target?: string;
   rel?: string;
+  prefetch?: boolean;
   type?: "button" | "submit" | "reset";
   onClick?: MouseEventHandler<MagneticElement>;
   disabled?: boolean;
@@ -47,84 +53,75 @@ const variants: Record<
 > = {
   brand: {
     root: "bg-brand-dark text-white",
-    fill: "bg-white",
-    hoverText: "text-navy",
+    fill: "bg-cream-200",
+    hoverText: "text-ink",
   },
   dark: {
     root: "bg-navy text-white",
-    fill: "bg-brand-light",
-    hoverText: "text-white",
+    fill: "bg-cream-200",
+    hoverText: "text-ink",
   },
   light: {
     root: "bg-white text-brand-dark",
-    fill: "bg-brand-dark",
-    hoverText: "text-white",
+    fill: "bg-cream-200",
+    hoverText: "text-ink",
   },
   white: {
     root: "bg-white text-navy",
-    fill: "bg-navy",
-    hoverText: "text-white",
+    fill: "bg-cream-200",
+    hoverText: "text-ink",
   },
   ghost: {
     root: "bg-[#2a211d] text-navy",
-    fill: "bg-[#ff4f1f]",
-    hoverText: "text-white",
+    fill: "bg-cream-200",
+    hoverText: "text-ink",
   },
 };
 
 const themeAwareStyles = {
   root: "bg-[var(--magnetic-bg)] text-[var(--magnetic-text)]",
-  fill: "bg-[var(--magnetic-fill)]",
-  hoverText: "text-[var(--magnetic-hover-text)]",
+  fill: "bg-cream-200",
+  hoverText: "text-ink",
 };
-
-const variantHoverTextColors: Record<MagneticFillVariant, string> = {
-  brand: "#1a1a2e",
-  dark: "#ffffff",
-  light: "#ffffff",
-  white: "#ffffff",
-  ghost: "#ffffff",
-};
-
-function isExternalHref(href: string, external?: boolean) {
-  return Boolean(
-    external ||
-      /^https?:\/\//.test(href) ||
-      href.startsWith("mailto:") ||
-      href.startsWith("tel:"),
-  );
-}
 
 export default function MagneticFillButton({
+  as = "button",
   variant = "brand",
   customFillClass,
   customHoverTextColor,
   children,
   className = "",
+  contentClassName = "flex h-full w-full items-center justify-center gap-2",
   href,
   external,
   target,
   rel,
+  prefetch,
   type = "button",
   onClick,
+  onMouseEnter,
+  onMouseLeave,
+  onFocus,
+  onBlur,
   disabled,
   ariaLabel,
   themeAware = false,
   dataNavAction = false,
   dataNavChip = false,
   dataNavIcon = false,
+  ...rest
 }: MagneticFillButtonProps) {
   const buttonRef = useRef<MagneticElement>(null);
   const [fillOrigin, setFillOrigin] = useState({ x: 0, y: 0 });
   const [fillSize, setFillSize] = useState(480);
   const [isHovered, setIsHovered] = useState(false);
   const styles = themeAware ? themeAwareStyles : variants[variant];
-  const fillClassName = customFillClass || styles.fill;
-  const activeHoverTextColor =
-    customHoverTextColor ||
-    (themeAware
-      ? "var(--magnetic-hover-text)"
-      : variantHoverTextColors[variant]);
+  // Consume legacy overrides without forwarding them to the DOM. All action
+  // controls share one hover palette, including callers migrated incrementally.
+  void customFillClass;
+  void customHoverTextColor;
+  const fillClassName = styles.fill;
+  const activeHoverTextColor = "#2a211d";
   const idleTextColor = themeAware ? "var(--magnetic-text)" : undefined;
 
   const setOrigin = useCallback((x: number, y: number) => {
@@ -140,11 +137,13 @@ export default function MagneticFillButton({
   const handleMouseEnter = useCallback(
     (event: ReactMouseEvent<MagneticElement>) => {
       const rect = buttonRef.current?.getBoundingClientRect();
-      if (!rect) return;
-      setOrigin(event.clientX - rect.left, event.clientY - rect.top);
-      setIsHovered(true);
+      if (rect) {
+        setOrigin(event.clientX - rect.left, event.clientY - rect.top);
+        setIsHovered(true);
+      }
+      onMouseEnter?.(event);
     },
-    [setOrigin],
+    [onMouseEnter, setOrigin],
   );
 
   const handleMouseLeave = useCallback(
@@ -152,23 +151,27 @@ export default function MagneticFillButton({
       const rect = buttonRef.current?.getBoundingClientRect();
       if (rect) setOrigin(event.clientX - rect.left, event.clientY - rect.top);
       setIsHovered(false);
+      onMouseLeave?.(event);
     },
-    [setOrigin],
+    [onMouseLeave, setOrigin],
   );
 
-  const handleFocus: FocusEventHandler<MagneticElement> = () => {
+  const handleFocus: FocusEventHandler<MagneticElement> = (event) => {
     const rect = buttonRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    setOrigin(rect.width / 2, rect.height / 2);
-    setIsHovered(true);
+    if (rect) {
+      setOrigin(rect.width / 2, rect.height / 2);
+      setIsHovered(true);
+    }
+    onFocus?.(event);
   };
 
-  const handleBlur: FocusEventHandler<MagneticElement> = () => {
+  const handleBlur: FocusEventHandler<MagneticElement> = (event) => {
     setIsHovered(false);
+    onBlur?.(event);
   };
 
   const rootClassName = [
-    "relative isolate inline-flex cursor-pointer items-center justify-center overflow-hidden border-0 font-semibold transition-[background-color,color,transform] duration-300 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60",
+    "relative isolate inline-flex cursor-pointer items-center justify-center overflow-hidden border-0 font-semibold transition-[background-color,color,transform] duration-300 motion-reduce:transition-none! focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:pointer-events-none disabled:opacity-60",
     styles.root,
     className,
   ].join(" ");
@@ -181,20 +184,19 @@ export default function MagneticFillButton({
     <>
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute rounded-full ${fillClassName}`}
+        data-magnetic-fill=""
+        className={`pointer-events-none absolute rounded-full transition-transform ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none! ${isHovered ? "duration-[760ms]" : "duration-[600ms]"} ${fillClassName}`}
         style={{
           width: fillSize,
           height: fillSize,
           left: fillOrigin.x,
           top: fillOrigin.y,
           transform: `translate(-50%, -50%) scale(${isHovered ? 1 : 0})`,
-          transition: isHovered
-            ? "transform 760ms cubic-bezier(0.4, 0, 0.2, 1)"
-            : "transform 600ms cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       />
       <span
-        className={`relative z-10 flex h-full w-full items-center justify-center gap-2 transition-colors duration-300 ${
+        data-magnetic-content=""
+        className={`relative z-10 transition-colors duration-300 motion-reduce:transition-none! ${contentClassName} ${
           isHovered
             ? `${styles.hoverText} ${childColorClassName} ${hoverAccentClassName}`
             : childColorClassName
@@ -209,43 +211,50 @@ export default function MagneticFillButton({
   );
 
   const sharedProps = {
+    ...rest,
     className: rootClassName,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
     onFocus: handleFocus,
     onBlur: handleBlur,
     onClick,
-    "aria-label": ariaLabel,
+    "aria-label": ariaLabel ?? rest["aria-label"],
+    "data-magnetic-button": "",
     "data-nav-action": dataNavAction ? "" : undefined,
     "data-nav-chip": dataNavChip ? "" : undefined,
     "data-nav-icon": dataNavIcon ? "" : undefined,
   };
 
-  if (href) {
-    if (isExternalHref(href, external)) {
-      return (
-        <a
-          {...sharedProps}
-          ref={buttonRef as RefObject<HTMLAnchorElement>}
-          href={href}
-          target={target ?? (external ? "_blank" : undefined)}
-          rel={rel ?? (external ? "noopener noreferrer" : undefined)}
-        >
-          {content}
-        </a>
-      );
-    }
-
+  if (as === "summary") {
     return (
-      <Link
-        {...sharedProps}
-        ref={buttonRef as RefObject<HTMLAnchorElement>}
-        href={href}
-        target={target}
-        rel={rel}
-      >
+      <summary {...sharedProps} ref={buttonRef}>
         {content}
-      </Link>
+      </summary>
+    );
+  }
+
+  if (href) {
+    return (
+      <LinkArrow
+        {...rest}
+        href={href}
+        appearance="plain"
+        ariaLabel={ariaLabel}
+        prefetch={prefetch}
+        target={target ?? (external ? "_blank" : undefined)}
+        rel={rel}
+        className={`${rootClassName} gap-2`}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        dataNavAction={dataNavAction}
+        dataNavChip={dataNavChip}
+        data-nav-icon={dataNavIcon ? "" : undefined}
+      >
+        {children}
+      </LinkArrow>
     );
   }
 

@@ -11,7 +11,7 @@ function isNavTheme(value: string | undefined): value is NavTheme {
 
 export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
   useGSAP(
-    () => {
+    (_context, contextSafe) => {
       const nav = navRef.current;
       if (!nav) return;
 
@@ -21,8 +21,12 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
       const reducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       ).matches;
+      let activeTheme: NavTheme | undefined;
 
-      const applyTheme = (name: NavTheme, immediate = false) => {
+      const updateTheme = (name: NavTheme, immediate = false) => {
+        if (name === activeTheme && !immediate) return;
+        activeTheme = name;
+        nav.dataset.activeNavTheme = name;
         const theme = navThemes[name];
         const duration = immediate || reducedMotion ? 0 : animation.duration.base;
         const tween = {
@@ -57,11 +61,13 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
           "--nav-chip-text": theme.chipText,
           "--nav-action": theme.action,
           "--nav-action-text": theme.actionText,
+          "--nav-action-fill": "#fff0e4",
+          "--nav-action-hover-text": "#2a211d",
           "--magnetic-bg": theme.chip,
           "--magnetic-border": theme.chip,
           "--magnetic-text": theme.chipText,
-          "--magnetic-fill": theme.action,
-          "--magnetic-hover-text": theme.actionText,
+          "--magnetic-fill": "#fff0e4",
+          "--magnetic-hover-text": "#2a211d",
           duration,
           ease: animation.ease.smooth,
           overwrite: "auto",
@@ -69,7 +75,7 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
 
         animate("[data-nav-surface]", {
           backgroundColor: theme.surface,
-          backdropFilter: "blur(18px)",
+          color: theme.foreground,
           ...tween,
         });
         animate("[data-nav-text]", {
@@ -92,13 +98,17 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
           "--magnetic-bg": theme.chip,
           "--magnetic-border": theme.chip,
           "--magnetic-text": theme.chipText,
-          "--magnetic-fill": theme.action,
-          "--magnetic-hover-text": theme.actionText,
+          "--magnetic-fill": "#fff0e4",
+          "--magnetic-hover-text": "#2a211d",
           backgroundColor: theme.chip,
           color: theme.chipText,
           ...tween,
         } as gsap.TweenVars);
         animate("[data-nav-action]", {
+          "--magnetic-bg": theme.action,
+          "--magnetic-text": theme.actionText,
+          "--magnetic-fill": "#fff0e4",
+          "--magnetic-hover-text": "#2a211d",
           backgroundColor: theme.action,
           color: theme.actionText,
           ...tween,
@@ -112,40 +122,50 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
           ...tween,
         });
       };
+      const applyTheme = contextSafe ? contextSafe(updateTheme) : updateTheme;
 
-      const navLine = 76;
-      const initialSection = sections.find((section) => {
-        const rect = section.getBoundingClientRect();
-        return rect.top <= navLine && rect.bottom > navLine;
-      });
-      const initialTheme = initialSection?.dataset.navTheme;
-      applyTheme(isNavTheme(initialTheme) ? initialTheme : "light", true);
-
-      const triggers: ScrollTrigger[] = [];
-      const frame = window.requestAnimationFrame(() => {
-        sections.forEach((section) => {
-          if (!section.isConnected) return;
-
-          const themeName = section.dataset.navTheme;
-          if (!isNavTheme(themeName)) return;
-
-          const trigger = ScrollTrigger.create({
-            trigger: section,
-            start: "top 76px",
-            end: "bottom 76px",
-            onEnter: () => applyTheme(themeName),
-            onEnterBack: () => applyTheme(themeName),
-          });
-
-          triggers.push(trigger);
+      let frame = 0;
+      const sampleTheme = (immediate = false) => {
+        const closedBar = nav.querySelector<HTMLElement>("[data-menu-open] [data-intro-nav-content]");
+        const barBounds = (closedBar ?? nav).getBoundingClientRect();
+        const navLine = Math.max(0, Math.min(window.innerHeight - 1, barBounds.top + Math.min(barBounds.height, 80) / 2));
+        const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        const atBottom = maxScroll > 0 && window.scrollY >= maxScroll - 2;
+        const candidates = atBottom ? [...sections].reverse() : sections;
+        const section = candidates.find((candidate) => {
+          if (!candidate.isConnected || !isNavTheme(candidate.dataset.navTheme)) return false;
+          const bounds = candidate.getBoundingClientRect();
+          return atBottom
+            ? bounds.top < window.innerHeight && bounds.bottom > 0
+            : bounds.top <= navLine && bounds.bottom > navLine;
         });
+        const name = section?.dataset.navTheme;
+        applyTheme(isNavTheme(name) ? name : activeTheme ?? "hero", immediate);
+      };
+      const scheduleSample = () => {
+        if (frame) return;
+        frame = window.requestAnimationFrame(() => {
+          frame = 0;
+          sampleTheme();
+        });
+      };
 
-        ScrollTrigger.refresh();
-      });
+      // Read current geometry instead of caching section starts: lazy content
+      // and short final sections can move without ever crossing a trigger line.
+      sampleTheme(true);
+      window.addEventListener("scroll", scheduleSample, { passive: true });
+      window.addEventListener("resize", scheduleSample);
+      ScrollTrigger.addEventListener("refresh", scheduleSample);
+      const resizeObserver = new ResizeObserver(scheduleSample);
+      sections.forEach((section) => resizeObserver.observe(section));
+      scheduleSample();
 
       return () => {
         window.cancelAnimationFrame(frame);
-        triggers.forEach((trigger) => trigger.kill());
+        window.removeEventListener("scroll", scheduleSample);
+        window.removeEventListener("resize", scheduleSample);
+        ScrollTrigger.removeEventListener("refresh", scheduleSample);
+        resizeObserver.disconnect();
       };
     },
     { scope: navRef },

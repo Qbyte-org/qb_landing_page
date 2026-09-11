@@ -1,15 +1,16 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { ArrowRight } from "lucide-react";
 import { heroSlides } from "@/content/site";
 import { useHeroTransition } from "@/hooks/use-hero-transition";
 import HeroDecor from "./hero/HeroDecor";
 import HeroImageStage from "./hero/HeroImageStage";
 import { rotatingHeadlines } from "./hero/hero.data";
 import Container from "../ui/Container";
-import MagneticFillButton from "../ui/MagneticFillButton";
+import LinkArrow from "../ui/LinkArrow";
 import TypewriterText from "../ui/TypewriterText";
+import MagneticFillButton from "../ui/MagneticFillButton";
+import { ArrowRight } from "lucide-react";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -26,7 +27,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       data-nav-theme="hero"
-      className="relative overflow-hidden bg-ink text-paper"
+      className="relative overflow-hidden bg-[#1c120f] text-paper"
     >
       <div className="relative pb-12 pt-30 sm:pb-14 sm:pt-38 lg:pb-16 lg:pt-48 xl:pt-52">
         <HeroDecor />
@@ -39,7 +40,7 @@ export default function Hero() {
             <h1
               data-hero-title
               aria-label={`Real food, delivered ${activeSlide.word}`}
-              className="font-display text-[2.7rem] font-semibold leading-[1.03] text-paper min-[430px]:text-[3.1rem] sm:text-5xl md:text-6xl lg:text-[5.2rem] xl:text-[5.9rem]"
+              className="font-display text-[2.7rem] font-semibold leading-[1.03] tracking-[0.01em]! text-paper min-[430px]:text-[3.1rem] sm:text-5xl md:text-6xl lg:text-[5.2rem] xl:text-[5.9rem]"
             >
               <span className="block">Real food,</span>
               <span className="block">

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/SectionHeading";
 import LinkArrow from "../ui/LinkArrow";
@@ -24,9 +23,10 @@ export default function PopularRestaurants() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {restaurants.map((r, i) => (
             <Reveal key={r.name} delay={(i % 3) * 0.08} mode="image">
-              <Link
+              <LinkArrow
                 href="/restaurants"
-                className="block h-full overflow-hidden rounded-card border border-border bg-white"
+                appearance="plain"
+                className="block! h-full overflow-hidden rounded-card border border-border bg-white"
               >
               <div className="relative aspect-[16/10] w-full overflow-hidden">
                 <Image
@@ -47,7 +47,7 @@ export default function PopularRestaurants() {
                   <span className="text-brand-dark">{r.deliveryFrom}</span>
                 </p>
               </div>
-              </Link>
+              </LinkArrow>
             </Reveal>
           ))}
         </div>

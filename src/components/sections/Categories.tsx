@@ -5,10 +5,7 @@ import { categories } from "@/content/site";
 import { gsap, useGSAP } from "@/lib/gsap";
 import CategoriesDecor from "./categories/CategoriesDecor";
 import CategoryCard from "./categories/CategoryCard";
-import {
-  CategoriesToHowWave,
-  HomeToCategoriesWave,
-} from "./categories/CategoryWaveDivider";
+import { HomeToCategoriesWave } from "./categories/CategoryWaveDivider";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/SectionHeading";
 
@@ -140,7 +137,7 @@ export default function Categories() {
       ref={sectionRef}
       id="categories"
       data-nav-theme="neutral"
-      className="relative overflow-visible bg-paper pb-[9.5rem] pt-[7.5rem] text-ink sm:pb-[8.5rem] sm:pt-44 lg:pb-64"
+      className="relative overflow-visible bg-paper pb-[9.5rem] pt-[7.5rem] text-ink sm:pb-[8.5rem] sm:pt-44 lg:pb-52"
     >
       <CategoriesDecor />
       <HomeToCategoriesWave />

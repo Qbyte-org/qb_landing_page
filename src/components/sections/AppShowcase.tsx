@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { ArrowUpRight, Smartphone } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { appFeatures } from "@/content/site";
 import AppPreviewPanel from "./AppPreviewPanel";
+import MagneticFillButton from "../ui/MagneticFillButton";
+import LinkArrow from "../ui/LinkArrow";
 
 function AppStoreIcon() {
   return (
@@ -43,9 +43,9 @@ export default function AppShowcase() {
   return (
     <section
       id="app"
-      data-nav-theme="dark"
+      data-nav-theme="neutral"
       aria-labelledby="app-showcase-title"
-      className="relative isolate scroll-mt-24 overflow-hidden bg-[#2a211d] text-[#fffaf5]"
+      className="relative isolate scroll-mt-24 overflow-hidden bg-paper text-ink"
     >
       <motion.div
         data-app-banner
@@ -55,55 +55,54 @@ export default function AppShowcase() {
         transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         className="grid w-full lg:grid-cols-2"
       >
-        <div className="flex min-w-0 flex-col justify-center px-6 py-14 sm:px-10 sm:py-16 lg:px-[5vw] lg:py-20 2xl:py-24">
+        <div className="flex min-w-0 flex-col justify-center bg-cream-200 px-6 py-14 sm:px-10 sm:py-16 lg:px-[5vw]">
           <div className="mx-auto w-full max-w-[46rem]">
-            <p className="flex items-center gap-2.5 text-xs font-medium uppercase tracking-[0.14em] text-[#fffaf5]/75">
-              <Smartphone aria-hidden="true" className="size-4 text-[#f06400]" />
-              QuickBite, in your pocket
-            </p>
-
             <h2
               id="app-showcase-title"
-              className="section-heading mt-6"
+              className="section-heading"
             >
               Your next bite.
-              <span className="block text-[#ffe7d7]">Right here.</span>
+              <span className="block text-brand-dark">Right here.</span>
             </h2>
 
-            <p className="mt-6 max-w-lg text-base leading-relaxed text-[#fffaf5]/75 sm:text-lg">
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-cocoa sm:text-lg">
               The kitchens you love. The order you know by heart.
               All in one place, ready for your next craving.
             </p>
 
             <div role="group" aria-label="Explore QuickBite app features" className="mt-8 grid grid-cols-2 gap-3 sm:mt-10">
               {appFeatures.map(({ title, icon: Icon }, index) => (
-                <button
+                <MagneticFillButton
                   key={title}
                   type="button"
+                  variant="light"
+                  customFillClass="bg-brand"
+                  customHoverTextColor="#ffffff"
+                  contentClassName="flex w-full items-center gap-2.5 sm:gap-3"
                   aria-pressed={activeFeature === index}
                   aria-controls="app-feature-preview"
                   onClick={() => setFeatureSelection({ index, hasSelectedFeature: true })}
-                  className={`flex min-h-20 items-center gap-2.5 rounded-card border p-3 text-left text-sm font-medium leading-snug transition-colors duration-200 focus-visible:outline-[#fffaf5]! sm:min-h-22 sm:gap-3 sm:p-4 sm:text-base ${activeFeature === index ? "border-[#fffaf5] bg-[#fffaf5] text-[#2a211d]" : "border-[#fffaf5]/20 text-[#fffaf5]/85 hover:border-[#fffaf5]/40 hover:bg-[#fffaf5]/5"}`}
+                  className={`min-h-20 rounded-card border! p-3 text-left text-sm font-medium leading-snug sm:min-h-22 sm:p-4 sm:text-base ${activeFeature === index ? "border-ink bg-ink! text-paper!" : "border-ink/20 bg-paper! text-ink!"}`}
                 >
-                  <Icon aria-hidden="true" className={`size-4 shrink-0 sm:size-5 ${activeFeature === index ? "text-[#f06400]" : "text-[#ffe7d7]"}`} strokeWidth={1.75} />
+                  <Icon aria-hidden="true" className={`size-4 shrink-0 sm:size-5 ${activeFeature === index ? "text-paper" : "text-brand-dark"}`} strokeWidth={1.75} />
                   {featureLabels[index] ?? title}
-                </button>
+                </MagneticFillButton>
               ))}
             </div>
 
-            <p aria-hidden="true" className="mt-4 min-h-14 border-l-2 border-[#f06400] pl-4 text-sm leading-relaxed text-[#fffaf5]/75 lg:hidden">
+            <p aria-hidden="true" className="mt-4 min-h-14 border-l-2 border-brand pl-4 text-sm leading-relaxed text-cocoa lg:hidden">
               {feature.description}
             </p>
 
-            <div className="mt-8 border-t border-[#fffaf5]/15 pt-7 sm:mt-10 sm:pt-8">
-              <Link
+            <div className="mt-8 border-t border-ink/15 pt-7 sm:mt-10 sm:pt-8">
+              <LinkArrow
                 href="/waitlist"
-                className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-pill bg-[#fffaf5] px-6 py-3 text-base font-semibold text-[#2a211d] transition-colors duration-200 hover:bg-[#ffe7d7] focus-visible:outline-[#fffaf5]!"
+                variant="light"
+                className="min-h-12 text-base! font-semibold normal-case! [--link-arrow-spacing:0em]"
               >
                 Get launch updates
-                <ArrowUpRight aria-hidden="true" className="size-4 transition-transform duration-200 motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5" />
-              </Link>
-              <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-[#fffaf5]/75">
+              </LinkArrow>
+              <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-cocoa">
                 <span>Coming to</span>
                 <span className="inline-flex items-center gap-1.5"><AppStoreIcon /> iOS</span>
                 <span className="inline-flex items-center gap-1.5"><GooglePlayIcon /> Android</span>

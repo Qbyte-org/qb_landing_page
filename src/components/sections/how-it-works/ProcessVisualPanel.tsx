@@ -1,10 +1,9 @@
-import Image from "next/image";
+import Image from "../../ui/FoodImage";
 import { AnimatePresence, motion } from "motion/react";
 import type { ProcessSlide } from "./howItWorks.data";
 
 export default function ProcessVisualPanel({
   activeStep,
-  activeIndex,
 }: {
   activeStep: ProcessSlide;
   activeIndex: number;
@@ -24,8 +23,7 @@ export default function ProcessVisualPanel({
             src={activeStep.image}
             alt={activeStep.imageAlt}
             fill
-            priority={activeIndex === 0}
-            unoptimized
+            loading="lazy"
             sizes="(min-width: 1024px) 45vw, 100vw"
             className="object-cover object-center opacity-70"
           />

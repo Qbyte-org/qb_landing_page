@@ -1,11 +1,12 @@
 "use client";
 
-import Image from "next/image";
+import Image from "../ui/FoodImage";
 import { useSyncExternalStore, type ReactNode } from "react";
 import { Bike, MapPin, Quote, Store, UtensilsCrossed } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { testimonials } from "@/content/site";
 import Container from "../ui/Container";
+import SectionTag from "../ui/SectionTag";
 
 const extraTestimonials = [
   {
@@ -74,12 +75,12 @@ type StoryCard = {
 
 const storyCards: StoryCard[] = [
   {
-    kind: "illustration",
+    kind: "image",
     testimonial: testimonialCards[0],
     label: "Campus favourites",
     title: "A little comfort between lectures.",
-    image: "/food/jollof.svg",
-    imageAlt: "Illustration of jollof rice with chicken",
+    image: "/images/food/pinterest/jollof-chicken-plantain.webp",
+    imageAlt: "Jollof rice with glazed chicken and fried plantain",
     mediaClassName: "min-h-[16rem] sm:min-h-[18rem]",
   },
   {
@@ -106,8 +107,8 @@ const storyCards: StoryCard[] = [
     testimonial: testimonialCards[4],
     label: "Behind the counter",
     title: "Good food starts with teamwork.",
-    image: "/images/food/partner-kitchen.webp",
-    imageAlt: "People preparing and sharing food in a kitchen",
+    image: "/images/food/pinterest/meal-prep-packs.webp",
+    imageAlt: "Prepared portions of rice, chicken and stew in takeaway containers",
     mediaClassName: "min-h-[18rem] sm:min-h-[22rem]",
   },
   {
@@ -120,8 +121,8 @@ const storyCards: StoryCard[] = [
     testimonial: testimonialCards[6],
     label: "The usual, please",
     title: "For the cravings that feel like home.",
-    image: "/images/food/hero-fresh.webp",
-    imageAlt: "A spread of takeaway meals with vegetables and dipping sauces",
+    image: "/images/food/pinterest/nigerian-food-spread.webp",
+    imageAlt: "Serving trays of Nigerian rice dishes, stew and soup",
     mediaClassName: "min-h-[13rem] sm:min-h-[15rem]",
   },
   {
@@ -164,39 +165,22 @@ function getServerColumnCount() {
 
 function CommunityPanel() {
   return (
-    <aside aria-labelledby="testimonial-community-title" className="relative overflow-hidden rounded-card bg-[#ffe7d7] p-6 sm:p-7">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[url('/images/footer-grain.svg')] bg-size-[128px_128px] opacity-20 mix-blend-multiply"
-      />
-      <div className="relative">
-        <p className="text-xs font-medium uppercase tracking-[0.14em] text-[#6d5c52]">
-          Around the table
-        </p>
-        <h3 id="testimonial-community-title" className="mt-3 max-w-64 font-display text-2xl font-semibold leading-tight">
-          One community.<br />Many good stories.
-        </h3>
-        <ul className="mt-6 border-t border-dashed border-[#2a211d]/20">
-          {communityDetails.map(({ title, detail, icon: Icon }) => (
-            <li key={title} className="flex items-center gap-4 border-b border-dashed border-[#2a211d]/20 py-3.5 last:border-b-0 last:pb-0">
-              <span className="grid size-10 shrink-0 place-items-center rounded-full border border-[#2a211d]/15 bg-[#fffaf5]/60 text-[#f06400]">
-                <Icon aria-hidden="true" className="size-4" strokeWidth={1.75} />
-              </span>
-              <div>
-                <p className="text-sm font-semibold">{title}</p>
-                <p className="mt-0.5 text-sm text-[#6d5c52]">{detail}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </aside>
+    <ul aria-label="The QuickBite community" className="mt-7 flex flex-wrap gap-x-7 gap-y-3 sm:gap-x-10">
+      {communityDetails.map(({ title, icon: Icon }) => (
+        <li key={title} className="flex items-center gap-2.5 text-sm font-medium text-cocoa">
+          <span className="grid size-8 place-items-center rounded-full border border-ink/10 bg-cream-200 text-brand-dark">
+            <Icon aria-hidden="true" className="size-4" strokeWidth={1.75} />
+          </span>
+          {title}
+        </li>
+      ))}
+    </ul>
   );
 }
 
-function StoryCardShell({ children }: { children: ReactNode }) {
+function StoryCardShell({ children, expandable = false }: { children: ReactNode; expandable?: boolean }) {
   return (
-    <figure className="group relative flex min-w-0 shrink-0 flex-col overflow-hidden rounded-card border border-[#2a211d]/10 bg-[#fffaf5] p-5 text-[#2a211d] transition-colors duration-300 hover:border-[#2a211d]/25 sm:p-6">
+    <figure className={`group relative flex min-w-0 shrink-0 flex-col overflow-hidden rounded-card border border-ink/10 bg-cream p-5 text-ink transition-colors duration-300 hover:border-ink/25 sm:p-6 ${expandable ? "grow" : ""}`}>
       {children}
     </figure>
   );
@@ -213,7 +197,7 @@ function AuthorRow({
 
   return (
     <figcaption className={`relative flex shrink-0 items-center gap-3 ${withDivider ? "border-t border-dashed border-[#2a211d]/20 pt-5" : ""}`}>
-      <span aria-hidden="true" className="grid size-11 shrink-0 place-items-center rounded-full border border-[#2a211d]/10 bg-cream-200 font-display text-sm font-semibold">
+      <span aria-hidden="true" className="grid size-11 shrink-0 place-items-center rounded-full border border-ink/10 bg-paper font-display text-sm font-semibold">
         {testimonial.initials}
       </span>
       <span className="min-w-0">
@@ -238,9 +222,9 @@ function MediaStoryCard({ story }: { story: StoryCard }) {
   const isIllustration = story.kind === "illustration";
 
   return (
-    <StoryCardShell>
+    <StoryCardShell expandable>
       <AuthorRow testimonial={story.testimonial} />
-      <div className={`relative mt-5 shrink-0 overflow-hidden rounded-card ${isIllustration ? "bg-cream-200" : "bg-[#2a211d]"} ${story.mediaClassName ?? "min-h-[16rem]"}`}>
+      <div className={`relative mt-5 grow shrink-0 overflow-hidden rounded-card ${isIllustration ? "bg-cream-200" : "bg-[#2a211d]"} ${story.mediaClassName ?? "min-h-[16rem]"}`}>
         {story.image ? (
           <Image
             src={story.image}
@@ -291,16 +275,21 @@ function QuoteStoryCard({ story, index }: { story: StoryCard; index: number }) {
 export default function Testimonials() {
   const reducedMotion = useReducedMotion();
   const columnCount = useSyncExternalStore(subscribeToColumns, getColumnCount, getServerColumnCount);
-  const columns = Array.from({ length: columnCount }, (_, columnIndex) =>
-    storyCards.map((story, index) => ({ story, index })).filter(({ index }) => index % columnCount === columnIndex),
-  );
+  // Mix media and quote cards in both tablet columns. Flexible media panels
+  // absorb the remaining height difference while card gaps and full quotes stay fixed.
+  const columnIndexes = columnCount === 2
+    ? [[0, 3, 4, 6], [1, 2, 5, 7, 8]]
+    : Array.from({ length: columnCount }, (_, columnIndex) =>
+      storyCards.map((_, index) => index).filter((index) => index % columnCount === columnIndex),
+    );
+  const columns = columnIndexes.map((indexes) => indexes.map((index) => ({ story: storyCards[index], index })));
 
   return (
     <section
       id="testimonials"
       data-nav-theme="neutral"
       aria-labelledby="testimonials-title"
-      className="scroll-mt-24 overflow-hidden bg-cream-200 py-16 text-[#2a211d] sm:py-24"
+      className="scroll-mt-24 overflow-hidden bg-paper py-16 text-ink sm:py-24"
     >
       <Container>
         <motion.div
@@ -308,14 +297,15 @@ export default function Testimonials() {
           whileInView={reducedMotion === false ? { opacity: [0.75, 1], y: [16, 0] } : undefined}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-          className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(21rem,26rem)] lg:items-center lg:gap-12"
+          className="border-b border-ink/15 pb-7 sm:pb-8"
         >
-          <div>
-            <h2 id="testimonials-title" className="section-heading">
+          <SectionTag>Community</SectionTag>
+          <div className="mt-5 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+            <h2 id="testimonials-title" className="section-heading leading-[1.05]!">
               Good food.
               <span className="block">Better together.</span>
             </h2>
-            <p className="mt-6 max-w-lg text-base leading-relaxed text-[#6d5c52] sm:text-lg">
+            <p className="max-w-md text-base leading-relaxed text-cocoa sm:text-lg lg:max-w-sm">
               From campus cravings to the kitchen counter, meet the food lovers,
               local kitchens and riders behind the everyday food run.
             </p>
@@ -323,9 +313,9 @@ export default function Testimonials() {
           <CommunityPanel />
         </motion.div>
 
-        <div data-testimonial-grid className={`mt-12 grid items-stretch gap-4 sm:gap-5 xl:mt-14 ${columnCount === 3 ? "grid-cols-3" : columnCount === 2 ? "grid-cols-2" : "grid-cols-1"}`}>
+        <div data-testimonial-grid className={`mt-7 grid items-stretch gap-4 sm:mt-8 sm:gap-5 ${columnCount === 3 ? "grid-cols-3" : columnCount === 2 ? "grid-cols-2" : "grid-cols-1"}`}>
           {columns.map((column, columnIndex) => (
-            <div key={columnIndex} data-testimonial-column className="flex min-w-0 flex-col justify-between gap-4 sm:gap-5">
+            <div key={columnIndex} data-testimonial-column className="flex min-w-0 flex-col gap-4 sm:gap-5">
               {column.map(({ story, index }) => story.kind === "quote" ? (
                 <QuoteStoryCard key={story.testimonial.name} story={story} index={index} />
               ) : (

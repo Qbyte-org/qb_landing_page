@@ -7,10 +7,7 @@ import {
   Beef,
   UtensilsCrossed,
   Cookie,
-  CupSoda,
-  Pizza,
   Soup,
-  Croissant,
   CreditCard,
   MapPin,
   Navigation,
@@ -49,6 +46,8 @@ export type Category = {
   tint: string;
   description: string;
   image: string;
+  imageAlt: string;
+  imageKind?: "photo" | "brand";
   meta: string;
   rating: string;
   time: string;
@@ -60,7 +59,8 @@ export const categories: Category[] = [
     icon: CookingPot,
     tint: "#fff0e4",
     description: "Smoky party rice, tender chicken, plantain and pepper sauce.",
-    image: "/food/jollof.svg",
+    image: "/images/food/pinterest/jollof-chicken-plantain.webp",
+    imageAlt: "Jollof rice with glazed chicken and fried plantain on a black plate",
     meta: "Most ordered",
     rating: "4.9",
     time: "25 min",
@@ -70,7 +70,8 @@ export const categories: Category[] = [
     icon: Beef,
     tint: "#ffe8e0",
     description: "Suya, wings and asun with punchy spice and quick dispatch.",
-    image: "/food/grills.svg",
+    image: "/images/food/pinterest/glazed-chicken.webp",
+    imageAlt: "Close-up of pepper-glazed chicken on a black plate",
     meta: "Fire-grilled",
     rating: "4.8",
     time: "30 min",
@@ -80,7 +81,8 @@ export const categories: Category[] = [
     icon: UtensilsCrossed,
     tint: "#fff3e0",
     description: "Hot amala, eba or pounded yam paired with rich soups.",
-    image: "/food/swallow.svg",
+    image: "/images/food/pinterest/amala-ewedu-stew.webp",
+    imageAlt: "Amala with ewedu, red stew and assorted meat on a white plate",
     meta: "Local classic",
     rating: "4.7",
     time: "28 min",
@@ -89,28 +91,31 @@ export const categories: Category[] = [
     name: "Snacks",
     icon: Cookie,
     tint: "#fff7e6",
-    description: "Small chops, meat pies and crispy bites for any hour.",
-    image: "/food/snacks.svg",
+    description: "Puff-puff and crispy local bites for any hour.",
+    image: "/images/food/pinterest/puff-puff.webp",
+    imageAlt: "A basket filled with golden puff-puff",
     meta: "Quick bites",
     rating: "4.8",
     time: "20 min",
   },
   {
-    name: "Drinks",
-    icon: CupSoda,
+    name: "Akara",
+    icon: Cookie,
     tint: "#e8f5ff",
-    description: "Fresh juices, zobo, smoothies and chilled soft drinks.",
-    image: "/food/drinks.svg",
-    meta: "Chilled",
+    description: "Golden bean cakes with crisp edges for breakfast or a quick snack.",
+    image: "/images/food/pinterest/akara-bean-cakes.webp",
+    imageAlt: "Golden akara bean cakes on a white plate",
+    meta: "Freshly fried",
     rating: "4.6",
     time: "15 min",
   },
   {
-    name: "Pizza",
-    icon: Pizza,
+    name: "Rice bowls",
+    icon: CookingPot,
     tint: "#fff0e4",
-    description: "Cheesy slices, loaded toppings and oven-fresh boxes.",
-    image: "/food/pizza.svg",
+    description: "Rice, beans and rich stew for a comforting meal any day.",
+    image: "/images/food/pinterest/rice-beans-stew.webp",
+    imageAlt: "White rice and beans served with red stew",
     meta: "Shareable",
     rating: "4.7",
     time: "35 min",
@@ -120,18 +125,20 @@ export const categories: Category[] = [
     icon: Soup,
     tint: "#ffeede",
     description: "Egusi, efo riro and pepper soup from trusted kitchens.",
-    image: "/food/soup.svg",
+    image: "/images/food/pinterest/egusi-soup.webp",
+    imageAlt: "Egusi soup with leafy greens and assorted meat",
     meta: "Soup house",
     rating: "4.9",
     time: "32 min",
   },
   {
-    name: "Pastries",
-    icon: Croissant,
+    name: "Puff-puff",
+    icon: Cookie,
     tint: "#fdeaf3",
-    description: "Soft croissants, doughnuts and bakery treats delivered fresh.",
-    image: "/food/pastries.svg",
-    meta: "Bakery fresh",
+    description: "Soft, golden puff-puff fried fresh for a sweet little treat.",
+    image: "/images/food/pinterest/puff-puff.webp",
+    imageAlt: "A basket filled with golden puff-puff",
+    meta: "Sweet bites",
     rating: "4.6",
     time: "18 min",
   },
@@ -167,28 +174,30 @@ export type Restaurant = {
   deliveryFrom: string;
   eta: string;
   image: string;
+  imageAlt: string;
+  imageKind?: "photo" | "brand";
 };
 
 export const heroSlides = [
   {
     word: "Fresh.",
-    src: "/images/food/hero-fresh.webp",
-    alt: "A premium takeaway food spread ready for delivery",
+    src: "/images/food/pinterest/jollof-chicken-plantain.webp",
+    alt: "Jollof rice with glazed chicken and fried plantain on a black plate",
   },
   {
     word: "Fast.",
-    src: "/images/food/hero-fast.webp",
-    alt: "Crispy snacks packed for quick delivery",
+    src: "/images/food/pinterest/meal-prep-packs.webp",
+    alt: "Prepared rice, stew and chicken portions in takeaway containers",
   },
   {
     word: "Local.",
-    src: "/images/food/hero-local.webp",
-    alt: "A local rice and chicken meal served hot",
+    src: "/images/food/pinterest/nigerian-food-spread.webp",
+    alt: "A selection of Nigerian rice, stews, soups and vegetables in serving trays",
   },
   {
     word: "Hot.",
-    src: "/images/food/hero-hot.webp",
-    alt: "Grilled food served hot with herbs",
+    src: "/images/food/pinterest/jollof-takeaway.webp",
+    alt: "Jollof rice, a chicken portion and plantain in a takeaway tray",
   },
 ] as const;
 
@@ -201,7 +210,8 @@ export const restaurants: Restaurant[] = [
     rating: 4.8,
     deliveryFrom: "₦500",
     eta: "25–35 min",
-    image: "/images/food/hero-local.webp",
+    image: "/images/food/pinterest/jollof-chicken-plantain.webp",
+    imageAlt: "Jollof rice with glazed chicken and fried plantain on a black plate",
   },
   {
     name: "Suya Republic",
@@ -209,7 +219,9 @@ export const restaurants: Restaurant[] = [
     rating: 4.7,
     deliveryFrom: "₦600",
     eta: "20–30 min",
-    image: "/images/food/hero-hot.webp",
+    image: "/quickbite-mark.svg",
+    imageAlt: "QuickBite",
+    imageKind: "brand",
   },
   {
     name: "The Swallow House",
@@ -217,7 +229,8 @@ export const restaurants: Restaurant[] = [
     rating: 4.9,
     deliveryFrom: "₦450",
     eta: "30–40 min",
-    image: "/images/food/restaurant-swallow.webp",
+    image: "/images/food/pinterest/pounded-yam-greens.webp",
+    imageAlt: "Pounded yam with leafy vegetable soup and fish",
   },
   {
     name: "Naija Bites & Snacks",
@@ -225,7 +238,8 @@ export const restaurants: Restaurant[] = [
     rating: 4.6,
     deliveryFrom: "₦400",
     eta: "15–25 min",
-    image: "/images/food/hero-fast.webp",
+    image: "/images/food/pinterest/puff-puff.webp",
+    imageAlt: "A basket filled with golden puff-puff",
   },
   {
     name: "Ife Pizza Co.",
@@ -233,7 +247,9 @@ export const restaurants: Restaurant[] = [
     rating: 4.5,
     deliveryFrom: "₦700",
     eta: "30–45 min",
-    image: "/images/food/restaurant-pizza.webp",
+    image: "/quickbite-mark.svg",
+    imageAlt: "QuickBite",
+    imageKind: "brand",
   },
   {
     name: "Smoothie & Chill",
@@ -241,7 +257,9 @@ export const restaurants: Restaurant[] = [
     rating: 4.8,
     deliveryFrom: "₦350",
     eta: "15–20 min",
-    image: "/images/food/restaurant-smoothie.webp",
+    image: "/quickbite-mark.svg",
+    imageAlt: "QuickBite",
+    imageKind: "brand",
   },
 ];
 

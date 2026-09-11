@@ -1,3 +1,5 @@
+import LinkArrow from "../ui/LinkArrow";
+
 // Set these to the official profiles when they are available. An unset profile
 // stays visibly unavailable instead of sending visitors to a placeholder URL.
 const socialLinks = [
@@ -46,25 +48,25 @@ function SocialIcon({ name }: { name: typeof socialLinks[number]["icon"] }) {
 
 export default function FooterSocials() {
   return (
-    <ul aria-label="QuickBite social profiles" className="flex flex-wrap gap-3 sm:gap-4 2xl:gap-7">
+    <ul aria-label="QuickBite social profiles" className="flex flex-wrap gap-2 sm:gap-3">
       {socialLinks.map(({ label, href, icon }) => (
         <li key={label}>
           {href ? (
-            <a
+            <LinkArrow
               href={href}
+              appearance="plain"
               target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`QuickBite on ${label} (opens in a new tab)`}
-              className="flex size-10 items-center justify-center rounded-full border border-[#2a211d]/20 transition-colors duration-200 hover:border-[#f06400] hover:bg-[#fffaf5] motion-safe:transition-[color,background-color,border-color,transform] motion-safe:hover:-translate-y-0.5"
+              ariaLabel={`QuickBite on ${label} (opens in a new tab)`}
+              className="size-10 justify-center rounded-full border border-paper/20 text-paper hover:bg-paper/10 motion-safe:hover:-translate-y-0.5"
             >
               <SocialIcon name={icon} />
-            </a>
+            </LinkArrow>
           ) : (
             <span
               role="img"
               aria-label={`${label} profile unavailable`}
               title={`${label} profile unavailable`}
-              className="flex size-10 items-center justify-center rounded-full border border-[#2a211d]/15 text-[#6d5c52]"
+              className="flex size-10 items-center justify-center rounded-full border border-paper/15 text-peach/60"
             >
               <SocialIcon name={icon} />
             </span>

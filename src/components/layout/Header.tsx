@@ -4,17 +4,18 @@ import { useRef, useState, type CSSProperties } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ListOrderedIcon, MapPin } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useNavbarTheme } from "@/hooks/use-navbar-theme";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import LinkArrow from "../ui/LinkArrow";
 import MagneticFillButton from "../ui/MagneticFillButton";
+import LinkArrow from "../ui/LinkArrow";
 
-const navPill = "bg-ink text-paper";
+const navPill = "bg-[var(--nav-surface)] text-[var(--nav-foreground)]";
+const navAction = "bg-[var(--nav-action)] text-[var(--nav-action-text)]";
+const navChip = "bg-[var(--nav-chip)] text-[var(--nav-chip-text)]";
 
 const menuLinks = [
   { label: "Home", href: "/", asset: "/menu/delivery-bag.svg" },
-  { label: "Restaurants", href: "/restaurants", asset: "/food/jollof.svg" },
+  { label: "Restaurants", href: "/restaurants", asset: "/images/food/pinterest/jollof-chicken-plantain.webp", imageAlt: "Jollof rice with chicken and plantain" },
   { label: "For Partners", href: "/partners", asset: "/menu/company-card.svg" },
   { label: "Riders", href: "/riders", asset: "/menu/rider-bike.svg" },
   { label: "Company", href: "/company", asset: "/menu/company-card.svg" },
@@ -25,13 +26,20 @@ const menuLinks = [
 ];
 
 const navThemeDefaults = {
-  "--nav-foreground": "#fffaf5",
-  "--nav-muted": "#ffe7d7",
-  "--nav-icon": "#ff6b00",
-  "--nav-chip": "#fffaf5",
+  "--nav-surface": "#fffaf5",
+  "--nav-foreground": "#2a211d",
+  "--nav-muted": "#6d5c52",
+  "--nav-icon": "#c24f00",
+  "--nav-chip": "#fff0e4",
   "--nav-chip-text": "#2a211d",
-  "--nav-action": "#ff6b00",
+  "--nav-action": "#1c120f",
   "--nav-action-text": "#ffffff",
+  "--nav-action-fill": "#fff0e4",
+  "--nav-action-hover-text": "#2a211d",
+  "--magnetic-bg": "#fff0e4",
+  "--magnetic-text": "#2a211d",
+  "--magnetic-fill": "#fff0e4",
+  "--magnetic-hover-text": "#2a211d",
 } as CSSProperties;
 
 function MenuGlyph({ open }: { open: boolean }) {
@@ -49,7 +57,7 @@ function MenuGlyph({ open }: { open: boolean }) {
   };
 
   return (
-    <div className="flex h-12 items-center justify-center overflow-hidden [--menu-letter-width:14px] [--menu-m-width:17px] lg:[--menu-letter-width:19px] lg:[--menu-m-width:23px] xl:[--menu-letter-width:21px] xl:[--menu-m-width:24px]">
+    <div aria-hidden="true" className="flex h-12 items-center justify-center overflow-hidden [--menu-letter-width:14px] [--menu-m-width:17px] lg:[--menu-letter-width:19px] lg:[--menu-m-width:23px] xl:[--menu-letter-width:21px] xl:[--menu-m-width:24px]">
       <motion.svg
         viewBox="0 0 18 14"
         initial={mState}
@@ -61,13 +69,13 @@ function MenuGlyph({ open }: { open: boolean }) {
       </motion.svg>
 
       <svg className="h-[0.9rem] w-[0.9rem] shrink-0 overflow-visible sm:h-[1.05rem] sm:w-[1.05rem] lg:h-[1.2rem] lg:w-[1.2rem]" viewBox="0 0 14 14">
-        <motion.line x1="1" y1="1" x2="13" y2="1" stroke="var(--nav-icon, #ff6b00)" strokeWidth="2" strokeLinecap="square"
+        <motion.line x1="1" y1="1" x2="13" y2="1" stroke="currentColor" strokeWidth="2" strokeLinecap="square"
           initial={{ y2: open ? 13 : 1 }}
           animate={{ y2: open ? 13 : 1 }} transition={{ duration: 0.4, ease }} />
-        <motion.line x1="1" y1="7" x2="13" y2="7" stroke="var(--nav-icon, #ff6b00)" strokeWidth="2" strokeLinecap="square"
+        <motion.line x1="1" y1="7" x2="13" y2="7" stroke="currentColor" strokeWidth="2" strokeLinecap="square"
           initial={{ opacity: closedOpacity, scaleX: closedOpacity }}
           animate={{ opacity: closedOpacity, scaleX: closedOpacity }} transition={{ duration: 0.3, ease }} />
-        <motion.line x1="1" y1="13" x2="13" y2="13" stroke="var(--nav-icon, #ff6b00)" strokeWidth="2" strokeLinecap="square"
+        <motion.line x1="1" y1="13" x2="13" y2="13" stroke="currentColor" strokeWidth="2" strokeLinecap="square"
           initial={{ y2: open ? 1 : 13 }}
           animate={{ y2: open ? 1 : 13 }} transition={{ duration: 0.4, ease }} />
       </svg>
@@ -223,7 +231,10 @@ export default function Header() {
       style={navThemeDefaults}
       className="pointer-events-none fixed inset-x-0 top-0 z-[120] overflow-x-clip px-0 sm:top-5 sm:px-6 lg:px-8 xl:top-8"
       onKeyDown={(event) => {
-        if (event.key === "Escape") closePanels();
+        if (event.key === "Escape") {
+          closePanels();
+          navRef.current?.querySelector<HTMLButtonElement>('button[aria-controls="site-menu"]')?.focus();
+        }
       }}
     >
       <div
@@ -241,10 +252,11 @@ export default function Header() {
             data-intro-nav-content
             className="grid h-full w-full place-items-center"
           >
-            <Link
+            <LinkArrow
               href="/"
+              appearance="plain"
               aria-label="QuickBite home"
-              className="flex h-full w-full items-center justify-center gap-2.5 sm:gap-3"
+              className="h-full w-full justify-center gap-2.5 rounded-pill text-[var(--nav-foreground)] sm:gap-3"
             >
               <Image
                 src="/quickbite-mark.svg"
@@ -258,7 +270,7 @@ export default function Header() {
                 <span data-nav-text>Quick</span>
                 <span data-nav-icon>Bite</span>
               </span>
-            </Link>
+            </LinkArrow>
           </div>
         </div>
 
@@ -285,11 +297,12 @@ export default function Header() {
               data-intro-nav-content
               className="flex h-[var(--nav-closed-height)] w-full shrink-0 items-center gap-2 px-2 sm:gap-3 sm:px-3.5 xl:px-4"
             >
-              <Link
+              <LinkArrow
                 href="/"
+                appearance="plain"
                 onClick={closePanels}
                 aria-label="QuickBite home"
-                className="flex min-w-0 flex-1 items-center gap-2 pl-1 text-paper sm:hidden"
+                className="min-w-0 flex-1 gap-2 rounded-pill pl-1 text-[var(--nav-foreground)] sm:hidden!"
               >
                 <Image
                   src="/quickbite-mark.svg"
@@ -302,33 +315,30 @@ export default function Header() {
                   <span data-nav-text>Quick</span>
                   <span data-nav-icon>Bite</span>
                 </span>
-              </Link>
+              </LinkArrow>
 
               <span className="hidden sm:block">
-                <MagneticFillButton
+                <LinkArrow
                   href="/restaurants"
-                  variant="ghost"
-                  themeAware
+                  appearance="plain"
                   dataNavChip
-                  className="h-9 rounded-pill px-4 text-xs font-semibold sm:h-10 sm:px-5 xl:h-12 xl:px-6 xl:text-base"
+                  className={`${navChip} h-9 justify-center gap-2 rounded-pill px-4 text-xs font-semibold sm:h-10 sm:px-5 xl:h-12 xl:px-6 xl:text-base`}
                 >
                   Find food
                   <MapPin data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.3} aria-hidden="true" />
-                </MagneticFillButton>
+                </LinkArrow>
               </span>
 
               <span className="hidden sm:block">
-                <MagneticFillButton
+                <LinkArrow
                   href="/restaurants"
-                  variant="brand"
+                  appearance="plain"
                   dataNavAction
-                  customFillClass="bg-paper"
-                  customHoverTextColor="#2a211d"
-                  className="h-9 rounded-pill bg-[var(--nav-action)]! px-3 text-xs font-semibold text-[var(--nav-action-text)]! sm:h-10 sm:px-5 xl:h-12 xl:text-base"
+                  className={`${navAction} h-9 justify-center gap-2 rounded-pill px-3 text-xs font-semibold sm:h-10 sm:px-5 xl:h-12 xl:text-base`}
                 >
                   Order now
-                  <ListOrderedIcon data-nav-icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.35} aria-hidden="true" />
-                </MagneticFillButton>
+                  <ListOrderedIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.35} aria-hidden="true" />
+                </LinkArrow>
               </span>
 
               {/* <motion.button
@@ -340,7 +350,7 @@ export default function Header() {
                 <Sun data-nav-icon className="h-4 w-4" strokeWidth={2.2} aria-hidden="true" />
               </motion.button> */}
 
-              <motion.button
+              <MagneticFillButton
                 type="button"
                 onClick={() => {
                   setMenuOpen((value) => !value);
@@ -348,17 +358,14 @@ export default function Header() {
                 aria-expanded={menuOpen}
                 aria-controls="site-menu"
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
-                data-nav-icon
-                className="ml-auto flex h-9 min-w-[5.15rem] cursor-pointer items-center justify-center gap-2 rounded-[0.95rem] bg-transparent px-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--nav-icon)] outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink sm:h-10 sm:min-w-[6.7rem] sm:px-2.5 xl:h-12 xl:min-w-[7.4rem]"
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
-                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                themeAware
+                className="ml-auto h-9 min-w-[5.15rem] rounded-[0.95rem] bg-transparent! px-1.5 text-xs font-semibold uppercase tracking-[0.08em] [--magnetic-text:var(--nav-foreground)] motion-safe:hover:scale-[1.04] motion-safe:active:scale-[0.96] sm:h-10 sm:min-w-[6.7rem] sm:px-2.5 xl:h-12 xl:min-w-[7.4rem]"
               >
                 <span className="hidden leading-none text-base sm:inline">
                   {menuOpen ? "Close" : ""}
                 </span>
                 <MenuGlyph open={menuOpen} />
-              </motion.button>
+              </MagneticFillButton>
             </div>
 
             <AnimatePresence>
@@ -366,6 +373,7 @@ export default function Header() {
                 <motion.nav
                   id="site-menu"
                   aria-label="Expanded menu"
+                  data-lenis-prevent
                   initial={{
                     opacity: 0,
                     y: -16,
@@ -379,7 +387,7 @@ export default function Header() {
                     y: -12,
                   }}
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                  className="px-7 pb-4 pt-4 text-[var(--nav-foreground)] sm:px-9 xl:pt-6"
+                  className="max-h-[calc(100dvh-var(--nav-closed-height)-2rem)] overflow-y-auto overscroll-contain px-7 pb-4 pt-4 text-[var(--nav-foreground)] sm:px-9 xl:pt-6"
                 >
                   {/* Desktop Links */}
                   <ul className="hidden w-full gap-3 sm:grid sm:gap-4">
@@ -388,11 +396,10 @@ export default function Header() {
                         <LinkArrow
                           href={link.href}
                           onClick={closePanels}
-                          variant="dark"
-                          dataNavText
                           imageSrc={link.asset}
-                          className="w-full !text-[var(--nav-foreground)] [--link-arrow-expanded-spacing:0.14em] [--link-arrow-image-size:2rem] [--link-arrow-min-width:100%] [--link-arrow-spacing:0em] border-0 pb-0 font-display text-2xl font-semibold normal-case leading-none tracking-normal [border-bottom-width:0] sm:text-[2.05rem] sm:[--link-arrow-image-size:2.35rem]"
-                          textClassName="tracking-normal"
+                          imageAlt={link.imageAlt ?? ""}
+                          imageClassName={link.imageAlt ? "rounded-full object-cover!" : undefined}
+                          className="w-full min-w-0! border-current/20 py-1.5 text-left font-display text-2xl! font-semibold normal-case! leading-none text-[var(--nav-foreground)]! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em] [--link-arrow-image-size:2.25rem] sm:text-[2.05rem]!"
                         >
                           {link.label}
                         </LinkArrow>
@@ -401,42 +408,39 @@ export default function Header() {
                   </ul>
 
                   <div className="mb-6 grid grid-cols-2 gap-2 sm:hidden">
-                    <MagneticFillButton
+                    <LinkArrow
                       href="/restaurants"
                       onClick={closePanels}
-                      variant="ghost"
-                      themeAware
+                      appearance="plain"
                       dataNavChip
-                      className="h-11 rounded-pill px-4 text-xs font-semibold"
+                      className={`${navChip} h-11 justify-center gap-2 rounded-pill px-4 text-xs font-semibold`}
                     >
                       Find food
                       <MapPin data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.3} aria-hidden="true" />
-                    </MagneticFillButton>
-                    <MagneticFillButton
+                    </LinkArrow>
+                    <LinkArrow
                       href="/restaurants"
                       onClick={closePanels}
-                      variant="brand"
+                      appearance="plain"
                       dataNavAction
-                      customFillClass="bg-paper"
-                      customHoverTextColor="#2a211d"
-                      className="h-11 rounded-pill bg-[var(--nav-action)]! px-4 text-xs font-semibold text-[var(--nav-action-text)]!"
+                      className={`${navAction} h-11 justify-center gap-2 rounded-pill px-4 text-xs font-semibold`}
                     >
                       Order now
-                      <ListOrderedIcon data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.35} aria-hidden="true" />
-                    </MagneticFillButton>
+                      <ListOrderedIcon className="h-3.5 w-3.5" strokeWidth={2.35} aria-hidden="true" />
+                    </LinkArrow>
                   </div>
 
                   {/* Mobile Links */}
                   <ul className="flex w-full flex-col gap-5 pt-2 sm:hidden">
                     {menuLinks.map((link) => (
                       <li key={`${link.href}-${link.label}-mobile`} className="w-full">
-                        <Link
+                        <LinkArrow
                           href={link.href}
                           onClick={closePanels}
-                          className="block font-display text-[1.55rem] font-semibold leading-none tracking-[-0.055em] text-[var(--nav-foreground)] transition-colors hover:text-[var(--nav-icon)]"
+                          className="w-full min-w-0! border-current/20 py-1 text-left font-display text-[1.55rem]! font-semibold normal-case! leading-none text-[var(--nav-foreground)]! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em]"
                         >
                           {link.label}
-                        </Link>
+                        </LinkArrow>
                       </li>
                     ))}
                   </ul>

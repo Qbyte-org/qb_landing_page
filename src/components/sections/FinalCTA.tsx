@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import Image from "../ui/FoodImage";
 import { motion, useReducedMotion } from "motion/react";
+import LinkArrow from "../ui/LinkArrow";
+import SectionWave from "../ui/SectionWave";
 
 export default function FinalCTA() {
   const reducedMotion = useReducedMotion();
@@ -11,20 +11,21 @@ export default function FinalCTA() {
   return (
     <section
       id="final-cta"
-      data-nav-theme="neutral"
+      data-nav-theme="dark"
       aria-labelledby="final-cta-title"
-      className="overflow-hidden bg-cream-200 pt-14 text-[#2a211d] scroll-mt-24 sm:pt-20 lg:pt-24"
+      className="overflow-hidden bg-[#1c120f] text-paper scroll-mt-24"
     >
+      <SectionWave to="ink" splitBackground />
       <motion.div
         initial={false}
         whileInView={reducedMotion === false ? { y: [16, 0], opacity: [0.75, 1] } : undefined}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        className="mx-auto grid w-[90%] max-w-[1800px] gap-3 sm:grid-cols-[minmax(0,1fr)_clamp(8rem,12vw,15rem)] sm:gap-4"
+        className="mx-auto grid w-[90%] max-w-[1800px] gap-3 pt-14 sm:grid-cols-[minmax(0,1fr)_clamp(8rem,12vw,15rem)] sm:gap-4 sm:pt-20 lg:pt-24"
       >
         <div
           data-cta-copy
-          className="relative isolate flex min-h-64 flex-col justify-between gap-14 overflow-hidden rounded-4xl bg-[#fffaf5] p-6 sm:min-h-48 sm:gap-8 sm:p-7 lg:min-h-40 lg:flex-row lg:items-center lg:gap-4 lg:px-10 lg:py-8 xl:min-h-44 2xl:min-h-48 2xl:px-14"
+          className="relative isolate flex min-h-64 flex-col justify-between gap-14 overflow-hidden rounded-4xl bg-[#382c26] p-6 sm:min-h-48 sm:gap-8 sm:p-7 lg:min-h-40 lg:flex-row lg:items-center lg:gap-4 lg:px-10 lg:py-8 xl:min-h-44 2xl:min-h-48 2xl:px-14"
         >
           <svg
             aria-hidden="true"
@@ -42,7 +43,7 @@ export default function FinalCTA() {
 
           <h2
             id="final-cta-title"
-            className="max-w-72 font-display text-[1.9rem] font-extrabold leading-tight sm:max-w-none sm:text-3xl lg:whitespace-nowrap lg:text-[clamp(1.65rem,2.45vw,3rem)]"
+            className="max-w-72 font-display text-[1.9rem] font-extrabold leading-tight tracking-[0.01em]! sm:max-w-none sm:text-3xl lg:whitespace-nowrap lg:text-[clamp(1.65rem,2.45vw,3rem)]"
           >
             Find, Order &amp; Enjoy
           </h2>
@@ -58,23 +59,23 @@ export default function FinalCTA() {
             <p className="max-w-72 text-lg font-medium uppercase leading-tight sm:text-xl lg:text-[clamp(1.1rem,1.6vw,1.875rem)] 2xl:max-w-none">
               Your next favourite meal starts here!
             </p>
-            <Link
+            <LinkArrow
               href="/restaurants"
-              className="group mt-1 inline-flex min-h-11 items-center gap-1 text-base font-medium decoration-[#f06400] underline-offset-4 hover:underline focus-visible:rounded-sm sm:text-lg"
+              variant="dark"
+              className="group mt-4 min-h-12 text-base! normal-case! [--link-arrow-spacing:0em] sm:text-lg!"
             >
               Explore restaurants
-              <ArrowUpRight aria-hidden="true" className="size-4 text-[#f06400] transition-transform duration-200 motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5" />
-            </Link>
+            </LinkArrow>
           </div>
         </div>
 
         <div
           data-cta-media
-          className="group relative min-h-40 overflow-hidden rounded-4xl bg-[#f4dfcc] sm:min-h-0"
+          className="group relative min-h-40 overflow-hidden rounded-4xl bg-[#382c26] sm:min-h-0"
         >
           <Image
-            src="/images/food/hero-fast.webp"
-            alt="Golden samosas with fresh peppers and dipping sauce"
+            src="/images/food/pinterest/puff-puff.webp"
+            alt="Golden Nigerian puff-puff"
             fill
             loading="lazy"
             sizes="(min-width: 2000px) 240px, (min-width: 1067px) 12vw, (min-width: 640px) 128px, 90vw"
@@ -89,7 +90,7 @@ export default function FinalCTA() {
       >
         <svg
           viewBox="0 0 1400 250"
-          className="h-full w-full origin-bottom text-[#2a211d]/20 blur-[1px] [transform:rotateX(32deg)_scale(1.12)] sm:blur-[2px]"
+          className="h-full w-full origin-bottom text-paper/20 blur-[1px] [transform:rotateX(32deg)_scale(1.12)] sm:blur-[2px]"
           preserveAspectRatio="none"
         >
           <text
