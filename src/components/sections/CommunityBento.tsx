@@ -107,13 +107,13 @@ export default function CommunityBento() {
                 <p className="mt-2 text-sm leading-relaxed text-white/65">
                   {firstPartnerPerk?.description ?? partnerSubtext}
                 </p>
-                <a
+                <LinkArrow
                   href="/partners"
-                  className="mt-4 inline-flex items-center gap-2 text-sm font-extrabold text-brand-light"
+                  variant="dark"
+                  className="mt-4 min-w-0! text-sm! font-extrabold normal-case! text-brand-light! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em]"
                 >
                   Become a partner
-                  <span aria-hidden="true">→</span>
-                </a>
+                </LinkArrow>
               </div>
             </BentoCard>
           </Reveal>

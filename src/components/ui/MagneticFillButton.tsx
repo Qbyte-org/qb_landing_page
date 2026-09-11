@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import LinkArrow from "./LinkArrow";
 import {
   useCallback,
   useRef,
@@ -25,7 +25,9 @@ type MagneticElement = HTMLElement;
 export interface MagneticFillButtonProps extends Omit<HTMLAttributes<MagneticElement>, "children"> {
   as?: "button" | "summary";
   variant?: MagneticFillVariant;
+  /** @deprecated Hover surfaces now use the shared cream/ink palette. */
   customFillClass?: string;
+  /** @deprecated Hover surfaces now use the shared cream/ink palette. */
   customHoverTextColor?: string;
   children: ReactNode;
   className?: string;
@@ -51,53 +53,36 @@ const variants: Record<
 > = {
   brand: {
     root: "bg-brand-dark text-white",
-    fill: "bg-white",
-    hoverText: "text-navy",
+    fill: "bg-cream-200",
+    hoverText: "text-ink",
   },
   dark: {
     root: "bg-navy text-white",
-    fill: "bg-brand-light",
-    hoverText: "text-white",
+    fill: "bg-cream-200",
+    hoverText: "text-ink",
   },
   light: {
     root: "bg-white text-brand-dark",
-    fill: "bg-brand-dark",
-    hoverText: "text-white",
+    fill: "bg-cream-200",
+    hoverText: "text-ink",
   },
   white: {
     root: "bg-white text-navy",
-    fill: "bg-navy",
-    hoverText: "text-white",
+    fill: "bg-cream-200",
+    hoverText: "text-ink",
   },
   ghost: {
     root: "bg-[#2a211d] text-navy",
-    fill: "bg-[#ff4f1f]",
-    hoverText: "text-white",
+    fill: "bg-cream-200",
+    hoverText: "text-ink",
   },
 };
 
 const themeAwareStyles = {
   root: "bg-[var(--magnetic-bg)] text-[var(--magnetic-text)]",
-  fill: "bg-[var(--magnetic-fill)]",
-  hoverText: "text-[var(--magnetic-hover-text)]",
+  fill: "bg-cream-200",
+  hoverText: "text-ink",
 };
-
-const variantHoverTextColors: Record<MagneticFillVariant, string> = {
-  brand: "#1a1a2e",
-  dark: "#ffffff",
-  light: "#ffffff",
-  white: "#ffffff",
-  ghost: "#ffffff",
-};
-
-function isExternalHref(href: string, external?: boolean) {
-  return Boolean(
-    external ||
-      /^https?:\/\//.test(href) ||
-      href.startsWith("mailto:") ||
-      href.startsWith("tel:"),
-  );
-}
 
 export default function MagneticFillButton({
   as = "button",
@@ -131,12 +116,12 @@ export default function MagneticFillButton({
   const [fillSize, setFillSize] = useState(480);
   const [isHovered, setIsHovered] = useState(false);
   const styles = themeAware ? themeAwareStyles : variants[variant];
-  const fillClassName = customFillClass || styles.fill;
-  const activeHoverTextColor =
-    customHoverTextColor ||
-    (themeAware
-      ? "var(--magnetic-hover-text)"
-      : variantHoverTextColors[variant]);
+  // Consume legacy overrides without forwarding them to the DOM. All action
+  // controls share one hover palette, including callers migrated incrementally.
+  void customFillClass;
+  void customHoverTextColor;
+  const fillClassName = styles.fill;
+  const activeHoverTextColor = "#2a211d";
   const idleTextColor = themeAware ? "var(--magnetic-text)" : undefined;
 
   const setOrigin = useCallback((x: number, y: number) => {
@@ -249,31 +234,27 @@ export default function MagneticFillButton({
   }
 
   if (href) {
-    if (isExternalHref(href, external)) {
-      return (
-        <a
-          {...sharedProps}
-          ref={buttonRef as RefObject<HTMLAnchorElement>}
-          href={href}
-          target={target ?? (external ? "_blank" : undefined)}
-          rel={rel ?? (external ? "noopener noreferrer" : undefined)}
-        >
-          {content}
-        </a>
-      );
-    }
-
     return (
-      <Link
-        {...sharedProps}
-        ref={buttonRef as RefObject<HTMLAnchorElement>}
+      <LinkArrow
+        {...rest}
         href={href}
+        appearance="plain"
+        ariaLabel={ariaLabel}
         prefetch={prefetch}
-        target={target}
+        target={target ?? (external ? "_blank" : undefined)}
         rel={rel}
+        className={`${rootClassName} gap-2`}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        dataNavAction={dataNavAction}
+        dataNavChip={dataNavChip}
+        data-nav-icon={dataNavIcon ? "" : undefined}
       >
-        {content}
-      </Link>
+        {children}
+      </LinkArrow>
     );
   }
 

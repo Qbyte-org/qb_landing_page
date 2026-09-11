@@ -1,19 +1,15 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import {
-  useId,
   useMemo,
   useRef,
   useState,
   type CSSProperties,
 } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
 import {
   Clock3,
-  Plus,
-  MapPin,
   Star,
   Store,
 } from "lucide-react";
@@ -27,12 +23,12 @@ import {
 import {
   getCityRestaurants,
   passportCities,
-  type PassportRestaurant,
 } from "./quickbite-passport-hub/passportHub.data";
 import { gsap, useGSAP } from "@/lib/gsap";
 import Container from "../ui/Container";
-import MagneticFillButton from "../ui/MagneticFillButton";
 import SectionWave from "../ui/SectionWave";
+import LinkArrow from "../ui/LinkArrow";
+import RestaurantMembershipCard from "./quickbite-passport-hub/RestaurantMembershipCard";
 
 const PassportLeafletMap = dynamic(() => import("./PassportLeafletMap"), {
   ssr: false,
@@ -43,189 +39,6 @@ const PassportLeafletMap = dynamic(() => import("./PassportLeafletMap"), {
   ),
 });
 
-const qrCells = new Set([
-  0, 1, 2, 3, 5, 6, 7, 8, 10, 13, 15, 18, 20, 22, 24, 26, 27, 28, 29, 31,
-  33, 35, 36, 38, 41, 42, 44, 46, 48, 49, 51, 53, 55, 57, 59, 60, 62, 64,
-  66, 68, 69, 71, 73, 75, 76, 77, 78, 80,
-]);
-
-
-
-function QrCodeMark() {
-  return (
-    <div className="grid h-[5.75rem] w-[5.75rem] grid-cols-9 gap-[0.15rem] rounded-[0.25rem] bg-ink p-1.5">
-      {Array.from({ length: 81 }).map((_, index) => (
-        <span
-          key={index}
-          className={qrCells.has(index) ? "bg-cream-200" : "bg-ink"}
-        />
-      ))}
-    </div>
-  );
-}
-
-function RestaurantMembershipCard({
-  restaurant,
-  accent,
-  highlighted,
-}: {
-  restaurant: PassportRestaurant;
-  accent: string;
-  highlighted: boolean;
-}) {
-  const detailsId = useId();
-  const [flipped, setFlipped] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  const isOpen = flipped || hovered || highlighted;
-
-  const toggle = () => setFlipped((value) => !value);
-
-  return (
-    <motion.article
-      data-passport-postcard
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative h-[14.85rem] w-full shrink-0 rounded-[1.35rem] text-ink outline-none focus-visible:outline-2 focus-visible:outline-brand sm:h-[13.15rem]"
-      style={{ "--card-accent": accent } as CSSProperties}
-    >
-      <div
-        className={`relative h-full w-full overflow-hidden rounded-[1.35rem] border bg-cream-200 transition-colors duration-300 ${highlighted ? "border-[var(--card-accent)]" : "border-ink/10"
-          }`}
-      >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[url('/images/footer-grain.svg')] opacity-10"
-        />
-        <MagneticFillButton
-          ariaLabel={`Details for ${restaurant.name}`}
-          aria-expanded={isOpen}
-          aria-controls={detailsId}
-          onClick={toggle}
-          variant="light"
-          customFillClass="bg-ink"
-          customHoverTextColor="#fffaf5"
-          className="absolute! right-3 top-3 z-30 size-11 rounded-full border! border-ink/15 bg-paper! text-ink!"
-        >
-          <Plus aria-hidden="true" className={`size-4 transition-transform motion-reduce:transition-none ${isOpen ? "rotate-45" : ""}`} />
-        </MagneticFillButton>
-        <motion.div
-          initial={false}
-          animate={{ opacity: isOpen ? 0.08 : 1 }}
-          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          className="pointer-events-none absolute -right-12 top-8 size-44 overflow-hidden rounded-full border-4 border-paper sm:-right-10 sm:top-5 sm:size-48"
-        >
-          <Image
-            src={restaurant.image}
-            alt={restaurant.imageAlt ?? restaurant.cuisine}
-            fill
-            loading="lazy"
-            sizes="192px"
-            className="object-cover"
-          />
-        </motion.div>
-        <motion.div
-          initial={false}
-          animate={
-            isOpen
-              ? { x: "-30%", opacity: 0 }
-              : { x: "0%", opacity: 1 }
-          }
-          transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
-          inert={isOpen}
-          className="absolute inset-0 z-10 px-5 py-5 will-change-transform sm:px-6 sm:py-6 lg:px-7"
-        >
-          <div className="relative z-10 flex h-full max-w-[68%] flex-col justify-center sm:max-w-[60%]">
-            <p className="text-[0.68rem] font-semibold tracking-[0.08em] text-[var(--card-accent)]">
-              {restaurant.eta} • {restaurant.rating}★
-            </p>
-            <h3 className="mt-2 line-clamp-2 font-display text-[1.42rem] font-semibold leading-[0.92] tracking-[-0.055em] text-ink sm:mt-3 sm:text-[1.65rem]">
-              {restaurant.name}
-            </h3>
-            <p className="mt-2 line-clamp-1 text-[0.78rem] font-semibold text-cocoa sm:text-[0.82rem]">
-              {restaurant.cuisine}
-            </p>
-            <MagneticFillButton
-              href="/restaurants"
-              variant="light"
-              ariaLabel={`View ${restaurant.name}`}
-              onClick={(event) => event.stopPropagation()}
-              customFillClass="bg-ink"
-              customHoverTextColor="#fffaf5"
-              className="mt-4 min-h-11 w-max rounded-pill border! border-ink/18 bg-paper! px-5 text-sm font-semibold text-ink! sm:mt-5"
-            >
-              View
-            </MagneticFillButton>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={false}
-          animate={
-            isOpen
-              ? { x: "0%", opacity: 1 }
-              : { x: "42%", opacity: 0 }
-          }
-          transition={{ duration: 0.56, ease: [0.22, 1, 0.36, 1] }}
-          id={detailsId}
-          inert={!isOpen}
-          className="absolute inset-0 z-20 bg-cream-200 px-6 py-5 will-change-transform"
-          style={{ pointerEvents: isOpen ? "auto" : "none" }}
-        >
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-[url('/images/footer-grain.svg')] opacity-10"
-          />
-          <div className="relative z-10 h-full pr-16">
-            <div className="min-w-0">
-              <h3 className="line-clamp-2 font-display text-[1.55rem] font-semibold leading-[0.92] tracking-[-0.06em] text-ink">
-                {restaurant.name}
-              </h3>
-              <p className="mt-2 line-clamp-2 max-w-[16rem] text-[0.75rem] font-semibold leading-relaxed text-cocoa">
-                {restaurant.description}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2 text-[0.68rem] font-semibold text-ink">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/7 px-2.5 py-1">
-                  <Clock3 className="h-3.5 w-3.5" strokeWidth={2.3} />
-                  {restaurant.eta}
-                </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/7 px-2.5 py-1">
-                  <Star className="h-3.5 w-3.5 text-[var(--card-accent)]" strokeWidth={2.3} />
-                  {restaurant.rating}
-                </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/7 px-2.5 py-1">
-                  <MapPin className="h-3.5 w-3.5" strokeWidth={2.3} />
-                  {restaurant.deliveryFrom}
-                </span>
-              </div>
-            </div>
-            <div className="hidden">
-              <QrCodeMark />
-            </div>
-          </div>
-
-          <div className="absolute inset-x-6 bottom-[3.5rem] z-10 border-t border-dashed border-ink/20" />
-          <div className="absolute inset-x-6 bottom-4 z-10 flex items-center justify-between gap-3">
-            <p className="line-clamp-1 text-[0.68rem] font-semibold text-ink">
-              {restaurant.avgOrder} avg order
-            </p>
-            <MagneticFillButton
-              href="/restaurants"
-              onClick={(event) => event.stopPropagation()}
-              variant="light"
-              ariaLabel={`Open ${restaurant.name}`}
-              customFillClass="bg-ink"
-              customHoverTextColor="#fffaf5"
-              className="min-h-11 rounded-pill border! border-ink/18 bg-paper! px-5 text-sm font-semibold text-ink!"
-            >
-              Open
-            </MagneticFillButton>
-          </div>
-        </motion.div>
-      </div>
-    </motion.article>
-  );
-}
 
 export default function QuickBitePassportHub() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -238,7 +51,6 @@ export default function QuickBitePassportHub() {
   const [activeCityId, setActiveCityId] = useState(passportCities[0].id);
   const [selectedCityId, setSelectedCityId] = useState(passportCities[0].id);
   const [selectedArea, setSelectedArea] = useState<string | null>(null);
-  const [highlightedRestaurant, setHighlightedRestaurant] = useState<string | null>(null);
 
   const activeCity =
     passportCities.find((city) => city.id === activeCityId) ?? passportCities[0];
@@ -287,7 +99,6 @@ export default function QuickBitePassportHub() {
       onComplete: () => {
         setActiveCityId(nextCityId);
         setSelectedArea(null);
-        setHighlightedRestaurant(null);
         isAnimatingRef.current = false;
       },
     });
@@ -561,16 +372,14 @@ export default function QuickBitePassportHub() {
               </span>
             </span>
           </h2>
-          <MagneticFillButton
+          <LinkArrow
             href="/restaurants"
             ariaLabel="Explore kitchens"
-            variant="brand"
-            customFillClass="bg-paper"
-            customHoverTextColor="#2a211d"
-            className="h-14 w-max shrink-0 self-end rounded-pill !bg-[var(--passport-accent)] px-8 text-lg font-semibold !text-white sm:h-16 sm:px-10 sm:text-xl lg:self-auto"
+            variant="dark"
+            className="min-h-14 w-max shrink-0 self-end text-lg! normal-case! [--link-arrow-spacing:0em] sm:min-h-16 sm:text-xl! lg:self-auto"
           >
-            Explore kitchens →
-          </MagneticFillButton>
+            Explore kitchens
+          </LinkArrow>
         </div>
 
         <div
@@ -606,12 +415,10 @@ export default function QuickBitePassportHub() {
                   <PassportLeafletMap
                     city={activeCity}
                     neighbourhoods={activeCity.nodes}
-                    restaurants={cityRestaurants}
                     selectedNode={selectedNode}
                     onSelectNode={(node) =>
-                      setSelectedArea(selectedNode?.name === node.name ? null : node.name)
+                      setSelectedArea(node?.name ?? null)
                     }
-                    onHoverRestaurant={setHighlightedRestaurant}
                   />
                 </div>
 
@@ -626,7 +433,7 @@ export default function QuickBitePassportHub() {
                         <circle cx="12" cy="10.6" r="2.1" fill="var(--color-paper)" />
                       </svg>
                     </span>
-                    Click a live food stop to filter nearby kitchens
+                    Choose an area to explore local kitchens
                   </div>
                 </div>
               </div>
@@ -693,7 +500,7 @@ export default function QuickBitePassportHub() {
                         key={`${activeCity.id}-${selectedNode?.name ?? "all"}-${restaurant.name}`}
                         restaurant={restaurant}
                         accent={activeCity.accent}
-                        highlighted={highlightedRestaurant === restaurant.name}
+                        highlighted={false}
                       />
                     ))}
                   </AnimatePresence>
@@ -704,8 +511,7 @@ export default function QuickBitePassportHub() {
         </div>
 
         <p className="relative z-10 mx-auto mt-5 hidden max-w-xl px-4 text-center text-xs font-semibold leading-relaxed text-paper/65 sm:block">
-          Select a destination, pan the map, then tap a neighbourhood marker to
-          filter the restaurant membership cards.
+          Choose your area, explore the map, and find your next kitchen.
         </p>
       </Container>
 

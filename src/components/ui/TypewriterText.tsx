@@ -29,12 +29,9 @@ export default function TypewriterText({
       const text = textRef.current;
       if (!text || words.length === 0) return;
 
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        text.textContent = firstWord;
-        return;
-      }
+      const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-      const timeline = gsap.timeline({ repeat: -1, repeatDelay: 0.35 });
+      const timeline = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 0.35 });
       words.forEach((word, index) => {
         const writer = { length: 0 };
         timeline
@@ -61,6 +58,41 @@ export default function TypewriterText({
             },
           });
       });
+      const root = rootRef.current;
+      let inView = false;
+      function updatePlayback() {
+        if (motionPreference.matches) {
+          timeline.pause();
+          if (text) text.textContent = firstWord;
+          return;
+        }
+        const loading = root?.closest("[data-site-intro='loading']");
+        if (inView && !loading && !document.hidden) timeline.play();
+        else timeline.pause();
+      }
+      const observer = new IntersectionObserver(([entry]) => {
+        inView = entry.isIntersecting;
+        updatePlayback();
+      });
+      if (root) observer.observe(root);
+      function updateMotionPreference() {
+        if (motionPreference.matches) {
+          timeline.pause(0);
+          if (text) text.textContent = firstWord;
+          onWordChange?.(firstWord, 0);
+        }
+        updatePlayback();
+      }
+      motionPreference.addEventListener("change", updateMotionPreference);
+      updateMotionPreference();
+      window.addEventListener("quickbite:intro-start", updatePlayback);
+      document.addEventListener("visibilitychange", updatePlayback);
+      return () => {
+        observer.disconnect();
+        motionPreference.removeEventListener("change", updateMotionPreference);
+        window.removeEventListener("quickbite:intro-start", updatePlayback);
+        document.removeEventListener("visibilitychange", updatePlayback);
+      };
     },
     {
       scope: rootRef,

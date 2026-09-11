@@ -1,95 +1,68 @@
-import Image from "next/image";
+import FoodImage from "../../ui/FoodImage";
 import { Star } from "lucide-react";
 import type { Category } from "@/content/site";
-import MagneticFillButton from "../../ui/MagneticFillButton";
+import LinkArrow from "../../ui/LinkArrow";
 
 export default function CategoryCard({ category }: { category: Category }) {
   const Icon = category.icon;
 
   return (
-    <article className="relative w-[min(86vw,22rem)] shrink-0 overflow-visible px-3 pt-16 text-ink sm:w-[31rem] sm:px-4 sm:pt-[4.5rem] lg:w-[34rem]">
-      <div
-        className="absolute inset-x-3 bottom-0 top-[5.9rem] rounded-[2.4rem] border border-ink/10 bg-cream-200 sm:inset-x-4 sm:top-[6.5rem] sm:rounded-[2.9rem]"
-        style={{ backgroundColor: category.tint }}
-      />
-
-      <svg
-        className="pointer-events-none absolute left-3 right-3 top-[5.9rem] h-24 w-[calc(100%-1.5rem)] text-paper sm:left-4 sm:right-4 sm:top-[6.5rem] sm:h-28 sm:w-[calc(100%-2rem)]"
-        viewBox="0 0 532 148"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M0 0H532V89C459 69 424 116 357 108C278 99 260 48 181 70C111 89 82 130 0 101V0Z"
-          fill="currentColor"
-        />
-        <path
-          d="M0 101C82 130 111 89 181 70C260 48 278 99 357 108C424 116 459 69 532 89"
-          fill="none"
-          stroke="var(--color-cocoa)"
-          strokeDasharray="8 12"
-          strokeLinecap="round"
-          strokeOpacity=".62"
-          strokeWidth="2.4"
-        />
-      </svg>
-
-      <Image
-        src={category.image}
-        alt={category.imageAlt ?? category.name}
-        width={410}
-        height={310}
-        loading="lazy"
-        sizes="(min-width: 1024px) 336px, (min-width: 640px) 304px, 240px"
-        className="absolute -top-2 left-5 z-10 h-40 w-60 rotate-[-5deg] rounded-[2rem] border-4 border-paper object-cover sm:left-8 sm:h-52 sm:w-[19rem] lg:w-[21rem]"
-      />
-
-      <div className="absolute right-6 top-20 z-20 grid h-[4.3rem] w-[4.3rem] place-items-center rounded-full border border-ink/10 bg-paper text-center text-[0.55rem] font-semibold uppercase leading-tight text-ink sm:right-8 sm:top-[5.5rem] sm:h-[4.85rem] sm:w-[4.85rem]">
-        <span>
-          <span className="block text-cocoa">Ready</span>
-          <span className="block text-base leading-none text-brand sm:text-lg">
-            {category.time}
-          </span>
-        </span>
-      </div>
-
-      <div className="relative z-10 mt-32 px-5 sm:mt-[9.5rem] sm:px-8">
-        <div className="mb-4 flex items-center justify-between text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-cocoa sm:text-[0.68rem]">
-          <span className="flex items-center gap-1.5">
-            <Icon className="h-3.5 w-3.5 text-brand" strokeWidth={2.4} />
-            {category.meta}
-          </span>
-          <span className="flex items-center gap-1">
-            <Star
-              className="h-3 w-3 fill-brand text-brand"
-              strokeWidth={2.2}
-            />
-            {category.rating}
-          </span>
-        </div>
-
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div className="min-w-0">
-            <p className="font-serif text-lg font-semibold italic leading-none text-cocoa sm:text-xl">
-              QuickBite
-            </p>
-            <h3 className="mt-1 font-display text-[2.05rem] font-bold leading-none text-ink sm:text-[2.55rem] lg:text-[2.8rem]">
-              {category.name}
-            </h3>
+    <article className="relative w-[min(86vw,22rem)] shrink-0 px-3 text-ink sm:w-[31rem] sm:px-4 lg:w-[34rem]">
+      <div className="h-full overflow-hidden rounded-[2rem] border border-ink/10 bg-paper sm:rounded-[2.5rem]">
+        <div className="relative h-52 overflow-hidden sm:h-64 lg:h-72" style={{ backgroundColor: category.tint }}>
+          <FoodImage
+            src={category.image}
+            alt={category.imageAlt}
+            fill
+            loading="lazy"
+            sizes="(min-width: 1024px) 512px, (min-width: 640px) 464px, (min-width: 410px) 328px, 80vw"
+            className={category.imageKind === "brand" ? "object-contain p-14 opacity-80 sm:p-16" : "object-cover"}
+          />
+          <div className="absolute right-4 top-4 z-10 grid size-[4.75rem] place-items-center rounded-full bg-white text-center text-[0.6rem] font-semibold uppercase leading-tight text-ink shadow-sm sm:right-5 sm:top-5 sm:size-[5.5rem] sm:text-[0.65rem]">
+            <span>
+              <span className="block text-cocoa">Ready</span>
+              <span className="mt-1 block text-lg leading-none text-brand-dark sm:text-xl">
+                {category.time}
+              </span>
+            </span>
           </div>
-          <MagneticFillButton
-            href="/restaurants"
-            variant="brand"
-            customFillClass="bg-paper"
-            customHoverTextColor="#2a211d"
-            className="h-12 w-max shrink-0 rounded-pill border-0 !bg-brand px-6 text-base font-semibold tracking-[0.02em] !text-white sm:mb-1 sm:h-14 sm:px-7 sm:text-lg"
-          >
-            Order now
-          </MagneticFillButton>
         </div>
-        <p className="mt-5 min-h-[3.8rem] max-w-[27rem] text-[0.88rem] leading-snug text-cocoa sm:text-[0.94rem]">
-          {category.description}
-        </p>
+        <div className="relative p-5 sm:p-7 lg:p-8">
+          <div className="mb-4 flex items-center justify-between text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-cocoa sm:text-[0.68rem]">
+            <span className="flex items-center gap-1.5">
+              <Icon className="h-3.5 w-3.5 text-brand" strokeWidth={2.4} />
+              {category.meta}
+            </span>
+            <span className="flex items-center gap-1">
+              <Star
+                className="h-3 w-3 fill-brand text-brand"
+                strokeWidth={2.2}
+              />
+              {category.rating}
+            </span>
+          </div>
+
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="min-w-0">
+              <p className="font-serif text-lg font-semibold italic leading-none text-cocoa sm:text-xl">
+                QuickBite
+              </p>
+              <h3 className="mt-1 font-display text-[2.05rem] font-bold leading-none text-ink sm:text-[2.55rem] lg:text-[2.8rem]">
+                {category.name}
+              </h3>
+            </div>
+            <LinkArrow
+              href="/restaurants"
+              variant="dark"
+              className="min-h-11 w-max shrink-0 rounded-pill border-0 bg-brand! px-5 py-3! text-base! font-semibold normal-case! text-white! [--link-arrow-min-width:0px] [--link-arrow-spacing:0em] sm:mb-1 sm:h-14 sm:px-6 sm:text-lg!"
+            >
+              Order now
+            </LinkArrow>
+          </div>
+          <p className="mt-5 min-h-[3.8rem] max-w-[27rem] text-[0.88rem] leading-snug text-cocoa sm:text-[0.94rem]">
+            {category.description}
+          </p>
+        </div>
       </div>
     </article>
   );

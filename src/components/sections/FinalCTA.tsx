@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import Image from "../ui/FoodImage";
 import { motion, useReducedMotion } from "motion/react";
-import MagneticFillButton from "../ui/MagneticFillButton";
+import LinkArrow from "../ui/LinkArrow";
 import SectionWave from "../ui/SectionWave";
 
 export default function FinalCTA() {
@@ -16,7 +15,7 @@ export default function FinalCTA() {
       aria-labelledby="final-cta-title"
       className="overflow-hidden bg-[#1c120f] text-paper scroll-mt-24"
     >
-      <SectionWave to="ink" />
+      <SectionWave to="ink" splitBackground />
       <motion.div
         initial={false}
         whileInView={reducedMotion === false ? { y: [16, 0], opacity: [0.75, 1] } : undefined}
@@ -60,16 +59,13 @@ export default function FinalCTA() {
             <p className="max-w-72 text-lg font-medium uppercase leading-tight sm:text-xl lg:text-[clamp(1.1rem,1.6vw,1.875rem)] 2xl:max-w-none">
               Your next favourite meal starts here!
             </p>
-            <MagneticFillButton
+            <LinkArrow
               href="/restaurants"
-              variant="light"
-              customFillClass="bg-brand"
-              customHoverTextColor="#ffffff"
-              className="group mt-4 min-h-12 rounded-pill bg-cream-200! px-5 py-3 text-base text-ink! sm:text-lg"
+              variant="dark"
+              className="group mt-4 min-h-12 text-base! normal-case! [--link-arrow-spacing:0em] sm:text-lg!"
             >
               Explore restaurants
-              <ArrowUpRight aria-hidden="true" className="size-4 text-[#f06400] transition-transform duration-200 motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5" />
-            </MagneticFillButton>
+            </LinkArrow>
           </div>
         </div>
 

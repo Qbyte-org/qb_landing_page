@@ -10,10 +10,11 @@ declare global {
   }
 }
 
-export default function SmoothScroll() {
+export default function SmoothScroll({ enabled = true }: { enabled?: boolean }) {
   const lenisRef = useRef<Lenis | null>(null);
 
   useGSAP(() => {
+    if (!enabled) return;
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -50,7 +51,7 @@ export default function SmoothScroll() {
         delete window.quickBiteLenis;
       }
     };
-  });
+  }, { dependencies: [enabled], revertOnUpdate: true });
 
   return null;
 }

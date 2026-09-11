@@ -2,6 +2,7 @@ import type { MouseEventHandler, ReactNode } from "react";
 import MagneticFillButton, {
   type MagneticFillVariant,
 } from "./MagneticFillButton";
+import LinkArrow from "./LinkArrow";
 
 type Variant = "solid" | "outline" | "ghost" | "dark" | "white";
 type Size = "sm" | "md" | "lg";
@@ -18,6 +19,14 @@ const sizes: Record<Size, string> = {
   sm: "h-10 px-4 text-sm",
   md: "h-12 px-6 text-base",
   lg: "h-14 px-8 text-lg",
+};
+
+const linkVariants: Record<Variant, string> = {
+  solid: "bg-brand-dark text-white",
+  outline: "bg-white text-brand-dark",
+  ghost: "bg-ink text-paper",
+  dark: "bg-navy text-white",
+  white: "bg-white text-navy",
 };
 
 type CommonProps = {
@@ -50,14 +59,14 @@ export default function Button(props: LinkProps | NativeButtonProps) {
 
   if ("href" in props && props.href) {
     return (
-      <MagneticFillButton
+      <LinkArrow
         href={props.href}
-        external={props.external}
-        variant={variants[variant]}
-        className={classes}
+        appearance="plain"
+        target={props.external ? "_blank" : undefined}
+        className={`justify-center gap-2 font-semibold ${linkVariants[variant]} ${classes}`}
       >
         {children}
-      </MagneticFillButton>
+      </LinkArrow>
     );
   }
 

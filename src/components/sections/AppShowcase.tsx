@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { appFeatures } from "@/content/site";
 import AppPreviewPanel from "./AppPreviewPanel";
 import MagneticFillButton from "../ui/MagneticFillButton";
+import LinkArrow from "../ui/LinkArrow";
 
 function AppStoreIcon() {
   return (
@@ -95,16 +95,13 @@ export default function AppShowcase() {
             </p>
 
             <div className="mt-8 border-t border-ink/15 pt-7 sm:mt-10 sm:pt-8">
-              <MagneticFillButton
+              <LinkArrow
                 href="/waitlist"
-                variant="brand"
-                customFillClass="bg-ink"
-                customHoverTextColor="#fffaf5"
-                className="group min-h-12 rounded-pill bg-brand! px-6 py-3 text-base font-semibold text-white!"
+                variant="light"
+                className="min-h-12 text-base! font-semibold normal-case! [--link-arrow-spacing:0em]"
               >
                 Get launch updates
-                <ArrowUpRight aria-hidden="true" className="size-4 transition-transform duration-200 motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5" />
-              </MagneticFillButton>
+              </LinkArrow>
               <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-cocoa">
                 <span>Coming to</span>
                 <span className="inline-flex items-center gap-1.5"><AppStoreIcon /> iOS</span>

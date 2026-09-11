@@ -1,7 +1,6 @@
-import Link from "next/link";
 import { MapPin } from "lucide-react";
 import FooterNewsletter from "./FooterNewsletter";
-import MagneticFillButton from "../ui/MagneticFillButton";
+import LinkArrow from "../ui/LinkArrow";
 
 const navigation = [
   {
@@ -51,22 +50,23 @@ export default function Footer() {
         <FooterNewsletter />
 
         <div className="flex min-w-0 flex-col">
-          <nav aria-label="Footer navigation" className="flex flex-col gap-7 sm:gap-8 lg:pb-10 2xl:pb-14">
+          <nav aria-label="Footer navigation" className="grid gap-7 sm:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] sm:gap-8 lg:pb-10 2xl:pb-14">
             {navigation.map((column) => (
               <div key={column.title} className="min-w-0">
                 <h2 className="text-sm font-medium uppercase text-peach/75 sm:text-base 2xl:text-xl">
                   {column.title}
                 </h2>
-                <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-1 sm:gap-x-7">
+                <ul className="mt-4 flex flex-col items-start gap-1">
                   {column.links.map((link) => (
-                    <li key={link.label}>
-                      <Link
+                    <li key={link.label} className="w-full min-w-0">
+                      <LinkArrow
                         href={link.href}
+                        variant="dark"
                         prefetch={false}
-                        className="inline-flex min-h-10 items-center text-sm font-semibold uppercase leading-snug decoration-[#f06400] underline-offset-4 hover:underline sm:min-h-9 sm:text-lg lg:min-h-8 lg:text-[clamp(.875rem,1.2vw,1.375rem)]"
+                        className="min-h-10 w-full min-w-0! gap-2! border-paper/15! text-sm! font-semibold uppercase leading-snug text-paper! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.02em] sm:min-h-9 sm:text-lg! lg:min-h-8 lg:text-[clamp(.8rem,1.05vw,1.25rem)]!"
                       >
                         {link.label}
-                      </Link>
+                      </LinkArrow>
                     </li>
                   ))}
                 </ul>
@@ -79,29 +79,28 @@ export default function Footer() {
               &copy; 2026 QuickBite
             </p>
 
-            <MagneticFillButton
+            <LinkArrow
               href="/#cities"
+              appearance="plain"
               prefetch={false}
-              variant="dark"
-              customFillClass="bg-brand"
-              customHoverTextColor="#ffffff"
-              className="order-1 min-h-10 w-fit rounded-pill border! border-paper/20! bg-transparent! px-3 py-2 text-sm text-paper! sm:order-2 sm:justify-self-end 2xl:text-base"
+              className="order-1 min-h-10 w-fit justify-center gap-2 rounded-pill border border-paper/20 px-3 py-2 text-sm text-paper hover:bg-paper/10 sm:order-2 sm:justify-self-end 2xl:text-base"
             >
               <MapPin className="size-4" aria-hidden="true" />
               All locations
-            </MagneticFillButton>
+            </LinkArrow>
 
             <nav aria-label="Legal" className="order-3 sm:col-span-2">
               <ul className="flex flex-wrap gap-x-5 gap-y-1">
                 {legalLinks.map((link) => (
                   <li key={link.label}>
-                    <Link
+                    <LinkArrow
                       href={link.href}
                       prefetch={false}
-                      className="inline-flex min-h-9 items-center text-sm underline-offset-4 hover:underline 2xl:text-base"
+                      variant="dark"
+                      className="min-h-9 min-w-0! gap-2! border-paper/15! text-sm! font-normal! normal-case! text-paper! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em] 2xl:text-base!"
                     >
                       {link.label}
-                    </Link>
+                    </LinkArrow>
                   </li>
                 ))}
               </ul>
