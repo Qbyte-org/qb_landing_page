@@ -164,7 +164,7 @@ function getServerColumnCount() {
 
 function CommunityPanel() {
   return (
-    <aside aria-labelledby="testimonial-community-title" className="relative overflow-hidden rounded-card bg-[#ffe7d7] p-6 sm:p-7">
+    <aside aria-labelledby="testimonial-community-title" className="relative overflow-hidden rounded-card bg-cream-200 p-6 sm:p-7">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[url('/images/footer-grain.svg')] bg-size-[128px_128px] opacity-20 mix-blend-multiply"
@@ -196,7 +196,7 @@ function CommunityPanel() {
 
 function StoryCardShell({ children }: { children: ReactNode }) {
   return (
-    <figure className="group relative flex min-w-0 shrink-0 flex-col overflow-hidden rounded-card border border-[#2a211d]/10 bg-[#fffaf5] p-5 text-[#2a211d] transition-colors duration-300 hover:border-[#2a211d]/25 sm:p-6">
+    <figure className="group relative flex min-w-0 shrink-0 flex-col overflow-hidden rounded-card border border-ink/10 bg-cream p-5 text-ink transition-colors duration-300 hover:border-ink/25 sm:p-6">
       {children}
     </figure>
   );
@@ -213,7 +213,7 @@ function AuthorRow({
 
   return (
     <figcaption className={`relative flex shrink-0 items-center gap-3 ${withDivider ? "border-t border-dashed border-[#2a211d]/20 pt-5" : ""}`}>
-      <span aria-hidden="true" className="grid size-11 shrink-0 place-items-center rounded-full border border-[#2a211d]/10 bg-cream-200 font-display text-sm font-semibold">
+      <span aria-hidden="true" className="grid size-11 shrink-0 place-items-center rounded-full border border-ink/10 bg-paper font-display text-sm font-semibold">
         {testimonial.initials}
       </span>
       <span className="min-w-0">
@@ -300,7 +300,7 @@ export default function Testimonials() {
       id="testimonials"
       data-nav-theme="neutral"
       aria-labelledby="testimonials-title"
-      className="scroll-mt-24 overflow-hidden bg-cream-200 py-16 text-[#2a211d] sm:py-24"
+      className="scroll-mt-24 overflow-hidden bg-paper py-16 text-ink sm:py-24"
     >
       <Container>
         <motion.div
@@ -323,9 +323,9 @@ export default function Testimonials() {
           <CommunityPanel />
         </motion.div>
 
-        <div data-testimonial-grid className={`mt-12 grid items-stretch gap-4 sm:gap-5 xl:mt-14 ${columnCount === 3 ? "grid-cols-3" : columnCount === 2 ? "grid-cols-2" : "grid-cols-1"}`}>
+        <div data-testimonial-grid className={`mt-12 grid items-start gap-4 sm:gap-5 xl:mt-14 ${columnCount === 3 ? "grid-cols-3" : columnCount === 2 ? "grid-cols-2" : "grid-cols-1"}`}>
           {columns.map((column, columnIndex) => (
-            <div key={columnIndex} data-testimonial-column className="flex min-w-0 flex-col justify-between gap-4 sm:gap-5">
+            <div key={columnIndex} data-testimonial-column className="flex min-w-0 flex-col gap-4 sm:gap-5">
               {column.map(({ story, index }) => story.kind === "quote" ? (
                 <QuoteStoryCard key={story.testimonial.name} story={story} index={index} />
               ) : (
