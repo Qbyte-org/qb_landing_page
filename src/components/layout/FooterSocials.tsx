@@ -55,7 +55,7 @@ export default function FooterSocials() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`QuickBite on ${label} (opens in a new tab)`}
-              className="flex size-10 items-center justify-center rounded-full border border-[#2a211d]/20 transition-colors duration-200 hover:border-[#f06400] hover:bg-[#fffaf5] motion-safe:transition-[color,background-color,border-color,transform] motion-safe:hover:-translate-y-0.5"
+              className="flex size-10 items-center justify-center rounded-full border border-paper/20 text-paper transition-colors duration-200 hover:border-brand hover:bg-paper/10 motion-safe:transition-[color,background-color,border-color,transform] motion-safe:hover:-translate-y-0.5"
             >
               <SocialIcon name={icon} />
             </a>
@@ -64,7 +64,7 @@ export default function FooterSocials() {
               role="img"
               aria-label={`${label} profile unavailable`}
               title={`${label} profile unavailable`}
-              className="flex size-10 items-center justify-center rounded-full border border-[#2a211d]/15 text-[#6d5c52]"
+              className="flex size-10 items-center justify-center rounded-full border border-paper/15 text-peach/60"
             >
               <SocialIcon name={icon} />
             </span>

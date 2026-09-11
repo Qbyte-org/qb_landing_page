@@ -11,9 +11,9 @@ export default function FinalCTA() {
   return (
     <section
       id="final-cta"
-      data-nav-theme="neutral"
+      data-nav-theme="dark"
       aria-labelledby="final-cta-title"
-      className="overflow-hidden bg-cream-200 pt-14 text-[#2a211d] scroll-mt-24 sm:pt-20 lg:pt-24"
+      className="overflow-hidden bg-ink pt-14 text-paper scroll-mt-24 sm:pt-20 lg:pt-24"
     >
       <motion.div
         initial={false}
@@ -24,7 +24,7 @@ export default function FinalCTA() {
       >
         <div
           data-cta-copy
-          className="relative isolate flex min-h-64 flex-col justify-between gap-14 overflow-hidden rounded-4xl bg-[#fffaf5] p-6 sm:min-h-48 sm:gap-8 sm:p-7 lg:min-h-40 lg:flex-row lg:items-center lg:gap-4 lg:px-10 lg:py-8 xl:min-h-44 2xl:min-h-48 2xl:px-14"
+          className="relative isolate flex min-h-64 flex-col justify-between gap-14 overflow-hidden rounded-4xl bg-[#382c26] p-6 sm:min-h-48 sm:gap-8 sm:p-7 lg:min-h-40 lg:flex-row lg:items-center lg:gap-4 lg:px-10 lg:py-8 xl:min-h-44 2xl:min-h-48 2xl:px-14"
         >
           <svg
             aria-hidden="true"
@@ -60,7 +60,7 @@ export default function FinalCTA() {
             </p>
             <Link
               href="/restaurants"
-              className="group mt-1 inline-flex min-h-11 items-center gap-1 text-base font-medium decoration-[#f06400] underline-offset-4 hover:underline focus-visible:rounded-sm sm:text-lg"
+              className="group mt-1 inline-flex min-h-11 items-center gap-1 text-base font-medium text-peach decoration-[#f06400] underline-offset-4 hover:underline focus-visible:rounded-sm sm:text-lg"
             >
               Explore restaurants
               <ArrowUpRight aria-hidden="true" className="size-4 text-[#f06400] transition-transform duration-200 motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5" />
@@ -70,7 +70,7 @@ export default function FinalCTA() {
 
         <div
           data-cta-media
-          className="group relative min-h-40 overflow-hidden rounded-4xl bg-[#f4dfcc] sm:min-h-0"
+          className="group relative min-h-40 overflow-hidden rounded-4xl bg-[#382c26] sm:min-h-0"
         >
           <Image
             src="/images/food/hero-fast.webp"
@@ -89,7 +89,7 @@ export default function FinalCTA() {
       >
         <svg
           viewBox="0 0 1400 250"
-          className="h-full w-full origin-bottom text-[#2a211d]/20 blur-[1px] [transform:rotateX(32deg)_scale(1.12)] sm:blur-[2px]"
+          className="h-full w-full origin-bottom text-paper/20 blur-[1px] [transform:rotateX(32deg)_scale(1.12)] sm:blur-[2px]"
           preserveAspectRatio="none"
         >
           <text
