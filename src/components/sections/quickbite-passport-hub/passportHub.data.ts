@@ -142,7 +142,8 @@ const passportOnlyRestaurants: Restaurant[] = [
     rating: 4.7,
     deliveryFrom: "₦500",
     eta: "18–28 min",
-    image: "/images/food/hero-fast.webp",
+    image: "/images/food/pinterest/jollof-takeaway.webp",
+    imageAlt: "Jollof rice, a chicken portion and plantain in a takeaway tray",
   },
   {
     name: "Burger House",
@@ -150,7 +151,8 @@ const passportOnlyRestaurants: Restaurant[] = [
     rating: 4.6,
     deliveryFrom: "₦650",
     eta: "25–35 min",
-    image: "/images/food/hero-hot.webp",
+    image: "/images/food/pinterest/rice-chicken-plantain.webp",
+    imageAlt: "White rice with chicken and fried plantain on a leaf-lined plate",
   },
   {
     name: "Noodle House",
@@ -158,7 +160,8 @@ const passportOnlyRestaurants: Restaurant[] = [
     rating: 4.5,
     deliveryFrom: "₦450",
     eta: "20–30 min",
-    image: "/images/food/hero-fresh.webp",
+    image: "/images/food/pinterest/peppered-fish-noodles.webp",
+    imageAlt: "Peppered fish fillets over noodles with eggs",
   },
   {
     name: "Coffee Corner",
@@ -166,7 +169,8 @@ const passportOnlyRestaurants: Restaurant[] = [
     rating: 4.8,
     deliveryFrom: "₦350",
     eta: "15–25 min",
-    image: "/images/food/restaurant-smoothie.webp",
+    image: "/images/food/pinterest/akara-bean-cakes.webp",
+    imageAlt: "Golden akara bean cakes on a white plate",
   },
   {
     name: "Sweet Treats",
@@ -174,7 +178,8 @@ const passportOnlyRestaurants: Restaurant[] = [
     rating: 4.7,
     deliveryFrom: "₦400",
     eta: "18–26 min",
-    image: "/images/food/restaurant-smoothie.webp",
+    image: "/images/food/pinterest/puff-puff.webp",
+    imageAlt: "A basket filled with golden puff-puff",
   },
   {
     name: "Breakfast Club",
@@ -182,7 +187,8 @@ const passportOnlyRestaurants: Restaurant[] = [
     rating: 4.6,
     deliveryFrom: "₦500",
     eta: "20–30 min",
-    image: "/images/food/hero-local.webp",
+    image: "/images/food/pinterest/akara-bean-cakes.webp",
+    imageAlt: "Golden akara bean cakes on a white plate",
   },
   {
     name: "Bakery Lane",
@@ -190,7 +196,8 @@ const passportOnlyRestaurants: Restaurant[] = [
     rating: 4.5,
     deliveryFrom: "₦350",
     eta: "15–25 min",
-    image: "/images/food/partner-kitchen.webp",
+    image: "/images/food/pinterest/puff-puff.webp",
+    imageAlt: "A basket filled with golden puff-puff",
   },
   {
     name: "Taco Stop",
@@ -198,7 +205,8 @@ const passportOnlyRestaurants: Restaurant[] = [
     rating: 4.6,
     deliveryFrom: "₦600",
     eta: "25–35 min",
-    image: "/images/food/hero-hot.webp",
+    image: "/images/food/pinterest/assorted-meat-stew.webp",
+    imageAlt: "Assorted meat and tripe in a rich red stew",
   },
 ];
 

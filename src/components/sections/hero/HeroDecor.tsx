@@ -16,11 +16,12 @@ export default function HeroDecor() {
         className="absolute right-[8%] top-[22%] hidden h-24 w-24 rounded-[2rem] md:block"
       >
         <Image
-          src="/food/snacks.svg"
+          src="/images/food/pinterest/puff-puff.webp"
           alt=""
           width={130}
-          height={108}
-          className="absolute -right-5 -top-6 w-20 rotate-12 object-contain opacity-80"
+          height={130}
+          sizes="80px"
+          className="absolute -right-5 -top-6 aspect-square w-20 rotate-12 rounded-full object-cover opacity-80"
         />
         <span className="absolute bottom-5 left-5 h-3 w-3 rounded-full bg-brand" />
       </div>
@@ -31,8 +32,9 @@ export default function HeroDecor() {
           src={food.src}
           alt={food.alt}
           width={150}
-          height={122}
-          className={`absolute select-none animate-float ${food.className}`}
+          height={150}
+          sizes="(min-width: 1280px) 96px, 80px"
+          className={`absolute aspect-square select-none animate-float rounded-full object-cover ${food.className}`}
           style={{ animationDelay: `${index * 0.85}s` }}
         />
       ))}

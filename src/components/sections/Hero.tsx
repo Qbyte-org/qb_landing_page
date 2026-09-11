@@ -26,7 +26,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       data-nav-theme="hero"
-      className="relative overflow-hidden bg-ink text-paper"
+      className="relative overflow-hidden bg-[#1c120f] text-paper"
     >
       <div className="relative pb-12 pt-30 sm:pb-14 sm:pt-38 lg:pb-16 lg:pt-48 xl:pt-52">
         <HeroDecor />
@@ -64,7 +64,7 @@ export default function Hero() {
               variant="brand"
               customFillClass="bg-paper"
               customHoverTextColor="#2a211d"
-              className="pointer-events-auto h-14 cursor-pointer rounded-4xl border-brand bg-brand! px-7 text-base font-semibold text-white! sm:h-[3.75rem] sm:px-8"
+              className="pointer-events-auto h-14 cursor-pointer rounded-4xl border-brand bg-brand! px-8 text-lg font-semibold text-white! sm:h-16 sm:px-9 sm:text-xl"
             >
               Order now
               <ArrowRight className="h-5 w-5" strokeWidth={2.35} aria-hidden="true" />
