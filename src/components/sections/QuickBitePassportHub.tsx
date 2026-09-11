@@ -1,16 +1,18 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import {
+  useId,
   useMemo,
   useRef,
   useState,
   type CSSProperties,
-  type KeyboardEvent,
 } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
   Clock3,
+  Plus,
   MapPin,
   Star,
   Store,
@@ -29,29 +31,7 @@ import {
 } from "./quickbite-passport-hub/passportHub.data";
 import { gsap, useGSAP } from "@/lib/gsap";
 import Container from "../ui/Container";
-import LinkArrow from "../ui/LinkArrow";
 import MagneticFillButton from "../ui/MagneticFillButton";
-import {
-  BurgerLineArt,
-  CoffeeCupLineArt,
-  CroissantLineArt,
-  DrinksCupLineArt,
-  GrilledChickenLineArt,
-  IceCreamLineArt,
-  JollofRiceLineArt,
-  LocalMealBowlLineArt,
-  MeatPieLineArt,
-  PancakesLineArt,
-  PizzaSliceLineArt,
-  RamenBowlLineArt,
-  SaladBowlLineArt,
-  SeafoodLineArt,
-  ShawarmaWrapLineArt,
-  SushiRollLineArt,
-  SuyaSkewerLineArt,
-  SwallowSoupLineArt,
-  TacoLineArt,
-} from "../ui/LineArt";
 import SectionWave from "../ui/SectionWave";
 
 const PassportLeafletMap = dynamic(() => import("./PassportLeafletMap"), {
@@ -70,91 +50,6 @@ const qrCells = new Set([
 ]);
 
 
-
-type RestaurantLineArtKind =
-  | "bakery"
-  | "breakfast"
-  | "cafe"
-  | "dessert"
-  | "grilled-chicken"
-  | "jollof"
-  | "local-meal"
-  | "meat-pie"
-  | "noodles"
-  | "pizza"
-  | "salad"
-  | "seafood"
-  | "shawarma"
-  | "swallow"
-  | "suya"
-  | "sushi"
-  | "taco"
-  | "drinks"
-  | "burger";
-
-function getRestaurantLineArtKind(restaurant: PassportRestaurant): RestaurantLineArtKind {
-  const text = `${restaurant.name} ${restaurant.cuisine}`.toLowerCase();
-
-  if (text.includes("swallow") || text.includes("soup")) return "swallow";
-  if (text.includes("mama put")) return "local-meal";
-  if (text.includes("jollof") || text.includes("nigerian")) return "jollof";
-  if (text.includes("suya") || text.includes("asun")) return "suya";
-  if (text.includes("chicken") || text.includes("wings")) return "grilled-chicken";
-  if (text.includes("shawarma") || text.includes("wrap")) return "shawarma";
-  if (text.includes("taco")) return "taco";
-  if (text.includes("pizza")) return "pizza";
-  if (text.includes("sushi")) return "sushi";
-  if (text.includes("seafood") || text.includes("fish") || text.includes("shrimp")) return "seafood";
-  if (text.includes("salad")) return "salad";
-  if (text.includes("burger")) return "burger";
-  if (text.includes("noodle") || text.includes("ramen")) return "noodles";
-  if (text.includes("coffee") || text.includes("cafe")) return "cafe";
-  if (text.includes("dessert") || text.includes("sweet") || text.includes("ice cream")) return "dessert";
-  if (text.includes("breakfast") || text.includes("pancake")) return "breakfast";
-  if (text.includes("bakery") || text.includes("croissant")) return "bakery";
-  if (text.includes("drink") || text.includes("smoothie") || text.includes("juice")) {
-    return "drinks";
-  }
-  if (text.includes("small chop") || text.includes("pastr") || text.includes("snack") || text.includes("bites")) {
-    return "meat-pie";
-  }
-  if (text.includes("grill")) {
-    return "suya";
-  }
-
-  return "burger";
-}
-
-function RestaurantFoodLineArt({
-  restaurant,
-  className = "",
-}: {
-  restaurant: PassportRestaurant;
-  className?: string;
-}) {
-  const kind = getRestaurantLineArtKind(restaurant);
-
-  if (kind === "bakery") return <CroissantLineArt className={className} />;
-  if (kind === "breakfast") return <PancakesLineArt className={className} />;
-  if (kind === "cafe") return <CoffeeCupLineArt className={className} />;
-  if (kind === "dessert") return <IceCreamLineArt className={className} />;
-  if (kind === "grilled-chicken") return <GrilledChickenLineArt className={className} />;
-  if (kind === "jollof") return <JollofRiceLineArt className={className} />;
-  if (kind === "local-meal") return <LocalMealBowlLineArt className={className} />;
-  if (kind === "meat-pie") return <MeatPieLineArt className={className} />;
-  if (kind === "noodles") return <RamenBowlLineArt className={className} />;
-  if (kind === "pizza") return <PizzaSliceLineArt className={className} />;
-  if (kind === "salad") return <SaladBowlLineArt className={className} />;
-  if (kind === "seafood") return <SeafoodLineArt className={className} />;
-  if (kind === "shawarma") return <ShawarmaWrapLineArt className={className} />;
-  if (kind === "swallow") return <SwallowSoupLineArt className={className} />;
-  if (kind === "suya") return <SuyaSkewerLineArt className={className} />;
-  if (kind === "sushi") return <SushiRollLineArt className={className} />;
-  if (kind === "taco") return <TacoLineArt className={className} />;
-  if (kind === "drinks") return <DrinksCupLineArt className={className} />;
-
-  return <BurgerLineArt className={className} />;
-}
 
 function QrCodeMark() {
   return (
@@ -178,25 +73,16 @@ function RestaurantMembershipCard({
   accent: string;
   highlighted: boolean;
 }) {
+  const detailsId = useId();
   const [flipped, setFlipped] = useState(false);
   const [hovered, setHovered] = useState(false);
   const isOpen = flipped || hovered || highlighted;
 
   const toggle = () => setFlipped((value) => !value);
-  const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      toggle();
-    }
-  };
 
   return (
     <motion.article
       data-passport-postcard
-      role="button"
-      tabIndex={0}
-      onClick={toggle}
-      onKeyDown={handleKeyDown}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
@@ -211,15 +97,31 @@ function RestaurantMembershipCard({
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-[url('/images/footer-grain.svg')] opacity-10"
         />
+        <MagneticFillButton
+          ariaLabel={`Details for ${restaurant.name}`}
+          aria-expanded={isOpen}
+          aria-controls={detailsId}
+          onClick={toggle}
+          variant="light"
+          customFillClass="bg-ink"
+          customHoverTextColor="#fffaf5"
+          className="absolute! right-3 top-3 z-30 size-11 rounded-full border! border-ink/15 bg-paper! text-ink!"
+        >
+          <Plus aria-hidden="true" className={`size-4 transition-transform motion-reduce:transition-none ${isOpen ? "rotate-45" : ""}`} />
+        </MagneticFillButton>
         <motion.div
           initial={false}
-          animate={{ opacity: isOpen ? 0.08 : 0.5 }}
+          animate={{ opacity: isOpen ? 0.08 : 1 }}
           transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          className="pointer-events-none absolute -right-[6.9rem] top-6 h-[10.4rem] w-[14.2rem] text-ink sm:-right-[4.8rem] sm:top-2 sm:h-[12.4rem] sm:w-[15.5rem] lg:-right-[3.75rem]"
+          className="pointer-events-none absolute -right-12 top-8 size-44 overflow-hidden rounded-full border-4 border-paper sm:-right-10 sm:top-5 sm:size-48"
         >
-          <RestaurantFoodLineArt
-            restaurant={restaurant}
-            className="h-full w-full"
+          <Image
+            src={restaurant.image}
+            alt={restaurant.imageAlt ?? restaurant.cuisine}
+            fill
+            loading="lazy"
+            sizes="192px"
+            className="object-cover"
           />
         </motion.div>
         <motion.div
@@ -230,6 +132,7 @@ function RestaurantMembershipCard({
               : { x: "0%", opacity: 1 }
           }
           transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
+          inert={isOpen}
           className="absolute inset-0 z-10 px-5 py-5 will-change-transform sm:px-6 sm:py-6 lg:px-7"
         >
           <div className="relative z-10 flex h-full max-w-[68%] flex-col justify-center sm:max-w-[60%]">
@@ -242,15 +145,17 @@ function RestaurantMembershipCard({
             <p className="mt-2 line-clamp-1 text-[0.78rem] font-semibold text-cocoa sm:text-[0.82rem]">
               {restaurant.cuisine}
             </p>
-            <LinkArrow
+            <MagneticFillButton
               href="/restaurants"
               variant="light"
               ariaLabel={`View ${restaurant.name}`}
               onClick={(event) => event.stopPropagation()}
-              className="mt-4 [--link-arrow-min-width:7.2rem] border-ink/18 pb-1 text-[0.62rem] font-semibold text-ink sm:mt-5"
+              customFillClass="bg-ink"
+              customHoverTextColor="#fffaf5"
+              className="mt-4 min-h-11 w-max rounded-pill border! border-ink/18 bg-paper! px-5 text-sm font-semibold text-ink! sm:mt-5"
             >
               View
-            </LinkArrow>
+            </MagneticFillButton>
           </div>
         </motion.div>
 
@@ -262,6 +167,8 @@ function RestaurantMembershipCard({
               : { x: "42%", opacity: 0 }
           }
           transition={{ duration: 0.56, ease: [0.22, 1, 0.36, 1] }}
+          id={detailsId}
+          inert={!isOpen}
           className="absolute inset-0 z-20 bg-cream-200 px-6 py-5 will-change-transform"
           style={{ pointerEvents: isOpen ? "auto" : "none" }}
         >
@@ -302,15 +209,17 @@ function RestaurantMembershipCard({
             <p className="line-clamp-1 text-[0.68rem] font-semibold text-ink">
               {restaurant.avgOrder} avg order
             </p>
-            <LinkArrow
+            <MagneticFillButton
               href="/restaurants"
               onClick={(event) => event.stopPropagation()}
               variant="light"
               ariaLabel={`Open ${restaurant.name}`}
-              className="[--link-arrow-min-width:6.8rem] border-ink/18 pb-1 text-[0.62rem] font-semibold text-ink"
+              customFillClass="bg-ink"
+              customHoverTextColor="#fffaf5"
+              className="min-h-11 rounded-pill border! border-ink/18 bg-paper! px-5 text-sm font-semibold text-ink!"
             >
               Open
-            </LinkArrow>
+            </MagneticFillButton>
           </div>
         </motion.div>
       </div>
@@ -623,7 +532,7 @@ export default function QuickBitePassportHub() {
       ref={sectionRef}
       id="restaurants"
       data-nav-theme="dark"
-      className="relative overflow-hidden bg-ink pb-[7rem] pt-10 text-paper sm:pb-[9rem] sm:pt-14 lg:pb-[14rem] lg:pt-32"
+      className="relative overflow-hidden bg-[#1c120f] pb-[7rem] pt-10 text-paper sm:pb-[9rem] sm:pt-14 lg:pb-[14rem] lg:pt-32"
       style={
         {
           "--passport-accent": activeCity.accent,
@@ -658,7 +567,7 @@ export default function QuickBitePassportHub() {
             variant="brand"
             customFillClass="bg-paper"
             customHoverTextColor="#2a211d"
-            className="h-12 w-max shrink-0 self-end rounded-pill !bg-[var(--passport-accent)] px-7 text-sm font-semibold !text-white sm:h-14 sm:px-9 lg:self-auto"
+            className="h-14 w-max shrink-0 self-end rounded-pill !bg-[var(--passport-accent)] px-8 text-lg font-semibold !text-white sm:h-16 sm:px-10 sm:text-xl lg:self-auto"
           >
             Explore kitchens →
           </MagneticFillButton>
