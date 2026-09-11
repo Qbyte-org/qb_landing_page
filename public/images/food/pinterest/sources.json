@@ -11,9 +11,21 @@
     "maxWidth": 1200,
     "maxHeight": 1400,
     "fit": "inside",
-    "withoutEnlargement": true
+    "withoutEnlargement": true,
+    "responsive": "responsive/<basename>-<width>.webp, requested widths 320/640/960/1200, quality 78. Dimensions stop at the source size; files are served directly without the Next.js runtime optimizer."
   },
   "photos": [
+    {
+      "file": "glazed-chicken.webp",
+      "pinId": "1012184085026267449",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267449/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/fc/6c/cf/fc6ccf6314f207173840e9e368cc20b0.jpg",
+      "sourceWidth": 1080,
+      "sourceHeight": 1349,
+      "crop": { "left": 55, "top": 435, "width": 520, "height": 560 },
+      "derivedFrom": "jollof-chicken-plantain.webp",
+      "alt": "Close-up of pepper-glazed chicken on a black plate"
+    },
     {
       "file": "amala-ewedu-stew.webp",
       "pinId": "1012184085026267462",

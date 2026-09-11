@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "../../ui/FoodImage";
 
 export default function CategoriesDecor() {
   return (

@@ -1,23 +1,25 @@
-import { ArrowUpRight, MessageCircle, Plus } from "lucide-react";
-import Container from "../ui/Container";
+"use client";
+
+import { MessageCircle, Plus } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import MagneticFillButton from "../ui/MagneticFillButton";
+import LinkArrow from "../ui/LinkArrow";
+import SectionTag from "../ui/SectionTag";
 import { faqs } from "@/content/site";
 
 export default function FAQ() {
+  const reducedMotion = useReducedMotion();
   return (
     <section
       id="faq"
       data-nav-theme="neutral"
       aria-labelledby="faq-title"
-      className="scroll-mt-24 bg-[#fffaf5] py-16 text-[#2a211d] sm:py-24 lg:py-28"
+      className="scroll-mt-24 bg-paper text-ink"
     >
-      <Container>
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.35fr)] lg:gap-16 xl:gap-24">
-          <div>
-            <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#6d5c52]">
-              <span aria-hidden="true" className="h-px w-8 bg-[#f06400]" />
-              FAQ
-            </p>
+        <div className="grid lg:grid-cols-2">
+          <div data-faq-surface="cream" className="bg-cream-200 px-6 py-14 sm:px-10 sm:py-16 lg:px-[5vw] lg:py-20">
+          <motion.div initial={false} whileInView={reducedMotion === false ? { opacity: [0.7, 1], y: [14, 0] } : undefined} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }} className="mx-auto max-w-[46rem]">
+            <SectionTag>FAQ</SectionTag>
             <h2
               id="faq-title"
               className="section-heading mt-5 max-w-lg leading-[1.08]!"
@@ -36,24 +38,20 @@ export default function FAQ() {
               </span>
               <div>
                 <p className="text-sm text-[#6d5c52]">Still have something on your mind?</p>
-                <MagneticFillButton
+                <LinkArrow
                   href="mailto:support@quickbite.ng"
-                  variant="white"
-                  customFillClass="bg-brand"
-                  customHoverTextColor="#ffffff"
-                  className="group mt-3 min-h-11 rounded-pill border! border-ink/15! bg-paper! px-4 py-2 text-base font-semibold text-ink!"
+                  variant="light"
+                  className="mt-3 min-h-11 text-base! normal-case! [--link-arrow-spacing:0em]"
                 >
                   Talk to our team
-                  <ArrowUpRight
-                    aria-hidden="true"
-                    className="size-4 text-[#f06400] transition-transform duration-200 motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5 motion-reduce:transition-none"
-                  />
-                </MagneticFillButton>
+                </LinkArrow>
               </div>
             </div>
+          </motion.div>
           </div>
 
-          <div className="min-w-0 border-t border-[#2a211d]/20">
+          <div data-faq-surface="paper" className="min-w-0 bg-paper px-6 py-14 sm:px-10 sm:py-16 lg:px-[5vw] lg:py-20">
+          <motion.div initial={false} whileInView={reducedMotion === false ? { opacity: [0.7, 1], y: [14, 0] } : undefined} viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.5, delay: 0.08 }} className="mx-auto max-w-[46rem] border-t border-ink/20">
             {faqs.map((faq, i) => (
               <details
                 key={faq.question}
@@ -83,16 +81,20 @@ export default function FAQ() {
                     <Plus className="size-4 transition-transform duration-200 group-open:rotate-45 motion-reduce:transition-none sm:size-5" strokeWidth={1.7} />
                   </span>
                 </MagneticFillButton>
-                <div className="pb-7 pl-10 pr-4 sm:pl-16 sm:pr-20">
-                  <p className="max-w-xl text-sm leading-7 text-[#6d5c52] sm:text-base">
-                    {faq.answer}
-                  </p>
+                <div
+                  className="grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-300 ease-out group-open:grid-rows-[1fr] group-open:opacity-100 motion-reduce:transition-none"
+                >
+                  <div className="min-h-0 overflow-hidden pb-7 pl-10 pr-4 sm:pl-16 sm:pr-20">
+                    <p className="max-w-xl text-sm leading-7 text-[#6d5c52] sm:text-base">
+                      {faq.answer}
+                    </p>
+                  </div>
                 </div>
               </details>
             ))}
+          </motion.div>
           </div>
         </div>
-      </Container>
     </section>
   );
 }

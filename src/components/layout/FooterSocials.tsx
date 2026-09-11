@@ -1,4 +1,4 @@
-import MagneticFillButton from "../ui/MagneticFillButton";
+import LinkArrow from "../ui/LinkArrow";
 
 // Set these to the official profiles when they are available. An unset profile
 // stays visibly unavailable instead of sending visitors to a placeholder URL.
@@ -52,17 +52,15 @@ export default function FooterSocials() {
       {socialLinks.map(({ label, href, icon }) => (
         <li key={label}>
           {href ? (
-            <MagneticFillButton
+            <LinkArrow
               href={href}
-              external
+              appearance="plain"
+              target="_blank"
               ariaLabel={`QuickBite on ${label} (opens in a new tab)`}
-              variant="dark"
-              customFillClass="bg-brand"
-              customHoverTextColor="#ffffff"
-              className="size-10 rounded-full border! border-paper/20! bg-transparent! text-paper! motion-safe:hover:-translate-y-0.5"
+              className="size-10 justify-center rounded-full border border-paper/20 text-paper hover:bg-paper/10 motion-safe:hover:-translate-y-0.5"
             >
               <SocialIcon name={icon} />
-            </MagneticFillButton>
+            </LinkArrow>
           ) : (
             <span
               role="img"

@@ -1,11 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import FoodImage from "./FoodImage";
 import {
   useCallback,
   useRef,
-  type MouseEventHandler,
+  type AnchorHTMLAttributes,
+  type FocusEvent,
+  type MouseEvent,
   type ReactNode,
   type RefObject,
 } from "react";
@@ -13,20 +15,26 @@ import { gsap, useGSAP } from "@/lib/gsap";
 
 export type LinkArrowVariant = "light" | "dark" | "accent";
 
-export interface LinkArrowProps {
+type LinkArrowRoot = HTMLAnchorElement | HTMLSpanElement;
+
+export interface LinkArrowProps extends Omit<AnchorHTMLAttributes<LinkArrowRoot>, "children" | "href"> {
   href?: string;
   children: ReactNode;
+  appearance?: "arrow" | "plain";
   variant?: LinkArrowVariant;
   className?: string;
   textClassName?: string;
   ariaLabel?: string;
-  onClick?: MouseEventHandler<HTMLAnchorElement | HTMLSpanElement>;
   dataNavText?: boolean;
+  dataNavChip?: boolean;
+  dataNavAction?: boolean;
   imageSrc?: string;
+  imageAlt?: string;
   imageClassName?: string;
+  prefetch?: boolean | null;
+  replace?: boolean;
+  scroll?: boolean;
 }
-
-type LinkArrowRoot = HTMLAnchorElement | HTMLSpanElement;
 
 const variantClasses: Record<LinkArrowVariant, string> = {
   light: "border-navy/20 text-navy",
@@ -35,7 +43,7 @@ const variantClasses: Record<LinkArrowVariant, string> = {
 };
 
 function isExternalHref(href: string) {
-  return /^https?:\/\//.test(href);
+  return /^(?:https?:)?\/\//i.test(href);
 }
 
 function getRightEdgeShift(text: HTMLElement) {
@@ -48,7 +56,8 @@ function getRightEdgeShift(text: HTMLElement) {
   const currentLetterSpacing = text.style.letterSpacing;
   text.style.letterSpacing = baseSpacing;
 
-  const rootWidth = root.offsetWidth;
+  const rootStyles = getComputedStyle(root);
+  const rootWidth = root.clientWidth - (Number.parseFloat(rootStyles.paddingLeft) || 0) - (Number.parseFloat(rootStyles.paddingRight) || 0);
   const textWidth = text.offsetWidth;
   const mediaWidth =
     root.querySelector<HTMLElement>("[data-link-arrow-media='trailing']")
@@ -76,14 +85,27 @@ function getLinkSpacing(root: HTMLElement | null) {
 export default function LinkArrow({
   href,
   children,
+  appearance = "arrow",
   variant = "light",
   className = "",
   textClassName = "",
   ariaLabel,
-  onClick,
+  onMouseEnter,
+  onMouseLeave,
+  onFocus,
+  onBlur,
+  target,
+  rel,
+  prefetch,
+  replace,
+  scroll,
   dataNavText = false,
+  dataNavChip = false,
+  dataNavAction = false,
   imageSrc,
+  imageAlt = "",
   imageClassName = "",
+  ...rest
 }: LinkArrowProps) {
   const rootRef = useRef<LinkArrowRoot>(null);
   const textRef = useRef<HTMLSpanElement>(null);
@@ -91,14 +113,20 @@ export default function LinkArrow({
   const arrowLeftRef = useRef<HTMLSpanElement>(null);
   const activeTimelineRef = useRef<gsap.core.Timeline | null>(null);
   const labelText = typeof children === "string" ? children : null;
-  const resolvedAriaLabel = ariaLabel ?? labelText ?? undefined;
+  const resolvedAriaLabel = ariaLabel ?? rest["aria-label"] ?? labelText ?? undefined;
 
   const stopActiveTimeline = useCallback(() => {
     activeTimelineRef.current?.kill();
     activeTimelineRef.current = null;
   }, []);
 
-  useGSAP(() => stopActiveTimeline, { scope: rootRef });
+  const { contextSafe } = useGSAP(() => {
+    const root = rootRef.current;
+    return () => {
+      stopActiveTimeline();
+      if (root) gsap.killTweensOf(root.querySelectorAll("[data-link-char], [data-link-arrow-text], [data-link-arrow-media]"));
+    };
+  }, { scope: rootRef });
 
   const handleMouseEnter = useCallback(() => {
     const text = textRef.current;
@@ -106,7 +134,7 @@ export default function LinkArrow({
     const arrowLeft = arrowLeftRef.current;
     const root = rootRef.current;
 
-    if (!text || !arrowRight || !arrowLeft) return;
+    if (!text || !arrowRight || !arrowLeft || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const spacing = getLinkSpacing(root);
     const chars = gsap.utils.toArray<HTMLElement>(
@@ -203,7 +231,7 @@ export default function LinkArrow({
     const arrowLeft = arrowLeftRef.current;
     const root = rootRef.current;
 
-    if (!text || !arrowRight || !arrowLeft) return;
+    if (!text || !arrowRight || !arrowLeft || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const spacing = getLinkSpacing(root);
     const chars = gsap.utils.toArray<HTMLElement>(
@@ -283,9 +311,15 @@ export default function LinkArrow({
     );
   }, [stopActiveTimeline]);
 
-  const classNames = `relative inline-flex min-w-[var(--link-arrow-min-width,190px)] cursor-pointer items-center gap-6 overflow-hidden border-b pb-[6px] text-[11px] font-semibold uppercase no-underline transition-colors duration-200 ${variantClasses[variant]} ${className}`;
+  const classNames = [
+    "relative cursor-pointer no-underline transition-colors duration-200 motion-reduce:transition-none! focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
+    appearance === "arrow"
+      ? `inline-flex min-w-[var(--link-arrow-min-width,190px)] items-center gap-6 overflow-hidden border-b pb-[6px] text-[11px] font-semibold uppercase ${variantClasses[variant]}`
+      : "inline-flex items-center",
+    className,
+  ].join(" ");
 
-  const content = (
+  const content = appearance === "plain" ? children : (
     <>
       <span
         ref={arrowLeftRef}
@@ -295,9 +329,9 @@ export default function LinkArrow({
         aria-hidden="true"
       >
         {imageSrc ? (
-          <Image
+          <FoodImage
             src={imageSrc}
-            alt=""
+            alt={imageAlt}
             width={48}
             height={48}
             sizes="48px"
@@ -313,6 +347,7 @@ export default function LinkArrow({
       </span>
       <span
         ref={textRef}
+        data-link-arrow-text
         className={`min-w-0 shrink-0 whitespace-nowrap ${textClassName}`}
         style={{ letterSpacing: "var(--link-arrow-spacing, 0.18em)" }}
         aria-hidden={labelText ? "true" : undefined}
@@ -321,7 +356,7 @@ export default function LinkArrow({
           ? labelText.split("").map((char, index) => (
               <span
                 data-link-char
-                className="inline-block will-change-transform"
+                className="inline-block"
                 key={`${char}-${index}`}
               >
                 {char === " " ? "\u00a0" : char}
@@ -336,9 +371,9 @@ export default function LinkArrow({
         aria-hidden="true"
       >
         {imageSrc ? (
-          <Image
+          <FoodImage
             src={imageSrc}
-            alt=""
+            alt={imageAlt}
             width={48}
             height={48}
             sizes="48px"
@@ -355,37 +390,55 @@ export default function LinkArrow({
     </>
   );
 
+  const sharedProps = {
+    ...rest,
+    className: classNames,
+    "aria-label": resolvedAriaLabel,
+    "data-link-arrow-root": "",
+    "data-link-arrow-appearance": appearance,
+    ...(dataNavText ? { "data-nav-text": "" } : {}),
+    ...(dataNavChip ? { "data-nav-chip": "" } : {}),
+    ...(dataNavAction ? { "data-nav-action": "" } : {}),
+    onMouseEnter: (event: MouseEvent<LinkArrowRoot>) => {
+      contextSafe(handleMouseEnter)();
+      onMouseEnter?.(event);
+    },
+    onMouseLeave: (event: MouseEvent<LinkArrowRoot>) => {
+      if (!event.currentTarget.matches(":focus-visible")) contextSafe(handleMouseLeave)();
+      onMouseLeave?.(event);
+    },
+    onFocus: (event: FocusEvent<LinkArrowRoot>) => {
+      contextSafe(handleMouseEnter)();
+      onFocus?.(event);
+    },
+    onBlur: (event: FocusEvent<LinkArrowRoot>) => {
+      if (!event.currentTarget.matches(":hover")) contextSafe(handleMouseLeave)();
+      onBlur?.(event);
+    },
+  };
+
   if (!href) {
     return (
       <span
+        {...sharedProps}
         ref={rootRef as RefObject<HTMLSpanElement>}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onClick={onClick as MouseEventHandler<HTMLSpanElement>}
-        className={classNames}
-        aria-label={resolvedAriaLabel}
-        data-link-arrow-root
-        data-nav-text={dataNavText ? "" : undefined}
       >
         {content}
       </span>
     );
   }
 
-  if (isExternalHref(href) || href.startsWith("#")) {
+  const resolvedTarget = target ?? (isExternalHref(href) ? "_blank" : undefined);
+  const resolvedRel = rel ?? (resolvedTarget === "_blank" ? "noopener noreferrer" : undefined);
+
+  if (/^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(href) || rest.download !== undefined) {
     return (
       <a
+        {...sharedProps}
         ref={rootRef as RefObject<HTMLAnchorElement>}
         href={href}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onClick={onClick as MouseEventHandler<HTMLAnchorElement>}
-        className={classNames}
-        aria-label={resolvedAriaLabel}
-        data-link-arrow-root
-        data-nav-text={dataNavText ? "" : undefined}
-        target={isExternalHref(href) ? "_blank" : undefined}
-        rel={isExternalHref(href) ? "noreferrer" : undefined}
+        target={resolvedTarget}
+        rel={resolvedRel}
       >
         {content}
       </a>
@@ -394,15 +447,14 @@ export default function LinkArrow({
 
   return (
     <Link
+      {...sharedProps}
       ref={rootRef as RefObject<HTMLAnchorElement>}
       href={href}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={onClick as MouseEventHandler<HTMLAnchorElement>}
-      className={classNames}
-      aria-label={resolvedAriaLabel}
-      data-link-arrow-root
-      data-nav-text={dataNavText ? "" : undefined}
+      prefetch={prefetch}
+      replace={replace}
+      scroll={scroll}
+      target={resolvedTarget}
+      rel={resolvedRel}
     >
       {content}
     </Link>

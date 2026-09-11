@@ -1,4 +1,4 @@
-import Link from "next/link";
+import LinkArrow from "../ui/LinkArrow";
 import { legalDocs, legalSlugs, type LegalSlug } from "@/content/legal";
 
 export default function LegalSidebar({ current }: { current: LegalSlug }) {
@@ -17,10 +17,11 @@ export default function LegalSidebar({ current }: { current: LegalSlug }) {
             const active = slug === current;
             return (
               <li key={slug}>
-                <Link
+                <LinkArrow
                   href={`/legal/${slug}`}
+                  appearance="plain"
                   aria-current={active ? "page" : undefined}
-                  className={`flex items-center gap-3 rounded-pill px-3 py-2.5 text-sm font-semibold transition-colors ${
+                  className={`flex! items-center gap-3 rounded-pill px-3 py-2.5 text-sm font-semibold transition-colors ${
                     active
                       ? "bg-brand-50 text-brand-dark"
                       : "text-navy/70 hover:bg-cream hover:text-navy"
@@ -35,7 +36,7 @@ export default function LegalSidebar({ current }: { current: LegalSlug }) {
                     <doc.icon className="h-4 w-4" strokeWidth={1.75} />
                   </span>
                   {doc.short}
-                </Link>
+                </LinkArrow>
               </li>
             );
           })}
@@ -47,12 +48,13 @@ export default function LegalSidebar({ current }: { current: LegalSlug }) {
         <p className="mt-1 text-sm text-white/70">
           Our team is happy to help clarify anything.
         </p>
-        <a
+        <LinkArrow
           href="mailto:support@quickbite.ng"
-          className="mt-3 inline-flex text-sm font-semibold text-brand-light hover:underline"
+          variant="dark"
+          className="mt-3 w-full min-w-0! text-sm! font-semibold normal-case! text-brand-light! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em]"
         >
-          Contact support →
-        </a>
+          Contact support
+        </LinkArrow>
       </div>
     </aside>
   );

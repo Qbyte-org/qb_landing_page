@@ -7,9 +7,11 @@ import Image from "next/image";
 import { useNavbarTheme } from "@/hooks/use-navbar-theme";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import MagneticFillButton from "../ui/MagneticFillButton";
+import LinkArrow from "../ui/LinkArrow";
 
 const navPill = "bg-[var(--nav-surface)] text-[var(--nav-foreground)]";
-const navAction = "[--magnetic-bg:var(--nav-action)] [--magnetic-text:var(--nav-action-text)] [--magnetic-fill:var(--nav-action-fill)] [--magnetic-hover-text:var(--nav-action-hover-text)]";
+const navAction = "bg-[var(--nav-action)] text-[var(--nav-action-text)]";
+const navChip = "bg-[var(--nav-chip)] text-[var(--nav-chip-text)]";
 
 const menuLinks = [
   { label: "Home", href: "/", asset: "/menu/delivery-bag.svg" },
@@ -30,14 +32,14 @@ const navThemeDefaults = {
   "--nav-icon": "#c24f00",
   "--nav-chip": "#fff0e4",
   "--nav-chip-text": "#2a211d",
-  "--nav-action": "#fff0e4",
-  "--nav-action-text": "#2a211d",
-  "--nav-action-fill": "#ff6b00",
-  "--nav-action-hover-text": "#ffffff",
+  "--nav-action": "#1c120f",
+  "--nav-action-text": "#ffffff",
+  "--nav-action-fill": "#fff0e4",
+  "--nav-action-hover-text": "#2a211d",
   "--magnetic-bg": "#fff0e4",
   "--magnetic-text": "#2a211d",
-  "--magnetic-fill": "#ff6b00",
-  "--magnetic-hover-text": "#ffffff",
+  "--magnetic-fill": "#fff0e4",
+  "--magnetic-hover-text": "#2a211d",
 } as CSSProperties;
 
 function MenuGlyph({ open }: { open: boolean }) {
@@ -250,14 +252,11 @@ export default function Header() {
             data-intro-nav-content
             className="grid h-full w-full place-items-center"
           >
-            <MagneticFillButton
+            <LinkArrow
               href="/"
+              appearance="plain"
               aria-label="QuickBite home"
-              variant="ghost"
-              customFillClass="bg-[var(--nav-chip)]"
-              customHoverTextColor="var(--nav-chip-text)"
-              className="h-full w-full rounded-pill bg-transparent! text-[var(--nav-foreground)]!"
-              contentClassName="flex h-full w-full items-center justify-center gap-2.5 sm:gap-3"
+              className="h-full w-full justify-center gap-2.5 rounded-pill text-[var(--nav-foreground)] sm:gap-3"
             >
               <Image
                 src="/quickbite-mark.svg"
@@ -271,7 +270,7 @@ export default function Header() {
                 <span data-nav-text>Quick</span>
                 <span data-nav-icon>Bite</span>
               </span>
-            </MagneticFillButton>
+            </LinkArrow>
           </div>
         </div>
 
@@ -298,15 +297,12 @@ export default function Header() {
               data-intro-nav-content
               className="flex h-[var(--nav-closed-height)] w-full shrink-0 items-center gap-2 px-2 sm:gap-3 sm:px-3.5 xl:px-4"
             >
-              <MagneticFillButton
+              <LinkArrow
                 href="/"
+                appearance="plain"
                 onClick={closePanels}
                 aria-label="QuickBite home"
-                variant="ghost"
-                customFillClass="bg-[var(--nav-chip)]"
-                customHoverTextColor="var(--nav-chip-text)"
-                className="min-w-0 flex-1 rounded-pill bg-transparent! pl-1 text-[var(--nav-foreground)]! sm:hidden!"
-                contentClassName="flex w-full min-w-0 items-center gap-2"
+                className="min-w-0 flex-1 gap-2 rounded-pill pl-1 text-[var(--nav-foreground)] sm:hidden!"
               >
                 <Image
                   src="/quickbite-mark.svg"
@@ -319,32 +315,30 @@ export default function Header() {
                   <span data-nav-text>Quick</span>
                   <span data-nav-icon>Bite</span>
                 </span>
-              </MagneticFillButton>
+              </LinkArrow>
 
               <span className="hidden sm:block">
-                <MagneticFillButton
+                <LinkArrow
                   href="/restaurants"
-                  variant="ghost"
-                  themeAware
+                  appearance="plain"
                   dataNavChip
-                  className="h-9 rounded-pill px-4 text-xs font-semibold sm:h-10 sm:px-5 xl:h-12 xl:px-6 xl:text-base"
+                  className={`${navChip} h-9 justify-center gap-2 rounded-pill px-4 text-xs font-semibold sm:h-10 sm:px-5 xl:h-12 xl:px-6 xl:text-base`}
                 >
                   Find food
                   <MapPin data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.3} aria-hidden="true" />
-                </MagneticFillButton>
+                </LinkArrow>
               </span>
 
               <span className="hidden sm:block">
-                <MagneticFillButton
+                <LinkArrow
                   href="/restaurants"
-                  variant="brand"
-                  themeAware
+                  appearance="plain"
                   dataNavAction
-                  className={`${navAction} h-9 rounded-pill px-3 text-xs font-semibold sm:h-10 sm:px-5 xl:h-12 xl:text-base`}
+                  className={`${navAction} h-9 justify-center gap-2 rounded-pill px-3 text-xs font-semibold sm:h-10 sm:px-5 xl:h-12 xl:text-base`}
                 >
                   Order now
-                  <ListOrderedIcon data-nav-icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.35} aria-hidden="true" />
-                </MagneticFillButton>
+                  <ListOrderedIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.35} aria-hidden="true" />
+                </LinkArrow>
               </span>
 
               {/* <motion.button
@@ -365,8 +359,7 @@ export default function Header() {
                 aria-controls="site-menu"
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 themeAware
-                dataNavChip
-                className="ml-auto h-9 min-w-[5.15rem] rounded-[0.95rem] px-1.5 text-xs font-semibold uppercase tracking-[0.08em] motion-safe:hover:scale-[1.04] motion-safe:active:scale-[0.96] sm:h-10 sm:min-w-[6.7rem] sm:px-2.5 xl:h-12 xl:min-w-[7.4rem]"
+                className="ml-auto h-9 min-w-[5.15rem] rounded-[0.95rem] bg-transparent! px-1.5 text-xs font-semibold uppercase tracking-[0.08em] [--magnetic-text:var(--nav-foreground)] motion-safe:hover:scale-[1.04] motion-safe:active:scale-[0.96] sm:h-10 sm:min-w-[6.7rem] sm:px-2.5 xl:h-12 xl:min-w-[7.4rem]"
               >
                 <span className="hidden leading-none text-base sm:inline">
                   {menuOpen ? "Close" : ""}
@@ -400,62 +393,54 @@ export default function Header() {
                   <ul className="hidden w-full gap-3 sm:grid sm:gap-4">
                     {menuLinks.map((link) => (
                       <li key={`${link.href}-${link.label}`} className="w-full">
-                        <MagneticFillButton
+                        <LinkArrow
                           href={link.href}
                           onClick={closePanels}
-                          variant="ghost"
-                          customFillClass="bg-[var(--nav-chip)]"
-                          customHoverTextColor="var(--nav-chip-text)"
-                          className="w-full rounded-xl bg-transparent! px-2 py-1.5 text-left font-display text-2xl font-semibold normal-case leading-none tracking-normal text-[var(--nav-foreground)]! sm:text-[2.05rem]"
-                          contentClassName="flex w-full items-center justify-between gap-3"
+                          imageSrc={link.asset}
+                          imageAlt={link.imageAlt ?? ""}
+                          imageClassName={link.imageAlt ? "rounded-full object-cover!" : undefined}
+                          className="w-full min-w-0! border-current/20 py-1.5 text-left font-display text-2xl! font-semibold normal-case! leading-none text-[var(--nav-foreground)]! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em] [--link-arrow-image-size:2.25rem] sm:text-[2.05rem]!"
                         >
-                          <span>{link.label}</span>
-                          <Image src={link.asset} alt={link.imageAlt ?? ""} width={38} height={38} className={`size-8 shrink-0 sm:size-9 ${link.imageAlt ? "rounded-full object-cover" : "object-contain"}`} />
-                        </MagneticFillButton>
+                          {link.label}
+                        </LinkArrow>
                       </li>
                     ))}
                   </ul>
 
                   <div className="mb-6 grid grid-cols-2 gap-2 sm:hidden">
-                    <MagneticFillButton
+                    <LinkArrow
                       href="/restaurants"
                       onClick={closePanels}
-                      variant="ghost"
-                      themeAware
+                      appearance="plain"
                       dataNavChip
-                      className="h-11 rounded-pill px-4 text-xs font-semibold"
+                      className={`${navChip} h-11 justify-center gap-2 rounded-pill px-4 text-xs font-semibold`}
                     >
                       Find food
                       <MapPin data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.3} aria-hidden="true" />
-                    </MagneticFillButton>
-                    <MagneticFillButton
+                    </LinkArrow>
+                    <LinkArrow
                       href="/restaurants"
                       onClick={closePanels}
-                      variant="brand"
-                      themeAware
+                      appearance="plain"
                       dataNavAction
-                      className={`${navAction} h-11 rounded-pill px-4 text-xs font-semibold`}
+                      className={`${navAction} h-11 justify-center gap-2 rounded-pill px-4 text-xs font-semibold`}
                     >
                       Order now
-                      <ListOrderedIcon data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.35} aria-hidden="true" />
-                    </MagneticFillButton>
+                      <ListOrderedIcon className="h-3.5 w-3.5" strokeWidth={2.35} aria-hidden="true" />
+                    </LinkArrow>
                   </div>
 
                   {/* Mobile Links */}
                   <ul className="flex w-full flex-col gap-5 pt-2 sm:hidden">
                     {menuLinks.map((link) => (
                       <li key={`${link.href}-${link.label}-mobile`} className="w-full">
-                        <MagneticFillButton
+                        <LinkArrow
                           href={link.href}
                           onClick={closePanels}
-                          variant="ghost"
-                          customFillClass="bg-[var(--nav-chip)]"
-                          customHoverTextColor="var(--nav-chip-text)"
-                          className="w-full rounded-xl bg-transparent! px-2 py-1 text-left font-display text-[1.55rem] font-semibold leading-none tracking-[-0.055em] text-[var(--nav-foreground)]!"
-                          contentClassName="block w-full"
+                          className="w-full min-w-0! border-current/20 py-1 text-left font-display text-[1.55rem]! font-semibold normal-case! leading-none text-[var(--nav-foreground)]! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em]"
                         >
                           {link.label}
-                        </MagneticFillButton>
+                        </LinkArrow>
                       </li>
                     ))}
                   </ul>
