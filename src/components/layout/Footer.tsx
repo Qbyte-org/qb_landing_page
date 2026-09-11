@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { MapPin } from "lucide-react";
 import FooterNewsletter from "./FooterNewsletter";
-import FooterSocials from "./FooterSocials";
+import MagneticFillButton from "../ui/MagneticFillButton";
 
 const navigation = [
   {
@@ -45,19 +45,19 @@ export default function Footer() {
   return (
     <footer
       data-nav-theme="dark"
-      className="relative overflow-hidden bg-ink text-paper"
+      className="relative overflow-hidden bg-[#1c120f] text-paper"
     >
       <div className="mx-auto grid w-[92%] max-w-[1840px] gap-10 pb-28 pt-10 sm:gap-12 sm:pt-12 lg:grid-cols-[minmax(0,3.2fr)_minmax(0,5.3fr)_minmax(0,1.6fr)] lg:gap-[4vw] lg:pb-12">
         <FooterNewsletter />
 
         <div className="flex min-w-0 flex-col">
-          <nav aria-label="Footer navigation" className="grid grid-cols-[1.2fr_1fr] gap-5 sm:gap-10 lg:gap-8 lg:pb-10 2xl:pb-14">
+          <nav aria-label="Footer navigation" className="flex flex-col gap-7 sm:gap-8 lg:pb-10 2xl:pb-14">
             {navigation.map((column) => (
               <div key={column.title} className="min-w-0">
                 <h2 className="text-sm font-medium uppercase text-peach/75 sm:text-base 2xl:text-xl">
                   {column.title}
                 </h2>
-                <ul className="mt-5 space-y-1 sm:mt-7">
+                <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-1 sm:gap-x-7">
                   {column.links.map((link) => (
                     <li key={link.label}>
                       <Link
@@ -75,25 +75,24 @@ export default function Footer() {
           </nav>
 
           <div className="mt-8 grid grid-cols-1 items-center gap-x-4 gap-y-5 border-t border-paper/15 pt-7 sm:grid-cols-[minmax(0,1fr)_auto] lg:mt-auto lg:pt-8">
-            <p className="order-4 text-base sm:order-1 sm:text-lg 2xl:text-2xl">
+            <p className="order-2 text-base sm:order-1 sm:text-lg 2xl:text-2xl">
               &copy; 2026 QuickBite
             </p>
 
-            <Link
+            <MagneticFillButton
               href="/#cities"
               prefetch={false}
-              className="order-1 inline-flex min-h-10 w-fit items-center gap-2 rounded-pill border border-paper/20 px-3 py-2 text-sm transition-colors duration-200 hover:border-paper/40 hover:bg-paper/10 sm:order-2 sm:justify-self-end 2xl:text-base"
+              variant="dark"
+              customFillClass="bg-brand"
+              customHoverTextColor="#ffffff"
+              className="order-1 min-h-10 w-fit rounded-pill border! border-paper/20! bg-transparent! px-3 py-2 text-sm text-paper! sm:order-2 sm:justify-self-end 2xl:text-base"
             >
               <MapPin className="size-4" aria-hidden="true" />
               All locations
-            </Link>
+            </MagneticFillButton>
 
-            <div className="order-2 sm:order-3">
-              <FooterSocials />
-            </div>
-
-            <nav aria-label="Legal" className="order-3 sm:order-4 sm:max-w-52 sm:justify-self-end">
-              <ul className="flex flex-wrap gap-x-5 gap-y-1 sm:justify-end">
+            <nav aria-label="Legal" className="order-3 sm:col-span-2">
+              <ul className="flex flex-wrap gap-x-5 gap-y-1">
                 {legalLinks.map((link) => (
                   <li key={link.label}>
                     <Link
