@@ -1,5 +1,5 @@
-import { motion } from "motion/react";
 import { MapPin } from "lucide-react";
+import MagneticFillButton from "../../ui/MagneticFillButton";
 import type { PassportCity } from "./passportHub.data";
 
 export default function CityStampSelector({
@@ -17,24 +17,25 @@ export default function CityStampSelector({
         const active = city.id === selectedCity.id;
 
         return (
-          <motion.button
+          <MagneticFillButton
             key={city.id}
             type="button"
             aria-pressed={active}
             onClick={() => onSelect(city.id)}
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            className={`inline-flex cursor-pointer items-center gap-2 rounded-full px-3 py-1.5 text-[0.8rem] font-semibold transition-colors sm:px-3.5 sm:py-2 sm:text-sm ${
+            variant="light"
+            customFillClass="bg-brand"
+            customHoverTextColor="#ffffff"
+            className={`min-h-11 rounded-full px-3 py-1.5 text-[0.8rem] font-semibold sm:px-3.5 sm:py-2 sm:text-sm ${
               active
-                ? "bg-ink text-paper"
-                : "bg-cream-200 text-cocoa hover:bg-peach"
+                ? "bg-ink! text-paper!"
+                : "bg-cream-200! text-cocoa!"
             }`}
           >
             {active ? (
               <MapPin className="h-3.5 w-3.5" strokeWidth={2.45} />
             ) : null}
             {city.name}
-          </motion.button>
+          </MagneticFillButton>
         );
       })}
     </div>
