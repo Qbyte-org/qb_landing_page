@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { ArrowRight, ArrowUpRight, Utensils } from "lucide-react";
 import { gsap, useGSAP } from "@/lib/gsap";
+import MagneticFillButton from "../ui/MagneticFillButton";
 
 interface QuickBiteBentoLoaderProps {
   onComplete: () => void;
@@ -168,14 +169,17 @@ export default function QuickBiteBentoLoader({
 
       <div className="flex shrink-0 items-center justify-between gap-4">
         <p role="status" className="text-xs text-cocoa sm:text-sm">Welcome to QuickBite.</p>
-        <button
+        <MagneticFillButton
           type="button"
+          variant="light"
+          customFillClass="bg-ink"
+          customHoverTextColor="#fffaf5"
           onClick={() => skipRef.current?.()}
-          className="group inline-flex min-h-11 items-center gap-2 rounded-full border border-ink/20 px-4 text-xs font-medium transition-colors hover:bg-paper focus-visible:outline-offset-4 sm:text-sm"
+          className="group min-h-11 rounded-full border! border-ink/20 bg-paper! px-4 text-xs font-medium text-ink! sm:text-sm"
         >
           Skip intro
           <ArrowRight aria-hidden="true" className="size-4 transition-transform duration-200 motion-safe:group-hover:translate-x-0.5" />
-        </button>
+        </MagneticFillButton>
       </div>
     </div>
   );

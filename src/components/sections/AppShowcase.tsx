@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { ArrowUpRight, Smartphone } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { appFeatures } from "@/content/site";
 import AppPreviewPanel from "./AppPreviewPanel";
+import MagneticFillButton from "../ui/MagneticFillButton";
 
 function AppStoreIcon() {
   return (
@@ -55,16 +55,11 @@ export default function AppShowcase() {
         transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         className="grid w-full lg:grid-cols-2"
       >
-        <div className="flex min-w-0 flex-col justify-center bg-cream-200 px-6 py-14 sm:px-10 sm:py-16 lg:px-[5vw] lg:py-20 2xl:py-24">
+        <div className="flex min-w-0 flex-col justify-center bg-cream-200 px-6 py-14 sm:px-10 sm:py-16 lg:px-[5vw]">
           <div className="mx-auto w-full max-w-[46rem]">
-            <p className="flex items-center gap-2.5 text-xs font-medium uppercase tracking-[0.14em] text-cocoa">
-              <Smartphone aria-hidden="true" className="size-4 text-brand-dark" />
-              QuickBite, in your pocket
-            </p>
-
             <h2
               id="app-showcase-title"
-              className="section-heading mt-6"
+              className="section-heading"
             >
               Your next bite.
               <span className="block text-brand-dark">Right here.</span>
@@ -77,17 +72,21 @@ export default function AppShowcase() {
 
             <div role="group" aria-label="Explore QuickBite app features" className="mt-8 grid grid-cols-2 gap-3 sm:mt-10">
               {appFeatures.map(({ title, icon: Icon }, index) => (
-                <button
+                <MagneticFillButton
                   key={title}
                   type="button"
+                  variant="light"
+                  customFillClass="bg-brand"
+                  customHoverTextColor="#ffffff"
+                  contentClassName="flex w-full items-center gap-2.5 sm:gap-3"
                   aria-pressed={activeFeature === index}
                   aria-controls="app-feature-preview"
                   onClick={() => setFeatureSelection({ index, hasSelectedFeature: true })}
-                  className={`flex min-h-20 items-center gap-2.5 rounded-card border p-3 text-left text-sm font-medium leading-snug transition-colors duration-200 focus-visible:outline-brand! sm:min-h-22 sm:gap-3 sm:p-4 sm:text-base ${activeFeature === index ? "border-ink bg-ink text-paper" : "border-ink/20 bg-paper text-ink hover:border-ink/40 hover:bg-peach"}`}
+                  className={`min-h-20 rounded-card border! p-3 text-left text-sm font-medium leading-snug sm:min-h-22 sm:p-4 sm:text-base ${activeFeature === index ? "border-ink bg-ink! text-paper!" : "border-ink/20 bg-paper! text-ink!"}`}
                 >
                   <Icon aria-hidden="true" className={`size-4 shrink-0 sm:size-5 ${activeFeature === index ? "text-paper" : "text-brand-dark"}`} strokeWidth={1.75} />
                   {featureLabels[index] ?? title}
-                </button>
+                </MagneticFillButton>
               ))}
             </div>
 
@@ -96,13 +95,16 @@ export default function AppShowcase() {
             </p>
 
             <div className="mt-8 border-t border-ink/15 pt-7 sm:mt-10 sm:pt-8">
-              <Link
+              <MagneticFillButton
                 href="/waitlist"
-                className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-pill bg-brand px-6 py-3 text-base font-semibold text-white transition-colors duration-200 hover:bg-brand-dark focus-visible:outline-brand!"
+                variant="brand"
+                customFillClass="bg-ink"
+                customHoverTextColor="#fffaf5"
+                className="group min-h-12 rounded-pill bg-brand! px-6 py-3 text-base font-semibold text-white!"
               >
                 Get launch updates
                 <ArrowUpRight aria-hidden="true" className="size-4 transition-transform duration-200 motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5" />
-              </Link>
+              </MagneticFillButton>
               <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-cocoa">
                 <span>Coming to</span>
                 <span className="inline-flex items-center gap-1.5"><AppStoreIcon /> iOS</span>
