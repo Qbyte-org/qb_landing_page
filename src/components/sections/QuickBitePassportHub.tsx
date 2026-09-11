@@ -659,149 +659,149 @@ export default function QuickBitePassportHub() {
                 variant="brand"
                 customFillClass="bg-paper"
                 customHoverTextColor="#2a211d"
-                className="h-12 w-max rounded-pill !bg-[var(--passport-accent)] px-7 text-sm font-semibold !text-ink sm:h-14 sm:px-9"
+                className="h-12 w-max rounded-pill !bg-[var(--passport-accent)] px-7 text-sm font-semibold !text-white sm:h-14 sm:px-9"
               >
                 Explore kitchens →
               </MagneticFillButton>
             </div>
           </div>
         </div>
+      </Container>
 
+      <div
+        ref={spreadRef}
+        className="relative z-20 mt-8 h-full w-full min-w-0 bg-ink [perspective:1400px] sm:rounded-[2.35rem]"
+      >
         <div
-          ref={spreadRef}
-          className="relative z-20 mt-8 sm:rounded-[2.35rem] bg-ink p-1.5 max-sm:-m-4 [perspective:1400px] h-full"
-        >
+          data-page-underlay
+          aria-hidden="true"
+          className="absolute inset-3 sm:rounded-[2rem] bg-ink"
+        />
+        <div className="relative grid w-full min-w-0 overflow-hidden bg-paper sm:rounded-[2rem] lg:grid-cols-2">
           <div
-            data-page-underlay
+            data-passport-spine
             aria-hidden="true"
-            className="absolute inset-3 sm:rounded-[2rem] bg-ink"
+            className="absolute bottom-0 left-1/2 top-0 z-30 hidden w-10 -translate-x-1/2 origin-center rounded-full bg-[linear-gradient(90deg,transparent,rgba(58,36,24,.18),rgba(255,255,255,.28),rgba(58,36,24,.12),transparent)] lg:block"
           />
-          <div className="relative grid overflow-hidden sm:rounded-[2rem] bg-paper  lg:grid-cols-2">
-            <div
-              data-passport-spine
-              aria-hidden="true"
-              className="absolute bottom-0 left-1/2 top-0 z-30 hidden w-10 -translate-x-1/2 origin-center rounded-full bg-[linear-gradient(90deg,transparent,rgba(58,36,24,.18),rgba(255,255,255,.28),rgba(58,36,24,.12),transparent)] lg:block"
-            />
 
-            <div
-              ref={leftPageRef}
-              className="group relative overflow-hidden bg-[var(--passport-paper)] p-4 sm:p-6 lg:h-[40rem] lg:p-7"
-            >
-              <div className="relative z-10 flex h-full min-h-0 flex-col">
-                <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
-                  <h3 className="text-[2.7rem] font-semibold leading-[0.82] text-ink sm:text-[3.55rem] lg:text-[3.85rem]">
-                    {activeCity.name}
-                  </h3>
+          <div
+            ref={leftPageRef}
+            className="group relative min-w-0 overflow-hidden bg-[var(--passport-paper)] p-4 sm:p-6 lg:h-[40rem] lg:p-7"
+          >
+            <div className="relative z-10 flex h-full min-h-0 flex-col">
+              <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+                <h3 className="text-[2.7rem] font-semibold leading-[0.82] text-ink sm:text-[3.55rem] lg:text-[3.85rem]">
+                  {activeCity.name}
+                </h3>
 
-                  <AnimatedStamp city={activeCity} stampRef={stampRef} inkRef={inkRef} />
-                </div>
-
-                <div className="relative mt-5 max-h-[30rem] flex-1 overflow-hidden rounded-[1.55rem] bg-cream-200">
-                  <PassportLeafletMap
-                    city={activeCity}
-                    neighbourhoods={activeCity.nodes}
-                    restaurants={cityRestaurants}
-                    selectedNode={selectedNode}
-                    onSelectNode={(node) =>
-                      setSelectedArea(selectedNode?.name === node.name ? null : node.name)
-                    }
-                    onHoverRestaurant={setHighlightedRestaurant}
-                  />
-                </div>
-
-                <div className="pointer-events-none mt-4 flex w-full justify-center">
-                  <div className="flex max-w-[92%] items-center gap-2 rounded-pill border border-ink/10 bg-paper/94 px-4 py-2 text-[0.72rem] font-medium text-ink backdrop-blur">
-                    <span className="grid h-5 w-5 place-items-center rounded-full bg-[var(--passport-accent)] text-white">
-                      <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none">
-                        <path
-                          d="M12 21S5.8 15.9 5.8 10.6A6.2 6.2 0 0 1 12 4.4a6.2 6.2 0 0 1 6.2 6.2C18.2 15.9 12 21 12 21Z"
-                          fill="currentColor"
-                        />
-                        <circle cx="12" cy="10.6" r="2.1" fill="var(--color-paper)" />
-                      </svg>
-                    </span>
-                    Click a live food stop to filter nearby kitchens
-                  </div>
-                </div>
+                <AnimatedStamp city={activeCity} stampRef={stampRef} inkRef={inkRef} />
               </div>
-            </div>
 
-            <div
-              ref={rightPageRef}
-              className="group relative overflow-hidden bg-paper p-4 sm:p-6 lg:flex lg:h-[40rem] lg:flex-col lg:p-7"
-            >
-              <div className="relative z-10 flex min-h-0 flex-1 flex-col">
-                <div className="relative rounded-[1.45rem] border border-ink/10 bg-paper p-4 text-ink sm:p-5">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="min-w-0">
-                      <h3 className="font-display text-[2.25rem] font-semibold leading-[0.86] tracking-[-0.075em] text-ink sm:text-[2.85rem]">
-                        Kitchen Guide
-                      </h3>
-                    </div>
+              <div className="relative mt-5 h-[22rem] max-h-[30rem] flex-none overflow-hidden rounded-[1.55rem] bg-cream-200 sm:h-[30rem] lg:h-auto lg:flex-1">
+                <PassportLeafletMap
+                  city={activeCity}
+                  neighbourhoods={activeCity.nodes}
+                  restaurants={cityRestaurants}
+                  selectedNode={selectedNode}
+                  onSelectNode={(node) =>
+                    setSelectedArea(selectedNode?.name === node.name ? null : node.name)
+                  }
+                  onHoverRestaurant={setHighlightedRestaurant}
+                />
+              </div>
 
-                    {/* <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-ink text-paper">
-                      <MapPin className="h-5 w-5 text-[var(--passport-accent)]" strokeWidth={2.35} />
-                    </span> */}
-                  </div>
-
-                  <div className="my-2 border-t border-dashed border-ink/20" />
-
-                  <div className="mt-4 flex flex-wrap items-end gap-2 text-[0.76rem] font-semibold text-ink">
-                    <div>
-                      <p className="mb-3 text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-cocoa">
-                        Destinations
-                      </p>
-                      <CityStampSelector
-                        cities={passportCities}
-                        selectedCity={selectedCity}
-                        onSelect={handleCityChange}
+              <div className="pointer-events-none mt-4 flex w-full justify-center">
+                <div className="flex max-w-[92%] items-center gap-2 rounded-pill border border-ink/10 bg-paper/94 px-4 py-2 text-[0.72rem] font-medium text-ink backdrop-blur">
+                  <span className="grid h-5 w-5 place-items-center rounded-full bg-[var(--passport-accent)] text-white">
+                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none">
+                      <path
+                        d="M12 21S5.8 15.9 5.8 10.6A6.2 6.2 0 0 1 12 4.4a6.2 6.2 0 0 1 6.2 6.2C18.2 15.9 12 21 12 21Z"
+                        fill="currentColor"
                       />
-                    </div>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/6 px-3 py-1.5">
-                      <Clock3 className="h-3.5 w-3.5 text-[var(--passport-accent)]" strokeWidth={2.35} />
-                      {activeCity.avgEta}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/6 px-3 py-1.5">
-                      <Store className="h-3.5 w-3.5 text-[var(--passport-accent)]" strokeWidth={2.35} />
-                      {activeCity.restaurantCount} Restaurants
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/6 px-3 py-1.5">
-                      <Star className="h-3.5 w-3.5 text-[var(--passport-accent)]" strokeWidth={2.35} />
-                      {activeCity.avgRating}
-                    </span>
-                  </div>
-                </div>
-
-                <div
-                  className="passport-card-scroll mt-4 h-[23rem] min-h-0 space-y-3 overflow-y-auto overscroll-y-auto pb-2 pr-3 sm:h-[25rem] lg:h-auto lg:flex-1"
-                  data-lenis-prevent
-                  data-lenis-prevent-wheel
-                  onTouchMove={keepPassportCardTouchScroll}
-                  onTouchStart={startPassportCardTouchScroll}
-                  onWheel={keepPassportCardScroll}
-                  tabIndex={0}
-                >
-                  <AnimatePresence mode="popLayout">
-                    {cityRestaurants.map((restaurant) => (
-                      <RestaurantMembershipCard
-                        key={`${activeCity.id}-${selectedNode?.name ?? "all"}-${restaurant.name}`}
-                        restaurant={restaurant}
-                        accent={activeCity.accent}
-                        highlighted={highlightedRestaurant === restaurant.name}
-                      />
-                    ))}
-                  </AnimatePresence>
+                      <circle cx="12" cy="10.6" r="2.1" fill="var(--color-paper)" />
+                    </svg>
+                  </span>
+                  Click a live food stop to filter nearby kitchens
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <p className="hidden sm:block mx-auto mt-5 max-w-xl text-center text-xs font-semibold leading-relaxed text-paper/65">
-          Select a destination, pan the map, then tap a neighbourhood marker to
-          filter the restaurant membership cards.
-        </p>
-      </Container>
+          <div
+            ref={rightPageRef}
+            className="group relative min-w-0 overflow-hidden bg-paper p-4 sm:p-6 lg:flex lg:h-[40rem] lg:flex-col lg:p-7"
+          >
+            <div className="relative z-10 flex min-h-0 flex-1 flex-col">
+              <div className="relative rounded-[1.45rem] bg-paper p-4 text-ink sm:p-5">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <h3 className="font-display text-[2.25rem] font-semibold leading-[0.86] tracking-[-0.075em] text-ink sm:text-[2.85rem]">
+                      Explore Kitchens
+                    </h3>
+                  </div>
+
+                  {/* <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-ink text-paper">
+                    <MapPin className="h-5 w-5 text-[var(--passport-accent)]" strokeWidth={2.35} />
+                  </span> */}
+                </div>
+
+                <div className="my-2 border-t border-dashed border-ink/20" />
+
+                <div className="mt-4 flex flex-wrap items-end gap-2 text-[0.76rem] font-semibold text-ink">
+                  <div>
+                    <p className="mb-3 text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-cocoa">
+                      Destinations
+                    </p>
+                    <CityStampSelector
+                      cities={passportCities}
+                      selectedCity={selectedCity}
+                      onSelect={handleCityChange}
+                    />
+                  </div>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/6 px-3 py-1.5">
+                    <Clock3 className="h-3.5 w-3.5 text-[var(--passport-accent)]" strokeWidth={2.35} />
+                    {activeCity.avgEta}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/6 px-3 py-1.5">
+                    <Store className="h-3.5 w-3.5 text-[var(--passport-accent)]" strokeWidth={2.35} />
+                    {activeCity.restaurantCount} Restaurants
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/6 px-3 py-1.5">
+                    <Star className="h-3.5 w-3.5 text-[var(--passport-accent)]" strokeWidth={2.35} />
+                    {activeCity.avgRating}
+                  </span>
+                </div>
+              </div>
+
+              <div
+                className="passport-card-scroll mt-4 h-[23rem] min-h-0 space-y-3 overflow-y-auto overscroll-y-auto pb-2 pr-3 sm:h-[25rem] lg:h-auto lg:flex-1"
+                data-lenis-prevent
+                data-lenis-prevent-wheel
+                onTouchMove={keepPassportCardTouchScroll}
+                onTouchStart={startPassportCardTouchScroll}
+                onWheel={keepPassportCardScroll}
+                tabIndex={0}
+              >
+                <AnimatePresence mode="popLayout">
+                  {cityRestaurants.map((restaurant) => (
+                    <RestaurantMembershipCard
+                      key={`${activeCity.id}-${selectedNode?.name ?? "all"}-${restaurant.name}`}
+                      restaurant={restaurant}
+                      accent={activeCity.accent}
+                      highlighted={highlightedRestaurant === restaurant.name}
+                    />
+                  ))}
+                </AnimatePresence>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p className="relative z-10 mx-auto mt-5 hidden max-w-xl px-4 text-center text-xs font-semibold leading-relaxed text-paper/65 sm:block">
+        Select a destination, pan the map, then tap a neighbourhood marker to
+        filter the restaurant membership cards.
+      </p>
 
       <div
         aria-hidden="true"
