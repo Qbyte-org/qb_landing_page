@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
   type FocusEventHandler,
+  type HTMLAttributes,
   type MouseEvent as ReactMouseEvent,
   type MouseEventHandler,
   type ReactNode,
@@ -19,18 +20,21 @@ export type MagneticFillVariant =
   | "white"
   | "ghost";
 
-type MagneticElement = HTMLButtonElement | HTMLAnchorElement;
+type MagneticElement = HTMLElement;
 
-export interface MagneticFillButtonProps {
+export interface MagneticFillButtonProps extends Omit<HTMLAttributes<MagneticElement>, "children"> {
+  as?: "button" | "summary";
   variant?: MagneticFillVariant;
   customFillClass?: string;
   customHoverTextColor?: string;
   children: ReactNode;
   className?: string;
+  contentClassName?: string;
   href?: string;
   external?: boolean;
   target?: string;
   rel?: string;
+  prefetch?: boolean;
   type?: "button" | "submit" | "reset";
   onClick?: MouseEventHandler<MagneticElement>;
   disabled?: boolean;
@@ -96,23 +100,31 @@ function isExternalHref(href: string, external?: boolean) {
 }
 
 export default function MagneticFillButton({
+  as = "button",
   variant = "brand",
   customFillClass,
   customHoverTextColor,
   children,
   className = "",
+  contentClassName = "flex h-full w-full items-center justify-center gap-2",
   href,
   external,
   target,
   rel,
+  prefetch,
   type = "button",
   onClick,
+  onMouseEnter,
+  onMouseLeave,
+  onFocus,
+  onBlur,
   disabled,
   ariaLabel,
   themeAware = false,
   dataNavAction = false,
   dataNavChip = false,
   dataNavIcon = false,
+  ...rest
 }: MagneticFillButtonProps) {
   const buttonRef = useRef<MagneticElement>(null);
   const [fillOrigin, setFillOrigin] = useState({ x: 0, y: 0 });
@@ -140,11 +152,13 @@ export default function MagneticFillButton({
   const handleMouseEnter = useCallback(
     (event: ReactMouseEvent<MagneticElement>) => {
       const rect = buttonRef.current?.getBoundingClientRect();
-      if (!rect) return;
-      setOrigin(event.clientX - rect.left, event.clientY - rect.top);
-      setIsHovered(true);
+      if (rect) {
+        setOrigin(event.clientX - rect.left, event.clientY - rect.top);
+        setIsHovered(true);
+      }
+      onMouseEnter?.(event);
     },
-    [setOrigin],
+    [onMouseEnter, setOrigin],
   );
 
   const handleMouseLeave = useCallback(
@@ -152,23 +166,27 @@ export default function MagneticFillButton({
       const rect = buttonRef.current?.getBoundingClientRect();
       if (rect) setOrigin(event.clientX - rect.left, event.clientY - rect.top);
       setIsHovered(false);
+      onMouseLeave?.(event);
     },
-    [setOrigin],
+    [onMouseLeave, setOrigin],
   );
 
-  const handleFocus: FocusEventHandler<MagneticElement> = () => {
+  const handleFocus: FocusEventHandler<MagneticElement> = (event) => {
     const rect = buttonRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    setOrigin(rect.width / 2, rect.height / 2);
-    setIsHovered(true);
+    if (rect) {
+      setOrigin(rect.width / 2, rect.height / 2);
+      setIsHovered(true);
+    }
+    onFocus?.(event);
   };
 
-  const handleBlur: FocusEventHandler<MagneticElement> = () => {
+  const handleBlur: FocusEventHandler<MagneticElement> = (event) => {
     setIsHovered(false);
+    onBlur?.(event);
   };
 
   const rootClassName = [
-    "relative isolate inline-flex cursor-pointer items-center justify-center overflow-hidden border-0 font-semibold transition-[background-color,color,transform] duration-300 will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60",
+    "relative isolate inline-flex cursor-pointer items-center justify-center overflow-hidden border-0 font-semibold transition-[background-color,color,transform] duration-300 motion-reduce:transition-none! focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:pointer-events-none disabled:opacity-60",
     styles.root,
     className,
   ].join(" ");
@@ -181,20 +199,19 @@ export default function MagneticFillButton({
     <>
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute rounded-full ${fillClassName}`}
+        data-magnetic-fill=""
+        className={`pointer-events-none absolute rounded-full transition-transform ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none! ${isHovered ? "duration-[760ms]" : "duration-[600ms]"} ${fillClassName}`}
         style={{
           width: fillSize,
           height: fillSize,
           left: fillOrigin.x,
           top: fillOrigin.y,
           transform: `translate(-50%, -50%) scale(${isHovered ? 1 : 0})`,
-          transition: isHovered
-            ? "transform 760ms cubic-bezier(0.4, 0, 0.2, 1)"
-            : "transform 600ms cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       />
       <span
-        className={`relative z-10 flex h-full w-full items-center justify-center gap-2 transition-colors duration-300 ${
+        data-magnetic-content=""
+        className={`relative z-10 transition-colors duration-300 motion-reduce:transition-none! ${contentClassName} ${
           isHovered
             ? `${styles.hoverText} ${childColorClassName} ${hoverAccentClassName}`
             : childColorClassName
@@ -209,17 +226,27 @@ export default function MagneticFillButton({
   );
 
   const sharedProps = {
+    ...rest,
     className: rootClassName,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
     onFocus: handleFocus,
     onBlur: handleBlur,
     onClick,
-    "aria-label": ariaLabel,
+    "aria-label": ariaLabel ?? rest["aria-label"],
+    "data-magnetic-button": "",
     "data-nav-action": dataNavAction ? "" : undefined,
     "data-nav-chip": dataNavChip ? "" : undefined,
     "data-nav-icon": dataNavIcon ? "" : undefined,
   };
+
+  if (as === "summary") {
+    return (
+      <summary {...sharedProps} ref={buttonRef}>
+        {content}
+      </summary>
+    );
+  }
 
   if (href) {
     if (isExternalHref(href, external)) {
@@ -241,6 +268,7 @@ export default function MagneticFillButton({
         {...sharedProps}
         ref={buttonRef as RefObject<HTMLAnchorElement>}
         href={href}
+        prefetch={prefetch}
         target={target}
         rel={rel}
       >
