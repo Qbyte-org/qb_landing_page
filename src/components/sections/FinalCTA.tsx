@@ -42,7 +42,7 @@ export default function FinalCTA() {
 
           <h2
             id="final-cta-title"
-            className="max-w-72 font-display text-[1.9rem] font-extrabold leading-tight sm:max-w-none sm:text-3xl lg:whitespace-nowrap lg:text-[clamp(1.65rem,2.45vw,3rem)]"
+            className="max-w-72 font-display text-[1.9rem] font-extrabold leading-tight tracking-[0.01em]! sm:max-w-none sm:text-3xl lg:whitespace-nowrap lg:text-[clamp(1.65rem,2.45vw,3rem)]"
           >
             Find, Order &amp; Enjoy
           </h2>
