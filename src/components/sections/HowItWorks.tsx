@@ -10,7 +10,8 @@ import {
 import ProcessControls from "./how-it-works/ProcessControls";
 import ProcessStepCopy from "./how-it-works/ProcessStepCopy";
 import ProcessVisualPanel from "./how-it-works/ProcessVisualPanel";
-import MagneticFillButton from "../ui/MagneticFillButton";
+import LinkArrow from "../ui/LinkArrow";
+import Container from "../ui/Container";
 import SectionWave from "../ui/SectionWave";
 
 export default function HowItWorks() {
@@ -33,26 +34,24 @@ export default function HowItWorks() {
       className="relative -mt-px overflow-hidden bg-[#1c120f] text-white"
     >
       <SectionWave to="ink" splitBackground />
-      <div className="relative z-10 px-4 pb-8 pt-14 sm:px-6 sm:pb-10 sm:pt-18 lg:px-8 lg:pb-12 lg:pt-20">
+      <Container className="relative z-10 pb-8 pt-14 sm:pb-10 sm:pt-18 lg:pb-12 lg:pt-20">
         <div
           data-section-motion-header
-          className="mx-auto flex max-w-[60rem] flex-col items-center text-center md:text-left md:flex-row md:justify-between gap-6 md:gap-0"
+          className="flex w-full flex-col items-start gap-6 text-left lg:flex-row lg:items-center lg:justify-between"
         >
           <h2 className="section-heading">
             How It Works
           </h2>
 
-          <MagneticFillButton
+          <LinkArrow
             href="/restaurants"
-            variant="brand"
-            customFillClass="bg-paper"
-            customHoverTextColor="#2a211d"
-            className="h-14 w-max rounded-pill border-0 !bg-brand px-8 text-lg font-semibold !text-white sm:h-16 sm:px-10 sm:text-xl"
+            variant="dark"
+            className="min-h-14 w-max shrink-0 self-end text-lg! normal-case! [--link-arrow-spacing:0em] sm:min-h-16 sm:text-xl! lg:self-auto"
           >
             Learn more
-          </MagneticFillButton>
+          </LinkArrow>
         </div>
-      </div>
+      </Container>
 
       <div className="relative min-h-[25rem] overflow-hidden bg-ink lg:min-h-[28rem]">
         <div

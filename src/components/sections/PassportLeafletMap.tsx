@@ -1,235 +1,158 @@
 "use client";
 
-import { motion } from "motion/react";
-import type { CSSProperties } from "react";
+import Image from "next/image";
+import { Minus, Plus, RotateCcw } from "lucide-react";
+import { useId, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import MagneticFillButton from "../ui/MagneticFillButton";
+import LinkArrow from "../ui/LinkArrow";
 
 export type PassportMapNode = {
   name: string;
-  deliveries: number;
-  coordinates: [number, number];
+  coordinates?: [number, number];
+  mapLabel?: string;
+  minZoom?: number;
 };
 
-export type PassportMapRestaurant = {
-  name: string;
-  cuisine: string;
-  eta: string;
-  coordinates: [number, number];
-};
+export type PassportMapRestaurant = { name: string; cuisine: string; eta: string };
+export type PassportMapCity = { name: string; center: [number, number]; accent: string; radius: number };
 
-export type PassportMapCity = {
-  name: string;
-  center: [number, number];
-  accent: string;
-  radius: number;
-};
-
-const districtColors = [
-  "#F15F00",
-  "#c86b2b",
-  "#8f6a57",
-  "#f3a629",
-  "#0f7a5a",
-  "#b86024",
-  "#d9b38c",
-];
-
-const orangeMarkerColors = new Set([
-  "#f15f00", "#ef5f00", "#ff6b00", "#c86b2b", "#f3a629", "#b86024",
-]);
-
-const districtSlots = [
-  { x: 10, y: 12 },
-  { x: 26, y: 28 },
-  { x: 53, y: 18 },
-  { x: 82, y: 13 },
-  { x: 81, y: 44 },
-  { x: 57, y: 76 },
-  { x: 23, y: 78 },
-  { x: 43, y: 49 },
-];
-
-const restaurantSlots = [
-  { x: 16, y: 50 },
-  { x: 30, y: 84 },
-  { x: 48, y: 36 },
-  { x: 70, y: 67 },
-  { x: 62, y: 86 },
-  { x: 87, y: 76 },
-];
-
-function getColor(index: number, active: boolean, accent: string) {
-  return active ? accent : districtColors[index % districtColors.length];
-}
-
-function truncateLabel(label: string) {
-  return label.length > 12 ? `${label.slice(0, 11)}…` : label;
+// These bounds match the local OpenStreetMap extract; pins share its geographic projection.
+const mapBounds = { south: 7.455, west: 4.515, north: 7.545, east: 4.612 };
+const mercator = (latitude: number) => Math.log(Math.tan(Math.PI / 4 + latitude * Math.PI / 360));
+const north = mercator(mapBounds.north);
+const south = mercator(mapBounds.south);
+function position([latitude, longitude]: [number, number]) {
+  return {
+    left: `${(longitude - mapBounds.west) / (mapBounds.east - mapBounds.west) * 100}%`,
+    top: `${(north - mercator(latitude)) / (north - south) * 100}%`,
+  };
 }
 
 export default function PassportLeafletMap({
   city,
   neighbourhoods,
-  restaurants,
   selectedNode,
   onSelectNode,
-  onHoverRestaurant,
 }: {
   city: PassportMapCity;
   neighbourhoods: PassportMapNode[];
-  restaurants: PassportMapRestaurant[];
   selectedNode?: PassportMapNode | null;
-  onSelectNode: (node: PassportMapNode) => void;
-  onHoverRestaurant?: (name: string | null) => void;
+  onSelectNode: (node: PassportMapNode | null) => void;
 }) {
+  const selectId = useId();
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const dragRef = useRef<{ pointer: number; x: number; y: number; startX: number; startY: number; touch: boolean } | null>(null);
+  const [view, setView] = useState({ x: 0, y: 0, zoom: 1 });
+  const [dragging, setDragging] = useState(false);
+
+  const boundPan = (x: number, y: number, zoom: number) => {
+    const width = viewportRef.current?.clientWidth ?? 400;
+    const height = viewportRef.current?.clientHeight ?? 300;
+    const mapWidth = Math.min(width, height * 1.45);
+    const horizontalLimit = Math.max(0, (mapWidth * zoom - width) / 2);
+    const verticalLimit = Math.max(0, (mapWidth * 0.936 * zoom - height) / 2);
+    return { x: Math.max(-horizontalLimit, Math.min(horizontalLimit, x)), y: Math.max(-verticalLimit, Math.min(verticalLimit, y)), zoom };
+  };
+  const zoomBy = (delta: number) => setView((current) => boundPan(current.x, current.y, Math.max(1, Math.min(3, current.zoom + delta))));
+  const endDrag = (event: PointerEvent<HTMLDivElement>) => {
+    if (dragRef.current?.pointer !== event.pointerId) return;
+    dragRef.current = null;
+    setDragging(false);
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+  };
+
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-[1.35rem] border-[0.18rem] border-[#2a211d] bg-[#f7eadb]">
-      <svg
-        aria-hidden="true"
-        className="absolute inset-0 h-full w-full"
-        viewBox="0 0 800 560"
-        preserveAspectRatio="none"
+    <div className="flex h-full min-h-0 w-full flex-col overflow-hidden rounded-[1.35rem] border border-ink/20 bg-[#f5eddf]">
+      <div
+        ref={viewportRef}
+        role="region"
+        aria-label={`Map of ${city.name}. Use plus and minus to zoom, and arrow keys to pan.`}
+        tabIndex={0}
+        className={`relative min-h-0 flex-1 touch-pan-y overflow-hidden outline-none [container-type:size] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand ${dragging ? "cursor-grabbing" : "cursor-grab"}`}
+        onPointerDown={(event) => {
+          if (event.button !== 0 || (event.target as HTMLElement).closest("button, a, select")) return;
+          dragRef.current = { pointer: event.pointerId, x: event.clientX, y: event.clientY, startX: view.x, startY: view.y, touch: event.pointerType === "touch" };
+          event.currentTarget.setPointerCapture(event.pointerId);
+          setDragging(true);
+        }}
+        onPointerMove={(event) => {
+          const drag = dragRef.current;
+          if (!drag || drag.pointer !== event.pointerId) return;
+          setView((current) => boundPan(drag.startX + event.clientX - drag.x, drag.touch ? current.y : drag.startY + event.clientY - drag.y, current.zoom));
+        }}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onKeyDown={(event) => {
+          if (event.target !== event.currentTarget) return;
+          if (event.key === "+" || event.key === "=") { event.preventDefault(); zoomBy(0.5); }
+          else if (event.key === "-") { event.preventDefault(); zoomBy(-0.5); }
+          else if (event.key === "Home") { event.preventDefault(); setView({ x: 0, y: 0, zoom: 1 }); }
+          else if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
+            event.preventDefault();
+            setView((current) => boundPan(current.x + (event.key === "ArrowLeft" ? 35 : event.key === "ArrowRight" ? -35 : 0), current.y + (event.key === "ArrowUp" ? 35 : event.key === "ArrowDown" ? -35 : 0), current.zoom));
+          }
+        }}
       >
-        <rect width="800" height="560" fill="#f7eadb" />
-        <path d="M0 0H84L28 78V318L0 354Z" fill="#f0c9a8" />
-        <path d="M800 0V70L732 54L678 0Z" fill="#f0c9a8" />
-        <path d="M800 560H704L722 458L800 421Z" fill="#f0c9a8" />
-        <path
-          d="M-30 110H283L368 211L472 185L748 107L835 145"
-          fill="none"
-          stroke="#f3a629"
-          strokeLinecap="round"
-          strokeWidth="9"
-        />
-        <path
-          d="M74 -38C112 78 86 171 84 258C82 362 89 432 111 594"
-          fill="none"
-          stroke="#f3a629"
-          strokeLinecap="round"
-          strokeWidth="10"
-        />
-        <path
-          d="M274 -42C282 102 248 221 241 326C234 436 246 495 258 600"
-          fill="none"
-          stroke="#b79c8c"
-          strokeLinecap="round"
-          strokeWidth="10"
-        />
-        <path
-          d="M507 -45C510 96 548 156 520 271C497 367 472 448 486 611"
-          fill="none"
-          stroke="#f3a629"
-          strokeLinecap="round"
-          strokeWidth="9"
-        />
-        <path
-          d="M646 -50C684 110 665 228 720 326C757 391 790 460 845 512"
-          fill="none"
-          stroke="#f3a629"
-          strokeLinecap="round"
-          strokeWidth="8"
-        />
-        <path
-          d="M-38 244H258L341 301L621 292L846 220"
-          fill="none"
-          stroke="#b79c8c"
-          strokeLinecap="round"
-          strokeWidth="9"
-        />
-        <path
-          d="M-31 497C72 513 138 503 223 454C308 405 370 359 475 354C598 348 679 391 839 319"
-          fill="none"
-          stroke="#f3a629"
-          strokeLinecap="round"
-          strokeWidth="9"
-        />
-        <path
-          d="M26 61L92 29L159 57L229 18M29 214L95 176L173 209L231 158M338 40L390 74V157L449 191M333 392L407 360L501 405L591 387M530 95L591 62L650 92L714 67M595 233L657 218L732 261L780 244M204 517L283 487L348 524L432 493M480 258L562 239L625 262"
-          fill="none"
-          stroke="#fff8ef"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="3"
-          opacity="0.82"
-        />
-        <path
-          d="M128 0L116 90M388 0L385 112M752 115L698 171M40 399L110 355M636 500L707 463"
-          fill="none"
-          stroke="#fff8ef"
-          strokeLinecap="round"
-          strokeWidth="3"
-          opacity="0.72"
-        />
-      </svg>
-
-      <div className="absolute inset-0">
-        {neighbourhoods.map((node, index) => {
-          const active = selectedNode?.name === node.name;
-          const slot = districtSlots[index % districtSlots.length];
-          const color = getColor(index, active, city.accent);
-          const isOrange = orangeMarkerColors.has(color.toLowerCase());
-
-          return (
-            <motion.div
-              key={`${city.name}-${node.name}`}
-              whileHover={{ y: -4, scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
-              animate={{ scale: active ? 1.08 : 1 }}
-              className="absolute z-10 flex -translate-x-1/2 -translate-y-1/2 cursor-pointer flex-col items-center outline-none"
-              style={
-                {
-                  left: `${slot.x}%`,
-                  top: `${slot.y}%`,
-                  "--marker-color": color,
-                } as CSSProperties
-              }
-            >
-              <MagneticFillButton
-                ariaLabel={node.name}
-                aria-pressed={active}
-                onClick={() => onSelectNode(node)}
-                variant="light"
-                customFillClass="bg-ink"
-                customHoverTextColor="#fffaf5"
-                contentClassName="flex min-w-0 items-center gap-1.5"
-                className={`min-h-11 max-w-[8.8rem] rounded-xl border-2! border-ink bg-[var(--marker-color)]! px-2.5 py-1 text-sm font-bold leading-none sm:text-base ${isOrange ? "text-white!" : "text-[#4f372d]!"}`}
+        <div
+          data-geographic-map
+          className="absolute left-1/2 top-1/2 aspect-[1000/936] w-[min(100cqw,145cqh)] select-none"
+          style={{ transform: `translate(-50%, -50%) translate(${view.x}px, ${view.y}px) scale(${view.zoom})` }}
+        >
+          <Image src="/maps/ile-ife-osm.svg" alt="Roads and waterways of Ile-Ife, with the OAU campus to the north" fill unoptimized loading="lazy" draggable={false} className="pointer-events-none object-contain" />
+          {neighbourhoods.filter((node) => node.coordinates && view.zoom >= (node.minZoom ?? 1)).map((node) => {
+            const active = selectedNode?.name === node.name;
+            const labelAnchor = node.name === "Mokuro" ? "80%" : "50%";
+            return (
+              <div
+                key={node.name}
+                className="absolute z-10"
+                style={{ ...position(node.coordinates!), transform: `translate(-${labelAnchor}, -50%) scale(${1 / view.zoom})`, transformOrigin: `${labelAnchor} 50%`, "--marker-color": city.accent } as CSSProperties}
               >
-                <span className="h-2 w-2 shrink-0 rounded-full border-2 border-[#2a211d] bg-[#fffaf3]" />
-                <span className="truncate">{truncateLabel(node.name)}</span>
-              </MagneticFillButton>
-              <span aria-hidden="true" className="pointer-events-none relative mt-2 block h-8 w-8 rounded-full border-[0.32rem] border-[var(--marker-color)] bg-[#fffaf3]">
-                <span className="absolute left-1/2 top-[1.05rem] h-4 w-4 -translate-x-1/2 rotate-45 rounded-br-[0.32rem] bg-[var(--marker-color)]" />
-              </span>
-            </motion.div>
-          );
-        })}
+                <MagneticFillButton
+                  ariaLabel={`Explore ${node.name}${node.mapLabel ? `, near ${node.mapLabel}` : ""}`}
+                  aria-pressed={active}
+                  onClick={() => onSelectNode(active ? null : node)}
+                  variant="light"
+                  customFillClass="bg-cream-200"
+                  customHoverTextColor="#2a211d"
+                  className={`min-h-11 max-w-32 rounded-xl border! border-ink/20 px-2.5 py-2 text-[0.7rem] font-bold shadow-sm ${active ? "bg-brand! text-white!" : "bg-paper! text-ink!"}`}
+                >
+                  {node.name}
+                </MagneticFillButton>
+                <span aria-hidden="true" style={{ left: labelAnchor }} className="pointer-events-none absolute top-full size-2 -translate-x-1/2 -translate-y-1 rotate-45 border-b border-r border-ink/20 bg-paper" />
+              </div>
+            );
+          })}
+        </div>
 
-        {restaurants.slice(0, restaurantSlots.length).map((restaurant, index) => {
-          const slot = restaurantSlots[index % restaurantSlots.length];
+        <div className="absolute right-2 top-2 z-20 flex flex-col gap-1 rounded-2xl bg-paper/90 p-1 shadow-sm">
+          {[
+            { label: "Zoom in", icon: Plus, action: () => zoomBy(0.5), disabled: view.zoom >= 3 },
+            { label: "Zoom out", icon: Minus, action: () => zoomBy(-0.5), disabled: view.zoom <= 1 },
+          ].map(({ label, icon: Icon, action, disabled }) => (
+            <MagneticFillButton key={label} ariaLabel={label} onClick={action} disabled={disabled} variant="light" customFillClass="bg-cream-200" customHoverTextColor="#2a211d" className="size-11 rounded-xl bg-paper! text-ink! disabled:opacity-35">
+              <Icon className="size-4" aria-hidden="true" />
+            </MagneticFillButton>
+          ))}
+        </div>
+        <MagneticFillButton ariaLabel="Reset map" onClick={() => setView({ x: 0, y: 0, zoom: 1 })} variant="light" customFillClass="bg-cream-200" customHoverTextColor="#2a211d" className="absolute! bottom-7 right-2 z-20 size-11 rounded-xl bg-paper! text-ink! shadow-sm">
+          <RotateCcw className="size-4" aria-hidden="true" />
+        </MagneticFillButton>
+        <span aria-hidden="true" className="pointer-events-none absolute left-3 top-3 rounded-full bg-paper/90 px-2 py-1 text-[0.65rem] font-semibold text-ink">N ↑</span>
+        <LinkArrow appearance="plain" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer" className="absolute! bottom-0 right-0 z-20 rounded-tl-md bg-paper/95 px-2 py-1 text-[0.6rem] text-ink underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-brand">© OpenStreetMap contributors</LinkArrow>
+      </div>
 
-          return (
-            <motion.div
-              key={`${city.name}-${restaurant.name}`}
-              whileHover={{ y: -3, scale: 1.1 }}
-              className="absolute z-20 -translate-x-1/2 -translate-y-1/2"
-              style={{ left: `${slot.x}%`, top: `${slot.y}%` }}
-            >
-              <MagneticFillButton
-                ariaLabel={`${restaurant.name}, ${restaurant.eta}`}
-                onMouseEnter={() => onHoverRestaurant?.(restaurant.name)}
-                onMouseLeave={() => onHoverRestaurant?.(null)}
-                onFocus={() => onHoverRestaurant?.(restaurant.name)}
-                onBlur={() => onHoverRestaurant?.(null)}
-                onClick={() => onHoverRestaurant?.(restaurant.name)}
-                variant="light"
-                customFillClass="bg-brand"
-                customHoverTextColor="#ffffff"
-                className="size-11 rounded-full border-2! border-ink bg-paper! text-xs font-bold text-brand-dark!"
-              >
-                QB
-              </MagneticFillButton>
-            </motion.div>
-          );
-        })}
+      <div className="shrink-0 border-t border-ink/10 bg-paper p-2.5">
+        <label htmlFor={selectId} className="sr-only">Choose an area of {city.name}</label>
+        <select
+          id={selectId}
+          value={selectedNode?.name ?? ""}
+          onChange={(event) => onSelectNode(neighbourhoods.find((node) => node.name === event.target.value) ?? null)}
+          className="min-h-11 w-full min-w-0 cursor-pointer rounded-xl border border-ink/15 bg-cream-200 px-3 text-sm font-semibold text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand"
+        >
+          <option value="">All areas in {city.name}</option>
+          {neighbourhoods.map((node) => <option key={node.name} value={node.name}>{node.name}</option>)}
+        </select>
       </div>
     </div>
   );

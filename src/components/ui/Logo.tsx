@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import LinkArrow from "./LinkArrow";
 
 export default function Logo({
   variant = "color",
@@ -22,8 +22,9 @@ export default function Logo({
   const lightLogoState = variant === "light" ? "" : "invisible opacity-0";
 
   return (
-    <Link
+    <LinkArrow
       href="/"
+      appearance="plain"
       aria-label="QuickBite home"
       className={`inline-flex items-center ${className}`}
     >
@@ -58,6 +59,6 @@ export default function Logo({
           priority={priority}
         />
       )}
-    </Link>
+    </LinkArrow>
   );
 }

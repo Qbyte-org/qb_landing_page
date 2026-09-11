@@ -3,8 +3,6 @@ import AppShowcase from "@/components/sections/AppShowcase";
 import Categories from "@/components/sections/Categories";
 import FAQ from "@/components/sections/FAQ";
 import FinalCTA from "@/components/sections/FinalCTA";
-import ForPartners from "@/components/sections/ForPartners";
-import ForRiders from "@/components/sections/ForRiders";
 import Hero from "@/components/sections/Hero";
 import HowItWorks from "@/components/sections/HowItWorks";
 import QuickBitePassportHub from "@/components/sections/QuickBitePassportHub";

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "../../ui/FoodImage";
 import { AnimatePresence, motion } from "motion/react";
 import type { ProcessSlide } from "./howItWorks.data";
 

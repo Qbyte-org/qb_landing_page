@@ -47,6 +47,7 @@ export type Category = {
   description: string;
   image: string;
   imageAlt: string;
+  imageKind?: "photo" | "brand";
   meta: string;
   rating: string;
   time: string;
@@ -69,8 +70,8 @@ export const categories: Category[] = [
     icon: Beef,
     tint: "#ffe8e0",
     description: "Suya, wings and asun with punchy spice and quick dispatch.",
-    image: "/images/food/pinterest/jollof-takeaway.webp",
-    imageAlt: "A chicken portion with jollof rice and plantain in a takeaway tray",
+    image: "/images/food/pinterest/glazed-chicken.webp",
+    imageAlt: "Close-up of pepper-glazed chicken on a black plate",
     meta: "Fire-grilled",
     rating: "4.8",
     time: "30 min",
@@ -174,6 +175,7 @@ export type Restaurant = {
   eta: string;
   image: string;
   imageAlt: string;
+  imageKind?: "photo" | "brand";
 };
 
 export const heroSlides = [
@@ -217,8 +219,9 @@ export const restaurants: Restaurant[] = [
     rating: 4.7,
     deliveryFrom: "₦600",
     eta: "20–30 min",
-    image: "/images/food/pinterest/assorted-meat-stew.webp",
-    imageAlt: "Assorted meat and tripe in a rich red stew",
+    image: "/quickbite-mark.svg",
+    imageAlt: "QuickBite",
+    imageKind: "brand",
   },
   {
     name: "The Swallow House",
@@ -244,8 +247,9 @@ export const restaurants: Restaurant[] = [
     rating: 4.5,
     deliveryFrom: "₦700",
     eta: "30–45 min",
-    image: "/images/food/pinterest/meal-prep-packs.webp",
-    imageAlt: "Prepared rice, stew and chicken portions in takeaway containers",
+    image: "/quickbite-mark.svg",
+    imageAlt: "QuickBite",
+    imageKind: "brand",
   },
   {
     name: "Smoothie & Chill",
@@ -253,8 +257,9 @@ export const restaurants: Restaurant[] = [
     rating: 4.8,
     deliveryFrom: "₦350",
     eta: "15–20 min",
-    image: "/images/food/pinterest/akara-bean-cakes.webp",
-    imageAlt: "Golden akara bean cakes on a white plate",
+    image: "/quickbite-mark.svg",
+    imageAlt: "QuickBite",
+    imageKind: "brand",
   },
 ];
 

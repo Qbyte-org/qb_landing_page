@@ -1,7 +1,7 @@
 import { readFile } from "fs/promises";
 import path from "path";
 import type { Metadata } from "next";
-import Link from "next/link";
+import LinkArrow from "@/components/ui/LinkArrow";
 import { notFound } from "next/navigation";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -84,7 +84,18 @@ export default async function LegalPage({ params }: Params) {
             <Reveal>
               <article className="rounded-[1.25rem] border border-border bg-white p-6 sm:p-10">
                 <div className={prose}>
-                  <Markdown remarkPlugins={[remarkGfm]}>{body}</Markdown>
+                  <Markdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      a: ({ children, href, title }) => (
+                        <LinkArrow href={href} title={title} appearance="plain" className="inline!">
+                          {children}
+                        </LinkArrow>
+                      ),
+                    }}
+                  >
+                    {body}
+                  </Markdown>
                 </div>
               </article>
 
@@ -97,10 +108,11 @@ export default async function LegalPage({ params }: Params) {
                   {related.map((s) => {
                     const r = legalDocs[s];
                     return (
-                      <Link
+                      <LinkArrow
                         key={s}
                         href={`/legal/${s}`}
-                        className="group flex items-center gap-3 rounded-card border border-border bg-white p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand"
+                        appearance="plain"
+                        className="group flex! items-center gap-3 rounded-card border border-border bg-white p-4 transition-all duration-200 motion-safe:hover:-translate-y-0.5 hover:border-brand"
                       >
                         <span
                           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cream text-brand-dark"
@@ -111,7 +123,7 @@ export default async function LegalPage({ params }: Params) {
                         <span className="text-sm font-bold text-navy group-hover:text-brand-dark">
                           {r.short}
                         </span>
-                      </Link>
+                      </LinkArrow>
                     );
                   })}
                 </div>

@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import MagneticFillButton from "./MagneticFillButton";
+import LinkArrow from "./LinkArrow";
 
 export default function StickyOrderBar() {
   const barRef = useRef<HTMLDivElement>(null);
@@ -54,13 +54,13 @@ export default function StickyOrderBar() {
           </p>
         </div>
         <div className="shrink-0">
-          <MagneticFillButton
+          <LinkArrow
             href="/restaurants"
-            variant="brand"
-            className="h-12 rounded-pill px-6 text-base"
+            appearance="plain"
+            className="h-12 justify-center rounded-pill bg-brand-dark px-6 text-base font-semibold text-white"
           >
             Order now
-          </MagneticFillButton>
+          </LinkArrow>
         </div>
       </div>
     </div>

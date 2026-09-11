@@ -1,11 +1,12 @@
 "use client";
 
-import Image from "next/image";
+import Image from "../ui/FoodImage";
 import { useSyncExternalStore, type ReactNode } from "react";
 import { Bike, MapPin, Quote, Store, UtensilsCrossed } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { testimonials } from "@/content/site";
 import Container from "../ui/Container";
+import SectionTag from "../ui/SectionTag";
 
 const extraTestimonials = [
   {
@@ -164,33 +165,16 @@ function getServerColumnCount() {
 
 function CommunityPanel() {
   return (
-    <aside aria-labelledby="testimonial-community-title" className="relative overflow-hidden rounded-card bg-cream-200 p-6 sm:p-7">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[url('/images/footer-grain.svg')] bg-size-[128px_128px] opacity-20 mix-blend-multiply"
-      />
-      <div className="relative">
-        <p className="text-xs font-medium uppercase tracking-[0.14em] text-[#6d5c52]">
-          Around the table
-        </p>
-        <h3 id="testimonial-community-title" className="mt-3 max-w-64 font-display text-2xl font-semibold leading-tight">
-          One community.<br />Many good stories.
-        </h3>
-        <ul className="mt-6 border-t border-dashed border-[#2a211d]/20">
-          {communityDetails.map(({ title, detail, icon: Icon }) => (
-            <li key={title} className="flex items-center gap-4 border-b border-dashed border-[#2a211d]/20 py-3.5 last:border-b-0 last:pb-0">
-              <span className="grid size-10 shrink-0 place-items-center rounded-full border border-[#2a211d]/15 bg-[#fffaf5]/60 text-[#f06400]">
-                <Icon aria-hidden="true" className="size-4" strokeWidth={1.75} />
-              </span>
-              <div>
-                <p className="text-sm font-semibold">{title}</p>
-                <p className="mt-0.5 text-sm text-[#6d5c52]">{detail}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </aside>
+    <ul aria-label="The QuickBite community" className="mt-7 flex flex-wrap gap-x-7 gap-y-3 sm:gap-x-10">
+      {communityDetails.map(({ title, icon: Icon }) => (
+        <li key={title} className="flex items-center gap-2.5 text-sm font-medium text-cocoa">
+          <span className="grid size-8 place-items-center rounded-full border border-ink/10 bg-cream-200 text-brand-dark">
+            <Icon aria-hidden="true" className="size-4" strokeWidth={1.75} />
+          </span>
+          {title}
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -313,14 +297,15 @@ export default function Testimonials() {
           whileInView={reducedMotion === false ? { opacity: [0.75, 1], y: [16, 0] } : undefined}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-          className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(21rem,26rem)] lg:items-center lg:gap-12"
+          className="border-b border-ink/15 pb-7 sm:pb-8"
         >
-          <div>
-            <h2 id="testimonials-title" className="section-heading">
+          <SectionTag>Community</SectionTag>
+          <div className="mt-5 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+            <h2 id="testimonials-title" className="section-heading leading-[1.05]!">
               Good food.
               <span className="block">Better together.</span>
             </h2>
-            <p className="mt-6 max-w-lg text-base leading-relaxed text-[#6d5c52] sm:text-lg">
+            <p className="max-w-md text-base leading-relaxed text-cocoa sm:text-lg lg:max-w-sm">
               From campus cravings to the kitchen counter, meet the food lovers,
               local kitchens and riders behind the everyday food run.
             </p>
@@ -328,7 +313,7 @@ export default function Testimonials() {
           <CommunityPanel />
         </motion.div>
 
-        <div data-testimonial-grid className={`mt-12 grid items-stretch gap-4 sm:gap-5 xl:mt-14 ${columnCount === 3 ? "grid-cols-3" : columnCount === 2 ? "grid-cols-2" : "grid-cols-1"}`}>
+        <div data-testimonial-grid className={`mt-7 grid items-stretch gap-4 sm:mt-8 sm:gap-5 ${columnCount === 3 ? "grid-cols-3" : columnCount === 2 ? "grid-cols-2" : "grid-cols-1"}`}>
           {columns.map((column, columnIndex) => (
             <div key={columnIndex} data-testimonial-column className="flex min-w-0 flex-col gap-4 sm:gap-5">
               {column.map(({ story, index }) => story.kind === "quote" ? (

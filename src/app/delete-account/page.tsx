@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import LinkArrow from "@/components/ui/LinkArrow";
 import SiteShell from "@/components/layout/SiteShell";
 
 export const metadata: Metadata = {
@@ -94,8 +94,9 @@ export default function DeleteAccountPage() {
             linked to your QuickBite account. We will process your request
             within&nbsp;<strong className="text-foreground">7 business days</strong>.
           </p>
-          <a
+          <LinkArrow
             id="delete-account-email-btn"
+            appearance="plain"
             href="mailto:support@quickbiteltd.org?subject=Account%20Deletion%20Request&body=Hi%20QuickBite%20team%2C%0A%0AI%20would%20like%20to%20permanently%20delete%20my%20QuickBite%20account%20and%20all%20associated%20data.%0A%0AEmail%20linked%20to%20account%3A%20%5Byour%20email%5D%0A%0AThank%20you."
             className="inline-flex items-center gap-2 rounded-full bg-red-500 px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
           >
@@ -114,18 +115,19 @@ export default function DeleteAccountPage() {
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
             </svg>
             Email us to delete my account
-          </a>
+          </LinkArrow>
         </div>
 
         {/* Footer note */}
         <p className="mt-6 text-xs leading-relaxed text-muted">
           Changed your mind?{" "}
-          <Link
+          <LinkArrow
             href="/"
+            appearance="plain"
             className="font-medium text-brand underline underline-offset-2 hover:text-brand-dark"
           >
             Go back to QuickBite
-          </Link>{" "}
+          </LinkArrow>{" "}
           — we&apos;d love to keep you around.
         </p>
       </section>

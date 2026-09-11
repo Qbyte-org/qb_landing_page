@@ -1,0 +1,20 @@
+{
+  "asset": "ile-ife-osm.svg",
+  "source": "OpenStreetMap contributors",
+  "license": "ODbL 1.0",
+  "copyrightUrl": "https://www.openstreetmap.org/copyright",
+  "dataEndpoint": "https://overpass-api.de/api/interpreter",
+  "snapshot": "2026-09-11T19:55:35Z",
+  "query": "[out:json][timeout:35];(way[\"highway\"~\"^(trunk|primary|secondary|tertiary|residential|unclassified|service)$\"](7.44,4.49,7.56,4.64);way[\"waterway\"](7.44,4.49,7.56,4.64);way[\"natural\"=\"water\"](7.44,4.49,7.56,4.64);nwr[\"place\"](7.44,4.49,7.56,4.64);nwr[\"name\"~\"Obafemi|Mokuro|Lagere|Mayfair|Ilare|Modakeke|Sabo|Iremo|Parakin|Damico\",i](7.44,4.49,7.56,4.64););out geom;",
+  "bounds": { "south": 7.455, "west": 4.515, "north": 7.545, "east": 4.612 },
+  "projection": "Longitude scaled linearly, latitude projected to Web Mercator; 1000 x 936 SVG viewbox.",
+  "processing": "4431 OSM road, water and campus features. Douglas-Peucker simplification with 0.65 SVG unit tolerance; coordinate precision 0.1 SVG unit. No invented geometry.",
+  "city": { "name": "Ile-Ife", "coordinates": [7.482824, 4.5604451], "sourceUrl": "https://www.openstreetmap.org/node/501485612" },
+  "anchors": [
+    { "area": "OAU Campus", "landmark": "Obafemi Awolowo University", "coordinates": [7.5273089, 4.5340693], "position": "Campus bounding box center", "sourceUrl": "https://www.openstreetmap.org/way/1552256471" },
+    { "area": "Mokuro", "landmark": "Mokuro", "coordinates": [7.5, 4.6], "position": "OSM place node", "sourceUrl": "https://www.openstreetmap.org/node/501493442" },
+    { "area": "Modakeke", "landmark": "Modakeke New Town hall", "coordinates": [7.472442, 4.53850615], "position": "Landmark bounding box center", "sourceUrl": "https://www.openstreetmap.org/way/1239472703" },
+    { "area": "Ilare", "landmark": "Ilare Street", "coordinates": [7.48644025, 4.5600277], "position": "Named street bounding box center", "sourceUrl": "https://www.openstreetmap.org/way/1164436152" }
+  ],
+  "scope": "Anchors identify mapped landmarks within an area, not verified restaurant addresses or delivery boundaries. Unverified area locations and restaurant positions are not plotted."
+}

@@ -1,14 +1,13 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { ArrowRight } from "lucide-react";
 import { heroSlides } from "@/content/site";
 import { useHeroTransition } from "@/hooks/use-hero-transition";
 import HeroDecor from "./hero/HeroDecor";
 import HeroImageStage from "./hero/HeroImageStage";
 import { rotatingHeadlines } from "./hero/hero.data";
 import Container from "../ui/Container";
-import MagneticFillButton from "../ui/MagneticFillButton";
+import LinkArrow from "../ui/LinkArrow";
 import TypewriterText from "../ui/TypewriterText";
 
 export default function Hero() {
@@ -59,16 +58,13 @@ export default function Hero() {
 
         <Container className="pointer-events-none absolute inset-x-0 bottom-8 z-[70] max-w-[103rem]">
           <div data-hero-actions className="translate-y-1/2 sm:pl-10 xl:pl-32">
-            <MagneticFillButton
+            <LinkArrow
               href="/restaurants"
-              variant="brand"
-              customFillClass="bg-paper"
-              customHoverTextColor="#2a211d"
-              className="pointer-events-auto h-14 cursor-pointer rounded-4xl border-brand bg-brand! px-8 text-lg font-semibold text-white! sm:h-16 sm:px-9 sm:text-xl"
+              variant="dark"
+              className="pointer-events-auto h-14 rounded-pill border-0! bg-brand px-8 py-0! text-lg! font-semibold normal-case! text-white [--link-arrow-spacing:0em] sm:h-16 sm:px-9 sm:text-xl!"
             >
               Order now
-              <ArrowRight className="h-5 w-5" strokeWidth={2.35} aria-hidden="true" />
-            </MagneticFillButton>
+            </LinkArrow>
           </div>
         </Container>
       </div>
