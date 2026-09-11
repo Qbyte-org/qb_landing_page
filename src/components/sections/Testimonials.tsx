@@ -74,12 +74,12 @@ type StoryCard = {
 
 const storyCards: StoryCard[] = [
   {
-    kind: "illustration",
+    kind: "image",
     testimonial: testimonialCards[0],
     label: "Campus favourites",
     title: "A little comfort between lectures.",
-    image: "/food/jollof.svg",
-    imageAlt: "Illustration of jollof rice with chicken",
+    image: "/images/food/pinterest/jollof-chicken-plantain.webp",
+    imageAlt: "Jollof rice with glazed chicken and fried plantain",
     mediaClassName: "min-h-[16rem] sm:min-h-[18rem]",
   },
   {
@@ -106,8 +106,8 @@ const storyCards: StoryCard[] = [
     testimonial: testimonialCards[4],
     label: "Behind the counter",
     title: "Good food starts with teamwork.",
-    image: "/images/food/partner-kitchen.webp",
-    imageAlt: "People preparing and sharing food in a kitchen",
+    image: "/images/food/pinterest/meal-prep-packs.webp",
+    imageAlt: "Prepared portions of rice, chicken and stew in takeaway containers",
     mediaClassName: "min-h-[18rem] sm:min-h-[22rem]",
   },
   {
@@ -120,8 +120,8 @@ const storyCards: StoryCard[] = [
     testimonial: testimonialCards[6],
     label: "The usual, please",
     title: "For the cravings that feel like home.",
-    image: "/images/food/hero-fresh.webp",
-    imageAlt: "A spread of takeaway meals with vegetables and dipping sauces",
+    image: "/images/food/pinterest/nigerian-food-spread.webp",
+    imageAlt: "Serving trays of Nigerian rice dishes, stew and soup",
     mediaClassName: "min-h-[13rem] sm:min-h-[15rem]",
   },
   {
@@ -194,9 +194,9 @@ function CommunityPanel() {
   );
 }
 
-function StoryCardShell({ children }: { children: ReactNode }) {
+function StoryCardShell({ children, expandable = false }: { children: ReactNode; expandable?: boolean }) {
   return (
-    <figure className="group relative flex min-w-0 shrink-0 flex-col overflow-hidden rounded-card border border-ink/10 bg-cream p-5 text-ink transition-colors duration-300 hover:border-ink/25 sm:p-6">
+    <figure className={`group relative flex min-w-0 shrink-0 flex-col overflow-hidden rounded-card border border-ink/10 bg-cream p-5 text-ink transition-colors duration-300 hover:border-ink/25 sm:p-6 ${expandable ? "grow" : ""}`}>
       {children}
     </figure>
   );
@@ -238,9 +238,9 @@ function MediaStoryCard({ story }: { story: StoryCard }) {
   const isIllustration = story.kind === "illustration";
 
   return (
-    <StoryCardShell>
+    <StoryCardShell expandable>
       <AuthorRow testimonial={story.testimonial} />
-      <div className={`relative mt-5 shrink-0 overflow-hidden rounded-card ${isIllustration ? "bg-cream-200" : "bg-[#2a211d]"} ${story.mediaClassName ?? "min-h-[16rem]"}`}>
+      <div className={`relative mt-5 grow shrink-0 overflow-hidden rounded-card ${isIllustration ? "bg-cream-200" : "bg-[#2a211d]"} ${story.mediaClassName ?? "min-h-[16rem]"}`}>
         {story.image ? (
           <Image
             src={story.image}
@@ -291,9 +291,14 @@ function QuoteStoryCard({ story, index }: { story: StoryCard; index: number }) {
 export default function Testimonials() {
   const reducedMotion = useReducedMotion();
   const columnCount = useSyncExternalStore(subscribeToColumns, getColumnCount, getServerColumnCount);
-  const columns = Array.from({ length: columnCount }, (_, columnIndex) =>
-    storyCards.map((story, index) => ({ story, index })).filter(({ index }) => index % columnCount === columnIndex),
-  );
+  // Mix media and quote cards in both tablet columns. Flexible media panels
+  // absorb the remaining height difference while card gaps and full quotes stay fixed.
+  const columnIndexes = columnCount === 2
+    ? [[0, 3, 4, 6], [1, 2, 5, 7, 8]]
+    : Array.from({ length: columnCount }, (_, columnIndex) =>
+      storyCards.map((_, index) => index).filter((index) => index % columnCount === columnIndex),
+    );
+  const columns = columnIndexes.map((indexes) => indexes.map((index) => ({ story: storyCards[index], index })));
 
   return (
     <section
@@ -323,7 +328,7 @@ export default function Testimonials() {
           <CommunityPanel />
         </motion.div>
 
-        <div data-testimonial-grid className={`mt-12 grid items-start gap-4 sm:gap-5 xl:mt-14 ${columnCount === 3 ? "grid-cols-3" : columnCount === 2 ? "grid-cols-2" : "grid-cols-1"}`}>
+        <div data-testimonial-grid className={`mt-12 grid items-stretch gap-4 sm:gap-5 xl:mt-14 ${columnCount === 3 ? "grid-cols-3" : columnCount === 2 ? "grid-cols-2" : "grid-cols-1"}`}>
           {columns.map((column, columnIndex) => (
             <div key={columnIndex} data-testimonial-column className="flex min-w-0 flex-col gap-4 sm:gap-5">
               {column.map(({ story, index }) => story.kind === "quote" ? (
