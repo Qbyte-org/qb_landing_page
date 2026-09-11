@@ -44,8 +44,8 @@ const barcodePath = Array.from({ length: 3 }, (_, repeat) =>
 export default function Footer() {
   return (
     <footer
-      data-nav-theme="neutral"
-      className="relative overflow-hidden bg-cream-200 text-[#2a211d]"
+      data-nav-theme="dark"
+      className="relative overflow-hidden bg-ink text-paper"
     >
       <div className="mx-auto grid w-[92%] max-w-[1840px] gap-10 pb-28 pt-10 sm:gap-12 sm:pt-12 lg:grid-cols-[minmax(0,3.2fr)_minmax(0,5.3fr)_minmax(0,1.6fr)] lg:gap-[4vw] lg:pb-12">
         <FooterNewsletter />
@@ -54,7 +54,7 @@ export default function Footer() {
           <nav aria-label="Footer navigation" className="grid grid-cols-[1.2fr_1fr] gap-5 sm:gap-10 lg:gap-8 lg:pb-10 2xl:pb-14">
             {navigation.map((column) => (
               <div key={column.title} className="min-w-0">
-                <h2 className="text-sm font-medium uppercase text-[#6d5c52] sm:text-base 2xl:text-xl">
+                <h2 className="text-sm font-medium uppercase text-peach/75 sm:text-base 2xl:text-xl">
                   {column.title}
                 </h2>
                 <ul className="mt-5 space-y-1 sm:mt-7">
@@ -74,7 +74,7 @@ export default function Footer() {
             ))}
           </nav>
 
-          <div className="mt-8 grid grid-cols-1 items-center gap-x-4 gap-y-5 border-t border-[#2a211d]/15 pt-7 sm:grid-cols-[minmax(0,1fr)_auto] lg:mt-auto lg:pt-8">
+          <div className="mt-8 grid grid-cols-1 items-center gap-x-4 gap-y-5 border-t border-paper/15 pt-7 sm:grid-cols-[minmax(0,1fr)_auto] lg:mt-auto lg:pt-8">
             <p className="order-4 text-base sm:order-1 sm:text-lg 2xl:text-2xl">
               &copy; 2026 QuickBite
             </p>
@@ -82,7 +82,7 @@ export default function Footer() {
             <Link
               href="/#cities"
               prefetch={false}
-              className="order-1 inline-flex min-h-10 w-fit items-center gap-2 rounded-pill border border-[#2a211d]/15 px-3 py-2 text-sm transition-colors duration-200 hover:border-[#2a211d]/40 hover:bg-[#fffaf5] sm:order-2 sm:justify-self-end 2xl:text-base"
+              className="order-1 inline-flex min-h-10 w-fit items-center gap-2 rounded-pill border border-paper/20 px-3 py-2 text-sm transition-colors duration-200 hover:border-paper/40 hover:bg-paper/10 sm:order-2 sm:justify-self-end 2xl:text-base"
             >
               <MapPin className="size-4" aria-hidden="true" />
               All locations
@@ -111,14 +111,14 @@ export default function Footer() {
         </div>
 
         <div aria-hidden="true" className="relative hidden items-stretch justify-center lg:flex">
-          <div className="absolute -bottom-9 -top-9 left-0 w-px bg-[repeating-linear-gradient(to_bottom,#6d5c52_0px,#6d5c52_12px,transparent_12px,transparent_20px)]">
-            <span className="absolute -left-3 -top-3 size-6 bg-[#2a211d]/25 [clip-path:polygon(0_0,100%_0,50%_50%)]" />
-            <span className="absolute -bottom-3 -left-3 size-6 bg-[#2a211d]/25 [clip-path:polygon(50%_50%,100%_100%,0_100%)]" />
+          <div className="absolute -bottom-9 -top-9 left-0 w-px bg-[repeating-linear-gradient(to_bottom,rgba(255,231,215,0.45)_0px,rgba(255,231,215,0.45)_12px,transparent_12px,transparent_20px)]">
+            <span className="absolute -left-3 -top-3 size-6 bg-peach/35 [clip-path:polygon(0_0,100%_0,50%_50%)]" />
+            <span className="absolute -bottom-3 -left-3 size-6 bg-peach/35 [clip-path:polygon(50%_50%,100%_100%,0_100%)]" />
           </div>
           <svg
             viewBox="0 0 72 420"
             preserveAspectRatio="none"
-            className="ml-[15%] h-full min-h-[26rem] w-[36%] max-w-20 text-[#2a211d]/80"
+            className="ml-[15%] h-full min-h-[26rem] w-[36%] max-w-20 text-paper/70"
           >
             <path d={barcodePath} fill="currentColor" />
           </svg>
