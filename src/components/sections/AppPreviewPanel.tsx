@@ -39,7 +39,7 @@ export default function AppPreviewPanel({
   const FeatureIcon = feature.icon;
 
   return (
-    <figure className="relative isolate flex min-w-0 flex-col justify-center overflow-hidden bg-cream-200 px-5 py-8 text-ink sm:px-10 sm:py-10 lg:px-[3vw] lg:py-12">
+    <figure className="relative isolate flex min-w-0 flex-col justify-center overflow-hidden bg-paper px-5 py-8 text-ink sm:px-10 sm:py-10 lg:px-[3vw] lg:py-12">
       <figcaption className="flex items-center justify-between gap-4 border-b border-ink/15 pb-5 text-[0.625rem] font-semibold uppercase tracking-[0.16em] sm:text-xs">
         <span className="flex items-center gap-2">
           <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-brand" />
@@ -49,7 +49,7 @@ export default function AppPreviewPanel({
       </figcaption>
 
       <div className="relative mx-auto mt-7 w-full max-w-[46rem] flex-1 sm:mt-9">
-        <p className="relative z-10 font-display text-[2.1rem] font-semibold leading-[0.98] tracking-tight sm:text-[2.75rem] lg:text-[2.5rem] xl:text-5xl">
+        <p className="relative z-10 font-display text-[2.1rem] font-semibold leading-[0.98] tracking-[0.01em]! sm:text-[2.75rem] lg:text-[2.5rem] xl:text-5xl">
           Less tapping.<br />
           <span className="text-cocoa">More tasting.</span>
         </p>
