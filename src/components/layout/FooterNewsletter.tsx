@@ -1,17 +1,17 @@
 import { ArrowRight } from "lucide-react";
+import BackgroundGrainTexture from "../ui/BackgroundGrainTexture";
+import MagneticFillButton from "../ui/MagneticFillButton";
+import FooterSocials from "./FooterSocials";
 
 export default function FooterNewsletter() {
   return (
     <section
       aria-labelledby="footer-newsletter-title"
-      className="relative min-w-0 overflow-hidden bg-[#382c26] p-6 text-paper sm:p-8 lg:min-h-[26rem] lg:p-6 xl:p-8 min-[1800px]:min-h-[31rem] rounded-4xl"
+      className="relative flex min-w-0 flex-col overflow-hidden bg-[#382c26] p-6 text-paper sm:p-8 lg:min-h-[26rem] lg:p-6 xl:p-8 min-[1800px]:min-h-[31rem] rounded-4xl"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[url('/images/footer-grain.svg')] bg-size-[128px_128px] opacity-15 mix-blend-soft-light"
-      />
+      <BackgroundGrainTexture />
 
-      <div className="relative">
+      <div className="relative flex flex-1 flex-col">
         <h2
           id="footer-newsletter-title"
           className="font-display text-3xl font-semibold leading-tight tracking-[0.01em]! sm:text-4xl lg:text-3xl xl:text-4xl min-[1800px]:text-[2.5rem]"
@@ -40,20 +40,26 @@ export default function FooterNewsletter() {
               placeholder="Email address"
               className="min-w-0 flex-1 bg-transparent px-3 py-3 text-base text-paper placeholder:text-peach/75 focus-visible:outline-paper! autofill:[-webkit-box-shadow:0_0_0_9999px_#382c26_inset]! autofill:[-webkit-text-fill-color:#fffaf5]! sm:px-4 sm:text-lg min-[1800px]:text-xl rounded-4xl"
             />
-            <button
+            <MagneticFillButton
               type="submit"
-              aria-label="Continue to the QuickBite waitlist"
+              ariaLabel="Continue to the QuickBite waitlist"
               title="Continue to the waitlist"
-              className="group grid h-11 w-11 shrink-0 place-items-center bg-transparent text-paper focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper!"
+              variant="dark"
+              customFillClass="bg-brand"
+              customHoverTextColor="#ffffff"
+              className="group h-11 w-11 shrink-0 rounded-full bg-transparent! text-paper! focus-visible:outline-2! focus-visible:outline-offset-2 focus-visible:outline-paper!"
             >
               <ArrowRight
                 className="h-6 w-6 transition-transform duration-200 motion-safe:group-hover:translate-x-1"
                 strokeWidth={1.75}
                 aria-hidden="true"
               />
-            </button>
+            </MagneticFillButton>
           </div>
         </form>
+        <div className="mt-auto pt-7 sm:pt-8">
+          <FooterSocials />
+        </div>
       </div>
     </section>
   );

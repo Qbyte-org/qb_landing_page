@@ -1,3 +1,5 @@
+import MagneticFillButton from "../ui/MagneticFillButton";
+
 // Set these to the official profiles when they are available. An unset profile
 // stays visibly unavailable instead of sending visitors to a placeholder URL.
 const socialLinks = [
@@ -46,19 +48,21 @@ function SocialIcon({ name }: { name: typeof socialLinks[number]["icon"] }) {
 
 export default function FooterSocials() {
   return (
-    <ul aria-label="QuickBite social profiles" className="flex flex-wrap gap-3 sm:gap-4 2xl:gap-7">
+    <ul aria-label="QuickBite social profiles" className="flex flex-wrap gap-2 sm:gap-3">
       {socialLinks.map(({ label, href, icon }) => (
         <li key={label}>
           {href ? (
-            <a
+            <MagneticFillButton
               href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`QuickBite on ${label} (opens in a new tab)`}
-              className="flex size-10 items-center justify-center rounded-full border border-paper/20 text-paper transition-colors duration-200 hover:border-brand hover:bg-paper/10 motion-safe:transition-[color,background-color,border-color,transform] motion-safe:hover:-translate-y-0.5"
+              external
+              ariaLabel={`QuickBite on ${label} (opens in a new tab)`}
+              variant="dark"
+              customFillClass="bg-brand"
+              customHoverTextColor="#ffffff"
+              className="size-10 rounded-full border! border-paper/20! bg-transparent! text-paper! motion-safe:hover:-translate-y-0.5"
             >
               <SocialIcon name={icon} />
-            </a>
+            </MagneticFillButton>
           ) : (
             <span
               role="img"
