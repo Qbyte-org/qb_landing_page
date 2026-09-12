@@ -219,9 +219,8 @@ export const restaurants: Restaurant[] = [
     rating: 4.7,
     deliveryFrom: "₦600",
     eta: "20–30 min",
-    image: "/quickbite-mark.svg",
-    imageAlt: "QuickBite",
-    imageKind: "brand",
+    image: "/images/food/pinterest/glazed-chicken.webp",
+    imageAlt: "Glazed grilled chicken pieces with pepper sauce",
   },
   {
     name: "The Swallow House",
