@@ -68,6 +68,10 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
           "--magnetic-text": theme.chipText,
           "--magnetic-fill": "#fff0e4",
           "--magnetic-hover-text": "#2a211d",
+          // The menu control is transparent, so its reveal needs contrast
+          // against the active navigation surface: ink on paper, cream on ink.
+          "--nav-menu-fill": theme.surface === "#fffaf5" ? "#1c120f" : "#fff0e4",
+          "--nav-menu-hover-text": theme.surface === "#fffaf5" ? "#fffaf5" : "#2a211d",
           duration,
           ease: animation.ease.smooth,
           overwrite: "auto",
