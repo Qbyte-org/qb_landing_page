@@ -95,8 +95,7 @@ export default function FinalCTA() {
           className="h-full w-full origin-bottom text-paper/20 blur-[1px] [transform:rotateX(32deg)_scale(1.12)] sm:blur-[2px]"
           preserveAspectRatio="none"
         >
-                          <BackgroundGrainTexture />
-
+          <BackgroundGrainTexture />
           <text
             x="700"
             y="220"

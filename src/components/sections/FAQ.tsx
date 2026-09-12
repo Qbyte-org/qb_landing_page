@@ -82,7 +82,7 @@ export default function FAQ() {
                   </span>
                 </MagneticFillButton>
                 <div
-                  className="grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-300 ease-out group-open:grid-rows-[1fr] group-open:opacity-100 motion-reduce:transition-none"
+                  className="invisible grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-300 ease-out group-open:visible group-open:grid-rows-[1fr] group-open:opacity-100 motion-reduce:transition-none"
                 >
                   <div className="min-h-0 overflow-hidden pb-7 pl-10 pr-4 sm:pl-16 sm:pr-20">
                     <p className="max-w-xl text-sm leading-7 text-[#6d5c52] sm:text-base">
