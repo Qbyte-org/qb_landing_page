@@ -39,7 +39,7 @@ export default function AppPreviewPanel({
   const FeatureIcon = feature.icon;
 
   return (
-    <figure className="relative isolate flex min-w-0 flex-col justify-center overflow-hidden bg-paper px-5 py-8 text-ink sm:px-10 sm:py-10 lg:px-[3vw] lg:py-12">
+    <figure className="relative isolate flex min-w-0 flex-col justify-center overflow-hidden bg-paper px-5 py-8 text-ink sm:px-10 sm:py-10 lg:px-[3vw] lg:py-12 border-l border-dashed border-ink/20">
 
 
       <div className="relative mx-auto mt-7 w-full max-w-[46rem] flex-1 sm:mt-12">
@@ -50,13 +50,6 @@ export default function AppPreviewPanel({
         </div>
 
         <div data-app-preview-stage className="@container mt-6 overflow-hidden rounded-[1.75rem] border border-ink/15 bg-cream sm:mt-8">
-          <div className="flex items-center justify-between gap-4 border-b border-ink/10 px-5 py-3.5">
-            <span className="flex items-center gap-2 text-xs font-semibold text-ink">
-              <span aria-hidden="true" className="size-2 rounded-full bg-brand" />
-              QuickBite
-            </span>
-            <span className="text-[0.6rem] font-medium uppercase tracking-[0.16em] text-cocoa">App preview</span>
-          </div>
 
           <div className="grid @md:grid-cols-[minmax(0,0.95fr)_minmax(0,1fr)]">
             <div data-app-phone-stage className="relative flex min-w-0 items-center justify-center overflow-hidden bg-cream-200 px-3 py-4 @md:py-6">

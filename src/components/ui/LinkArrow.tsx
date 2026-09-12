@@ -65,7 +65,23 @@ function getRightEdgeShift(text: HTMLElement) {
 
   text.style.letterSpacing = currentLetterSpacing;
 
-  return Math.max(0, rootWidth - textWidth - mediaWidth);
+  const available = rootWidth - textWidth - mediaWidth;
+  // Compact links (for example footer legal links) can otherwise collapse
+  // the leading arrow into the first character. Reserve a small, stable lane
+  // for the animated arrow before calculating the character travel distance.
+  if (available < 12) {
+    const padding =
+      (Number.parseFloat(rootStyles.paddingLeft) || 0) +
+      (Number.parseFloat(rootStyles.paddingRight) || 0);
+    root.style.setProperty(
+      "min-width",
+      `${Math.ceil(textWidth + mediaWidth + 12 + padding)}px`,
+      "important",
+    );
+    return 12;
+  }
+
+  return available;
 }
 
 function getLinkSpacing(root: HTMLElement | null) {
@@ -342,7 +358,7 @@ export default function LinkArrow({
             }}
           />
         ) : (
-          "->"
+          "→"
         )}
       </span>
       <span
@@ -384,7 +400,7 @@ export default function LinkArrow({
             }}
           />
         ) : (
-          "->"
+          "→"
         )}
       </span>
     </>

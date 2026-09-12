@@ -63,7 +63,7 @@ export default function Footer() {
                         href={link.href}
                         variant="dark"
                         prefetch={false}
-                        className="min-h-10 w-full min-w-0! gap-2! border-paper/15! text-sm! font-semibold uppercase leading-snug text-paper! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.02em] sm:min-h-9 sm:text-lg! lg:min-h-8 lg:text-[clamp(.8rem,1.05vw,1.25rem)]!"
+                        className="min-h-10 w-72 min-w-0! gap-2! border-paper/15! text-sm! font-semibold uppercase leading-snug text-paper! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.02em] sm:min-h-9 sm:text-lg! lg:min-h-8 lg:text-[clamp(.8rem,1.05vw,1.25rem)]!"
                       >
                         {link.label}
                       </LinkArrow>
@@ -90,14 +90,14 @@ export default function Footer() {
             </LinkArrow>
 
             <nav aria-label="Legal" className="order-3 sm:col-span-2">
-              <ul className="flex flex-wrap gap-x-5 gap-y-1">
+              <ul className="flex flex-wrap gap-x-10 gap-y-1">
                 {legalLinks.map((link) => (
                   <li key={link.label}>
                     <LinkArrow
                       href={link.href}
                       prefetch={false}
                       variant="dark"
-                      className="min-h-9 min-w-0! gap-2! border-paper/15! text-sm! font-normal! normal-case! text-paper! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em] 2xl:text-base!"
+                      className="min-h-9 w-52 gap-4! border-paper/15! text-sm! font-normal! normal-case! text-paper! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em] 2xl:text-base!"
                     >
                       {link.label}
                     </LinkArrow>

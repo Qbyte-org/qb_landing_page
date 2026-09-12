@@ -376,7 +376,7 @@ export default function QuickBitePassportHub() {
             href="/restaurants"
             ariaLabel="Explore kitchens"
             variant="dark"
-            className="min-h-14 w-max shrink-0 self-end text-lg! normal-case! [--link-arrow-spacing:0em] sm:min-h-16 sm:text-xl! lg:self-auto"
+            className="min-h-14 w-64 shrink-0 self-end text-lg! normal-case! [--link-arrow-spacing:0em] sm:min-h-16 sm:text-xl! lg:self-auto"
           >
             Explore kitchens
           </LinkArrow>
@@ -415,9 +415,10 @@ export default function QuickBitePassportHub() {
                   <PassportLeafletMap
                     city={activeCity}
                     neighbourhoods={activeCity.nodes}
+                    restaurants={cityRestaurants}
                     selectedNode={selectedNode}
                     onSelectNode={(node) =>
-                      setSelectedArea(node?.name ?? null)
+                      setSelectedArea(selectedNode?.name === node.name ? null : node.name)
                     }
                   />
                 </div>
@@ -497,7 +498,7 @@ export default function QuickBitePassportHub() {
                   <AnimatePresence mode="popLayout">
                     {cityRestaurants.map((restaurant) => (
                       <RestaurantMembershipCard
-                        key={`${activeCity.id}-${selectedNode?.name ?? "all"}-${restaurant.name}`}
+                        key={`${activeCity.id}-${selectedNode?.name ?? "all"}-${restaurant.id}`}
                         restaurant={restaurant}
                         accent={activeCity.accent}
                         highlighted={false}
