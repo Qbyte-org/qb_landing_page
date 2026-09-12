@@ -9,15 +9,35 @@ export default function CategoryCard({ category }: { category: Category }) {
   return (
     <article className="relative w-[min(86vw,22rem)] shrink-0 px-3 text-ink sm:w-[31rem] sm:px-4 lg:w-[36rem]">
       <div className="h-full overflow-hidden rounded-[2rem] border border-ink/10 bg-cream sm:rounded-[2.5rem]">
-        <div className="relative h-24 overflow-hidden sm:h-64" style={{ backgroundColor: category.tint }}>
+        <div className="relative h-36 overflow-hidden sm:h-72" style={{ backgroundColor: category.tint }}>
           <FoodImage
             src={category.image}
             alt={category.imageAlt}
             fill
             loading="lazy"
             sizes="(min-width: 1024px) 512px, (min-width: 640px) 464px, (min-width: 410px) 328px, 80vw"
-            className={category.imageKind === "brand" ? "object-contain p-14 opacity-80 sm:p-16" : "object-cover"}
+            className={category.imageKind === "brand" ? "object-contain p-14 opacity-80 sm:p-16" : "object-cover object-center"}
           />
+          <svg
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-[-1px] z-[1] h-16 w-full sm:h-24"
+            viewBox="0 0 532 148"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0 44C78 73 112 117 181 92C260 64 278 112 357 101C424 92 459 57 532 78V148H0V44Z"
+              fill="var(--color-cream)"
+            />
+            <path
+              d="M0 44C78 73 112 117 181 92C260 64 278 112 357 101C424 92 459 57 532 78"
+              fill="none"
+              stroke="var(--color-cocoa)"
+              strokeDasharray="8 12"
+              strokeLinecap="round"
+              strokeOpacity=".56"
+              strokeWidth="2.4"
+            />
+          </svg>
           <div className="absolute right-4 top-4 z-10 grid size-[4.75rem] place-items-center rounded-full bg-cream text-center text-[0.6rem] font-semibold uppercase leading-tight text-ink shadow-sm sm:right-5 sm:bottom-5 sm:size-[5.5rem] sm:text-[0.65rem]">
             <span>
               <span className="block text-cocoa">Ready</span>

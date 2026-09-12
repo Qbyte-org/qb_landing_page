@@ -116,12 +116,15 @@ export default function MagneticFillButton({
   const [fillSize, setFillSize] = useState(480);
   const [isHovered, setIsHovered] = useState(false);
   const styles = themeAware ? themeAwareStyles : variants[variant];
+  // Paper surfaces use the ink tone as their magnetic reveal so the control
+  // remains legible while the pointer fill expands.
+  const startsOnPaper = /(?:^|\s)bg-paper!?($|\s)/.test(className);
   // Consume legacy overrides without forwarding them to the DOM. All action
   // controls share one hover palette, including callers migrated incrementally.
   void customFillClass;
   void customHoverTextColor;
-  const fillClassName = styles.fill;
-  const activeHoverTextColor = "#2a211d";
+  const fillClassName = startsOnPaper ? "bg-[#1c120f]" : styles.fill;
+  const activeHoverTextColor = startsOnPaper ? "#fffaf5" : "#2a211d";
   const idleTextColor = themeAware ? "var(--magnetic-text)" : undefined;
 
   const setOrigin = useCallback((x: number, y: number) => {
@@ -198,7 +201,7 @@ export default function MagneticFillButton({
         data-magnetic-content=""
         className={`relative z-10 transition-colors duration-300 motion-reduce:transition-none! ${contentClassName} ${
           isHovered
-            ? `${styles.hoverText} ${childColorClassName} ${hoverAccentClassName}`
+            ? `${startsOnPaper ? "text-paper" : styles.hoverText} ${childColorClassName} ${hoverAccentClassName}`
             : childColorClassName
         }`}
         style={{
@@ -235,26 +238,29 @@ export default function MagneticFillButton({
 
   if (href) {
     return (
-      <LinkArrow
-        {...rest}
-        href={href}
-        appearance="plain"
-        ariaLabel={ariaLabel}
-        prefetch={prefetch}
-        target={target ?? (external ? "_blank" : undefined)}
-        rel={rel}
-        className={`${rootClassName} gap-2`}
-        onClick={onClick}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        dataNavAction={dataNavAction}
-        dataNavChip={dataNavChip}
-        data-nav-icon={dataNavIcon ? "" : undefined}
-      >
-        {children}
-      </LinkArrow>
+      <span ref={buttonRef} className="inline-flex">
+        <LinkArrow
+          {...rest}
+          href={href}
+          appearance="plain"
+          ariaLabel={ariaLabel}
+          prefetch={prefetch}
+          target={target ?? (external ? "_blank" : undefined)}
+          rel={rel}
+          className={`${rootClassName} gap-2`}
+          onClick={onClick}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          dataNavAction={dataNavAction}
+          dataNavChip={dataNavChip}
+          data-nav-icon={dataNavIcon ? "" : undefined}
+          data-magnetic-button=""
+        >
+          {content}
+        </LinkArrow>
+      </span>
     );
   }
 
