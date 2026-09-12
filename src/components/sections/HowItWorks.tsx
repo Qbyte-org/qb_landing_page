@@ -13,6 +13,7 @@ import ProcessVisualPanel from "./how-it-works/ProcessVisualPanel";
 import LinkArrow from "../ui/LinkArrow";
 import Container from "../ui/Container";
 import SectionWave from "../ui/SectionWave";
+import BackgroundGrainTexture from "../ui/BackgroundGrainTexture";
 
 export default function HowItWorks() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -54,6 +55,7 @@ export default function HowItWorks() {
       </Container>
 
       <div className="relative min-h-[25rem] overflow-hidden bg-ink lg:min-h-[28rem]">
+        <BackgroundGrainTexture />
         <div
           aria-hidden="true"
           className="absolute right-0 top-0 z-30 hidden h-full w-1 bg-paper/20 lg:block"
