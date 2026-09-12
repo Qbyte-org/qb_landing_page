@@ -25,9 +25,15 @@
   <g filter="url(#softShadow)">
     <circle cx="146" cy="185" r="38" fill="#FFF8F2" stroke="url(#frame)" stroke-width="12"/>
     <circle cx="146" cy="185" r="13" fill="#F36A00"/>
+    <g stroke="#B9A79A" stroke-width="2" opacity="0.8">
+      <path d="M146 147V223M108 185H184M119 158L173 212M173 158L119 212"/>
+    </g>
 
     <circle cx="362" cy="185" r="38" fill="#FFF8F2" stroke="url(#frame)" stroke-width="12"/>
     <circle cx="362" cy="185" r="13" fill="#115E41"/>
+    <g stroke="#B9A79A" stroke-width="2" opacity="0.8">
+      <path d="M362 147V223M324 185H400M335 158L389 212M389 158L335 212"/>
+    </g>
   </g>
 
   <!-- bike frame -->
@@ -37,6 +43,8 @@
   <path d="M231 110L252 82" stroke="url(#frame)" stroke-width="12" stroke-linecap="round"/>
   <path d="M252 82L297 82" stroke="url(#frame)" stroke-width="12" stroke-linecap="round"/>
   <path d="M297 82L310 124" stroke="url(#frame)" stroke-width="12" stroke-linecap="round"/>
+  <path d="M198 144L230 185H276L310 124" stroke="#F36A00" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+  <circle cx="230" cy="185" r="7" fill="#FFF8F2" stroke="url(#frame)" stroke-width="4"/>
 
   <!-- handlebar -->
   <path d="M298 81L332 69" stroke="url(#frame)" stroke-width="12" stroke-linecap="round"/>
@@ -52,6 +60,7 @@
           fill="url(#boxGrad)" stroke="url(#frame)" stroke-width="10" stroke-linejoin="round"/>
     <path d="M107 61H213" stroke="#F8C38C" stroke-width="6" stroke-linecap="round" opacity="0.45"/>
     <path d="M121 47L140 32H181L198 47" stroke="url(#frame)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M127 54H193" stroke="#FFF3E8" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
 
     <!-- QuickBite app logo mark embedded in box -->
     <g transform="translate(128 51)">
@@ -66,6 +75,7 @@
 
   <!-- rider -->
   <circle cx="248" cy="60" r="24" fill="#115E41" stroke="url(#frame)" stroke-width="10"/>
+  <path d="M228 57C231 42 242 34 256 37C264 39 270 45 272 53" stroke="#FF8A2A" stroke-width="6" stroke-linecap="round"/>
   <path d="M244 84L230 132" stroke="url(#frame)" stroke-width="12" stroke-linecap="round"/>
   <path d="M244 84L270 110L302 102" stroke="url(#frame)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
   <path d="M270 110L284 146" stroke="#FF8A2A" stroke-width="12" stroke-linecap="round"/>

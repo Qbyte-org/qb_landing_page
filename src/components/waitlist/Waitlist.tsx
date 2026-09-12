@@ -58,7 +58,7 @@ export default function Waitlist({ initialEmail = "" }: { initialEmail?: string 
                   <span role="img" aria-label="QuickBite social updates coming soon" title="QuickBite social updates coming soon" className="relative z-10 flex size-9 shrink-0 items-center justify-center rounded-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16] sm:size-12">
                     <MessageCircle className="size-4 text-white/60 sm:size-5" aria-hidden="true" />
                   </span>
-                  <LinkArrow href="mailto:support@quickbite.ng" variant="dark" ariaLabel="Send QuickBite a message" className="relative z-10 min-h-9 w-28 min-w-0! gap-3! border-paper/25! px-2 text-[10px]! [--link-arrow-min-width:0px] [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.1em] sm:min-h-12">
+                  <LinkArrow href="mailto:support@quickbite.ng" variant="dark" ariaLabel="Send QuickBite a message" className="relative z-10 min-h-10 w-32 min-w-0! gap-2! rounded-full border-paper/30! bg-paper/[0.08] px-3 text-[11px]! font-semibold tracking-[0.08em] sm:min-h-12 sm:w-36 sm:px-4 sm:text-xs! [--link-arrow-min-width:0px] [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.1em]">
                     Email us
                   </LinkArrow>
                 </div>
@@ -81,4 +81,3 @@ export default function Waitlist({ initialEmail = "" }: { initialEmail?: string 
     </main>
   );
 }
-

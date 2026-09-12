@@ -64,7 +64,7 @@ export default function RestaurantMembershipCard({
             fill
             loading="lazy"
             sizes="192px"
-            className={restaurant.imageKind === "brand" ? "bg-paper object-contain p-8" : "object-cover p-3"}
+            className={restaurant.imageKind === "brand" ? "bg-paper object-contain p-8" : "object-cover object-center"}
           />
         </motion.div>
         <motion.div

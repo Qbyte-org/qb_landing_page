@@ -30,7 +30,6 @@ export const navLinks: NavLink[] = [
   { label: "Riders", href: "/riders" },
   { label: "Company", href: "/company" },
 ];
-
 export type Stat = { value: string; label: string };
 
 export const stats: Stat[] = [
@@ -186,18 +185,13 @@ export const heroSlides = [
   },
   {
     word: "Fast.",
-    src: "/images/food/pinterest/meal-prep-packs.webp",
-    alt: "Prepared rice, stew and chicken portions in takeaway containers",
+    src: "/images/food/pinterest/jollof-takeaway.webp",
+    alt: "Jollof rice with chicken and plantain served in a takeaway tray",
   },
   {
     word: "Local.",
-    src: "/images/food/pinterest/nigerian-food-spread.webp",
-    alt: "A selection of Nigerian rice, stews, soups and vegetables in serving trays",
-  },
-  {
-    word: "Hot.",
-    src: "/images/food/pinterest/jollof-takeaway.webp",
-    alt: "Jollof rice, a chicken portion and plantain in a takeaway tray",
+    src: "/images/food/pinterest/ofada-rice-ayamase.webp",
+    alt: "Ofada rice with ayamase sauce and assorted toppings",
   },
 ] as const;
 
@@ -220,7 +214,7 @@ export const restaurants: Restaurant[] = [
     deliveryFrom: "₦600",
     eta: "20–30 min",
     image: "/images/food/pinterest/glazed-chicken.webp",
-    imageAlt: "Glazed grilled chicken pieces with pepper sauce",
+    imageAlt: "Pepper-glazed grilled chicken ready to serve",
   },
   {
     name: "The Swallow House",
@@ -241,24 +235,22 @@ export const restaurants: Restaurant[] = [
     imageAlt: "A basket filled with golden puff-puff",
   },
   {
-    name: "Ife Pizza Co.",
-    cuisine: "Pizza • Fast Food",
+    name: "Ife Ofada Kitchen",
+    cuisine: "Ofada Rice • Ayamase • Egg",
     rating: 4.5,
     deliveryFrom: "₦700",
     eta: "30–45 min",
-    image: "/quickbite-mark.svg",
-    imageAlt: "QuickBite",
-    imageKind: "brand",
+    image: "/images/food/pinterest/ofada-rice-ayamase.webp",
+    imageAlt: "Ofada rice served with ayamase stew and an egg",
   },
   {
-    name: "Smoothie & Chill",
-    cuisine: "Drinks • Smoothies • Juice",
+    name: "Pepper Soup Corner",
+    cuisine: "Pepper Soup • Assorted Meat • Herbs",
     rating: 4.8,
     deliveryFrom: "₦350",
     eta: "15–20 min",
-    image: "/quickbite-mark.svg",
-    imageAlt: "QuickBite",
-    imageKind: "brand",
+    image: "/images/food/pinterest/assorted-meat-pepper-soup.webp",
+    imageAlt: "Assorted meat pepper soup with herbs in a white bowl",
   },
 ];
 
