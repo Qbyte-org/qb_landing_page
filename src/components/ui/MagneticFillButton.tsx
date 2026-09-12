@@ -45,6 +45,8 @@ export interface MagneticFillButtonProps extends Omit<HTMLAttributes<MagneticEle
   dataNavAction?: boolean;
   dataNavChip?: boolean;
   dataNavIcon?: boolean;
+  /** Use the header's theme-aware menu hover surface. */
+  menuThemeAware?: boolean;
 }
 
 const variants: Record<
@@ -109,6 +111,7 @@ export default function MagneticFillButton({
   dataNavAction = false,
   dataNavChip = false,
   dataNavIcon = false,
+  menuThemeAware = false,
   ...rest
 }: MagneticFillButtonProps) {
   const buttonRef = useRef<MagneticElement>(null);
@@ -118,13 +121,23 @@ export default function MagneticFillButton({
   const styles = themeAware ? themeAwareStyles : variants[variant];
   // Paper surfaces use the ink tone as their magnetic reveal so the control
   // remains legible while the pointer fill expands.
-  const startsOnPaper = /(?:^|\s)bg-paper!?($|\s)/.test(className);
+  const startsOnPaper =
+    dataNavChip ||
+    /(?:^|\s)bg-(?:paper|cream|white)(?:!?\b|\[)/.test(className);
   // Consume legacy overrides without forwarding them to the DOM. All action
   // controls share one hover palette, including callers migrated incrementally.
   void customFillClass;
   void customHoverTextColor;
-  const fillClassName = startsOnPaper ? "bg-[#1c120f]" : styles.fill;
-  const activeHoverTextColor = startsOnPaper ? "#fffaf5" : "#2a211d";
+  const fillClassName = menuThemeAware
+    ? "bg-[var(--nav-menu-fill)]"
+    : startsOnPaper
+      ? "bg-[#1c120f]"
+      : styles.fill;
+  const activeHoverTextColor = menuThemeAware
+    ? "var(--nav-menu-hover-text)"
+    : startsOnPaper
+      ? "#fffaf5"
+      : "#2a211d";
   const idleTextColor = themeAware ? "var(--magnetic-text)" : undefined;
 
   const setOrigin = useCallback((x: number, y: number) => {
@@ -226,6 +239,7 @@ export default function MagneticFillButton({
     "data-nav-action": dataNavAction ? "" : undefined,
     "data-nav-chip": dataNavChip ? "" : undefined,
     "data-nav-icon": dataNavIcon ? "" : undefined,
+    "data-menu-trigger": menuThemeAware ? "" : undefined,
   };
 
   if (as === "summary") {
@@ -257,6 +271,7 @@ export default function MagneticFillButton({
           dataNavChip={dataNavChip}
           data-nav-icon={dataNavIcon ? "" : undefined}
           data-magnetic-button=""
+          data-menu-trigger={menuThemeAware ? "" : undefined}
         >
           {content}
         </LinkArrow>

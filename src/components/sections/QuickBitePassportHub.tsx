@@ -415,9 +415,10 @@ export default function QuickBitePassportHub() {
                   <PassportLeafletMap
                     city={activeCity}
                     neighbourhoods={activeCity.nodes}
+                    restaurants={cityRestaurants}
                     selectedNode={selectedNode}
                     onSelectNode={(node) =>
-                      setSelectedArea(node?.name ?? null)
+                      setSelectedArea(selectedNode?.name === node.name ? null : node.name)
                     }
                   />
                 </div>

@@ -1,7 +1,7 @@
 import FoodImage from "../../ui/FoodImage";
 import { Star } from "lucide-react";
 import type { Category } from "@/content/site";
-import LinkArrow from "../../ui/LinkArrow";
+import MagneticFillButton from "../../ui/MagneticFillButton";
 
 export default function CategoryCard({ category }: { category: Category }) {
   const Icon = category.icon;
@@ -9,14 +9,14 @@ export default function CategoryCard({ category }: { category: Category }) {
   return (
     <article className="relative w-[min(86vw,22rem)] shrink-0 px-3 text-ink sm:w-[31rem] sm:px-4 lg:w-[36rem]">
       <div className="h-full overflow-hidden rounded-[2rem] border border-ink/10 bg-cream sm:rounded-[2.5rem]">
-        <div className="relative h-36 overflow-hidden sm:h-72" style={{ backgroundColor: category.tint }}>
+        <div className="relative h-36 overflow-hidden sm:h-64" style={{ backgroundColor: category.tint }}>
           <FoodImage
             src={category.image}
             alt={category.imageAlt}
             fill
             loading="lazy"
             sizes="(min-width: 1024px) 512px, (min-width: 640px) 464px, (min-width: 410px) 328px, 80vw"
-            className={category.imageKind === "brand" ? "object-contain p-14 opacity-80 sm:p-16" : "scale-[1.1] object-cover object-center sm:scale-[1.16]"}
+            className={category.imageKind === "brand" ? "object-contain p-14 opacity-80 sm:p-16" : "object-cover object-center"}
           />
           <svg
             aria-hidden="true"
@@ -71,13 +71,13 @@ export default function CategoryCard({ category }: { category: Category }) {
                 {category.name}
               </h3>
             </div>
-            <LinkArrow
+            <MagneticFillButton
               href="/restaurants"
               variant="dark"
-              className="min-h-11 w-max shrink-0 rounded-pill border-0 bg-brand! px-5 py-3! text-base! font-semibold normal-case! text-white! [--link-arrow-min-width:0px] [--link-arrow-spacing:0em] sm:mb-1 sm:h-14 sm:px-6 sm:text-md!"
+              className="min-h-11 w-max shrink-0 rounded-pill bg-brand! px-5 py-3! text-base! font-semibold normal-case! text-white! sm:mb-1 sm:h-14 sm:px-6 sm:text-md!"
             >
               Order now
-            </LinkArrow>
+            </MagneticFillButton>
           </div>
           <p className="mt-5 min-h-[3.8rem] max-w-[27rem] text-[0.88rem] leading-snug text-cocoa sm:text-[0.94rem]">
             {category.description}

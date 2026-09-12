@@ -40,6 +40,8 @@ const navThemeDefaults = {
   "--magnetic-text": "#2a211d",
   "--magnetic-fill": "#fff0e4",
   "--magnetic-hover-text": "#2a211d",
+  "--nav-menu-fill": "#1c120f",
+  "--nav-menu-hover-text": "#fffaf5",
 } as CSSProperties;
 
 function MenuGlyph({ open }: { open: boolean }) {
@@ -359,7 +361,8 @@ export default function Header() {
                 aria-controls="site-menu"
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 themeAware
-                className="ml-auto h-9 min-w-[5.15rem] rounded-[0.95rem] bg-transparent! px-1.5 text-xs font-semibold uppercase tracking-[0.08em] [--magnetic-text:var(--nav-foreground)] motion-safe:hover:scale-[1.04] motion-safe:active:scale-[0.96] sm:h-10 sm:min-w-[6.7rem] sm:px-2.5 xl:h-12 xl:min-w-[7.4rem]"
+                menuThemeAware
+                className="ml-auto h-9 min-w-[5.15rem] rounded-4xl bg-transparent! px-1.5 text-3xl font-semibold uppercase tracking-[0.08em] [--magnetic-text:var(--nav-foreground)] motion-safe:hover:scale-[1.04] motion-safe:active:scale-[0.96] sm:h-10 sm:min-w-[6.7rem] sm:px-2.5 xl:h-12 xl:min-w-[7.4rem]"
               >
                 <span className="hidden leading-none text-base sm:inline">
                   {menuOpen ? "Close" : ""}
