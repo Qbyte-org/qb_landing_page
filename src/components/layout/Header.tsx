@@ -322,7 +322,7 @@ export default function Header() {
                   href="/restaurants"
                   dataNavChip
                   variant="light"
-                  className={`${navChip} !text-[var(--nav-chip-text)] h-9 justify-center gap-2 rounded-pill px-4 text-xs font-semibold sm:h-10 sm:px-5 xl:h-12 xl:px-6 xl:text-base`}
+                  className={`${navChip} !bg-[var(--nav-chip)] !text-[var(--nav-chip-text)] h-9 justify-center gap-2 rounded-pill px-4 text-xs font-semibold sm:h-10 sm:px-5 xl:h-12 xl:px-6 xl:text-base`}
                 >
                   Find food
                   <MapPin data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.3} aria-hidden="true" />
@@ -334,7 +334,7 @@ export default function Header() {
                   href="/restaurants"
                   dataNavAction
                   variant="dark"
-                  className={`${navAction} !text-[var(--nav-action-text)] h-9 justify-center gap-2 rounded-pill px-3 text-xs font-semibold sm:h-10 sm:px-5 xl:h-12 xl:text-base`}
+                  className={`${navAction} !bg-[var(--nav-action)] !text-[var(--nav-action-text)] h-9 justify-center gap-2 rounded-pill px-3 text-xs font-semibold sm:h-10 sm:px-5 xl:h-12 xl:text-base`}
                 >
                   Order now
                   <ListOrderedIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.35} aria-hidden="true" />
@@ -413,7 +413,7 @@ export default function Header() {
                       onClick={closePanels}
                       dataNavChip
                       variant="light"
-                      className={`${navChip} !text-[var(--nav-chip-text)] h-11 justify-center gap-2 rounded-pill px-4 text-xs font-semibold`}
+                      className={`${navChip} !bg-[var(--nav-chip)] !text-[var(--nav-chip-text)] h-11 justify-center gap-2 rounded-pill px-4 text-xs font-semibold`}
                     >
                       Find food
                       <MapPin data-nav-icon className="h-3.5 w-3.5" strokeWidth={2.3} aria-hidden="true" />
@@ -423,7 +423,7 @@ export default function Header() {
                       onClick={closePanels}
                       dataNavAction
                       variant="dark"
-                      className={`${navAction} !text-[var(--nav-action-text)] h-11 justify-center gap-2 rounded-pill px-4 text-xs font-semibold`}
+                      className={`${navAction} !bg-[var(--nav-action)] !text-[var(--nav-action-text)] h-11 justify-center gap-2 rounded-pill px-4 text-xs font-semibold`}
                     >
                       Order now
                       <ListOrderedIcon className="h-3.5 w-3.5" strokeWidth={2.35} aria-hidden="true" />

@@ -73,7 +73,11 @@ function getRightEdgeShift(text: HTMLElement) {
     const padding =
       (Number.parseFloat(rootStyles.paddingLeft) || 0) +
       (Number.parseFloat(rootStyles.paddingRight) || 0);
-    root.style.minWidth = `${Math.ceil(textWidth + mediaWidth + 12 + padding)}px`;
+    root.style.setProperty(
+      "min-width",
+      `${Math.ceil(textWidth + mediaWidth + 12 + padding)}px`,
+      "important",
+    );
     return 12;
   }
 
@@ -354,7 +358,7 @@ export default function LinkArrow({
             }}
           />
         ) : (
-          "->"
+          "→"
         )}
       </span>
       <span
@@ -396,7 +400,7 @@ export default function LinkArrow({
             }}
           />
         ) : (
-          "->"
+          "→"
         )}
       </span>
     </>
