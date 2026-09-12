@@ -498,7 +498,7 @@ export default function QuickBitePassportHub() {
                   <AnimatePresence mode="popLayout">
                     {cityRestaurants.map((restaurant) => (
                       <RestaurantMembershipCard
-                        key={`${activeCity.id}-${selectedNode?.name ?? "all"}-${restaurant.name}`}
+                        key={`${activeCity.id}-${selectedNode?.name ?? "all"}-${restaurant.id}`}
                         restaurant={restaurant}
                         accent={activeCity.accent}
                         highlighted={false}

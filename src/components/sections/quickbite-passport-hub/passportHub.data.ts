@@ -16,6 +16,7 @@ export type PassportNode = PassportMapNode;
 
 export type PassportRestaurant = Restaurant &
   PassportMapRestaurant & {
+    id: string;
     avgOrder: string;
     badge: string;
     description: string;
@@ -122,7 +123,7 @@ const restaurantDescriptions = [
   "A comfort-food favourite with steady ratings and warm dinner traffic.",
   "A quick-bite counter built for campus rushes and late afternoon cravings.",
   "A casual kitchen with easy group orders and weekend crowd energy.",
-  "Fresh drinks and light meals for soft landings between heavier plates.",
+  "Fresh plates and light meals for soft landings between heavier cravings.",
 ];
 
 const passportOnlyRestaurants: Restaurant[] = [
@@ -169,25 +170,25 @@ const passportOnlyRestaurants: Restaurant[] = [
     deliveryFrom: "₦400",
     eta: "18–26 min",
     image: "/images/food/pinterest/akara-bean-cakes.webp",
-    imageAlt: "Golden akara bean cakes on a white plate",
+    imageAlt: "Golden akara bean cakes with crisp edges",
   },
   {
-    name: "Rice & Chicken House",
-    cuisine: "Rice • Chicken • Plantain",
+    name: "Rice & Beans House",
+    cuisine: "Rice • Beans • Red Stew",
     rating: 4.6,
     deliveryFrom: "₦500",
     eta: "20–30 min",
-    image: "/images/food/pinterest/rice-chicken-plantain.webp",
-    imageAlt: "Rice with chicken and fried plantain",
+    image: "/images/food/pinterest/rice-beans-stew.webp",
+    imageAlt: "White rice and beans served with red stew",
   },
   {
-    name: "Puff-Puff Bakery",
-    cuisine: "Bakery • Pastries • Small Chops",
+    name: "Family Feast",
+    cuisine: "Nigerian Plates • Rice • Stews",
     rating: 4.5,
     deliveryFrom: "₦350",
     eta: "15–25 min",
-    image: "/images/food/pinterest/puff-puff.webp",
-    imageAlt: "Fresh golden pastries from a local bakery",
+    image: "/images/food/pinterest/nigerian-food-spread.webp",
+    imageAlt: "A selection of Nigerian rice, stews, soups and vegetables in serving trays",
   },
   {
     name: "Meat & Stew Spot",
@@ -196,11 +197,17 @@ const passportOnlyRestaurants: Restaurant[] = [
     deliveryFrom: "₦600",
     eta: "25–35 min",
     image: "/images/food/pinterest/assorted-meat-stew.webp",
-    imageAlt: "Spiced beef and rich stew with local sides",
+    imageAlt: "Assorted meat and tripe in a rich red stew",
   },
 ];
 
-const passportRestaurantPool = [...baseRestaurants, ...passportOnlyRestaurants];
+// Assign identity once at the source so area changes preserve it when the pool rotates.
+const passportRestaurantPool = [...baseRestaurants, ...passportOnlyRestaurants].map(
+  (restaurant, sourceIndex) => ({
+    ...restaurant,
+    id: `${slugify(restaurant.name)}-${sourceIndex}`,
+  }),
+);
 
 function slugify(value: string) {
   return value

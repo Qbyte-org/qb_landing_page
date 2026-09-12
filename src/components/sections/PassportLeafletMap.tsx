@@ -13,6 +13,7 @@ export type PassportMapNode = {
 };
 
 export type PassportMapRestaurant = {
+  id: string;
   name: string;
   cuisine: string;
   eta: string;
@@ -41,9 +42,10 @@ const orangeMarkerColors = new Set([
 ]);
 
 const districtSlots = [
-  { x: 10, y: 12 },
+  // Keep the first pill clear of the map frame on narrow screens.
+  { x: 16, y: 12 },
   { x: 26, y: 28 },
-  { x: 53, y: 18 },
+  { x: 53, y: 22 },
   { x: 82, y: 13 },
   { x: 81, y: 44 },
   { x: 57, y: 76 },
@@ -58,7 +60,7 @@ const districtSlots = [
 const restaurantSlots = [
   { x: 16, y: 50 },
   { x: 30, y: 84 },
-  { x: 48, y: 36 },
+  { x: 61, y: 40 },
   { x: 70, y: 67 },
   { x: 62, y: 86 },
   { x: 87, y: 76 },
@@ -88,7 +90,7 @@ export default function PassportLeafletMap({
   onHoverRestaurant?: (name: string | null) => void;
 }) {
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-[1.35rem] border-[0.18rem] border-[#2a211d] bg-[#f7eadb]">
+    <div className="@container relative h-full w-full overflow-hidden rounded-[1.35rem] border-[0.18rem] border-[#2a211d] bg-[#f7eadb]">
       <svg
         aria-hidden="true"
         className="absolute inset-0 h-full w-full"
@@ -196,10 +198,10 @@ export default function PassportLeafletMap({
                 variant="light"
                 customFillClass="bg-ink"
                 customHoverTextColor="#fffaf5"
-                contentClassName="flex min-w-0 items-center gap-1.5"
-                className={`min-h-9 max-w-[7.5rem] rounded-lg border-2! border-ink bg-[var(--marker-color)]! px-2 py-0.5 text-xs font-bold leading-tight sm:text-sm ${isOrange ? "text-white!" : "text-[#4f372d]!"}`}
+                contentClassName="flex min-w-0 items-center gap-1"
+                className={`h-[clamp(1.5rem,6cqw,1.75rem)] max-w-[min(6.5rem,20cqw)] rounded-md border! border-ink bg-[var(--marker-color)]! px-1.5 py-0.5 text-[clamp(0.5625rem,2.2cqw,0.6875rem)]! font-bold leading-tight ${isOrange ? "text-white!" : "text-[#4f372d]!"}`}
               >
-                <span className="h-2 w-2 shrink-0 rounded-full border-2 border-[#2a211d] bg-[#fffaf3]" />
+                <span className="size-1 shrink-0 rounded-full border border-[#2a211d] bg-[#fffaf3]" />
                 <span className="truncate">{truncateLabel(node.name)}</span>
               </MagneticFillButton>
               <span aria-hidden="true" className="pointer-events-none relative mt-2 block h-8 w-8 rounded-full border-[0.32rem] border-[var(--marker-color)] bg-[#fffaf3]">
@@ -214,7 +216,7 @@ export default function PassportLeafletMap({
 
           return (
             <motion.div
-              key={`${city.name}-${restaurant.name}`}
+              key={`${city.name}-${restaurant.id}`}
               whileHover={{ y: -3, scale: 1.1 }}
               className="absolute z-20 -translate-x-1/2 -translate-y-1/2"
               style={{ left: `${slot.x}%`, top: `${slot.y}%` }}
@@ -229,7 +231,7 @@ export default function PassportLeafletMap({
                 variant="light"
                 customFillClass="bg-ink"
                 customHoverTextColor="#ffffff"
-                className="size-11 rounded-full border-2! border-ink bg-paper! text-xs font-bold text-brand-dark!"
+                className="size-[clamp(1.5rem,6.5cqw,2rem)] rounded-full border! border-ink bg-paper! text-[clamp(0.5rem,1.8cqw,0.625rem)]! font-bold text-brand-dark!"
               >
                 QB
               </MagneticFillButton>

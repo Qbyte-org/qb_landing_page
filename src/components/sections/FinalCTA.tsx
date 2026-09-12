@@ -88,14 +88,14 @@ export default function FinalCTA() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none mx-auto mt-12 h-[20vw] max-h-72 w-full select-none overflow-hidden [perspective:600px] sm:mt-16 lg:mt-5 lg:h-[15vw]"
+        className="pointer-events-none relative mx-auto mt-12 h-[20vw] max-h-72 w-full select-none overflow-hidden [perspective:600px] sm:mt-16 lg:mt-5 lg:h-[15vw]"
       >
+        <BackgroundGrainTexture />
         <svg
           viewBox="0 0 1400 250"
           className="h-full w-full origin-bottom text-paper/20 blur-[1px] [transform:rotateX(32deg)_scale(1.12)] sm:blur-[2px]"
           preserveAspectRatio="none"
         >
-          <BackgroundGrainTexture />
           <text
             x="700"
             y="220"
