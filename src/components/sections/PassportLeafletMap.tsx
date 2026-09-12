@@ -49,6 +49,10 @@ const districtSlots = [
   { x: 57, y: 76 },
   { x: 23, y: 78 },
   { x: 43, y: 49 },
+  // Keep every coverage label on its own anchor. Reusing the first two
+  // slots made Parakin/Iremo collide with OAU/Lagere on narrow maps.
+  { x: 38, y: 12 },
+  { x: 31, y: 61 },
 ];
 
 const restaurantSlots = [
@@ -193,7 +197,7 @@ export default function PassportLeafletMap({
                 customFillClass="bg-ink"
                 customHoverTextColor="#fffaf5"
                 contentClassName="flex min-w-0 items-center gap-1.5"
-                className={`min-h-11 max-w-[8.8rem] rounded-xl border-2! border-ink bg-[var(--marker-color)]! px-2.5 py-1 text-sm font-bold leading-none sm:text-base ${isOrange ? "text-white!" : "text-[#4f372d]!"}`}
+                className={`min-h-9 max-w-[7.5rem] rounded-lg border-2! border-ink bg-[var(--marker-color)]! px-2 py-0.5 text-xs font-bold leading-tight sm:text-sm ${isOrange ? "text-white!" : "text-[#4f372d]!"}`}
               >
                 <span className="h-2 w-2 shrink-0 rounded-full border-2 border-[#2a211d] bg-[#fffaf3]" />
                 <span className="truncate">{truncateLabel(node.name)}</span>
@@ -223,7 +227,7 @@ export default function PassportLeafletMap({
                 onBlur={() => onHoverRestaurant?.(null)}
                 onClick={() => onHoverRestaurant?.(restaurant.name)}
                 variant="light"
-                customFillClass="bg-brand"
+                customFillClass="bg-ink"
                 customHoverTextColor="#ffffff"
                 className="size-11 rounded-full border-2! border-ink bg-paper! text-xs font-bold text-brand-dark!"
               >
