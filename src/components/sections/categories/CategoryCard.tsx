@@ -16,7 +16,7 @@ export default function CategoryCard({ category }: { category: Category }) {
             fill
             loading="lazy"
             sizes="(min-width: 1024px) 512px, (min-width: 640px) 464px, (min-width: 410px) 328px, 80vw"
-            className={category.imageKind === "brand" ? "object-contain p-14 opacity-80 sm:p-16" : "object-cover object-center"}
+            className={category.imageKind === "brand" ? "object-contain p-14 opacity-80 sm:p-16" : "scale-[1.1] object-cover object-center sm:scale-[1.16]"}
           />
           <svg
             aria-hidden="true"

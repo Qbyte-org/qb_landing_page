@@ -56,7 +56,7 @@ export default function Hero() {
           </div>
         </Container>
 
-        <Container className="pointer-events-none absolute inset-x-0 bottom-8 z-[70] max-w-[103rem]">
+        <Container className="pointer-events-none absolute inset-x-0 bottom-4 z-[70] max-w-[103rem]">
           <div data-hero-actions className="translate-y-1/2 sm:pl-10 xl:pl-32">
             <LinkArrow
               href="/restaurants"
