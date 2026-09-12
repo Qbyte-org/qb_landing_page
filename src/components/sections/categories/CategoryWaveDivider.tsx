@@ -30,12 +30,6 @@ export function HomeToCategoriesWave() {
           strokeOpacity=".58"
           strokeWidth="3"
         />
-        <image
-          data-home-wave-bike
-          href="/quickbite-delivery-bike.svg"
-          width="178"
-          height="104"
-        />
       </svg>
     </div>
   );
@@ -72,12 +66,6 @@ export function CategoriesToHowWave() {
           strokeLinecap="round"
           strokeOpacity=".72"
           strokeWidth="3"
-        />
-        <image
-          data-between-wave-bike
-          href="/quickbite-delivery-bike.svg"
-          width="178"
-          height="104"
         />
       </svg>
     </div>

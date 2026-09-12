@@ -81,10 +81,14 @@ export default function FAQ() {
                     <Plus className="size-4 transition-transform duration-200 group-open:rotate-45 motion-reduce:transition-none sm:size-5" strokeWidth={1.7} />
                   </span>
                 </MagneticFillButton>
-                <div className="pb-7 pl-10 pr-4 sm:pl-16 sm:pr-20">
-                  <p className="max-w-xl text-sm leading-7 text-[#6d5c52] sm:text-base">
-                    {faq.answer}
-                  </p>
+                <div
+                  className="invisible grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-300 ease-out group-open:visible group-open:grid-rows-[1fr] group-open:opacity-100 motion-reduce:transition-none"
+                >
+                  <div className="min-h-0 overflow-hidden pb-7 pl-10 pr-4 sm:pl-16 sm:pr-20">
+                    <p className="max-w-xl text-sm leading-7 text-[#6d5c52] sm:text-base">
+                      {faq.answer}
+                    </p>
+                  </div>
                 </div>
               </details>
             ))}

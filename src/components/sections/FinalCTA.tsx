@@ -4,6 +4,7 @@ import Image from "../ui/FoodImage";
 import { motion, useReducedMotion } from "motion/react";
 import LinkArrow from "../ui/LinkArrow";
 import SectionWave from "../ui/SectionWave";
+import BackgroundGrainTexture from "../ui/BackgroundGrainTexture";
 
 export default function FinalCTA() {
   const reducedMotion = useReducedMotion();
@@ -27,6 +28,7 @@ export default function FinalCTA() {
           data-cta-copy
           className="relative isolate flex min-h-64 flex-col justify-between gap-14 overflow-hidden rounded-4xl bg-[#382c26] p-6 sm:min-h-48 sm:gap-8 sm:p-7 lg:min-h-40 lg:flex-row lg:items-center lg:gap-4 lg:px-10 lg:py-8 xl:min-h-44 2xl:min-h-48 2xl:px-14"
         >
+          <BackgroundGrainTexture />
           <svg
             aria-hidden="true"
             viewBox="0 0 600 260"
@@ -43,7 +45,7 @@ export default function FinalCTA() {
 
           <h2
             id="final-cta-title"
-            className="max-w-72 font-display text-[1.9rem] font-extrabold leading-tight tracking-[0.01em]! sm:max-w-none sm:text-3xl lg:whitespace-nowrap lg:text-[clamp(1.65rem,2.45vw,3rem)]"
+            className="max-w-72 font-display text-[1.9rem] font-semibold leading-tight tracking-[0.01em]! sm:max-w-none sm:text-3xl lg:whitespace-nowrap lg:text-[clamp(1.65rem,2.45vw,3rem)]"
           >
             Find, Order &amp; Enjoy
           </h2>
@@ -93,6 +95,7 @@ export default function FinalCTA() {
           className="h-full w-full origin-bottom text-paper/20 blur-[1px] [transform:rotateX(32deg)_scale(1.12)] sm:blur-[2px]"
           preserveAspectRatio="none"
         >
+          <BackgroundGrainTexture />
           <text
             x="700"
             y="220"
