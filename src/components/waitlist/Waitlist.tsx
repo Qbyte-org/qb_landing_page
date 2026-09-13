@@ -80,4 +80,3 @@ export default function Waitlist({ initialEmail = "" }: { initialEmail?: string 
     </main>
   );
 }
-
