@@ -6,12 +6,10 @@ import {
   useRef,
   useState,
   type CSSProperties,
-  type KeyboardEvent,
 } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
 import {
   Clock3,
-  MapPin,
   Star,
   Store,
 } from "lucide-react";
@@ -25,33 +23,12 @@ import {
 import {
   getCityRestaurants,
   passportCities,
-  type PassportRestaurant,
 } from "./quickbite-passport-hub/passportHub.data";
 import { gsap, useGSAP } from "@/lib/gsap";
 import Container from "../ui/Container";
+import SectionWave from "../ui/SectionWave";
 import LinkArrow from "../ui/LinkArrow";
-import MagneticFillButton from "../ui/MagneticFillButton";
-import {
-  BurgerLineArt,
-  CoffeeCupLineArt,
-  CroissantLineArt,
-  DrinksCupLineArt,
-  GrilledChickenLineArt,
-  IceCreamLineArt,
-  JollofRiceLineArt,
-  LocalMealBowlLineArt,
-  MeatPieLineArt,
-  PancakesLineArt,
-  PizzaSliceLineArt,
-  RamenBowlLineArt,
-  SaladBowlLineArt,
-  SeafoodLineArt,
-  ShawarmaWrapLineArt,
-  SushiRollLineArt,
-  SuyaSkewerLineArt,
-  SwallowSoupLineArt,
-  TacoLineArt,
-} from "../ui/LineArt";
+import RestaurantMembershipCard from "./quickbite-passport-hub/RestaurantMembershipCard";
 
 const PassportLeafletMap = dynamic(() => import("./PassportLeafletMap"), {
   ssr: false,
@@ -62,260 +39,6 @@ const PassportLeafletMap = dynamic(() => import("./PassportLeafletMap"), {
   ),
 });
 
-const qrCells = new Set([
-  0, 1, 2, 3, 5, 6, 7, 8, 10, 13, 15, 18, 20, 22, 24, 26, 27, 28, 29, 31,
-  33, 35, 36, 38, 41, 42, 44, 46, 48, 49, 51, 53, 55, 57, 59, 60, 62, 64,
-  66, 68, 69, 71, 73, 75, 76, 77, 78, 80,
-]);
-
-
-
-type RestaurantLineArtKind =
-  | "bakery"
-  | "breakfast"
-  | "cafe"
-  | "dessert"
-  | "grilled-chicken"
-  | "jollof"
-  | "local-meal"
-  | "meat-pie"
-  | "noodles"
-  | "pizza"
-  | "salad"
-  | "seafood"
-  | "shawarma"
-  | "swallow"
-  | "suya"
-  | "sushi"
-  | "taco"
-  | "drinks"
-  | "burger";
-
-function getRestaurantLineArtKind(restaurant: PassportRestaurant): RestaurantLineArtKind {
-  const text = `${restaurant.name} ${restaurant.cuisine}`.toLowerCase();
-
-  if (text.includes("swallow") || text.includes("soup")) return "swallow";
-  if (text.includes("mama put")) return "local-meal";
-  if (text.includes("jollof") || text.includes("nigerian")) return "jollof";
-  if (text.includes("suya") || text.includes("asun")) return "suya";
-  if (text.includes("chicken") || text.includes("wings")) return "grilled-chicken";
-  if (text.includes("shawarma") || text.includes("wrap")) return "shawarma";
-  if (text.includes("taco")) return "taco";
-  if (text.includes("pizza")) return "pizza";
-  if (text.includes("sushi")) return "sushi";
-  if (text.includes("seafood") || text.includes("fish") || text.includes("shrimp")) return "seafood";
-  if (text.includes("salad")) return "salad";
-  if (text.includes("burger")) return "burger";
-  if (text.includes("noodle") || text.includes("ramen")) return "noodles";
-  if (text.includes("coffee") || text.includes("cafe")) return "cafe";
-  if (text.includes("dessert") || text.includes("sweet") || text.includes("ice cream")) return "dessert";
-  if (text.includes("breakfast") || text.includes("pancake")) return "breakfast";
-  if (text.includes("bakery") || text.includes("croissant")) return "bakery";
-  if (text.includes("drink") || text.includes("smoothie") || text.includes("juice")) {
-    return "drinks";
-  }
-  if (text.includes("small chop") || text.includes("pastr") || text.includes("snack") || text.includes("bites")) {
-    return "meat-pie";
-  }
-  if (text.includes("grill")) {
-    return "suya";
-  }
-
-  return "burger";
-}
-
-function RestaurantFoodLineArt({
-  restaurant,
-  className = "",
-}: {
-  restaurant: PassportRestaurant;
-  className?: string;
-}) {
-  const kind = getRestaurantLineArtKind(restaurant);
-
-  if (kind === "bakery") return <CroissantLineArt className={className} />;
-  if (kind === "breakfast") return <PancakesLineArt className={className} />;
-  if (kind === "cafe") return <CoffeeCupLineArt className={className} />;
-  if (kind === "dessert") return <IceCreamLineArt className={className} />;
-  if (kind === "grilled-chicken") return <GrilledChickenLineArt className={className} />;
-  if (kind === "jollof") return <JollofRiceLineArt className={className} />;
-  if (kind === "local-meal") return <LocalMealBowlLineArt className={className} />;
-  if (kind === "meat-pie") return <MeatPieLineArt className={className} />;
-  if (kind === "noodles") return <RamenBowlLineArt className={className} />;
-  if (kind === "pizza") return <PizzaSliceLineArt className={className} />;
-  if (kind === "salad") return <SaladBowlLineArt className={className} />;
-  if (kind === "seafood") return <SeafoodLineArt className={className} />;
-  if (kind === "shawarma") return <ShawarmaWrapLineArt className={className} />;
-  if (kind === "swallow") return <SwallowSoupLineArt className={className} />;
-  if (kind === "suya") return <SuyaSkewerLineArt className={className} />;
-  if (kind === "sushi") return <SushiRollLineArt className={className} />;
-  if (kind === "taco") return <TacoLineArt className={className} />;
-  if (kind === "drinks") return <DrinksCupLineArt className={className} />;
-
-  return <BurgerLineArt className={className} />;
-}
-
-function QrCodeMark() {
-  return (
-    <div className="grid h-[5.75rem] w-[5.75rem] grid-cols-9 gap-[0.15rem] rounded-[0.25rem] bg-ink p-1.5">
-      {Array.from({ length: 81 }).map((_, index) => (
-        <span
-          key={index}
-          className={qrCells.has(index) ? "bg-cream-200" : "bg-ink"}
-        />
-      ))}
-    </div>
-  );
-}
-
-function RestaurantMembershipCard({
-  restaurant,
-  accent,
-  highlighted,
-}: {
-  restaurant: PassportRestaurant;
-  accent: string;
-  highlighted: boolean;
-}) {
-  const [flipped, setFlipped] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  const isOpen = flipped || hovered || highlighted;
-
-  const toggle = () => setFlipped((value) => !value);
-  const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      toggle();
-    }
-  };
-
-  return (
-    <motion.article
-      data-passport-postcard
-      role="button"
-      tabIndex={0}
-      onClick={toggle}
-      onKeyDown={handleKeyDown}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative h-[14.85rem] w-full shrink-0 rounded-[1.35rem] text-ink outline-none focus-visible:outline-2 focus-visible:outline-brand sm:h-[13.15rem]"
-      style={{ "--card-accent": accent } as CSSProperties}
-    >
-      <div
-        className={`relative h-full w-full overflow-hidden rounded-[1.35rem] border bg-cream-200 transition-colors duration-300 ${highlighted ? "border-[var(--card-accent)]" : "border-ink/10"
-          }`}
-      >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[url('/images/footer-grain.svg')] opacity-10"
-        />
-        <motion.div
-          initial={false}
-          animate={{ opacity: isOpen ? 0.08 : 0.5 }}
-          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          className="pointer-events-none absolute -right-[6.9rem] top-6 h-[10.4rem] w-[14.2rem] text-ink sm:-right-[4.8rem] sm:top-2 sm:h-[12.4rem] sm:w-[15.5rem] lg:-right-[3.75rem]"
-        >
-          <RestaurantFoodLineArt
-            restaurant={restaurant}
-            className="h-full w-full"
-          />
-        </motion.div>
-        <motion.div
-          initial={false}
-          animate={
-            isOpen
-              ? { x: "-30%", opacity: 0 }
-              : { x: "0%", opacity: 1 }
-          }
-          transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 z-10 px-5 py-5 will-change-transform sm:px-6 sm:py-6 lg:px-7"
-        >
-          <div className="relative z-10 flex h-full max-w-[68%] flex-col justify-center sm:max-w-[60%]">
-            <p className="text-[0.68rem] font-semibold tracking-[0.08em] text-[var(--card-accent)]">
-              {restaurant.eta} • {restaurant.rating}★
-            </p>
-            <h3 className="mt-2 line-clamp-2 font-display text-[1.42rem] font-semibold leading-[0.92] tracking-[-0.055em] text-ink sm:mt-3 sm:text-[1.65rem]">
-              {restaurant.name}
-            </h3>
-            <p className="mt-2 line-clamp-1 text-[0.78rem] font-semibold text-cocoa sm:text-[0.82rem]">
-              {restaurant.cuisine}
-            </p>
-            <LinkArrow
-              href="/restaurants"
-              variant="light"
-              ariaLabel={`View ${restaurant.name}`}
-              onClick={(event) => event.stopPropagation()}
-              className="mt-4 [--link-arrow-min-width:7.2rem] border-ink/18 pb-1 text-[0.62rem] font-semibold text-ink sm:mt-5"
-            >
-              View
-            </LinkArrow>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={false}
-          animate={
-            isOpen
-              ? { x: "0%", opacity: 1 }
-              : { x: "42%", opacity: 0 }
-          }
-          transition={{ duration: 0.56, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 z-20 bg-cream-200 px-6 py-5 will-change-transform"
-          style={{ pointerEvents: isOpen ? "auto" : "none" }}
-        >
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-[url('/images/footer-grain.svg')] opacity-10"
-          />
-          <div className="relative z-10 h-full pr-16">
-            <div className="min-w-0">
-              <h3 className="line-clamp-2 font-display text-[1.55rem] font-semibold leading-[0.92] tracking-[-0.06em] text-ink">
-                {restaurant.name}
-              </h3>
-              <p className="mt-2 line-clamp-2 max-w-[16rem] text-[0.75rem] font-semibold leading-relaxed text-cocoa">
-                {restaurant.description}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2 text-[0.68rem] font-semibold text-ink">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/7 px-2.5 py-1">
-                  <Clock3 className="h-3.5 w-3.5" strokeWidth={2.3} />
-                  {restaurant.eta}
-                </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/7 px-2.5 py-1">
-                  <Star className="h-3.5 w-3.5 text-[var(--card-accent)]" strokeWidth={2.3} />
-                  {restaurant.rating}
-                </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/7 px-2.5 py-1">
-                  <MapPin className="h-3.5 w-3.5" strokeWidth={2.3} />
-                  {restaurant.deliveryFrom}
-                </span>
-              </div>
-            </div>
-            <div className="hidden">
-              <QrCodeMark />
-            </div>
-          </div>
-
-          <div className="absolute inset-x-6 bottom-[3.5rem] z-10 border-t border-dashed border-ink/20" />
-          <div className="absolute inset-x-6 bottom-4 z-10 flex items-center justify-between gap-3">
-            <p className="line-clamp-1 text-[0.68rem] font-semibold text-ink">
-              {restaurant.avgOrder} avg order
-            </p>
-            <LinkArrow
-              href="/restaurants"
-              onClick={(event) => event.stopPropagation()}
-              variant="light"
-              ariaLabel={`Open ${restaurant.name}`}
-              className="[--link-arrow-min-width:6.8rem] border-ink/18 pb-1 text-[0.62rem] font-semibold text-ink"
-            >
-              Open
-            </LinkArrow>
-          </div>
-        </motion.div>
-      </div>
-    </motion.article>
-  );
-}
 
 export default function QuickBitePassportHub() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -328,7 +51,6 @@ export default function QuickBitePassportHub() {
   const [activeCityId, setActiveCityId] = useState(passportCities[0].id);
   const [selectedCityId, setSelectedCityId] = useState(passportCities[0].id);
   const [selectedArea, setSelectedArea] = useState<string | null>(null);
-  const [highlightedRestaurant, setHighlightedRestaurant] = useState<string | null>(null);
 
   const activeCity =
     passportCities.find((city) => city.id === activeCityId) ?? passportCities[0];
@@ -377,7 +99,6 @@ export default function QuickBitePassportHub() {
       onComplete: () => {
         setActiveCityId(nextCityId);
         setSelectedArea(null);
-        setHighlightedRestaurant(null);
         isAnimatingRef.current = false;
       },
     });
@@ -568,7 +289,7 @@ export default function QuickBitePassportHub() {
       if (!section) return;
 
       const path = section.querySelector<SVGPathElement>(
-        "[data-passport-app-bike-path]",
+        "[data-section-wave-path]",
       );
       const bike = section.querySelector<SVGElement>(
         "[data-passport-app-wave-bike]",
@@ -622,7 +343,7 @@ export default function QuickBitePassportHub() {
       ref={sectionRef}
       id="restaurants"
       data-nav-theme="dark"
-      className="relative overflow-hidden bg-ink pb-[7rem] pt-10 text-paper sm:pb-[9rem] sm:pt-14 lg:pb-[14rem] lg:pt-32"
+      className="relative overflow-hidden bg-[#1c120f] pb-[7rem] pt-10 text-paper sm:pb-[9rem] sm:pt-14 lg:pb-[14rem] lg:pt-32"
       style={
         {
           "--passport-accent": activeCity.accent,
@@ -635,48 +356,42 @@ export default function QuickBitePassportHub() {
       <Container className="relative z-10">
         <div
           data-section-motion-header
-          className="mx-auto mb-10 flex max-w-[60rem] flex-col items-center text-center md:text-left md:flex-row md:items-center md:justify-between"
+          className="mb-10 flex w-full flex-col items-start gap-6 text-left lg:flex-row lg:items-center lg:justify-between"
         >
-          <div className="flex w-full flex-col items-center text-center gap-6 md:flex-row md:text-left md:items-center md:justify-between">
-            <div className="contents">
-              <h2 className="font-display text-[2.85rem] font-bold leading-[0.9] tracking-[-0.07em] sm:text-[4rem]">
-                <span className="block sm:hidden">
-                  Food
-                  <span className="block text-[var(--passport-accent)]">
-                    by city.
-                  </span>
-                </span>
-                <span className="hidden sm:block">
-                  Discover food
-                  <span className="block text-[var(--passport-accent)]">
-                    by destination.
-                  </span>
-                </span>
-              </h2>
-              <MagneticFillButton
-                href="/restaurants"
-                ariaLabel="Explore kitchens"
-                variant="brand"
-                customFillClass="bg-paper"
-                customHoverTextColor="#2a211d"
-                className="h-12 w-max rounded-pill !bg-[var(--passport-accent)] px-7 text-sm font-semibold !text-ink sm:h-14 sm:px-9"
-              >
-                Explore kitchens →
-              </MagneticFillButton>
-            </div>
-          </div>
+          <h2 className="section-heading min-w-0">
+            <span className="block sm:hidden">
+              Food
+              <span className="block text-[var(--passport-accent)]">
+                by city.
+              </span>
+            </span>
+            <span className="hidden sm:block">
+              Discover food
+              <span className="block text-[var(--passport-accent)]">
+                by destination.
+              </span>
+            </span>
+          </h2>
+          <LinkArrow
+            href="/restaurants"
+            ariaLabel="Explore kitchens"
+            variant="dark"
+            className="min-h-14 w-64 shrink-0 self-end text-lg! normal-case! [--link-arrow-spacing:0em] sm:min-h-16 sm:text-xl! lg:self-auto"
+          >
+            Explore kitchens
+          </LinkArrow>
         </div>
 
         <div
           ref={spreadRef}
-          className="relative z-20 mt-8 sm:rounded-[2.35rem] bg-ink p-1.5 max-sm:-m-4 [perspective:1400px] h-full"
+          className="relative z-20 mt-8 h-full w-full min-w-0 bg-ink [perspective:1400px] sm:rounded-[2.35rem]"
         >
           <div
             data-page-underlay
             aria-hidden="true"
             className="absolute inset-3 sm:rounded-[2rem] bg-ink"
           />
-          <div className="relative grid overflow-hidden sm:rounded-[2rem] bg-paper  lg:grid-cols-2">
+          <div className="relative grid w-full min-w-0 overflow-hidden bg-paper sm:rounded-[2rem] lg:grid-cols-2">
             <div
               data-passport-spine
               aria-hidden="true"
@@ -685,7 +400,7 @@ export default function QuickBitePassportHub() {
 
             <div
               ref={leftPageRef}
-              className="group relative overflow-hidden bg-[var(--passport-paper)] p-4 sm:p-6 lg:h-[40rem] lg:p-7"
+              className="group relative min-w-0 overflow-hidden bg-[var(--passport-paper)] p-4 sm:p-6 lg:h-[40rem] lg:p-7"
             >
               <div className="relative z-10 flex h-full min-h-0 flex-col">
                 <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
@@ -696,7 +411,7 @@ export default function QuickBitePassportHub() {
                   <AnimatedStamp city={activeCity} stampRef={stampRef} inkRef={inkRef} />
                 </div>
 
-                <div className="relative mt-5 max-h-[30rem] flex-1 overflow-hidden rounded-[1.55rem] bg-cream-200">
+                <div className="relative mt-5 h-[22rem] max-h-[30rem] flex-none overflow-hidden rounded-[1.55rem] bg-cream-200 sm:h-[30rem] lg:h-auto lg:flex-1">
                   <PassportLeafletMap
                     city={activeCity}
                     neighbourhoods={activeCity.nodes}
@@ -705,7 +420,6 @@ export default function QuickBitePassportHub() {
                     onSelectNode={(node) =>
                       setSelectedArea(selectedNode?.name === node.name ? null : node.name)
                     }
-                    onHoverRestaurant={setHighlightedRestaurant}
                   />
                 </div>
 
@@ -720,7 +434,7 @@ export default function QuickBitePassportHub() {
                         <circle cx="12" cy="10.6" r="2.1" fill="var(--color-paper)" />
                       </svg>
                     </span>
-                    Click a live food stop to filter nearby kitchens
+                    Choose an area to explore local kitchens
                   </div>
                 </div>
               </div>
@@ -728,14 +442,14 @@ export default function QuickBitePassportHub() {
 
             <div
               ref={rightPageRef}
-              className="group relative overflow-hidden bg-paper p-4 sm:p-6 lg:flex lg:h-[40rem] lg:flex-col lg:p-7"
+              className="group relative min-w-0 overflow-hidden bg-paper p-4 sm:p-6 lg:flex lg:h-[40rem] lg:flex-col lg:p-7"
             >
               <div className="relative z-10 flex min-h-0 flex-1 flex-col">
-                <div className="relative rounded-[1.45rem] border border-ink/10 bg-paper p-4 text-ink sm:p-5">
+                <div className="relative rounded-[1.45rem] bg-paper p-4 text-ink sm:p-5">
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
                       <h3 className="font-display text-[2.25rem] font-semibold leading-[0.86] tracking-[-0.075em] text-ink sm:text-[2.85rem]">
-                        Kitchen Guide
+                        Explore Kitchens
                       </h3>
                     </div>
 
@@ -784,10 +498,10 @@ export default function QuickBitePassportHub() {
                   <AnimatePresence mode="popLayout">
                     {cityRestaurants.map((restaurant) => (
                       <RestaurantMembershipCard
-                        key={`${activeCity.id}-${selectedNode?.name ?? "all"}-${restaurant.name}`}
+                        key={`${activeCity.id}-${selectedNode?.name ?? "all"}-${restaurant.id}`}
                         restaurant={restaurant}
                         accent={activeCity.accent}
-                        highlighted={highlightedRestaurant === restaurant.name}
+                        highlighted={false}
                       />
                     ))}
                   </AnimatePresence>
@@ -797,50 +511,12 @@ export default function QuickBitePassportHub() {
           </div>
         </div>
 
-        <p className="hidden sm:block mx-auto mt-5 max-w-xl text-center text-xs font-semibold leading-relaxed text-paper/65">
-          Select a destination, pan the map, then tap a neighbourhood marker to
-          filter the restaurant membership cards.
+        <p className="relative z-10 mx-auto mt-5 hidden max-w-xl px-4 text-center text-xs font-semibold leading-relaxed text-paper/65 sm:block">
+          Choose your area, explore the map, and find your next kitchen.
         </p>
       </Container>
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-[-1px] z-0 h-20 overflow-x-clip overflow-y-visible min-[480px]:h-28 sm:h-52 sm:overflow-visible"
-      >
-        <svg
-          className="absolute left-1/2 top-0 h-full w-[178vw] -translate-x-1/2 overflow-visible  text-cream-200 sm:static sm:w-full sm:translate-x-0"
-          viewBox="0 0 1440 210"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0 65C136 110 244 105 392 72C545 38 626 117 770 143C915 169 987 86 1126 59C1255 34 1328 89 1440 55V210H0V65Z"
-            fill="currentColor"
-          />
-          <path
-            data-passport-app-bike-path
-            d="M0 65C136 110 244 105 392 72C545 38 626 117 770 143C915 169 987 86 1126 59C1255 34 1328 89 1440 55"
-            fill="none"
-            stroke="#f0d7c2"
-            strokeLinecap="round"
-            strokeWidth="4"
-          />
-          <path
-            d="M22 93C154 132 266 120 406 96C548 72 628 143 764 166C918 191 998 108 1138 87C1258 69 1322 113 1418 86"
-            fill="none"
-            stroke="#c9aa96"
-            strokeDasharray="8 12"
-            strokeLinecap="round"
-            strokeOpacity=".72"
-            strokeWidth="3"
-          />
-          <image
-            data-passport-app-wave-bike
-            href="/quickbite-delivery-bike.svg"
-            width="238"
-            height="140"
-          />
-        </svg>
-      </div>
+      <SectionWave to="paper" placement="bottom" />
     </section>
   );
 }

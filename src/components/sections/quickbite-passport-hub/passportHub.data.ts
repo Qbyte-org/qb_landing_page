@@ -16,6 +16,7 @@ export type PassportNode = PassportMapNode;
 
 export type PassportRestaurant = Restaurant &
   PassportMapRestaurant & {
+    id: string;
     avgOrder: string;
     badge: string;
     description: string;
@@ -38,7 +39,7 @@ const cityMeta = [
   {
     name: liveCity,
     state: liveCityState,
-    center: [7.4905, 4.5521] as [number, number],
+    center: [7.482824, 4.5604451] as [number, number],
     radius: 4300,
   },
   // {
@@ -89,24 +90,14 @@ const palettes = [
   { accent: "#ef5f00", paper: "#fff6ed" },
 ];
 
-const coordinateOffsets: [number, number][] = [
-  [0.015, -0.017],
-  [0.019, 0.011],
-  [-0.003, 0.023],
-  [-0.02, 0.014],
-  [-0.018, -0.016],
-  [0.004, -0.028],
-  [0.027, -0.004],
-];
-
-const restaurantOffsets: [number, number][] = [
-  [0.006, 0.006],
-  [-0.008, 0.007],
-  [0.009, -0.006],
-  [-0.007, -0.008],
-  [0.014, 0.001],
-  [0.001, -0.014],
-];
+// Source IDs, snapshot and the exact map bounds are recorded in /maps/ile-ife-sources.json.
+// Only documented landmarks have map anchors. An area name alone is never geocoded by guesswork.
+const areaLandmarks: Record<string, Omit<PassportNode, "name">> = {
+  "OAU Campus": { coordinates: [7.5273089, 4.5340693], mapLabel: "Obafemi Awolowo University campus" },
+  Mokuro: { coordinates: [7.5, 4.6], mapLabel: "Mokuro" },
+  Modakeke: { coordinates: [7.472442, 4.53850615], mapLabel: "Modakeke New Town hall" },
+  Ilare: { coordinates: [7.48644025, 4.5600277], mapLabel: "Ilare Street", minZoom: 2 },
+};
 
 const avgOrders = [
   "₦3,200",
@@ -132,25 +123,27 @@ const restaurantDescriptions = [
   "A comfort-food favourite with steady ratings and warm dinner traffic.",
   "A quick-bite counter built for campus rushes and late afternoon cravings.",
   "A casual kitchen with easy group orders and weekend crowd energy.",
-  "Fresh drinks and light meals for soft landings between heavier plates.",
+  "Fresh plates and light meals for soft landings between heavier cravings.",
 ];
 
 const passportOnlyRestaurants: Restaurant[] = [
   {
-    name: "Campus Shawarma",
-    cuisine: "Shawarma • Wraps • Chicken",
+    name: "Campus Chicken Grill",
+    cuisine: "Grills • Chicken • Shawarma",
     rating: 4.7,
     deliveryFrom: "₦500",
     eta: "18–28 min",
-    image: "/images/food/hero-fast.webp",
+    image: "/images/food/pinterest/glazed-chicken.webp",
+    imageAlt: "Pepper-glazed grilled chicken with shawarma-style sides",
   },
   {
-    name: "Burger House",
-    cuisine: "Burgers • Fries • Fast Food",
+    name: "Jollof Express",
+    cuisine: "Jollof Rice • Chicken • Plantain",
     rating: 4.6,
     deliveryFrom: "₦650",
     eta: "25–35 min",
-    image: "/images/food/hero-hot.webp",
+    image: "/images/food/pinterest/jollof-takeaway.webp",
+    imageAlt: "Jollof rice with chicken and plantain in a takeaway tray",
   },
   {
     name: "Noodle House",
@@ -158,51 +151,63 @@ const passportOnlyRestaurants: Restaurant[] = [
     rating: 4.5,
     deliveryFrom: "₦450",
     eta: "20–30 min",
-    image: "/images/food/hero-fresh.webp",
+    image: "/images/food/pinterest/peppered-fish-noodles.webp",
+    imageAlt: "Peppered fish fillets over noodles with eggs",
   },
   {
-    name: "Coffee Corner",
-    cuisine: "Coffee • Cafe • Pastries",
+    name: "Puff-Puff Basket",
+    cuisine: "Puff-Puff • Small Chops • Sweet Bites",
     rating: 4.8,
     deliveryFrom: "₦350",
     eta: "15–25 min",
-    image: "/images/food/restaurant-smoothie.webp",
+    image: "/images/food/pinterest/puff-puff.webp",
+    imageAlt: "Golden puff-puff pastries served fresh",
   },
   {
-    name: "Sweet Treats",
-    cuisine: "Dessert • Ice Cream • Cakes",
+    name: "Akara Morning",
+    cuisine: "Akara • Bean Cakes • Breakfast",
     rating: 4.7,
     deliveryFrom: "₦400",
     eta: "18–26 min",
-    image: "/images/food/restaurant-smoothie.webp",
+    image: "/images/food/pinterest/akara-bean-cakes.webp",
+    imageAlt: "Golden akara bean cakes with crisp edges",
   },
   {
-    name: "Breakfast Club",
-    cuisine: "Breakfast • Pancakes • Tea",
+    name: "Rice & Beans House",
+    cuisine: "Rice • Beans • Red Stew",
     rating: 4.6,
     deliveryFrom: "₦500",
     eta: "20–30 min",
-    image: "/images/food/hero-local.webp",
+    image: "/images/food/pinterest/rice-beans-stew.webp",
+    imageAlt: "White rice and beans served with red stew",
   },
   {
-    name: "Bakery Lane",
-    cuisine: "Bakery • Croissant • Bread",
+    name: "Family Feast",
+    cuisine: "Nigerian Plates • Rice • Stews",
     rating: 4.5,
     deliveryFrom: "₦350",
     eta: "15–25 min",
-    image: "/images/food/partner-kitchen.webp",
+    image: "/images/food/pinterest/nigerian-food-spread.webp",
+    imageAlt: "A selection of Nigerian rice, stews, soups and vegetables in serving trays",
   },
   {
-    name: "Taco Stop",
-    cuisine: "Tacos • Spiced Beef • Salsa",
+    name: "Meat & Stew Spot",
+    cuisine: "Assorted Meat • Rich Stew • Sides",
     rating: 4.6,
     deliveryFrom: "₦600",
     eta: "25–35 min",
-    image: "/images/food/hero-hot.webp",
+    image: "/images/food/pinterest/assorted-meat-stew.webp",
+    imageAlt: "Assorted meat and tripe in a rich red stew",
   },
 ];
 
-const passportRestaurantPool = [...baseRestaurants, ...passportOnlyRestaurants];
+// Assign identity once at the source so area changes preserve it when the pool rotates.
+const passportRestaurantPool = [...baseRestaurants, ...passportOnlyRestaurants].map(
+  (restaurant, sourceIndex) => ({
+    ...restaurant,
+    id: `${slugify(restaurant.name)}-${sourceIndex}`,
+  }),
+);
 
 function slugify(value: string) {
   return value
@@ -221,17 +226,8 @@ function getInitials(name: string) {
     .toUpperCase();
 }
 
-function makeNodes(center: [number, number], offset: number): PassportNode[] {
-  const names = coverageAreas.slice(0, coordinateOffsets.length);
-
-  return coordinateOffsets.map(([latOffset, lngOffset], index) => ({
-    name: names[(index + offset) % names.length],
-    deliveries: 12 + (((index + 3) * 9 + offset * 6) % 48),
-    coordinates: [
-      center[0] + latOffset,
-      center[1] + lngOffset,
-    ] as [number, number],
-  }));
+function makeNodes(): PassportNode[] {
+  return coverageAreas.map((name) => ({ name, ...areaLandmarks[name] }));
 }
 
 const enabledCityMeta = cityMeta.filter(
@@ -259,7 +255,7 @@ export const passportCities: PassportCity[] = enabledCityMeta.map(
         : index % 2 === 0
           ? "ROUTED"
           : "BOARDING",
-      nodes: makeNodes(city.center, index),
+      nodes: makeNodes(),
     };
   },
 );
@@ -273,20 +269,13 @@ export function getCityRestaurants(
     ? city.nodes.findIndex((node) => node.name === selectedNode.name)
     : 0;
   const offset = Math.max(0, cityIndex + nodeIndex);
-  const base = selectedNode?.coordinates ?? city.center;
 
   return Array.from({ length: passportRestaurantPool.length }, (_, index) => {
     const restaurant =
       passportRestaurantPool[(offset + index) % passportRestaurantPool.length];
-    const [latOffset, lngOffset] =
-      restaurantOffsets[index % restaurantOffsets.length];
 
     return {
       ...restaurant,
-      coordinates: [
-        base[0] + latOffset,
-        base[1] + lngOffset,
-      ] as [number, number],
       avgOrder: avgOrders[(offset + index) % avgOrders.length],
       badge: restaurantBadges[index % restaurantBadges.length],
       description:

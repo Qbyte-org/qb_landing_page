@@ -2,18 +2,22 @@
 
 import { motion } from "motion/react";
 import type { CSSProperties } from "react";
+import MagneticFillButton from "../ui/MagneticFillButton";
 
 export type PassportMapNode = {
   name: string;
-  deliveries: number;
-  coordinates: [number, number];
+  deliveries?: number;
+  coordinates?: [number, number];
+  mapLabel?: string;
+  minZoom?: number;
 };
 
 export type PassportMapRestaurant = {
+  id: string;
   name: string;
   cuisine: string;
   eta: string;
-  coordinates: [number, number];
+  coordinates?: [number, number];
 };
 
 export type PassportMapCity = {
@@ -33,21 +37,30 @@ const districtColors = [
   "#d9b38c",
 ];
 
+const orangeMarkerColors = new Set([
+  "#f15f00", "#ef5f00", "#ff6b00", "#c86b2b", "#f3a629", "#b86024",
+]);
+
 const districtSlots = [
-  { x: 10, y: 12 },
+  // Keep the first pill clear of the map frame on narrow screens.
+  { x: 16, y: 12 },
   { x: 26, y: 28 },
-  { x: 53, y: 18 },
+  { x: 53, y: 22 },
   { x: 82, y: 13 },
   { x: 81, y: 44 },
   { x: 57, y: 76 },
   { x: 23, y: 78 },
   { x: 43, y: 49 },
+  // Keep every coverage label on its own anchor. Reusing the first two
+  // slots made Parakin/Iremo collide with OAU/Lagere on narrow maps.
+  { x: 38, y: 12 },
+  { x: 31, y: 61 },
 ];
 
 const restaurantSlots = [
   { x: 16, y: 50 },
   { x: 30, y: 84 },
-  { x: 48, y: 36 },
+  { x: 61, y: 40 },
   { x: 70, y: 67 },
   { x: 62, y: 86 },
   { x: 87, y: 76 },
@@ -77,7 +90,7 @@ export default function PassportLeafletMap({
   onHoverRestaurant?: (name: string | null) => void;
 }) {
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-[1.35rem] border-[0.18rem] border-[#2a211d] bg-[#f7eadb]">
+    <div className="@container relative h-full w-full overflow-hidden rounded-[1.35rem] border-[0.18rem] border-[#2a211d] bg-[#f7eadb]">
       <svg
         aria-hidden="true"
         className="absolute inset-0 h-full w-full"
@@ -161,12 +174,11 @@ export default function PassportLeafletMap({
           const active = selectedNode?.name === node.name;
           const slot = districtSlots[index % districtSlots.length];
           const color = getColor(index, active, city.accent);
+          const isOrange = orangeMarkerColors.has(color.toLowerCase());
 
           return (
-            <motion.button
+            <motion.div
               key={`${city.name}-${node.name}`}
-              type="button"
-              onClick={() => onSelectNode(node)}
               whileHover={{ y: -4, scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               animate={{ scale: active ? 1.08 : 1 }}
@@ -179,14 +191,23 @@ export default function PassportLeafletMap({
                 } as CSSProperties
               }
             >
-              <span className="inline-flex max-w-[8.8rem] items-center gap-1.5 rounded-[0.45rem] border-2 border-[#2a211d] bg-[var(--marker-color)] px-2.5 py-1 text-sm font-black leading-none text-[#4f372d] sm:text-base">
-                <span className="h-2 w-2 shrink-0 rounded-full border-2 border-[#2a211d] bg-[#fffaf3]" />
+              <MagneticFillButton
+                ariaLabel={node.name}
+                aria-pressed={active}
+                onClick={() => onSelectNode(node)}
+                variant="light"
+                customFillClass="bg-ink"
+                customHoverTextColor="#fffaf5"
+                contentClassName="flex min-w-0 items-center gap-1"
+                className={`h-[clamp(1.5rem,6cqw,1.75rem)] max-w-[min(6.5rem,20cqw)] rounded-md border! border-ink bg-[var(--marker-color)]! px-1.5 py-0.5 text-[clamp(0.5625rem,2.2cqw,0.6875rem)]! font-bold leading-tight ${isOrange ? "text-white!" : "text-[#4f372d]!"}`}
+              >
+                <span className="size-1 shrink-0 rounded-full border border-[#2a211d] bg-[#fffaf3]" />
                 <span className="truncate">{truncateLabel(node.name)}</span>
-              </span>
-              <span className="relative mt-2 block h-8 w-8 rounded-full border-[0.32rem] border-[var(--marker-color)] bg-[#fffaf3]">
+              </MagneticFillButton>
+              <span aria-hidden="true" className="pointer-events-none relative mt-2 block h-8 w-8 rounded-full border-[0.32rem] border-[var(--marker-color)] bg-[#fffaf3]">
                 <span className="absolute left-1/2 top-[1.05rem] h-4 w-4 -translate-x-1/2 rotate-45 rounded-br-[0.32rem] bg-[var(--marker-color)]" />
               </span>
-            </motion.button>
+            </motion.div>
           );
         })}
 
@@ -194,18 +215,27 @@ export default function PassportLeafletMap({
           const slot = restaurantSlots[index % restaurantSlots.length];
 
           return (
-            <motion.button
-              key={`${city.name}-${restaurant.name}`}
-              type="button"
-              onMouseEnter={() => onHoverRestaurant?.(restaurant.name)}
-              onMouseLeave={() => onHoverRestaurant?.(null)}
+            <motion.div
+              key={`${city.name}-${restaurant.id}`}
               whileHover={{ y: -3, scale: 1.1 }}
-              className="absolute z-20 grid h-7 w-7 -translate-x-1/2 -translate-y-1/2 cursor-pointer place-items-center rounded-full border-2 border-[#2a211d] bg-[#fffaf3] text-[0.78rem] font-black text-[var(--passport-accent)] outline-none"
+              className="absolute z-20 -translate-x-1/2 -translate-y-1/2"
               style={{ left: `${slot.x}%`, top: `${slot.y}%` }}
-              aria-label={`${restaurant.name}, ${restaurant.eta}`}
             >
-              QB
-            </motion.button>
+              <MagneticFillButton
+                ariaLabel={`${restaurant.name}, ${restaurant.eta}`}
+                onMouseEnter={() => onHoverRestaurant?.(restaurant.name)}
+                onMouseLeave={() => onHoverRestaurant?.(null)}
+                onFocus={() => onHoverRestaurant?.(restaurant.name)}
+                onBlur={() => onHoverRestaurant?.(null)}
+                onClick={() => onHoverRestaurant?.(restaurant.name)}
+                variant="light"
+                customFillClass="bg-ink"
+                customHoverTextColor="#ffffff"
+                className="size-[clamp(1.5rem,6.5cqw,2rem)] rounded-full border! border-ink bg-paper! text-[clamp(0.5rem,1.8cqw,0.625rem)]! font-bold text-brand-dark!"
+              >
+                QB
+              </MagneticFillButton>
+            </motion.div>
           );
         })}
       </div>

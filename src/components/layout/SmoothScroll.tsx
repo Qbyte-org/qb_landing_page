@@ -10,10 +10,11 @@ declare global {
   }
 }
 
-export default function SmoothScroll() {
+export default function SmoothScroll({ enabled = true }: { enabled?: boolean }) {
   const lenisRef = useRef<Lenis | null>(null);
 
   useGSAP(() => {
+    if (!enabled) return;
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -21,11 +22,15 @@ export default function SmoothScroll() {
     if (reducedMotion) return;
 
     const lenis = new Lenis({
-      duration: 1.08,
+      // Keep wheel input measured on trackpads and high-resolution mice. A
+      // slightly longer settle time prevents a fast fling from jumping past
+      // several sections while retaining the existing smooth feel.
+      duration: 1.32,
       easing: (time: number) => Math.min(1, 1.001 - 2 ** (-10 * time)),
+      lerp: 0.075,
       smoothWheel: true,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.35,
+      wheelMultiplier: 0.64,
+      touchMultiplier: 1.15,
       autoRaf: false,
     });
 
@@ -50,7 +55,7 @@ export default function SmoothScroll() {
         delete window.quickBiteLenis;
       }
     };
-  });
+  }, { dependencies: [enabled], revertOnUpdate: true });
 
   return null;
 }

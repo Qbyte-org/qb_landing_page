@@ -3,7 +3,7 @@
 import { useState, type KeyboardEvent } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import Container from "../ui/Container";
-import MagneticFillButton from "../ui/MagneticFillButton";
+import LinkArrow from "../ui/LinkArrow";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const manifestClipPath =
@@ -304,17 +304,15 @@ function JourneyCard({
                 ))}
               </ul>
 
-              <MagneticFillButton
+              <LinkArrow
                 href="/riders"
-                variant="brand"
-                customFillClass="bg-[#2a211d]"
-                customHoverTextColor="#fffaf5"
+                appearance="plain"
                 ariaLabel={`Apply as ${journey.shortTitle}`}
-                className="mt-6 h-[3.25rem] w-full bg-[#f06400] px-6 text-sm font-black text-white [clip-path:polygon(0_0,calc(100%_-_14px)_0,100%_14px,100%_100%,14px_100%,0_calc(100%_-_14px))]"
+                className="mt-6 h-[3.25rem] w-full justify-center gap-2 bg-[#f06400] px-6 text-sm font-black text-white [clip-path:polygon(0_0,calc(100%_-_14px)_0,100%_14px,100%_100%,14px_100%,0_calc(100%_-_14px))]"
               >
                 Apply as {journey.shortTitle}
                 <ArrowGlyph />
-              </MagneticFillButton>
+              </LinkArrow>
             </div>
           </motion.div>
         ) : null}

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import LinkArrow from "../ui/LinkArrow";
 import {
   useMemo,
   useRef,
@@ -29,7 +29,6 @@ import {
 } from "@/content/site";
 import { gsap, useGSAP } from "@/lib/gsap";
 import Container from "../ui/Container";
-import MagneticFillButton from "../ui/MagneticFillButton";
 
 type HubNode = {
   name: string;
@@ -248,9 +247,10 @@ function RestaurantDiscoveryCard({
       whileHover={{ y: -7 }}
     >
       <div className="pointer-events-none absolute -inset-1 rounded-[1.6rem] bg-[#2a211d]/30 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-50" />
-      <Link
+      <LinkArrow
         href="/restaurants"
-        className="relative flex min-h-[8.25rem] overflow-hidden rounded-[1.45rem] bg-white/92 p-4 text-[#24180f] ring-1 ring-black/5 backdrop-blur"
+        appearance="plain"
+        className="relative flex! min-h-[8.25rem] overflow-hidden rounded-[1.45rem] bg-white/92 p-4 text-[#24180f] ring-1 ring-black/5 backdrop-blur"
       >
         <motion.div
           className="absolute -right-5 -top-5 h-28 w-32 overflow-hidden rounded-[2rem] bg-[#fff7ef]"
@@ -309,7 +309,7 @@ function RestaurantDiscoveryCard({
             style={{ backgroundColor: accent }}
           />
         </span>
-      </Link>
+      </LinkArrow>
     </motion.article>
   );
 }
@@ -555,16 +555,14 @@ export default function QuickBiteDeliveryHub() {
               A live view of the food network around you.
             </h2>
           </div>
-          <MagneticFillButton
+          <LinkArrow
             href="/restaurants"
-            variant="brand"
-            customFillClass="bg-white"
-            customHoverTextColor="#24180f"
-            className="h-14 w-max rounded-pill border-0 bg-[var(--hub-accent)] px-7 text-sm font-black sm:px-9"
+            appearance="plain"
+            className="h-14 w-max justify-center gap-2 rounded-pill border-0 bg-[var(--hub-accent)] px-7 text-sm font-black text-white sm:px-9"
           >
             Explore restaurants
             <Navigation className="h-4 w-4" strokeWidth={2.35} />
-          </MagneticFillButton>
+          </LinkArrow>
         </div>
 
         <div className="relative overflow-hidden rounded-[2.4rem] bg-[#120d0b]/82 ring-1 ring-white/10 backdrop-blur-xl">

@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { motion } from "motion/react";
 import Container from "../ui/Container";
-import MagneticFillButton from "../ui/MagneticFillButton";
+import LinkArrow from "../ui/LinkArrow";
 import { gsap, useGSAP } from "@/lib/gsap";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -466,14 +466,14 @@ export default function ForPartners() {
             </p>
           </div>
 
-          <MagneticFillButton
+          <LinkArrow
             href="/partners"
-            variant="brand"
-            className="h-[3.25rem] shrink-0 rounded-pill bg-[#f06400] px-6 text-sm font-black text-white sm:h-14 sm:px-8 sm:text-base"
+            appearance="plain"
+            className="h-[3.25rem] shrink-0 justify-center gap-2 rounded-pill bg-[#f06400] px-6 text-sm font-black text-white sm:h-14 sm:px-8 sm:text-base"
           >
             Become partner
             <Store className="h-4 w-4" strokeWidth={2.4} aria-hidden="true" />
-          </MagneticFillButton>
+          </LinkArrow>
         </div>
       </Container>
     </section>

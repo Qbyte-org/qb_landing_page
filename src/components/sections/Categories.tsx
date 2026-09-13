@@ -6,7 +6,6 @@ import { gsap, useGSAP } from "@/lib/gsap";
 import CategoriesDecor from "./categories/CategoriesDecor";
 import CategoryCard from "./categories/CategoryCard";
 import {
-  CategoriesToHowWave,
   HomeToCategoriesWave,
 } from "./categories/CategoryWaveDivider";
 import Container from "../ui/Container";
@@ -57,82 +56,6 @@ export default function Categories() {
     { scope: carouselRef },
   );
 
-  useGSAP(
-    () => {
-      const waveBikes = [
-        {
-          pathSelector: "[data-home-bike-path]",
-          bikeSelector: "[data-home-wave-bike]",
-          duration: 22,
-          reducedStart: 0.34,
-          yPercent: -38,
-        },
-        {
-          pathSelector: "[data-between-bike-path]",
-          bikeSelector: "[data-between-wave-bike]",
-          duration: 24,
-          reducedStart: 0.64,
-          yPercent: -48,
-        },
-      ];
-      const tweens: gsap.core.Tween[] = [];
-      const reducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
-
-      waveBikes.forEach(({ pathSelector, bikeSelector, duration, reducedStart, yPercent }) => {
-        const path = sectionRef.current?.querySelector<SVGPathElement>(
-          pathSelector,
-        );
-        const bike = sectionRef.current?.querySelector<SVGElement>(
-          bikeSelector,
-        );
-        if (!path || !bike) return;
-
-        gsap.set(bike, {
-          xPercent: -50,
-          yPercent,
-          transformOrigin: "50% 66%",
-          autoAlpha: 1,
-        });
-
-        if (reducedMotion) {
-          gsap.set(bike, {
-            motionPath: {
-              path,
-              align: path,
-              alignOrigin: [0.5, 0.66],
-              autoRotate: true,
-              start: reducedStart,
-              end: reducedStart,
-            },
-          });
-          return;
-        }
-
-        const tween = gsap.to(bike, {
-          motionPath: {
-            path,
-            align: path,
-            alignOrigin: [0.5, 0.66],
-            autoRotate: true,
-            start: 0,
-            end: 1,
-          },
-          duration,
-          ease: "none",
-          repeat: -1,
-        });
-        tweens.push(tween);
-      });
-
-      return () => {
-        tweens.forEach((tween) => tween.kill());
-      };
-    },
-    { scope: sectionRef },
-  );
-
   const carouselItems = [...categories, ...categories];
 
   return (
@@ -140,11 +63,10 @@ export default function Categories() {
       ref={sectionRef}
       id="categories"
       data-nav-theme="neutral"
-      className="relative overflow-visible bg-paper pb-[9.5rem] pt-[7.5rem] text-ink sm:pb-[8.5rem] sm:pt-24 lg:pb-40"
+      className="relative overflow-visible bg-paper pb-[9.5rem] pt-[7.5rem] text-ink sm:pb-[8.5rem] sm:pt-44 lg:pb-52"
     >
       <CategoriesDecor />
       <HomeToCategoriesWave />
-      <CategoriesToHowWave />
 
       <Container className="relative">
         {/* <div className="relative mx-auto mb-16 flex w-full justify-center">
@@ -165,7 +87,7 @@ export default function Categories() {
 
         <SectionHeading
           warm
-          title="What are you in the mood for?"
+          title="What are you craving?"
           subtitle="From smoky jollof to late-night small chops, pick a category and dig in."
         />
       </Container>
@@ -173,7 +95,7 @@ export default function Categories() {
       <div
         ref={carouselRef}
         data-categories-carousel
-        className="relative z-10 mt-4 overflow-hidden"
+        className="relative z-10 mt-12 overflow-hidden"
       >
         <div
           aria-hidden="true"
@@ -187,7 +109,7 @@ export default function Categories() {
         <div
           ref={trackRef}
           data-categories-track
-          className="flex w-max gap-6 px-4 will-change-transform sm:gap-9 lg:gap-12"
+          className="flex w-max gap-6 px-4 will-change-transform sm:gap-9"
         >
           {carouselItems.map((category, index) => (
             <CategoryCard

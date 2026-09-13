@@ -33,7 +33,7 @@ export default function SectionHeading({
         </p>
       ) : null}
       <h2
-        className={`font-display text-[2.85rem] ${warm ? "font-semibold" : "font-black"} leading-[1.1] tracking-[-0.07em] sm:text-[4rem] ${titleColor}`}
+        className={`section-heading ${titleColor}`}
       >
         {title}
       </h2>

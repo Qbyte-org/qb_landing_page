@@ -1,0 +1,165 @@
+{
+  "board": {
+    "id": "1012184153692466514",
+    "name": "QuickBite LP",
+    "url": "https://www.pinterest.com/adedokundaniel16/quickbite-lp/"
+  },
+  "verification": "Every pin ID below was present in the public board's initialReduxState.feeds['boardfeed:1012184153692466514']; its original image URL was read from the corresponding initialReduxState.pins record. Subjects were checked visually using a contact sheet of these board pins.",
+  "processing": {
+    "format": "webp",
+    "quality": 80,
+    "maxWidth": 1200,
+    "maxHeight": 1400,
+    "fit": "inside",
+    "withoutEnlargement": true,
+    "responsive": "responsive/<basename>-<width>.webp, requested widths 320/640/960/1200, quality 78. Dimensions stop at the source size; files are served directly without the Next.js runtime optimizer."
+  },
+  "photos": [
+    {
+      "file": "glazed-chicken.webp",
+      "pinId": "1012184085026267449",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267449/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/fc/6c/cf/fc6ccf6314f207173840e9e368cc20b0.jpg",
+      "sourceWidth": 1080,
+      "sourceHeight": 1349,
+      "crop": { "left": 55, "top": 435, "width": 520, "height": 560 },
+      "derivedFrom": "jollof-chicken-plantain.webp",
+      "alt": "Close-up of pepper-glazed chicken on a black plate"
+    },
+    {
+      "file": "amala-ewedu-stew.webp",
+      "pinId": "1012184085026267462",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267462/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/f8/3e/ad/f83ead724433fcd3c2f3ba6d68f36f68.jpg",
+      "sourceWidth": 554,
+      "sourceHeight": 554,
+      "alt": "Amala with ewedu, red stew and assorted meat on a white plate"
+    },
+    {
+      "file": "egusi-soup.webp",
+      "pinId": "1012184085026267664",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267664/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/65/cb/e9/65cbe9589fff79e6a22d8744fc65fd79.jpg",
+      "sourceWidth": 3000,
+      "sourceHeight": 4000,
+      "alt": "Egusi soup with leafy greens and assorted meat"
+    },
+    {
+      "file": "puff-puff.webp",
+      "pinId": "1012184085026267746",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267746/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/29/bd/5d/29bd5d41b9bc18757f9598e68c3a3592.jpg",
+      "sourceWidth": 959,
+      "sourceHeight": 1168,
+      "alt": "A basket filled with golden puff-puff"
+    },
+    {
+      "file": "assorted-meat-pepper-soup.webp",
+      "pinId": "1012184085026267574",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267574/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/21/57/10/2157101365fe08d938e4e4794e148724.jpg",
+      "sourceWidth": 736,
+      "sourceHeight": 919,
+      "alt": "Assorted meat pepper soup with herbs in a white bowl"
+    },
+    {
+      "file": "pounded-yam-greens.webp",
+      "pinId": "1012184085026267477",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267477/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/e3/d7/3c/e3d73cbd3acb57bb3e9f53b8cdb562f8.jpg",
+      "sourceWidth": 768,
+      "sourceHeight": 1024,
+      "alt": "Pounded yam with leafy vegetable soup and fish"
+    },
+    {
+      "file": "jollof-chicken-plantain.webp",
+      "pinId": "1012184085026267449",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267449/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/fc/6c/cf/fc6ccf6314f207173840e9e368cc20b0.jpg",
+      "sourceWidth": 1080,
+      "sourceHeight": 1349,
+      "alt": "Jollof rice with glazed chicken and fried plantain on a black plate"
+    },
+    {
+      "file": "nigerian-food-spread.webp",
+      "pinId": "1012184085026268099",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026268099/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/90/16/ea/9016ea84e9987f233529827e19c72b30.jpg",
+      "sourceWidth": 736,
+      "sourceHeight": 920,
+      "alt": "A selection of Nigerian rice, stews, soups and vegetables in serving trays"
+    },
+    {
+      "file": "meal-prep-packs.webp",
+      "pinId": "1012184085026267560",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267560/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/41/23/41/412341a4fa211fb978d225f303b2ba49.jpg",
+      "sourceWidth": 1154,
+      "sourceHeight": 1311,
+      "alt": "Prepared rice, stew and chicken portions in takeaway containers"
+    },
+    {
+      "file": "jollof-takeaway.webp",
+      "pinId": "1012184085026267505",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267505/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/75/33/a7/7533a72fc29d20007edf927033a76a3c.jpg",
+      "sourceWidth": 1440,
+      "sourceHeight": 1679,
+      "alt": "Jollof rice, a chicken portion and plantain in a takeaway tray"
+    },
+    {
+      "file": "rice-beans-stew.webp",
+      "pinId": "1012184085026267592",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267592/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/25/d8/48/25d848730fa9466b581db616e63e2a5d.jpg",
+      "sourceWidth": 720,
+      "sourceHeight": 720,
+      "alt": "White rice and beans served with red stew"
+    },
+    {
+      "file": "peppered-fish-noodles.webp",
+      "pinId": "1012184085026267514",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267514/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/22/5f/f4/225ff46d3f32697f4845847afef9552d.jpg",
+      "sourceWidth": 1440,
+      "sourceHeight": 1920,
+      "alt": "Peppered fish fillets over noodles with eggs"
+    },
+    {
+      "file": "rice-chicken-plantain.webp",
+      "pinId": "1012184085026267554",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267554/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/72/4b/42/724b42d4ccf21bfab8035172b1a59c63.jpg",
+      "sourceWidth": 720,
+      "sourceHeight": 714,
+      "alt": "White rice with chicken and fried plantain on a leaf-lined plate"
+    },
+    {
+      "file": "ofada-rice-ayamase.webp",
+      "pinId": "1012184085026267553",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267553/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/0d/ed/83/0ded83cdacd7f73c91d82bb81d5e33ab.jpg",
+      "sourceWidth": 1440,
+      "sourceHeight": 1795,
+      "alt": "Ofada rice served with ayamase stew and an egg"
+    },
+    {
+      "file": "akara-bean-cakes.webp",
+      "pinId": "1012184085026267797",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267797/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/a9/3c/87/a93c8711aae3cd668d56fb0bb5a26fa7.jpg",
+      "sourceWidth": 900,
+      "sourceHeight": 1200,
+      "alt": "Golden akara bean cakes on a white plate"
+    },
+    {
+      "file": "assorted-meat-stew.webp",
+      "pinId": "1012184085026267550",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267550/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/a0/f7/ff/a0f7ff03c12b96c00ef06e9257e5bd92.jpg",
+      "sourceWidth": 1080,
+      "sourceHeight": 1350,
+      "alt": "Assorted meat and tripe in a rich red stew"
+    }
+  ]
+}

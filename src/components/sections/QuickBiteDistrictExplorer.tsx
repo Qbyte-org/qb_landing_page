@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import LinkArrow from "../ui/LinkArrow";
 import {
   useMemo,
   useRef,
@@ -31,7 +31,6 @@ import {
 } from "@/content/site";
 import { gsap, useGSAP } from "@/lib/gsap";
 import Container from "../ui/Container";
-import MagneticFillButton from "../ui/MagneticFillButton";
 
 type DistrictNode = {
   name: string;
@@ -219,9 +218,10 @@ function FloatingRestaurant({
         top: `${restaurant.position.y}%`,
       }}
     >
-      <Link
+      <LinkArrow
         href="/restaurants"
-        className="group relative block rounded-[1.45rem] bg-white/90 p-3 text-[#24180f] ring-1 ring-black/5 backdrop-blur-xl transition-transform duration-300"
+        appearance="plain"
+        className="group relative block! rounded-[1.45rem] bg-white/90 p-3 text-[#24180f] ring-1 ring-black/5 backdrop-blur-xl transition-transform duration-300"
       >
         <div className="absolute -inset-1 rounded-[1.65rem] bg-[#2a211d]/20 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-60" />
         <div className="relative">
@@ -270,7 +270,7 @@ function FloatingRestaurant({
             <span>{restaurant.deliveryFrom}</span>
           </div>
         </div>
-      </Link>
+      </LinkArrow>
     </motion.article>
   );
 }
@@ -930,16 +930,14 @@ export default function QuickBiteDistrictExplorer() {
                   Floating finds near {activeDistrict.name}
                 </h3>
               </div>
-              <MagneticFillButton
+              <LinkArrow
                 href="/restaurants"
-                variant="brand"
-                customFillClass="bg-white"
-                customHoverTextColor="#24180f"
-                className="h-12 w-max rounded-pill border-0 bg-[var(--district-accent)] px-6 text-sm font-black"
+                appearance="plain"
+                className="h-12 w-max justify-center gap-2 rounded-pill border-0 bg-[var(--district-accent)] px-6 text-sm font-black text-white"
               >
                 Explore all
                 <Navigation className="h-4 w-4" strokeWidth={2.35} />
-              </MagneticFillButton>
+              </LinkArrow>
             </div>
 
             <div className="flex gap-4 overflow-x-auto pb-2">
