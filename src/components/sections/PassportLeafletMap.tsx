@@ -60,7 +60,7 @@ const districtSlots = [
 const restaurantSlots = [
   { x: 16, y: 50 },
   { x: 30, y: 84 },
-  { x: 48, y: 36 },
+  { x: 61, y: 40 },
   { x: 70, y: 67 },
   { x: 62, y: 86 },
   { x: 87, y: 76 },

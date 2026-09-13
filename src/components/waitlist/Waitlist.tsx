@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { CircleDollarSign, Crown, MapPin, MessageCircle, Timer } from "lucide-react";
+import { CircleDollarSign, Crown, MapPin, Timer } from "lucide-react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import LinkArrow from "../ui/LinkArrow";
 import AnimatedBackground from "./AnimatedBackground";

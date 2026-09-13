@@ -18,7 +18,9 @@ export type MagneticFillVariant =
   | "dark"
   | "light"
   | "white"
-  | "ghost";
+  | "ghost"
+  | "cream"
+  ;
 
 type MagneticElement = HTMLElement;
 
@@ -77,6 +79,11 @@ const variants: Record<
     root: "bg-[#2a211d] text-navy",
     fill: "bg-cream-200",
     hoverText: "text-ink",
+  },
+  cream: {
+    root: "bg-cream text-brand-dark",
+    fill: "bg-[#2a211d]",
+    hoverText: "text-cream",
   },
 };
 
@@ -212,11 +219,10 @@ export default function MagneticFillButton({
       />
       <span
         data-magnetic-content=""
-        className={`relative z-10 transition-colors duration-300 motion-reduce:transition-none! ${contentClassName} ${
-          isHovered
+        className={`relative z-10 transition-colors duration-300 motion-reduce:transition-none! ${contentClassName} ${isHovered
             ? `${startsOnPaper ? "text-paper" : styles.hoverText} ${childColorClassName} ${hoverAccentClassName}`
             : childColorClassName
-        }`}
+          }`}
         style={{
           color: isHovered ? activeHoverTextColor : idleTextColor,
         }}
