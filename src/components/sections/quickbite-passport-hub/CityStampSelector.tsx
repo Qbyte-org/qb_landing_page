@@ -25,7 +25,7 @@ export default function CityStampSelector({
             variant="light"
             customFillClass="bg-brand"
             customHoverTextColor="#ffffff"
-            className={`min-h-11 rounded-full px-3 py-1.5 text-[0.8rem] font-semibold sm:px-3.5 sm:py-2 sm:text-sm ${
+            className={`rounded-full px-3 py-1.5 text-sm font-semibold ${
               active
                 ? "bg-ink! text-paper!"
                 : "bg-cream-200! text-cocoa!"

@@ -9,6 +9,8 @@ import { rotatingHeadlines } from "./hero/hero.data";
 import Container from "../ui/Container";
 import LinkArrow from "../ui/LinkArrow";
 import TypewriterText from "../ui/TypewriterText";
+import MagneticFillButton from "../ui/MagneticFillButton";
+import { ArrowRight } from "lucide-react";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -56,15 +58,18 @@ export default function Hero() {
           </div>
         </Container>
 
-        <Container className="pointer-events-none absolute inset-x-0 bottom-4 z-[70] max-w-[103rem]">
+        <Container className="pointer-events-none absolute inset-x-0 bottom-0 z-[70] max-w-[103rem]">
           <div data-hero-actions className="translate-y-1/2 sm:pl-10 xl:pl-32">
-            <LinkArrow
+            <MagneticFillButton
               href="/restaurants"
-              variant="dark"
-              className="pointer-events-auto h-14 rounded-pill border-0! bg-brand px-8 py-0! text-lg! font-semibold normal-case! text-white [--link-arrow-spacing:0em] sm:h-16 sm:px-9 sm:text-xl!"
+              variant="brand"
+              customFillClass="bg-paper"
+              customHoverTextColor="#2a211d"
+              className="pointer-events-auto h-14 cursor-pointer rounded-4xl border-brand bg-brand! px-7 text-base font-semibold text-white! sm:h-[3.75rem] sm:px-8"
             >
               Order now
-            </LinkArrow>
+              <ArrowRight className="h-5 w-5" strokeWidth={2.35} aria-hidden="true" />
+            </MagneticFillButton>
           </div>
         </Container>
       </div>

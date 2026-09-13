@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { CircleDollarSign, Crown, MapPin, MessageCircle, Timer } from "lucide-react";
+import { CircleDollarSign, Crown, MapPin, Timer } from "lucide-react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import LinkArrow from "../ui/LinkArrow";
 import AnimatedBackground from "./AnimatedBackground";
@@ -53,12 +53,11 @@ export default function Waitlist({ initialEmail = "" }: { initialEmail?: string 
                   </span>
                   <span className="relative z-10 min-w-0 whitespace-normal pr-2 text-[11px] font-semibold text-white sm:pr-4 sm:text-sm">Launching in Ile-Ife</span>
                 </div>
-                <div className="relative flex w-auto max-w-full min-w-0 shrink-0 items-center gap-1 rounded-xl border border-[#fffaf51a] bg-[#fffaf5]/[0.14] p-1 backdrop-blur-xl">
-                  <span className="relative z-10 mr-1 min-w-0 whitespace-normal pl-2 text-[11px] font-semibold text-white sm:mr-2 sm:pl-3 sm:text-sm">Stay in touch</span>
-                  <span role="img" aria-label="QuickBite social updates coming soon" title="QuickBite social updates coming soon" className="relative z-10 flex size-9 shrink-0 items-center justify-center rounded-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16] sm:size-12">
+                <div className="relative flex w-auto max-w-full min-w-0 shrink-0 items-center gap-1 rounded-xl border border-[#fffaf51a] bg-[#fffaf5]/[0.14] p-1 px-5 backdrop-blur-xl">
+                  {/* <span role="img" aria-label="QuickBite social updates coming soon" title="QuickBite social updates coming soon" className="relative z-10 flex size-9 shrink-0 items-center justify-center rounded-xl border border-[#ff7a1a]/[0.28] bg-[#fffaf5]/[0.16] sm:size-12">
                     <MessageCircle className="size-4 text-white/60 sm:size-5" aria-hidden="true" />
-                  </span>
-                  <LinkArrow href="mailto:support@quickbite.ng" variant="dark" ariaLabel="Send QuickBite a message" className="relative z-10 min-h-9 w-28 min-w-0! gap-3! border-paper/25! px-2 text-[10px]! [--link-arrow-min-width:0px] [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.1em] sm:min-h-12">
+                  </span> */}
+                  <LinkArrow href="mailto:quickbiteinfo01@gmail.com" variant="dark" ariaLabel="Send QuickBite a message" className="relative z-10 min-h-10 w-32 gap-2! text-[11px]! font-semibold tracking-[0.08em] sm:min-h-12 sm:w-40 sm:text-xs! [--link-arrow-min-width:0px] [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.1em]">
                     Email us
                   </LinkArrow>
                 </div>

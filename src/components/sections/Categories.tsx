@@ -6,7 +6,6 @@ import { gsap, useGSAP } from "@/lib/gsap";
 import CategoriesDecor from "./categories/CategoriesDecor";
 import CategoryCard from "./categories/CategoryCard";
 import {
-  CategoriesToHowWave,
   HomeToCategoriesWave,
 } from "./categories/CategoryWaveDivider";
 import Container from "../ui/Container";
@@ -68,7 +67,6 @@ export default function Categories() {
     >
       <CategoriesDecor />
       <HomeToCategoriesWave />
-      <CategoriesToHowWave />
 
       <Container className="relative">
         {/* <div className="relative mx-auto mb-16 flex w-full justify-center">

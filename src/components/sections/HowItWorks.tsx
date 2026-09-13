@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   processSlides,
   totalSteps,
@@ -14,9 +14,11 @@ import LinkArrow from "../ui/LinkArrow";
 import Container from "../ui/Container";
 import SectionWave from "../ui/SectionWave";
 import BackgroundGrainTexture from "../ui/BackgroundGrainTexture";
+import FoodImage from "../ui/FoodImage";
 
 export default function HowItWorks() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const reduceMotion = useReducedMotion();
   const activeStep = processSlides[activeIndex] ?? processSlides[0];
   const progress = ((activeIndex + 1) / totalSteps) * 100;
 
@@ -97,13 +99,38 @@ export default function HowItWorks() {
                 <ProcessControls onPrevious={goToPrevious} onNext={goToNext} />
               </div>
             </div>
-            {/* <Image
-              src={activeStep.plate}
-              alt=""
-              width={360}
-              height={190}
-              className="pointer-events-none absolute bottom-[-0.5rem] left-2 z-0 hidden w-[13rem] object-contain opacity-85 drop-shadow-none sm:w-[17rem] lg:bottom-[-1.25rem] lg:left-[1.5rem] lg:block lg:w-[22rem] xl:left-[3vw]"
-            /> */}
+
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={`${activeStep.title}-food-pair`}
+                aria-hidden="true"
+                data-process-food
+                className="pointer-events-none absolute bottom-6 left-8 z-20 hidden h-36 w-56 items-end lg:flex xl:left-[5vw]"
+                initial={{ opacity: 0, y: reduceMotion ? 0 : 18, scale: reduceMotion ? 1 : 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: reduceMotion ? 0 : -10, scale: reduceMotion ? 1 : 0.92 }}
+                transition={{ duration: reduceMotion ? 0 : 0.48, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="relative size-32 shrink-0 overflow-hidden rounded-full border-4 border-[#1c120f] bg-paper ring-2 ring-paper/35">
+                  <FoodImage
+                    src={activeStep.accent}
+                    alt=""
+                    fill
+                    sizes="8rem"
+                    className="object-cover object-center"
+                  />
+                </div>
+                <div className="relative -ml-7 mb-1 size-24 shrink-0 overflow-hidden rounded-full border-4 border-[#1c120f] bg-paper ring-2 ring-paper/35">
+                  <FoodImage
+                    src="/images/food/pinterest/rice-beans-stew.webp"
+                    alt=""
+                    fill
+                    sizes="6rem"
+                    className="object-cover object-center"
+                  />
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           <ProcessVisualPanel activeStep={activeStep} activeIndex={activeIndex} />
