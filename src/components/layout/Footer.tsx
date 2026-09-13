@@ -84,7 +84,7 @@ export default function Footer() {
               href="/#cities"
               variant="cream"
               prefetch={false}
-              className="min-h-10 w-fit justify-center gap-2 rounded-pill border border-paper/20 px-3 py-2 text-sm text-paper hover:bg-paper/10 2xl:text-base"
+              className="min-h-10 w-fit justify-center gap-2 rounded-pill border-2 border-[#2a211d] px-3 py-2 text-sm 2xl:text-base"
             >
               <MapPin className="size-4" aria-hidden="true" />
               All locations

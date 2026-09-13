@@ -15,7 +15,7 @@ const navChip = "bg-[var(--nav-chip)] text-[var(--nav-chip-text)]";
 
 const menuLinks = [
   { label: "Home", href: "/", asset: "/menu/delivery-bag.svg" },
-  { label: "Restaurants", href: "/restaurants", asset: "/menu/restaurant.svg", imageAlt: "Jollof rice with chicken and plantain" },
+  { label: "Restaurants", href: "/restaurants", asset: "/menu/restaurant.svg", imageAlt: "Restaurant storefront" },
   { label: "For Partners", href: "/partners", asset: "/menu/company-card.svg" },
   { label: "Riders", href: "/riders", asset: "/menu/rider-bike.svg" },
   { label: "Company", href: "/company", asset: "/menu/company-card.svg" },
@@ -401,7 +401,6 @@ export default function Header() {
                           onClick={closePanels}
                           imageSrc={link.asset}
                           imageAlt={link.imageAlt ?? ""}
-                          imageClassName={link.imageAlt ? "rounded-full object-cover!" : undefined}
                           className="w-full min-w-0! border-current/20 py-1.5 text-left font-display text-2xl! font-semibold normal-case! leading-none text-[var(--nav-foreground)]! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em] [--link-arrow-image-size:2.25rem] sm:text-[2.05rem]!"
                         >
                           {link.label}

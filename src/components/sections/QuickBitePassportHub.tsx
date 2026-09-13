@@ -33,7 +33,7 @@ import RestaurantMembershipCard from "./quickbite-passport-hub/RestaurantMembers
 const PassportLeafletMap = dynamic(() => import("./PassportLeafletMap"), {
   ssr: false,
   loading: () => (
-    <div className="grid h-full min-h-[18rem] place-items-center rounded-[1.6rem] bg-cream-200 text-xs font-semibold uppercase tracking-[0.22em] text-cocoa">
+    <div className="grid h-full min-h-[18rem] place-items-center rounded-[2.35rem] bg-cream-200 text-xs font-semibold uppercase tracking-[0.22em] text-cocoa">
       Preparing destination map
     </div>
   ),
@@ -411,7 +411,7 @@ export default function QuickBitePassportHub() {
                   <AnimatedStamp city={activeCity} stampRef={stampRef} inkRef={inkRef} />
                 </div>
 
-                <div className="relative mt-5 h-[22rem] max-h-[30rem] flex-none overflow-hidden rounded-[1.55rem] bg-cream-200 sm:h-[30rem] lg:h-auto lg:flex-1">
+                <div className="relative mt-5 h-[22rem] max-h-[30rem] flex-none overflow-hidden rounded-[2.35rem] bg-cream-200 sm:h-[30rem] lg:h-auto lg:flex-1">
                   <PassportLeafletMap
                     city={activeCity}
                     neighbourhoods={activeCity.nodes}
@@ -445,7 +445,7 @@ export default function QuickBitePassportHub() {
               className="group relative min-w-0 overflow-hidden bg-paper p-4 sm:p-6 lg:flex lg:h-[40rem] lg:flex-col lg:p-7"
             >
               <div className="relative z-10 flex min-h-0 flex-1 flex-col">
-                <div className="relative rounded-[1.45rem] bg-paper p-4 text-ink sm:p-5">
+                <div className="relative rounded-[2.35rem] bg-paper p-4 text-ink sm:p-5">
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
                       <h3 className="font-display text-[2.25rem] font-semibold leading-[0.86] tracking-[-0.075em] text-ink sm:text-[2.85rem]">
@@ -510,10 +510,6 @@ export default function QuickBitePassportHub() {
             </div>
           </div>
         </div>
-
-        <p className="relative z-10 mx-auto mt-5 hidden max-w-xl px-4 text-center text-xs font-semibold leading-relaxed text-paper/65 sm:block">
-          Choose your area, explore the map, and find your next kitchen.
-        </p>
       </Container>
 
       <SectionWave to="paper" placement="bottom" />

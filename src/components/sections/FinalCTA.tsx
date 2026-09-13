@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "../ui/FoodImage";
 import { motion, useReducedMotion } from "motion/react";
 import LinkArrow from "../ui/LinkArrow";
 import SectionWave from "../ui/SectionWave";
 import BackgroundGrainTexture from "../ui/BackgroundGrainTexture";
+import CtaFoodSlideshow from "./final-cta/CtaFoodSlideshow";
 
 export default function FinalCTA() {
   const reducedMotion = useReducedMotion();
@@ -64,26 +64,14 @@ export default function FinalCTA() {
             <LinkArrow
               href="/restaurants"
               variant="dark"
-              className="group mt-4 min-h-12 text-base! normal-case! [--link-arrow-spacing:0em] sm:text-lg!"
+              className="group mt-4 w-64 min-h-12 text-base! normal-case! [--link-arrow-spacing:0em] sm:text-lg!"
             >
               Explore restaurants
             </LinkArrow>
           </div>
         </div>
 
-        <div
-          data-cta-media
-          className="group relative min-h-40 overflow-hidden rounded-4xl bg-[#382c26] sm:min-h-0"
-        >
-          <Image
-            src="/images/food/pinterest/puff-puff.webp"
-            alt="Golden Nigerian puff-puff"
-            fill
-            loading="lazy"
-            sizes="(min-width: 2000px) 240px, (min-width: 1067px) 12vw, (min-width: 640px) 128px, 90vw"
-            className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
-          />
-        </div>
+        <CtaFoodSlideshow />
       </motion.div>
 
       <div

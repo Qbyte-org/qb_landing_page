@@ -32,14 +32,14 @@ export default function RestaurantMembershipCard({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative h-[14.85rem] w-full shrink-0 rounded-[1.35rem] text-ink outline-none focus-visible:outline-2 focus-visible:outline-brand sm:h-[13.15rem]"
+      className="group relative h-[14.85rem] w-full shrink-0 rounded-[2.35rem] text-ink outline-none focus-visible:outline-2 focus-visible:outline-brand sm:h-[13.15rem]"
       style={{ "--card-accent": accent } as CSSProperties}
     >
       <div
-        className={`relative h-full w-full overflow-hidden rounded-[1.35rem] border bg-cream-200 transition-colors duration-300 ${highlighted ? "border-[var(--card-accent)]" : "border-ink/10"
+        className={`relative h-full w-full overflow-hidden rounded-[2.35rem] border bg-cream-200 transition-colors duration-300 ${highlighted ? "border-[var(--card-accent)]" : "border-ink/10"
           }`}
       >
-        <BackgroundGrainTexture tone="light" />
+        <BackgroundGrainTexture tone="light" className="opacity-20" />
         <MagneticFillButton
           ariaLabel={`Details for ${restaurant.name}`}
           aria-expanded={isOpen}
@@ -56,7 +56,7 @@ export default function RestaurantMembershipCard({
           initial={false}
           animate={{ opacity: isOpen ? 0.08 : 1 }}
           transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          className="pointer-events-none absolute -right-14 top-10 size-36 overflow-hidden rounded-full border-4 border-paper sm:-right-10 sm:top-5 sm:size-48"
+          className="pointer-events-none absolute -right-14 top-10 size-36 overflow-hidden rounded-full border-4 border-paper sm:-right-7 sm:top-7 sm:size-48"
         >
           <FoodImage
             src={restaurant.image}
@@ -78,7 +78,7 @@ export default function RestaurantMembershipCard({
           inert={isOpen}
           className="absolute inset-0 z-10 px-5 py-5 will-change-transform sm:px-6 sm:py-6 lg:px-7"
         >
-          <div className="relative z-10 flex h-full max-w-[60%] flex-col justify-center">
+          <div className="relative z-10 flex h-full max-w-[80%] flex-col justify-center">
             <p className="text-[0.68rem] font-semibold tracking-[0.08em] text-[var(--card-accent)]">
               {restaurant.eta} • {restaurant.rating}★
             </p>
@@ -110,7 +110,7 @@ export default function RestaurantMembershipCard({
           transition={{ duration: 0.56, ease: [0.22, 1, 0.36, 1] }}
           id={detailsId}
           inert={!isOpen}
-          className="absolute inset-0 z-20 bg-cream-200 px-6 py-5 will-change-transform"
+          className="absolute inset-0 z-20 bg-cream-200 px-6 pt-8 will-change-transform"
           style={{ pointerEvents: isOpen ? "auto" : "none" }}
         >
           <BackgroundGrainTexture tone="light" />
@@ -140,7 +140,7 @@ export default function RestaurantMembershipCard({
           </div>
 
           <div className="absolute inset-x-6 bottom-[3.5rem] z-10 border-t border-dashed border-ink/20" />
-          <div className="absolute inset-x-6 bottom-4 z-10 flex items-center justify-between gap-3">
+          <div className="absolute inset-x-6 bottom-2 z-10 flex items-center justify-between gap-3">
             <p className="line-clamp-1 text-[0.68rem] font-semibold text-ink">
               {restaurant.avgOrder} avg order
             </p>

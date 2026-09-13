@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Bike, Check, CookingPot, House, MapPin, Store, Wallet } from "lucide-react";
 import { motion } from "motion/react";
 import { appFeatures } from "@/content/site";
+import BackgroundGrainTexture from "../ui/BackgroundGrainTexture";
 
 const featurePreviews = [
   [
@@ -53,6 +54,7 @@ export default function AppPreviewPanel({
 
           <div className="grid @md:grid-cols-[minmax(0,0.95fr)_minmax(0,1fr)]">
             <div data-app-phone-stage className="relative flex min-w-0 items-center justify-center overflow-hidden bg-cream-200 px-3 py-4 @md:py-6">
+              <BackgroundGrainTexture className=" opacity-20!" />
               <div aria-hidden="true" className="pointer-events-none absolute inset-x-6 top-1/2 h-px -rotate-12 bg-ink/10" />
               <div aria-hidden="true" className="pointer-events-none absolute inset-x-6 top-[58%] h-px -rotate-12 bg-ink/10" />
               <div className="relative h-[21rem] w-full max-w-[15rem] select-none @md:h-[25rem] @md:max-w-[17rem]">

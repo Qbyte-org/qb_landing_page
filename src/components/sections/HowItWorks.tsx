@@ -71,6 +71,8 @@ export default function HowItWorks() {
 
         <div className="relative z-10 grid lg:grid-cols-[54%_46%]">
           <div className="relative min-h-[23rem] px-4 py-8 sm:px-6 lg:min-h-[28rem] lg:px-8 lg:py-10 xl:px-[5vw]">
+            <BackgroundGrainTexture className=" opacity-2!" />
+
             <div
               aria-hidden="true"
               className="pointer-events-none absolute bottom-0 left-0 hidden h-[44%] w-[17rem] bg-[#1c120f] lg:block"

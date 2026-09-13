@@ -75,7 +75,7 @@ type StoryCard = {
 
 const storyCards: StoryCard[] = [
   {
-    kind: "illustration",
+    kind: "image",
     testimonial: testimonialCards[0],
     label: "Campus favourites",
     title: "A little comfort between lectures.",
@@ -180,7 +180,7 @@ function CommunityPanel() {
 
 function StoryCardShell({ children, expandable = false }: { children: ReactNode; expandable?: boolean }) {
   return (
-    <figure className={`group relative flex min-w-0 shrink-0 flex-col overflow-hidden rounded-card border border-ink/10 bg-cream p-5 text-ink transition-colors duration-300 hover:border-ink/25 sm:p-6 ${expandable ? "grow" : ""}`}>
+    <figure className={`group relative flex min-w-0 shrink-0 flex-col overflow-hidden rounded-[2.35rem] border border-ink/10 bg-cream p-5 text-ink transition-colors duration-300 hover:border-ink/25 sm:p-6 ${expandable ? "grow" : ""}`}>
       {children}
     </figure>
   );
@@ -224,7 +224,7 @@ function MediaStoryCard({ story }: { story: StoryCard }) {
   return (
     <StoryCardShell expandable>
       <AuthorRow testimonial={story.testimonial} />
-      <div className={`relative mt-5 grow shrink-0 overflow-hidden rounded-card ${isIllustration ? "bg-cream-200" : "bg-[#2a211d]"} ${story.mediaClassName ?? "min-h-[16rem]"}`}>
+      <div className={`relative mt-5 grow shrink-0 overflow-hidden rounded-[2.35rem] ${isIllustration ? "bg-cream-200" : "bg-[#2a211d]"} ${story.mediaClassName ?? "min-h-[16rem]"}`}>
         {story.image ? (
           <Image
             src={story.image}

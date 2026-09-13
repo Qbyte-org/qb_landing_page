@@ -90,7 +90,7 @@ export default function PassportLeafletMap({
   onHoverRestaurant?: (name: string | null) => void;
 }) {
   return (
-    <div className="@container relative h-full w-full overflow-hidden rounded-[1.35rem] border-[0.18rem] border-[#2a211d] bg-[#f7eadb]">
+    <div className="@container relative h-full w-full overflow-hidden rounded-[2.35rem] border-[0.18rem] border-[#2a211d] bg-[#f7eadb]">
       <svg
         aria-hidden="true"
         className="absolute inset-0 h-full w-full"
@@ -204,7 +204,7 @@ export default function PassportLeafletMap({
                 <span className="size-1 shrink-0 rounded-full border border-[#2a211d] bg-[#fffaf3]" />
                 <span className="truncate">{truncateLabel(node.name)}</span>
               </MagneticFillButton>
-              <span aria-hidden="true" className="pointer-events-none relative mt-2 block h-8 w-8 rounded-full border-[0.32rem] border-[var(--marker-color)] bg-[#fffaf3]">
+              <span aria-hidden="true" className="pointer-events-none relative mt-1 block h-8 w-8 rounded-full border-[0.32rem] border-[var(--marker-color)] bg-[#fffaf3]">
                 <span className="absolute left-1/2 top-[1.05rem] h-4 w-4 -translate-x-1/2 rotate-45 rounded-br-[0.32rem] bg-[var(--marker-color)]" />
               </span>
             </motion.div>

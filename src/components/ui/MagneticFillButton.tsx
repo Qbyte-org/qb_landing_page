@@ -81,9 +81,9 @@ const variants: Record<
     hoverText: "text-ink",
   },
   cream: {
-    root: "bg-cream text-brand-dark",
+    root: "bg-cream text-[#2a211d]",
     fill: "bg-[#2a211d]",
-    hoverText: "text-cream",
+    hoverText: "text-cream-200!",
   },
 };
 
