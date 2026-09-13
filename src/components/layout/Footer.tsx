@@ -1,6 +1,7 @@
 import { MapPin } from "lucide-react";
 import FooterNewsletter from "./FooterNewsletter";
 import LinkArrow from "../ui/LinkArrow";
+import MagneticFillButton from "../ui/MagneticFillButton";
 
 const navigation = [
   {
@@ -63,7 +64,7 @@ export default function Footer() {
                         href={link.href}
                         variant="dark"
                         prefetch={false}
-                        className="min-h-10 w-full min-w-0! gap-2! border-paper/15! text-sm! font-semibold uppercase leading-snug text-paper! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.02em] sm:min-h-9 sm:text-lg! lg:min-h-8 lg:text-[clamp(.8rem,1.05vw,1.25rem)]!"
+                        className="min-h-10 w-72 min-w-0! gap-2! border-paper/15! text-sm! font-semibold uppercase leading-snug text-paper! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.02em] sm:min-h-9 sm:text-lg! lg:min-h-8 lg:text-[clamp(.8rem,1.05vw,1.25rem)]!"
                       >
                         {link.label}
                       </LinkArrow>
@@ -75,29 +76,29 @@ export default function Footer() {
           </nav>
 
           <div className="mt-8 grid grid-cols-1 items-center gap-x-4 gap-y-5 border-t border-paper/15 pt-7 sm:grid-cols-[minmax(0,1fr)_auto] lg:mt-auto lg:pt-8">
-            <p className="order-2 text-base sm:order-1 sm:text-lg 2xl:text-2xl">
+            <p className="text-base sm:text-lg 2xl:text-2xl">
               &copy; 2026 QuickBite
             </p>
 
-            <LinkArrow
+            <MagneticFillButton
               href="/#cities"
-              appearance="plain"
+              variant="cream"
               prefetch={false}
-              className="order-1 min-h-10 w-fit justify-center gap-2 rounded-pill border border-paper/20 px-3 py-2 text-sm text-paper hover:bg-paper/10 sm:order-2 sm:justify-self-end 2xl:text-base"
+              className="min-h-10 w-fit justify-center gap-2 rounded-pill border border-paper/20 px-3 py-2 text-sm text-paper hover:bg-paper/10 2xl:text-base"
             >
               <MapPin className="size-4" aria-hidden="true" />
               All locations
-            </LinkArrow>
+            </MagneticFillButton>
 
             <nav aria-label="Legal" className="order-3 sm:col-span-2">
-              <ul className="flex flex-wrap gap-x-5 gap-y-1">
+              <ul className="flex flex-wrap gap-x-10 gap-y-1">
                 {legalLinks.map((link) => (
                   <li key={link.label}>
                     <LinkArrow
                       href={link.href}
                       prefetch={false}
                       variant="dark"
-                      className="min-h-9 min-w-0! gap-2! border-paper/15! text-sm! font-normal! normal-case! text-paper! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em] 2xl:text-base!"
+                      className="min-h-9 w-52 gap-4! border-paper/15! text-sm! font-normal! normal-case! text-paper! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em] 2xl:text-base!"
                     >
                       {link.label}
                     </LinkArrow>

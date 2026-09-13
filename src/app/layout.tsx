@@ -16,7 +16,7 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://quickbite.ng"),
+  metadataBase: new URL("https://www.quickbiteltd.org/"),
   title: "QuickBite — Fast. Fresh. Delivered. in Ile-Ife",
   description:
     "Order jollof, grills, swallow and more from top restaurants in Ile-Ife, Osun State. Fast delivery, live tracking, and easy payments with Paystack — launching across Nigeria next.",

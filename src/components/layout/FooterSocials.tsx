@@ -48,7 +48,7 @@ function SocialIcon({ name }: { name: typeof socialLinks[number]["icon"] }) {
 
 export default function FooterSocials() {
   return (
-    <ul aria-label="QuickBite social profiles" className="flex flex-wrap gap-2 sm:gap-3">
+    <ul aria-label="QuickBite social profiles" className="flex flex-wrap gap-2 sm:gap-3 justify-end max-sm:max-w-md ">
       {socialLinks.map(({ label, href, icon }) => (
         <li key={label}>
           {href ? (
