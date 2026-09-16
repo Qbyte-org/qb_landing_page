@@ -19,7 +19,7 @@ const journeys = [
     shortTitle: "App Rider",
     description:
       "Accept orders, navigate pickups, update delivery status and track earnings from the QuickBite rider app.",
-    accent: "#f06400",
+    accent: "var(--color-brand)",
     manifestTitle: "Solo duty slip",
     manifestCode: "AR / IFE / 042",
     assignedTo: "Solo riders",
@@ -44,7 +44,7 @@ const journeys = [
     shortTitle: "Dispatch Partner",
     description:
       "Coordinate a fleet, assign delivery requests, and manage riders through a dispatcher workspace.",
-    accent: "#2a211d",
+    accent: "var(--color-ink)",
     manifestTitle: "Fleet route roster",
     manifestCode: "DP / IFE / 118",
     assignedTo: "Fleet owners",
@@ -109,17 +109,17 @@ function DispatchBikeMark() {
 function RouteTag() {
   return (
     <div
-      className="relative inline-flex rotate-[-1.5deg] items-center gap-3 border border-[#2a211d]/20 bg-[#fffaf5] px-4 py-3 text-left"
+      className="relative inline-flex rotate-[-1.5deg] items-center gap-3 border border-ink/20 bg-paper px-4 py-3 text-left"
       style={{ clipPath: tagClipPath }}
     >
-      <span className="grid h-4 w-4 place-items-center border border-[#2a211d]/35 bg-white">
-        <span className="h-1.5 w-1.5 rounded-[50%] bg-[#f06400]" />
+      <span className="grid h-4 w-4 place-items-center border border-ink/35 bg-white">
+        <span className="h-1.5 w-1.5 rounded-[50%] bg-brand" />
       </span>
       <span>
-        <span className="block font-mono text-[0.65rem] font-bold text-[#f06400]">
+        <span className="block font-mono text-[0.65rem] font-bold text-brand">
           route tag
         </span>
-        <span className="block font-mono text-sm font-black text-[#241813]">
+        <span className="block font-mono text-sm font-black text-espresso">
           rider manifest
         </span>
       </span>
@@ -132,7 +132,7 @@ function CheckboxMark({ active = false }: { active?: boolean }) {
     <span
       aria-hidden="true"
       className={`grid h-5 w-5 shrink-0 place-items-center border-2 ${
-        active ? "border-[#f06400] text-[#f06400]" : "border-[#2a211d]/34 text-transparent"
+        active ? "border-brand text-brand" : "border-ink/34 text-transparent"
       }`}
     >
       <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -146,7 +146,7 @@ function ManifestDocument({ journey, active }: { journey: Journey; active: boole
   return (
     <motion.div
       aria-hidden="true"
-      className="relative mx-auto min-h-[16.5rem] max-w-[25rem] border border-[#2a211d]/18 bg-[#fffaf5] p-4 text-[#241813]"
+      className="relative mx-auto min-h-[16.5rem] max-w-[25rem] border border-ink/18 bg-paper p-4 text-espresso"
       style={{ clipPath: manifestClipPath }}
       animate={{
         rotate: active ? -1.25 : 0.8,
@@ -154,18 +154,18 @@ function ManifestDocument({ journey, active }: { journey: Journey; active: boole
       }}
       transition={{ duration: 0.38, ease }}
     >
-      <div className="absolute inset-0 opacity-[0.16] [background-image:radial-gradient(circle,rgba(42,33,29,.42)_0_1px,transparent_1.15px)] [background-size:13px_13px]" />
+      <div className="absolute inset-0 opacity-[0.16] [background-image:radial-gradient(circle,color-mix(in_srgb,var(--color-ink)_42%,transparent)_0_1px,transparent_1.15px)] [background-size:13px_13px]" />
       <div className="relative">
-        <div className="flex items-start justify-between gap-4 border-b border-dashed border-[#2a211d]/24 pb-3 font-mono">
+        <div className="flex items-start justify-between gap-4 border-b border-dashed border-ink/24 pb-3 font-mono">
           <div>
-            <p className="text-[0.64rem] font-bold text-[#f06400]">
+            <p className="text-[0.64rem] font-bold text-brand">
               QUICKBITE DISPATCH
             </p>
             <p className="mt-1 text-xl font-black leading-none tracking-[-0.05em]">
               {journey.manifestTitle}
             </p>
           </div>
-          <span className="text-right text-[0.68rem] font-bold text-[#6f5f55]">
+          <span className="text-right text-[0.68rem] font-bold text-cocoa">
             {journey.manifestCode}
             <br />
             07:30am
@@ -173,23 +173,23 @@ function ManifestDocument({ journey, active }: { journey: Journey; active: boole
         </div>
 
         <div className="mt-4 grid gap-2 font-mono text-[0.72rem] font-bold">
-          <div className="flex justify-between border-b border-dashed border-[#2a211d]/16 pb-1.5">
-            <span className="text-[#6f5f55]">assigned to</span>
+          <div className="flex justify-between border-b border-dashed border-ink/16 pb-1.5">
+            <span className="text-cocoa">assigned to</span>
             <span>{journey.assignedTo}</span>
           </div>
-          <div className="flex justify-between border-b border-dashed border-[#2a211d]/16 pb-1.5">
-            <span className="text-[#6f5f55]">tool</span>
+          <div className="flex justify-between border-b border-dashed border-ink/16 pb-1.5">
+            <span className="text-cocoa">tool</span>
             <span>{journey.tool}</span>
           </div>
-          <div className="flex justify-between border-b border-dashed border-[#2a211d]/16 pb-1.5">
-            <span className="text-[#6f5f55]">payout</span>
+          <div className="flex justify-between border-b border-dashed border-ink/16 pb-1.5">
+            <span className="text-cocoa">payout</span>
             <span>{journey.payout}</span>
           </div>
         </div>
 
         <div className="mt-4 space-y-2">
           {journey.routeRows.map((row, index) => (
-            <div key={row} className="flex items-center gap-2 font-mono text-[0.7rem] font-bold text-[#2a211d]/78">
+            <div key={row} className="flex items-center gap-2 font-mono text-[0.7rem] font-bold text-ink/78">
               <CheckboxMark active={active || index === 0} />
               {row}
             </div>
@@ -198,7 +198,7 @@ function ManifestDocument({ journey, active }: { journey: Journey; active: boole
 
         <div
           className={`absolute bottom-1 right-1 rotate-[-8deg] border-[3px] border-dashed px-4 py-2 font-mono text-sm font-black ${
-            active ? "border-[#f06400] text-[#f06400]" : "border-[#2a211d]/28 text-[#2a211d]/28"
+            active ? "border-brand text-brand" : "border-ink/28 text-ink/28"
           }`}
         >
           {active ? "CLEARED" : "STANDBY"}
@@ -231,8 +231,8 @@ function JourneyCard({
       aria-pressed={active}
       onClick={onSelect}
       onKeyDown={onKeyDown}
-      className={`group relative isolate cursor-pointer border bg-[#fffaf5] p-4 text-[#241813] outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-[#f06400] sm:p-5 ${
-        active ? "border-[#f06400]" : "border-[#2a211d]/14"
+      className={`group relative isolate cursor-pointer border bg-paper p-4 text-espresso outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-brand sm:p-5 ${
+        active ? "border-brand" : "border-ink/14"
       }`}
       style={{ clipPath: manifestClipPath }}
       // The card moves like paper being lifted from a dispatch board, not a glowing SaaS tile.
@@ -246,12 +246,12 @@ function JourneyCard({
       }}
       transition={{ duration: 0.36, ease }}
     >
-      <div className="absolute inset-0 -z-10 opacity-[0.13] [background-image:radial-gradient(circle,rgba(42,33,29,.5)_0_1px,transparent_1.2px)] [background-size:15px_15px]" />
-      <div className="absolute left-6 top-0 h-6 w-16 border-x border-b border-[#2a211d]/18 bg-[#f5e3d4]" aria-hidden="true" />
+      <div className="absolute inset-0 -z-10 opacity-[0.13] [background-image:radial-gradient(circle,color-mix(in_srgb,var(--color-ink)_50%,transparent)_0_1px,transparent_1.2px)] [background-size:15px_15px]" />
+      <div className="absolute left-6 top-0 h-6 w-16 border-x border-b border-ink/18 bg-parchment" aria-hidden="true" />
 
       <div className="flex items-start justify-between gap-4">
         <div className="font-mono">
-          <p className="text-[0.72rem] font-bold text-[#f06400]">{journey.eyebrow}</p>
+          <p className="text-[0.72rem] font-bold text-brand">{journey.eyebrow}</p>
           <h3 className="mt-2 max-w-md font-display text-3xl font-black leading-[0.94] tracking-[-0.065em] sm:text-4xl">
             {journey.title}
           </h3>
@@ -259,14 +259,14 @@ function JourneyCard({
 
         <div
           className={`relative shrink-0 rotate-[-4deg] border-[3px] border-dashed px-3 py-2 font-mono text-[0.72rem] font-black ${
-            active ? "border-[#f06400] text-[#f06400]" : "border-[#2a211d]/28 text-[#2a211d]/38"
+            active ? "border-brand text-brand" : "border-ink/28 text-ink/38"
           }`}
         >
           {active ? "SELECTED" : "OPEN"}
         </div>
       </div>
 
-      <p className="mt-4 max-w-xl text-sm font-semibold leading-relaxed text-[#6f5f55] sm:text-base">
+      <p className="mt-4 max-w-xl text-sm font-semibold leading-relaxed text-cocoa sm:text-base">
         {journey.description}
       </p>
 
@@ -276,9 +276,9 @@ function JourneyCard({
 
       <div className="mt-5 grid gap-2 font-mono text-[0.72rem] font-bold sm:grid-cols-3">
         {journey.stats.map((stat) => (
-          <div key={stat.label} className="border border-dashed border-[#2a211d]/18 bg-white/50 p-3">
-            <p className="text-[#6f5f55]">{stat.label}</p>
-            <p className="mt-1 text-[#241813]">{stat.value}</p>
+          <div key={stat.label} className="border border-dashed border-ink/18 bg-white/50 p-3">
+            <p className="text-cocoa">{stat.label}</p>
+            <p className="mt-1 text-espresso">{stat.value}</p>
           </div>
         ))}
       </div>
@@ -294,10 +294,10 @@ function JourneyCard({
             transition={{ duration: 0.34, ease }}
             className="overflow-hidden"
           >
-            <div className="mt-6 border-t border-dashed border-[#2a211d]/22 pt-5">
+            <div className="mt-6 border-t border-dashed border-ink/22 pt-5">
               <ul className="space-y-3">
                 {journey.points.map((point) => (
-                  <li key={point} className="flex items-start gap-3 text-sm font-bold text-[#3c302a]">
+                  <li key={point} className="flex items-start gap-3 text-sm font-bold text-ink-soft">
                     <CheckboxMark active />
                     <span>{point}</span>
                   </li>
@@ -308,7 +308,7 @@ function JourneyCard({
                 href="/riders"
                 appearance="plain"
                 ariaLabel={`Apply as ${journey.shortTitle}`}
-                className="mt-6 h-[3.25rem] w-full justify-center gap-2 bg-[#f06400] px-6 text-sm font-black text-white [clip-path:polygon(0_0,calc(100%_-_14px)_0,100%_14px,100%_100%,14px_100%,0_calc(100%_-_14px))]"
+                className="mt-6 h-[3.25rem] w-full justify-center gap-2 bg-brand px-6 text-sm font-black text-white [clip-path:polygon(0_0,calc(100%_-_14px)_0,100%_14px,100%_100%,14px_100%,0_calc(100%_-_14px))]"
               >
                 Apply as {journey.shortTitle}
                 <ArrowGlyph />
@@ -342,21 +342,21 @@ function ComparisonLedger({ activeJourney }: { activeJourney: JourneyId }) {
 
   return (
     <div
-      className="relative overflow-hidden border border-[#2a211d]/16 bg-[#fffaf5] p-4 text-[#241813] sm:p-5"
+      className="relative overflow-hidden border border-ink/16 bg-paper p-4 text-espresso sm:p-5"
       style={{ clipPath: manifestClipPath }}
     >
-      <div className="absolute inset-0 opacity-[0.12] [background-image:radial-gradient(circle,rgba(42,33,29,.45)_0_1px,transparent_1.2px)] [background-size:14px_14px]" />
+      <div className="absolute inset-0 opacity-[0.12] [background-image:radial-gradient(circle,color-mix(in_srgb,var(--color-ink)_45%,transparent)_0_1px,transparent_1.2px)] [background-size:14px_14px]" />
       <div className="relative">
-        <div className="flex flex-col justify-between gap-3 border-b border-dashed border-[#2a211d]/24 pb-4 sm:flex-row sm:items-end">
+        <div className="flex flex-col justify-between gap-3 border-b border-dashed border-ink/24 pb-4 sm:flex-row sm:items-end">
           <div>
-            <p className="font-mono text-[0.72rem] font-bold text-[#f06400]">
+            <p className="font-mono text-[0.72rem] font-bold text-brand">
               duty log / compare
             </p>
             <h3 className="mt-1 font-display text-3xl font-black leading-none tracking-[-0.06em]">
               Rider path ledger
             </h3>
           </div>
-          <div className="rotate-[-2deg] border-[3px] border-dashed border-[#f06400] px-4 py-2 font-mono text-sm font-black text-[#f06400]">
+          <div className="rotate-[-2deg] border-[3px] border-dashed border-brand px-4 py-2 font-mono text-sm font-black text-brand">
             {activeJourney === "app-rider" ? "APP RIDER CHECKED" : "DISPATCH CHECKED"}
           </div>
         </div>
@@ -364,12 +364,12 @@ function ComparisonLedger({ activeJourney }: { activeJourney: JourneyId }) {
         <div className="mt-4 overflow-x-auto">
           <table className="w-full min-w-[42rem] border-collapse font-mono text-sm">
             <thead>
-              <tr className="text-left text-[0.72rem] text-[#6f5f55]">
-                <th className="border-b border-dashed border-[#2a211d]/20 py-3 pr-4">record</th>
-                <th className={`border-b border-dashed border-[#2a211d]/20 px-4 py-3 ${activeJourney === "app-rider" ? "bg-[#f5e3d4]" : ""}`}>
+              <tr className="text-left text-[0.72rem] text-cocoa">
+                <th className="border-b border-dashed border-ink/20 py-3 pr-4">record</th>
+                <th className={`border-b border-dashed border-ink/20 px-4 py-3 ${activeJourney === "app-rider" ? "bg-parchment" : ""}`}>
                   App Rider
                 </th>
-                <th className={`border-b border-dashed border-[#2a211d]/20 px-4 py-3 ${activeJourney === "dispatch-partner" ? "bg-[#f5e3d4]" : ""}`}>
+                <th className={`border-b border-dashed border-ink/20 px-4 py-3 ${activeJourney === "dispatch-partner" ? "bg-parchment" : ""}`}>
                   Dispatch Partner
                 </th>
               </tr>
@@ -377,13 +377,13 @@ function ComparisonLedger({ activeJourney }: { activeJourney: JourneyId }) {
             <tbody>
               {rows.map((row) => (
                 <tr key={row.label}>
-                  <td className="border-b border-dashed border-[#2a211d]/14 py-3 pr-4 font-black">
+                  <td className="border-b border-dashed border-ink/14 py-3 pr-4 font-black">
                     {row.label}
                   </td>
-                  <td className={`border-b border-dashed border-[#2a211d]/14 px-4 py-3 ${activeJourney === "app-rider" ? "bg-[#f5e3d4]" : ""}`}>
+                  <td className={`border-b border-dashed border-ink/14 px-4 py-3 ${activeJourney === "app-rider" ? "bg-parchment" : ""}`}>
                     {row.app}
                   </td>
-                  <td className={`border-b border-dashed border-[#2a211d]/14 px-4 py-3 ${activeJourney === "dispatch-partner" ? "bg-[#f5e3d4]" : ""}`}>
+                  <td className={`border-b border-dashed border-ink/14 px-4 py-3 ${activeJourney === "dispatch-partner" ? "bg-parchment" : ""}`}>
                     {row.dispatch}
                   </td>
                 </tr>
@@ -403,12 +403,12 @@ export default function ForRiders() {
     <section
       id="riders"
       data-nav-theme="light"
-      className="relative isolate overflow-hidden bg-white py-16 text-[#241813] sm:py-24"
+      className="relative isolate overflow-hidden bg-white py-16 text-espresso sm:py-24"
     >
       <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[#fffaf5]" />
-        <div className="absolute inset-0 opacity-[0.1] [background-image:linear-gradient(115deg,transparent_0_44%,rgba(42,33,29,.22)_45%,transparent_46%),radial-gradient(circle,rgba(42,33,29,.34)_0_1px,transparent_1.2px)] [background-size:96px_96px,18px_18px]" />
-        <div className="absolute left-0 right-0 top-20 h-10 border-y border-dashed border-[#2a211d]/10 bg-[#f5e3d4]/35" />
+        <div className="absolute inset-0 bg-paper" />
+        <div className="absolute inset-0 opacity-[0.1] [background-image:linear-gradient(115deg,transparent_0_44%,color-mix(in_srgb,var(--color-ink)_22%,transparent)_45%,transparent_46%),radial-gradient(circle,color-mix(in_srgb,var(--color-ink)_34%,transparent)_0_1px,transparent_1.2px)] [background-size:96px_96px,18px_18px]" />
+        <div className="absolute left-0 right-0 top-20 h-10 border-y border-dashed border-ink/10 bg-parchment/35" />
       </div>
 
       <Container>
@@ -418,15 +418,15 @@ export default function ForRiders() {
             <h2 className="mt-5 font-display text-4xl font-black leading-[0.96] tracking-[-0.07em] sm:text-6xl lg:text-7xl">
               Ride with
               <br />
-              <span className="text-[#f06400]">QuickBite.</span>
+              <span className="text-brand">QuickBite.</span>
             </h2>
-            <p className="mt-5 max-w-2xl text-base font-semibold leading-relaxed text-[#6f5f55] sm:text-lg">
+            <p className="mt-5 max-w-2xl text-base font-semibold leading-relaxed text-cocoa sm:text-lg">
               Earn as an app rider, or coordinate a dispatch team from one
               partner workspace. Pick the path that matches how you work.
             </p>
           </div>
 
-          <div className="hidden text-[#f06400] md:block">
+          <div className="hidden text-brand md:block">
             <DispatchBikeMark />
           </div>
         </div>

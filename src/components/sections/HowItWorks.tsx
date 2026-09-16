@@ -34,7 +34,7 @@ export default function HowItWorks() {
     <section
       id="how"
       data-nav-theme="dark"
-      className="relative -mt-px overflow-hidden bg-[#1c120f] text-white"
+      className="relative -mt-px overflow-hidden bg-dark-ink text-white"
     >
       <SectionWave to="ink" splitBackground />
       <Container className="relative z-10 pb-8 pt-14 sm:pb-10 sm:pt-18 lg:pb-12 lg:pt-20">
@@ -75,7 +75,7 @@ export default function HowItWorks() {
 
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute bottom-0 left-0 hidden h-[44%] w-[17rem] bg-[#1c120f] lg:block"
+              className="pointer-events-none absolute bottom-0 left-0 hidden h-[44%] w-[17rem] bg-dark-ink lg:block"
             />
             <div className="relative z-10 grid gap-6 md:grid-cols-[8rem_1fr] lg:grid-cols-[16rem_1fr]">
               <div className="flex items-start justify-between gap-5 pt-2 font-display font-semibold leading-none tracking-[-0.08em] md:block md:pt-6 lg:pt-8">
@@ -113,7 +113,7 @@ export default function HowItWorks() {
                 exit={{ opacity: 0, y: reduceMotion ? 0 : -10, scale: reduceMotion ? 1 : 0.92 }}
                 transition={{ duration: reduceMotion ? 0 : 0.48, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="relative size-32 shrink-0 overflow-hidden rounded-full border-4 border-[#1c120f] bg-paper ring-2 ring-paper/35">
+                <div className="relative size-32 shrink-0 overflow-hidden rounded-full border-4 border-dark-ink bg-paper ring-2 ring-paper/35">
                   <FoodImage
                     src={activeStep.accent}
                     alt=""
@@ -122,7 +122,7 @@ export default function HowItWorks() {
                     className="object-cover object-center"
                   />
                 </div>
-                <div className="relative -ml-7 mb-1 size-24 shrink-0 overflow-hidden rounded-full border-4 border-[#1c120f] bg-paper ring-2 ring-paper/35">
+                <div className="relative -ml-7 mb-1 size-24 shrink-0 overflow-hidden rounded-full border-4 border-dark-ink bg-paper ring-2 ring-paper/35">
                   <FoodImage
                     src="/images/food/pinterest/rice-beans-stew.webp"
                     alt=""

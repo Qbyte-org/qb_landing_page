@@ -21,6 +21,30 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
       const reducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       ).matches;
+      const colorCanvas = document.createElement("canvas");
+      colorCanvas.width = colorCanvas.height = 1;
+      const colorContext = colorCanvas.getContext("2d", { willReadFrequently: true });
+      const resolvedColors = new Map<string, string>();
+
+      // GSAP custom-property tweens need concrete colors. Canvas also resolves
+      // derived CSS colors such as color-mix() into channels GSAP can interpolate.
+      const resolveColor = (value: string) => {
+        const rootStyles = getComputedStyle(document.documentElement);
+        const resolved = value.replace(/var\((--[\w-]+)\)/g, (_match, token: string) =>
+          rootStyles.getPropertyValue(token).trim(),
+        );
+        const cached = resolvedColors.get(resolved);
+        if (cached) return cached;
+        if (!colorContext) return resolved;
+
+        colorContext.clearRect(0, 0, 1, 1);
+        colorContext.fillStyle = resolved;
+        colorContext.fillRect(0, 0, 1, 1);
+        const [red, green, blue, alpha] = colorContext.getImageData(0, 0, 1, 1).data;
+        const color = `rgba(${red}, ${green}, ${blue}, ${alpha / 255})`;
+        resolvedColors.set(resolved, color);
+        return color;
+      };
       let activeTheme: NavTheme | undefined;
 
       const updateTheme = (name: NavTheme, immediate = false) => {
@@ -35,24 +59,47 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
           overwrite: "auto" as const,
         };
 
-        const animate = (
-          selector: string,
-          vars: gsap.TweenVars,
+        const animateColors = (
+          target: HTMLElement | string,
+          colors: Record<string, string>,
         ) => {
-          const targets = nav.querySelectorAll(selector);
-          if (!targets.length) return;
-          gsap.to(targets, vars);
+          const targets = typeof target === "string"
+            ? nav.querySelectorAll<HTMLElement>(target)
+            : [target];
+          // GSAP mutates vars objects while installing plugins. Snapshot the
+          // string values before creating any tween so a zero-duration tween
+          // cannot corrupt the values used by the following target.
+          const colorEntries = Object.entries(colors).map(([property, value]) =>
+            [property, String(value)] as const,
+          );
+          const resolved = Object.fromEntries(
+            colorEntries.map(([property, value]) => [property, resolveColor(value)]),
+          );
+
+          targets.forEach((element) => {
+            const currentStyles = getComputedStyle(element);
+            const start = Object.fromEntries(colorEntries.map(([property, value]) => {
+              const cssProperty = property.startsWith("--")
+                ? property
+                : property.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
+              return [property, resolveColor(currentStyles.getPropertyValue(cssProperty).trim() || value)];
+            }));
+            gsap.fromTo(element, start, {
+              ...resolved,
+              ...tween,
+              // Restore references after interpolation, keeping the settled
+              // navigation connected to changes in the global palette.
+              onComplete: () => { gsap.set(element, { ...colors }); },
+            });
+          });
         };
 
-        gsap.to(document.documentElement, {
+        animateColors(document.documentElement, {
           "--background": theme.pageBackground,
           "--foreground": theme.pageForeground,
-          duration,
-          ease: animation.ease.smooth,
-          overwrite: "auto",
         });
 
-        gsap.to(nav, {
+        animateColors(nav, {
           "--nav-surface": theme.surface,
           "--nav-foreground": theme.foreground,
           "--nav-muted": theme.muted,
@@ -61,67 +108,59 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
           "--nav-chip-text": theme.chipText,
           "--nav-action": theme.action,
           "--nav-action-text": theme.actionText,
-          "--nav-action-fill": "#fff0e4",
-          "--nav-action-hover-text": "#2a211d",
+          "--nav-action-fill": "var(--color-cream-200)",
+          "--nav-action-hover-text": "var(--color-ink)",
           "--magnetic-bg": theme.chip,
           "--magnetic-border": theme.chip,
           "--magnetic-text": theme.chipText,
-          "--magnetic-fill": "#fff0e4",
-          "--magnetic-hover-text": "#2a211d",
+          "--magnetic-fill": "var(--color-cream-200)",
+          "--magnetic-hover-text": "var(--color-ink)",
           // The menu control is transparent, so its reveal needs contrast
           // against the active navigation surface: ink on paper, cream on ink.
-          "--nav-menu-fill": theme.surface === "#fffaf5" ? "#1c120f" : "#fff0e4",
-          "--nav-menu-hover-text": theme.surface === "#fffaf5" ? "#fffaf5" : "#2a211d",
-          duration,
-          ease: animation.ease.smooth,
-          overwrite: "auto",
-        } as gsap.TweenVars);
+          "--nav-menu-fill": theme.surfaceTone === "light" ? "var(--color-dark-ink)" : "var(--color-cream-200)",
+          "--nav-menu-hover-text": theme.surfaceTone === "light" ? "var(--color-paper)" : "var(--color-ink)",
+        });
 
-        animate("[data-nav-surface]", {
+        animateColors("[data-nav-surface]", {
           backgroundColor: theme.surface,
           color: theme.foreground,
-          ...tween,
         });
-        animate("[data-nav-text]", {
+        animateColors("[data-nav-text]", {
           color: theme.foreground,
-          ...tween,
         });
-        animate("[data-nav-muted]", {
+        animateColors("[data-nav-muted]", {
           color: theme.muted,
-          ...tween,
         });
-        animate("[data-nav-icon]", {
+        animateColors("[data-nav-icon]", {
           color: theme.icon,
-          ...tween,
         });
-        animate("[data-nav-underline]", {
+        animateColors("[data-nav-underline]", {
           backgroundColor: theme.underline,
-          ...tween,
         });
-        animate("[data-nav-chip]", {
+        animateColors("[data-nav-chip]", {
           "--magnetic-bg": theme.chip,
           "--magnetic-border": theme.chip,
           "--magnetic-text": theme.chipText,
-          "--magnetic-fill": "#fff0e4",
-          "--magnetic-hover-text": "#2a211d",
+          "--magnetic-fill": "var(--color-dark-ink)",
+          "--magnetic-hover-text": "var(--color-paper)",
           backgroundColor: theme.chip,
           color: theme.chipText,
-          ...tween,
-        } as gsap.TweenVars);
-        animate("[data-nav-action]", {
+        });
+        animateColors("[data-nav-action]", {
           "--magnetic-bg": theme.action,
           "--magnetic-text": theme.actionText,
-          "--magnetic-fill": "#fff0e4",
-          "--magnetic-hover-text": "#2a211d",
+          "--magnetic-fill": "var(--color-cream-200)",
+          "--magnetic-hover-text": "var(--color-ink)",
           backgroundColor: theme.action,
           color: theme.actionText,
-          ...tween,
         });
-        animate("[data-logo-color]", {
+        const colorLogos = nav.querySelectorAll("[data-logo-color]");
+        const lightLogos = nav.querySelectorAll("[data-logo-light]");
+        if (colorLogos.length) gsap.to(colorLogos, {
           autoAlpha: theme.logo === "color" ? 1 : 0,
           ...tween,
         });
-        animate("[data-logo-light]", {
+        if (lightLogos.length) gsap.to(lightLogos, {
           autoAlpha: theme.logo === "light" ? 1 : 0,
           ...tween,
         });

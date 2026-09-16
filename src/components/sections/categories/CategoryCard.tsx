@@ -38,7 +38,7 @@ export default function CategoryCard({ category }: { category: Category }) {
               strokeWidth="2.4"
             />
           </svg>
-          <div className="absolute right-4 top-4 z-10 grid size-[4.75rem] place-items-center rounded-full bg-paper text-center text-[0.6rem] font-semibold uppercase leading-tight text-[#2a211d] border border-dashed shadow-sm sm:right-5 sm:top-40 sm:size-[5.5rem] sm:text-[0.45rem]">
+          <div className="absolute right-4 top-4 z-10 grid size-[4.75rem] place-items-center rounded-full bg-paper text-center text-[0.6rem] font-semibold uppercase leading-tight text-ink border border-dashed shadow-sm sm:right-5 sm:top-40 sm:size-[5.5rem] sm:text-[0.45rem]">
             <span>
               <span className="block text-cocoa">Ready</span>
               <span className="mt-1 block text-lg leading-none text-brand-dark sm:text-lg">

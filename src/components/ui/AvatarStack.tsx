@@ -1,9 +1,9 @@
 // Overlapping initials avatars for social proof. Self-contained (no images).
 const people: { initials: string; color: string }[] = [
-  { initials: "AO", color: "#ff6b00" },
-  { initials: "CN", color: "#22c55e" },
-  { initials: "TB", color: "#1a1a2e" },
-  { initials: "FE", color: "#ff8c00" },
+  { initials: "AO", color: "var(--color-brand)" },
+  { initials: "CN", color: "var(--color-success)" },
+  { initials: "TB", color: "var(--color-navy)" },
+  { initials: "FE", color: "var(--color-brand-light)" },
 ];
 
 export default function AvatarStack() {

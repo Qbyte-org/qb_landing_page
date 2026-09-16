@@ -112,7 +112,10 @@ export default function QuickBitePassportHub() {
           skewY: 1.2,
           x: -18,
           scaleX: 0.985,
-          filter: "drop-shadow(24px 28px 32px rgba(58,36,24,.22))",
+          // Keep the color in a CSS variable so GSAP only interpolates the
+          // numeric shadow geometry. `color-mix()` contains percentages that
+          // GSAP's string parser would otherwise treat as animation values.
+          filter: "drop-shadow(24px 28px 32px var(--passport-shadow-color))",
           transformOrigin: "right center",
           duration: 0.9,
         },
@@ -124,7 +127,7 @@ export default function QuickBitePassportHub() {
           rotateY: 5,
           x: 22,
           y: 6,
-          filter: "drop-shadow(-18px 18px 28px rgba(58,36,24,.16))",
+          filter: "drop-shadow(-18px 18px 28px var(--passport-shadow-color))",
           transformOrigin: "left center",
           duration: 0.76,
         },
@@ -205,14 +208,14 @@ export default function QuickBitePassportHub() {
             skewY: -0.7,
             x: 18,
             autoAlpha: 0.7,
-            filter: "drop-shadow(18px 22px 30px rgba(58,36,24,.22))",
+            filter: "drop-shadow(18px 22px 30px var(--passport-shadow-color))",
           },
           {
             rotateY: 0,
             skewY: 0,
             x: 0,
             autoAlpha: 1,
-            filter: "drop-shadow(0 0 0 rgba(58,36,24,0))",
+            filter: "drop-shadow(0 0 0 var(--passport-shadow-color))",
             duration: 0.82,
           },
           0,
@@ -343,7 +346,7 @@ export default function QuickBitePassportHub() {
       ref={sectionRef}
       id="restaurants"
       data-nav-theme="dark"
-      className="relative overflow-hidden bg-[#1c120f] pb-[7rem] pt-10 text-paper sm:pb-[9rem] sm:pt-14 lg:pb-[14rem] lg:pt-32"
+      className="relative overflow-hidden bg-dark-ink pb-[7rem] pt-10 text-paper sm:pb-[9rem] sm:pt-14 lg:pb-[14rem] lg:pt-32"
       style={
         {
           "--passport-accent": activeCity.accent,
@@ -395,11 +398,17 @@ export default function QuickBitePassportHub() {
             <div
               data-passport-spine
               aria-hidden="true"
-              className="absolute bottom-0 left-1/2 top-0 z-30 hidden w-10 -translate-x-1/2 origin-center rounded-full bg-[linear-gradient(90deg,transparent,rgba(58,36,24,.18),rgba(255,255,255,.28),rgba(58,36,24,.12),transparent)] lg:block"
+              className="absolute bottom-0 left-1/2 top-0 z-30 hidden w-10 -translate-x-1/2 origin-center rounded-full bg-[linear-gradient(90deg,transparent,color-mix(in_srgb,var(--color-ink-warm)_18%,transparent),color-mix(in_srgb,var(--color-white)_28%,transparent),color-mix(in_srgb,var(--color-ink-warm)_12%,transparent),transparent)] lg:block"
             />
 
             <div
               ref={leftPageRef}
+              style={
+                {
+                  "--passport-shadow-color":
+                    "color-mix(in srgb, var(--color-ink-warm) 22%, transparent)",
+                } as CSSProperties
+              }
               className="group relative min-w-0 overflow-hidden bg-[var(--passport-paper)] p-4 sm:p-6 lg:h-[40rem] lg:p-7"
             >
               <div className="relative z-10 flex h-full min-h-0 flex-col">
@@ -442,6 +451,12 @@ export default function QuickBitePassportHub() {
 
             <div
               ref={rightPageRef}
+              style={
+                {
+                  "--passport-shadow-color":
+                    "color-mix(in srgb, var(--color-ink-warm) 16%, transparent)",
+                } as CSSProperties
+              }
               className="group relative min-w-0 overflow-hidden bg-paper p-4 sm:p-6 lg:flex lg:h-[40rem] lg:flex-col lg:p-7"
             >
               <div className="relative z-10 flex min-h-0 flex-1 flex-col">

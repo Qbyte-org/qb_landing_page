@@ -76,13 +76,13 @@ const variants: Record<
     hoverText: "text-ink",
   },
   ghost: {
-    root: "bg-[#2a211d] text-navy",
+    root: "bg-ink text-navy",
     fill: "bg-cream-200",
     hoverText: "text-ink",
   },
   cream: {
-    root: "bg-cream text-[#2a211d]",
-    fill: "bg-[#2a211d]",
+    root: "bg-cream text-ink",
+    fill: "bg-ink",
     hoverText: "text-cream-200!",
   },
 };
@@ -130,6 +130,7 @@ export default function MagneticFillButton({
   // remains legible while the pointer fill expands.
   const startsOnPaper =
     dataNavChip ||
+    (!themeAware && ["light", "white", "cream"].includes(variant)) ||
     /(?:^|\s)bg-(?:paper|cream|white)(?:!?\b|\[)/.test(className);
   // Consume legacy overrides without forwarding them to the DOM. All action
   // controls share one hover palette, including callers migrated incrementally.
@@ -138,13 +139,13 @@ export default function MagneticFillButton({
   const fillClassName = menuThemeAware
     ? "bg-[var(--nav-menu-fill)]"
     : startsOnPaper
-      ? "bg-[#1c120f]"
+      ? "bg-dark-ink"
       : styles.fill;
   const activeHoverTextColor = menuThemeAware
     ? "var(--nav-menu-hover-text)"
     : startsOnPaper
-      ? "#fffaf5"
-      : "#2a211d";
+      ? "var(--color-paper)"
+      : "var(--color-ink)";
   const idleTextColor = themeAware ? "var(--magnetic-text)" : undefined;
 
   const setOrigin = useCallback((x: number, y: number) => {

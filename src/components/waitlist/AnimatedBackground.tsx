@@ -9,7 +9,7 @@ const particles = Array.from({ length: 50 }, (_, index) => ({
 
 export default function AnimatedBackground() {
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden bg-[#1d1511]" aria-hidden="true">
+    <div className="fixed inset-0 z-0 overflow-hidden bg-espresso" aria-hidden="true">
       {/* <div className="background-glow background-glow-top" />
       <div className="background-glow background-glow-bottom" /> */}
       <div className="absolute inset-0 opacity-70">
@@ -32,7 +32,7 @@ export default function AnimatedBackground() {
         ))}
       </div>
       {/* <div className="background-grid absolute inset-0" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(42,33,29,0.18)_55%,rgba(42,33,29,0.78)_100%)]" /> */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,color-mix(in_srgb,var(--color-ink)_18%,transparent)_55%,color-mix(in_srgb,var(--color-ink)_78%,transparent)_100%)]" /> */}
     </div>
   );
 }

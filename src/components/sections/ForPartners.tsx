@@ -69,12 +69,12 @@ function PassportSectionMark() {
     <motion.div
       whileHover={{ rotate: -4, scale: 1.025 }}
       transition={{ duration: 0.28, ease }}
-      className="relative mx-auto w-max rotate-[-5deg] text-[#f06400]"
+      className="relative mx-auto w-max rotate-[-5deg] text-brand"
     >
       <div className="relative overflow-hidden rounded-[1.05rem] border-[0.18rem] border-dashed border-current px-4 py-3 text-center sm:px-5">
         <div
           aria-hidden="true"
-          className="absolute inset-0 opacity-[0.16] [background-image:radial-gradient(circle,rgba(240,100,0,.55)_1px,transparent_1.4px)] [background-size:12px_12px]"
+          className="absolute inset-0 opacity-[0.16] [background-image:radial-gradient(circle,color-mix(in_srgb,var(--color-brand)_55%,transparent)_1px,transparent_1.4px)] [background-size:12px_12px]"
         />
         <p className="relative text-[0.64rem] font-black uppercase leading-none tracking-[0.24em]">
           Route stamp
@@ -105,7 +105,7 @@ function StageStamp({
         hover: { rotate: -1, scale: 1.04 },
       }}
       transition={{ duration: 0.3, ease }}
-      className="relative shrink-0 rotate-[-4deg] rounded-[1rem] border-[0.15rem] border-dashed border-[#f06400] px-3 py-2 text-center text-[#f06400]"
+      className="relative shrink-0 rotate-[-4deg] rounded-[1rem] border-[0.15rem] border-dashed border-brand px-3 py-2 text-center text-brand"
     >
       <p className="text-[0.54rem] font-black uppercase leading-none tracking-[0.18em]">
         Stage 0{index + 1}
@@ -122,8 +122,8 @@ function StageIcon({ stage }: { stage: JourneyStage }) {
   const Icon = stage.icon;
 
   return (
-    <span className="relative grid h-[3.8rem] w-[3.8rem] place-items-center rounded-[1.35rem] border border-dashed border-[#f06400]/55 bg-[#fffaf5] p-1 text-white">
-      <span className="grid h-full w-full place-items-center rounded-[1.05rem] bg-[#f06400]">
+    <span className="relative grid h-[3.8rem] w-[3.8rem] place-items-center rounded-[1.35rem] border border-dashed border-brand/55 bg-paper p-1 text-white">
+      <span className="grid h-full w-full place-items-center rounded-[1.05rem] bg-brand">
         <Icon className="h-5 w-5" strokeWidth={2.35} aria-hidden="true" />
       </span>
     </span>
@@ -141,7 +141,7 @@ function StageIllustration({ stage }: { stage: JourneyStage["key"] }) {
 
   if (stage === "kitchen") {
     return (
-      <svg viewBox="0 0 220 150" className="h-full w-full text-[#241813]" aria-hidden="true">
+      <svg viewBox="0 0 220 150" className="h-full w-full text-espresso" aria-hidden="true">
         <path {...common} d="M54 80H166L154 126H66L54 80Z" />
         <path {...common} d="M73 80C68 52 84 34 105 43C117 26 146 31 147 58C163 60 171 68 166 80" />
         <path data-food-bounce {...common} d="M84 23C74 12 75 8 86 5" />
@@ -153,7 +153,7 @@ function StageIllustration({ stage }: { stage: JourneyStage["key"] }) {
 
   if (stage === "packaging") {
     return (
-      <svg viewBox="0 0 220 150" className="h-full w-full text-[#241813]" aria-hidden="true">
+      <svg viewBox="0 0 220 150" className="h-full w-full text-espresso" aria-hidden="true">
         <path {...common} d="M55 50L110 24L165 50V120L110 142L55 120V50Z" />
         <path {...common} d="M55 50L110 76L165 50" />
         <path {...common} d="M110 76V142" />
@@ -166,7 +166,7 @@ function StageIllustration({ stage }: { stage: JourneyStage["key"] }) {
 
   if (stage === "dispatch") {
     return (
-      <svg viewBox="0 0 220 150" className="h-full w-full text-[#241813]" aria-hidden="true">
+      <svg viewBox="0 0 220 150" className="h-full w-full text-espresso" aria-hidden="true">
         <path {...common} d="M52 112C52 95 65 82 82 82C99 82 112 95 112 112" />
         <path {...common} d="M133 112C133 95 146 82 163 82C180 82 193 95 193 112" />
         <circle cx="82" cy="112" r="20" {...common} />
@@ -181,7 +181,7 @@ function StageIllustration({ stage }: { stage: JourneyStage["key"] }) {
   }
 
   return (
-    <svg viewBox="0 0 220 150" className="h-full w-full text-[#241813]" aria-hidden="true">
+    <svg viewBox="0 0 220 150" className="h-full w-full text-espresso" aria-hidden="true">
       <path {...common} d="M58 72L110 28L162 72V132H58V72Z" />
       <path {...common} d="M94 132V94H126V132" />
       <path data-food-bounce {...common} d="M138 40C157 33 177 41 184 60" />
@@ -203,7 +203,7 @@ function JourneyConnector() {
       <path
         d="M70 92C198 38 322 142 440 88C562 32 675 146 806 90C922 40 1015 58 1110 92"
         fill="none"
-        stroke="#2a211d"
+        stroke="var(--color-ink)"
         strokeDasharray="10 15"
         strokeLinecap="round"
         strokeOpacity=".14"
@@ -213,7 +213,7 @@ function JourneyConnector() {
         data-journey-path
         d="M70 92C198 38 322 142 440 88C562 32 675 146 806 90C922 40 1015 58 1110 92"
         fill="none"
-        stroke="#f06400"
+        stroke="var(--color-brand)"
         strokeLinecap="round"
         strokeWidth="5"
       />
@@ -225,8 +225,8 @@ function JourneyConnector() {
       />
       {[70, 440, 806, 1110].map((x) => (
         <g key={x}>
-          <circle cx={x} cy="92" r="10" fill="#fffaf5" stroke="#f06400" strokeWidth="4" />
-          <circle data-journey-pulse cx={x} cy="92" r="16" fill="none" stroke="#f06400" strokeWidth="3" opacity=".28" />
+          <circle cx={x} cy="92" r="10" fill="var(--color-paper)" stroke="var(--color-brand)" strokeWidth="4" />
+          <circle data-journey-pulse cx={x} cy="92" r="16" fill="none" stroke="var(--color-brand)" strokeWidth="3" opacity=".28" />
         </g>
       ))}
     </svg>
@@ -246,26 +246,26 @@ function StageCard({
       initial="rest"
       animate="rest"
       whileHover="hover"
-      className="group relative z-10 flex min-h-[23rem] flex-col overflow-hidden rounded-[2rem] bg-[#fffaf5] p-5 text-[#241813] ring-1 ring-[#2a211d]/10 sm:min-h-[24rem] sm:p-6"
+      className="group relative z-10 flex min-h-[23rem] flex-col overflow-hidden rounded-[2rem] bg-paper p-5 text-espresso ring-1 ring-ink/10 sm:min-h-[24rem] sm:p-6"
       transition={{ duration: 0.32, ease }}
     >
-      <div aria-hidden="true" className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(circle,rgba(42,33,29,.42)_1px,transparent_1.4px)] [background-size:13px_13px]" />
+      <div aria-hidden="true" className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(circle,color-mix(in_srgb,var(--color-ink)_42%,transparent)_1px,transparent_1.4px)] [background-size:13px_13px]" />
 
       <div className="relative flex items-start justify-between gap-4">
         <StageIcon stage={stage} />
         <StageStamp stage={stage} index={index} />
       </div>
 
-      <div className="relative mt-5 h-32 overflow-hidden rounded-[1.4rem] bg-[#f4dfcc]/70 p-2 text-[#241813] sm:h-36">
+      <div className="relative mt-5 h-32 overflow-hidden rounded-[1.4rem] bg-linen/70 p-2 text-espresso sm:h-36">
         <StageIllustration stage={stage.key} />
       </div>
 
       <div className="relative mt-5 flex items-center justify-between gap-3">
-        <p className="text-[0.66rem] font-black uppercase tracking-[0.18em] text-[#f06400]">
+        <p className="text-[0.66rem] font-black uppercase tracking-[0.18em] text-brand">
           {stage.eyebrow}
         </p>
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2a211d]/6 px-3 py-1.5 text-[0.68rem] font-black text-[#2a211d]">
-          <Clock3 className="h-3.5 w-3.5 text-[#f06400]" strokeWidth={2.35} aria-hidden="true" />
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/6 px-3 py-1.5 text-[0.68rem] font-black text-ink">
+          <Clock3 className="h-3.5 w-3.5 text-brand" strokeWidth={2.35} aria-hidden="true" />
           {stage.time}
         </span>
       </div>
@@ -273,7 +273,7 @@ function StageCard({
       <h3 className="relative mt-2 font-display text-3xl font-black leading-none tracking-[-0.055em]">
         {stage.title}
       </h3>
-      <p className="relative mt-4 text-sm font-semibold leading-relaxed text-[#6d5c52]">
+      <p className="relative mt-4 text-sm font-semibold leading-relaxed text-cocoa">
         {stage.description}
       </p>
 
@@ -282,7 +282,7 @@ function StageCard({
           rest: { x: 0 },
           hover: { x: 10 },
         }}
-        className="relative mt-auto inline-flex items-center gap-2 pt-5 text-sm font-black uppercase tracking-[0.14em] text-[#f06400]"
+        className="relative mt-auto inline-flex items-center gap-2 pt-5 text-sm font-black uppercase tracking-[0.14em] text-brand"
       >
         Move order
         <ArrowRight className="h-4 w-4" strokeWidth={2.5} aria-hidden="true" />
@@ -422,12 +422,12 @@ export default function ForPartners() {
       ref={sectionRef}
       id="partners"
       data-nav-theme="neutral"
-      className="relative isolate overflow-hidden bg-[#fffaf5] py-16 text-[#241813] sm:py-24"
+      className="relative isolate overflow-hidden bg-paper py-16 text-espresso sm:py-24"
     >
       <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[#fffaf5]" />
-        <div className="absolute inset-0 opacity-[0.09] [background-image:radial-gradient(circle,rgba(42,33,29,.38)_1px,transparent_1.3px)] [background-size:18px_18px]" />
-        <div className="absolute -right-24 top-24 rotate-[-8deg] rounded-[1.4rem] border-[0.2rem] border-dashed border-[#f06400]/20 px-12 py-8 font-serif text-4xl font-black uppercase text-[#f06400]/10">
+        <div className="absolute inset-0 bg-paper" />
+        <div className="absolute inset-0 opacity-[0.09] [background-image:radial-gradient(circle,color-mix(in_srgb,var(--color-ink)_38%,transparent)_1px,transparent_1.3px)] [background-size:18px_18px]" />
+        <div className="absolute -right-24 top-24 rotate-[-8deg] rounded-[1.4rem] border-[0.2rem] border-dashed border-brand/20 px-12 py-8 font-serif text-4xl font-black uppercase text-brand/10">
           Route approved
         </div>
       </div>
@@ -438,15 +438,15 @@ export default function ForPartners() {
           <h2 className="mt-5 font-display text-4xl font-black leading-[0.96] tracking-[-0.07em] sm:text-6xl lg:text-7xl">
             From prep table
             <br />
-            to <span className="text-[#f06400]">front door.</span>
+            to <span className="text-brand">front door.</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base font-semibold leading-relaxed text-[#6f5f55] sm:text-lg">
+          <p className="mx-auto mt-5 max-w-2xl text-base font-semibold leading-relaxed text-cocoa sm:text-lg">
             QuickBite turns every partner order into a clean operational flow:
             prep, pack, dispatch and deliver without losing visibility.
           </p>
         </div>
 
-        <div className="relative mt-12 rounded-[2.5rem] bg-white/45 p-3 ring-1 ring-[#2a211d]/10 sm:p-5 lg:p-7">
+        <div className="relative mt-12 rounded-[2.5rem] bg-white/45 p-3 ring-1 ring-ink/10 sm:p-5 lg:p-7">
           <JourneyConnector />
           <div className="grid gap-4 lg:grid-cols-4">
             {journeyStages.map((stage, index) => (
@@ -455,12 +455,12 @@ export default function ForPartners() {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 rounded-[2rem] bg-[#2a211d] p-4 text-[#fffaf5] sm:flex-row sm:p-5">
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 rounded-[2rem] bg-ink p-4 text-paper sm:flex-row sm:p-5">
           <div className="flex items-center gap-3">
-            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-dashed border-[#f06400]/55 bg-[#f06400] text-white">
+            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-dashed border-brand/55 bg-brand text-white">
               <Sparkles className="h-5 w-5" strokeWidth={2.35} aria-hidden="true" />
             </span>
-            <p className="max-w-xl text-center text-sm font-semibold leading-relaxed text-[#fffaf5]/72 sm:text-left">
+            <p className="max-w-xl text-center text-sm font-semibold leading-relaxed text-paper/72 sm:text-left">
               Built for restaurants that want faster handoffs, clearer order
               status and customers who know exactly when food is arriving.
             </p>
@@ -469,7 +469,7 @@ export default function ForPartners() {
           <LinkArrow
             href="/partners"
             appearance="plain"
-            className="h-[3.25rem] shrink-0 justify-center gap-2 rounded-pill bg-[#f06400] px-6 text-sm font-black text-white sm:h-14 sm:px-8 sm:text-base"
+            className="h-[3.25rem] shrink-0 justify-center gap-2 rounded-pill bg-brand px-6 text-sm font-black text-white sm:h-14 sm:px-8 sm:text-base"
           >
             Become partner
             <Store className="h-4 w-4" strokeWidth={2.4} aria-hidden="true" />

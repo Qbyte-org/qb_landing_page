@@ -4,8 +4,8 @@ type Tone = "brand" | "success" | "neutral" | "light";
 
 const tones: Record<Tone, string> = {
   brand: "bg-brand-50 text-brand-dark",
-  success: "bg-green-50 text-green-700",
-  neutral: "bg-[#2a211d]/5 text-navy",
+  success: "bg-success-soft text-success-strong",
+  neutral: "bg-ink/5 text-navy",
   light: "bg-white/15 text-white",
 };
 

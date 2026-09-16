@@ -1,5 +1,6 @@
 <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M80 143s42-41 42-77c0-24-18-43-42-43S38 42 38 66c0 36 42 77 42 77Z" fill="#FF7A1A" stroke="#24180F" stroke-width="8"/>
-  <circle cx="80" cy="66" r="18" fill="#FFF3E8" stroke="#24180F" stroke-width="7"/>
-  <path d="M58 124h44" stroke="#0C5B47" stroke-width="9" stroke-linecap="round"/>
+  <!-- Color fallbacks are generated from src/app/globals.css by pnpm theme:sync. -->
+  <path d="M80 143s42-41 42-77c0-24-18-43-42-43S38 42 38 66c0 36 42 77 42 77Z" fill="var(--color-brand, #FF4D1D)" stroke="var(--color-espresso, #241813)" stroke-width="8"/>
+  <circle cx="80" cy="66" r="18" fill="var(--color-brand-50, #FFEEE6)" stroke="var(--color-espresso, #241813)" stroke-width="7"/>
+  <path d="M58 124h44" stroke="var(--color-forest, #0F7A5A)" stroke-width="9" stroke-linecap="round"/>
 </svg>

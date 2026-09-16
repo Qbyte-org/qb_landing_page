@@ -57,7 +57,7 @@ export const categories: Category[] = [
   {
     name: "Jollof Rice",
     icon: CookingPot,
-    tint: "#fff0e4",
+    tint: "var(--color-cream-200)",
     description: "Smoky party rice, tender chicken, plantain and pepper sauce.",
     image: "/images/food/pinterest/jollof-chicken-plantain.webp",
     imageAlt: "Jollof rice with glazed chicken and fried plantain on a black plate",
@@ -68,7 +68,7 @@ export const categories: Category[] = [
   {
     name: "Grills",
     icon: Beef,
-    tint: "#ffe8e0",
+    tint: "var(--color-tint-blush)",
     description: "Suya, wings and asun with punchy spice and quick dispatch.",
     image: "/images/food/pinterest/glazed-chicken.webp",
     imageAlt: "Close-up of pepper-glazed chicken on a black plate",
@@ -79,7 +79,7 @@ export const categories: Category[] = [
   {
     name: "Swallow",
     icon: UtensilsCrossed,
-    tint: "#fff3e0",
+    tint: "var(--color-tint-gold)",
     description: "Hot amala, eba or pounded yam paired with rich soups.",
     image: "/images/food/pinterest/amala-ewedu-stew.webp",
     imageAlt: "Amala with ewedu, red stew and assorted meat on a white plate",
@@ -90,7 +90,7 @@ export const categories: Category[] = [
   {
     name: "Snacks",
     icon: Cookie,
-    tint: "#fff7e6",
+    tint: "var(--color-tint-yellow)",
     description: "Puff-puff and crispy local bites for any hour.",
     image: "/images/food/pinterest/puff-puff.webp",
     imageAlt: "A basket filled with golden puff-puff",
@@ -101,7 +101,7 @@ export const categories: Category[] = [
   {
     name: "Akara",
     icon: Cookie,
-    tint: "#e8f5ff",
+    tint: "var(--color-tint-sky)",
     description: "Golden bean cakes with crisp edges for breakfast or a quick snack.",
     image: "/images/food/pinterest/akara-bean-cakes.webp",
     imageAlt: "Golden akara bean cakes on a white plate",
@@ -112,7 +112,7 @@ export const categories: Category[] = [
   {
     name: "Rice bowls",
     icon: CookingPot,
-    tint: "#fff0e4",
+    tint: "var(--color-cream-200)",
     description: "Rice, beans and rich stew for a comforting meal any day.",
     image: "/images/food/pinterest/rice-beans-stew.webp",
     imageAlt: "White rice and beans served with red stew",
@@ -123,7 +123,7 @@ export const categories: Category[] = [
   {
     name: "Local Soups",
     icon: Soup,
-    tint: "#ffeede",
+    tint: "var(--color-tint-peach)",
     description: "Egusi, efo riro and pepper soup from trusted kitchens.",
     image: "/images/food/pinterest/egusi-soup.webp",
     imageAlt: "Egusi soup with leafy greens and assorted meat",
@@ -134,7 +134,7 @@ export const categories: Category[] = [
   {
     name: "Puff-puff",
     icon: Cookie,
-    tint: "#fdeaf3",
+    tint: "var(--color-tint-rose)",
     description: "Soft, golden puff-puff fried fresh for a sweet little treat.",
     image: "/images/food/pinterest/puff-puff.webp",
     imageAlt: "A basket filled with golden puff-puff",
@@ -380,7 +380,7 @@ export const testimonials: Testimonial[] = [
     name: "Chidinma Okeke",
     role: "Customer • Ile-Ife",
     initials: "CO",
-    accent: "#ff6b00",
+    accent: "var(--color-brand)",
   },
   {
     quote:
@@ -388,7 +388,7 @@ export const testimonials: Testimonial[] = [
     name: "Tunde Bakare",
     role: "Vendor • Ile-Ife",
     initials: "TB",
-    accent: "#22c55e",
+    accent: "var(--color-success)",
   },
   {
     quote:
@@ -396,7 +396,7 @@ export const testimonials: Testimonial[] = [
     name: "Emeka Nwosu",
     role: "Rider • Ile-Ife",
     initials: "EN",
-    accent: "#1a1a2e",
+    accent: "var(--color-navy)",
   },
 ];
 

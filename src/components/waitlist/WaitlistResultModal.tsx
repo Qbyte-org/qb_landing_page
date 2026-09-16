@@ -104,7 +104,7 @@ export default function WaitlistResultModal({
             onClick={onClose}
             variant="white"
             customFillClass="bg-cream-200"
-            customHoverTextColor="#2a211d"
+            customHoverTextColor="var(--color-ink)"
             className="size-10 rounded-full border! border-ink/15! bg-transparent! text-ink!"
           >
             <X aria-hidden="true" className="size-4" />
@@ -126,12 +126,12 @@ export default function WaitlistResultModal({
           onClick={onClose}
           variant="dark"
           customFillClass="bg-cream-200"
-          customHoverTextColor="#2a211d"
+          customHoverTextColor="var(--color-ink)"
           className="mt-7 min-h-12 w-full rounded-pill bg-ink! px-5 py-3 text-paper!"
         >
           {message.action}
         </MagneticFillButton>
-        {needsHelp ? <LinkArrow href="mailto:support@quickbite.ng" className="mt-6 w-full text-ink!">Contact our team</LinkArrow> : null}
+        {needsHelp ? <LinkArrow href="mailto:quickbiteinfo01@gmail.com" className="mt-6 w-full text-ink!">Contact our team</LinkArrow> : null}
       </div>
     </dialog>
   );

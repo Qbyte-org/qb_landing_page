@@ -16,7 +16,7 @@ export default function ProcessControls({
         onClick={onPrevious}
         variant="ghost"
         customFillClass="bg-brand"
-        customHoverTextColor="#ffffff"
+        customHoverTextColor="var(--color-white)"
         className="flex h-[3.25rem] w-[3.25rem] cursor-pointer items-center justify-center rounded-[1rem] border-0 !bg-paper !text-ink sm:h-[3.65rem] sm:w-[3.65rem]"
       >
         <BiteRouteIcon direction="left" className="h-7 w-7" />
@@ -27,7 +27,7 @@ export default function ProcessControls({
         onClick={onNext}
         variant="ghost"
         customFillClass="bg-paper"
-        customHoverTextColor="#2a211d"
+        customHoverTextColor="var(--color-ink)"
         className="flex h-[3.25rem] w-[3.25rem] cursor-pointer items-center justify-center rounded-[1rem] border-0 !bg-brand !text-white sm:h-[3.65rem] sm:w-[3.65rem]"
       >
         <BiteRouteIcon className="h-7 w-7" />

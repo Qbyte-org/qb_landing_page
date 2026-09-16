@@ -50,7 +50,7 @@ export default function AppPreviewPanel({
           </p>
         </div>
 
-        <div data-app-preview-stage className="@container mt-6 overflow-hidden rounded-[1.75rem] border border-ink/15 bg-cream sm:mt-8">
+        <div data-app-preview-stage className="@container mt-6 overflow-hidden rounded-[2.75rem] border border-ink/15 bg-cream sm:mt-8">
 
           <div className="grid @md:grid-cols-[minmax(0,0.95fr)_minmax(0,1fr)]">
             <div data-app-phone-stage className="relative flex min-w-0 items-center justify-center overflow-hidden bg-cream-200 px-3 py-4 @md:py-6">

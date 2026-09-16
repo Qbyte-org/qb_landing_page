@@ -27,8 +27,8 @@ export const bentoTiles: BentoTileData[] = [
     type: "brand",
     priority: 1,
     content: {},
-    backgroundColor: "#F15F00", // Brand orange
-    textColor: "#ffffff",
+    backgroundColor: "var(--color-brand)", // Brand orange
+    textColor: "var(--color-white)",
   },
   {
     id: "food-1",
@@ -37,7 +37,7 @@ export const bentoTiles: BentoTileData[] = [
     content: {
       imageSrc: "/images/food/hero-fresh.webp",
     },
-    backgroundColor: "#fffaf5",
+    backgroundColor: "var(--color-paper)",
   },
   {
     id: "restaurant",
@@ -46,7 +46,7 @@ export const bentoTiles: BentoTileData[] = [
     content: {
       imageSrc: "/images/food/hero-local.webp", // Using local food as restaurant proxy if no specific restaurant image exists
     },
-    backgroundColor: "#2a211d",
+    backgroundColor: "var(--color-ink)",
   },
   {
     id: "app",
@@ -55,7 +55,7 @@ export const bentoTiles: BentoTileData[] = [
     content: {
       imageSrc: "/images/phone.png",
     },
-    backgroundColor: "#fffaf5",
+    backgroundColor: "var(--color-paper)",
   },
   {
     id: "rider",
@@ -64,7 +64,7 @@ export const bentoTiles: BentoTileData[] = [
     content: {
       imageSrc: "/images/food/hero-fast.webp", // Using fast food proxy
     },
-    backgroundColor: "#e0d5c1", // Subtle neutral
+    backgroundColor: "var(--color-oatmeal)", // Subtle neutral
   },
   {
     id: "order",
@@ -73,8 +73,8 @@ export const bentoTiles: BentoTileData[] = [
     content: {
       text: "ORDER #QB2048",
     },
-    backgroundColor: "#fffaf5",
-    textColor: "#2a211d",
+    backgroundColor: "var(--color-paper)",
+    textColor: "var(--color-ink)",
   },
   {
     id: "food-2",
@@ -83,7 +83,7 @@ export const bentoTiles: BentoTileData[] = [
     content: {
       imageSrc: "/images/food/hero-hot.webp",
     },
-    backgroundColor: "#2a211d",
+    backgroundColor: "var(--color-ink)",
   },
   {
     id: "text-1",
@@ -92,14 +92,14 @@ export const bentoTiles: BentoTileData[] = [
     content: {
       text: "ORDER NOW",
     },
-    backgroundColor: "#2a211d",
-    textColor: "#ffffff",
+    backgroundColor: "var(--color-ink)",
+    textColor: "var(--color-white)",
   },
   {
     id: "map",
     type: "map",
     priority: 9,
     content: {},
-    backgroundColor: "#fffaf5",
+    backgroundColor: "var(--color-paper)",
   },
 ];

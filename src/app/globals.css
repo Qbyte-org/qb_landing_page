@@ -3,23 +3,34 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  --background: #ffffff;
-  --foreground: #1a1a2e;
-  /* --font-inter: "Instrument Sans", sans-serif;
-  --font-sora: "Sora", sans-serif; */
-  --page-glow: color-mix(in srgb, var(--background) 72%, #ff8c00 28%);
+  --background: var(--color-white);
+  --foreground: var(--color-navy);
+  --page-glow: color-mix(in srgb, var(--background) 72%, var(--color-brand-light) 28%);
 }
 
-@theme inline {
-  /* Brand */
-  --color-brand: #ff6b00;
-  --color-brand-light: #ff8c00;
-  --color-brand-dark: #e25f00;
-  --color-brand-50: #fff3e8;
-  --color-brand-100: #ffe2c7;
+/* The app palette lives here. Utilities, inline SVGs and animation themes all
+   reference these variables. External artwork is synced on dev/build by
+   scripts/sync-theme-assets.mjs. Keep these tokens available even when a color
+   is used only in an inline style or an illustration. */
+@theme static {
+  --color-*: initial;
+
+  /* Brand: edit the base once; its lighter and darker shades follow it. */
+  --color-brand: #FF4D1D;
+  --color-brand-light: color-mix(in srgb, var(--color-brand) 68%, var(--color-white));
+  --color-brand-dark: color-mix(in srgb, var(--color-brand) 78%, var(--color-black));
+  --color-brand-50: color-mix(in srgb, var(--color-brand) 7%, var(--color-paper));
+  --color-brand-100: color-mix(in srgb, var(--color-brand) 16%, var(--color-paper));
+  --color-white: #ffffff;
+  --color-black: #000000;
   --color-navy: #1a1a2e;
   --color-navy-light: #16213e;
   --color-success: #22c55e;
+  --color-success-soft: #f0fdf4;
+  --color-success-strong: #15803d;
+  --color-danger: #ef4444;
+  --color-danger-soft: #fef2f2;
+  --color-danger-tint: #fee2e2;
 
   /* Surfaces */
   --color-background: var(--background);
@@ -33,6 +44,81 @@
   --color-peach: #ffe7d7;
   --color-muted: #6b7280;
   --color-border: #f0e6dc;
+
+  /* Warm panels, muted type, dividers and shadows. */
+  --color-ink-soft: #382c26;
+  --color-ink-deep: #120d0b;
+  --color-ink-warm: #3a2418;
+  --color-espresso: #241813;
+  --color-cocoa-dark: #4f372d;
+  --color-tan: #c9aa96;
+  --color-terracotta: #8f6a57;
+  --color-beige: #b79c8c;
+  --color-sand: #ead6c4;
+  --color-parchment: #f5e3d4;
+  --color-linen: #f4dfcc;
+  --color-apricot: #f0d7c2;
+  --color-oatmeal: #e0d5c1;
+  --color-logo-light: #fff9da;
+
+  /* Food category cards. */
+  --color-tint-blush: #ffe8e0;
+  --color-tint-gold: #fff3e0;
+  --color-tint-yellow: #fff7e6;
+  --color-tint-sky: #e8f5ff;
+  --color-tint-peach: #ffeede;
+  --color-tint-rose: #fdeaf3;
+
+  /* District and map accents retain their distinct meanings. */
+  --color-map-base: #f7eadb;
+  --color-map-land: #f0c9a8;
+  --color-map-road: #f3a629;
+  --color-map-side-road: #fff8ef;
+  --color-map-grass: #8ecf8f;
+  --color-map-tree: #6fcf80;
+  --color-forest: #0f7a5a;
+  --color-forest-dark: #10231c;
+  --color-forest-soft: #e8fff6;
+  --color-ochre: #d88b15;
+  --color-ochre-dark: #2c1c0b;
+  --color-ochre-soft: #fff5d6;
+  --color-violet: #6757df;
+  --color-violet-dark: #17152e;
+  --color-violet-soft: #eeebff;
+  --color-teal: #178c83;
+  --color-teal-dark: #0e2422;
+  --color-teal-soft: #ebfffb;
+  --color-copper: #c96b25;
+  --color-copper-dark: #b86024;
+  --color-copper-ink: #2c180d;
+  --color-copper-soft: #fff0e3;
+  --color-water-sky: #9bd7ff;
+  --color-water-teal: #8bd8cc;
+  --color-water-cyan: #98dff0;
+  --color-water-indigo: #adc8ff;
+
+  /* Illustration materials and the geographic map artwork. */
+  --color-food-outline: #2f2118;
+  --color-food-meat-shadow: #3a170d;
+  --color-food-meat-dark: #6d2a12;
+  --color-food-meat: #a54d21;
+  --color-food-roast: #c65c22;
+  --color-food-golden: #f08a2e;
+  --color-food-crust: #f4bb41;
+  --color-food-crumb: #f8cc75;
+  --color-food-cream: #fff0b7;
+  --color-food-herb: #4a8a3e;
+  --color-food-tomato: #c0392b;
+  --color-food-plate: #fff3df;
+  --color-food-glass: #b8ecff;
+  --color-map-water: #a6cbd1;
+  --color-map-park: #e0e5c9;
+  --color-map-wood: #d0d8b8;
+  --color-map-outline: #d9cbbb;
+
+}
+
+@theme inline {
 
   /* Type */
 
@@ -68,11 +154,34 @@ body {
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
 }
 
+/* Markdown content shares the app palette instead of the typography plugin's
+   independent gray scale. */
+.prose {
+  --tw-prose-body: var(--color-ink);
+  --tw-prose-headings: var(--color-navy);
+  --tw-prose-lead: var(--color-cocoa);
+  --tw-prose-links: var(--color-brand-dark);
+  --tw-prose-bold: var(--color-navy);
+  --tw-prose-counters: var(--color-cocoa);
+  --tw-prose-bullets: var(--color-tan);
+  --tw-prose-hr: var(--color-border);
+  --tw-prose-quotes: var(--color-ink);
+  --tw-prose-quote-borders: var(--color-brand);
+  --tw-prose-captions: var(--color-cocoa);
+  --tw-prose-kbd: var(--color-ink);
+  --tw-prose-kbd-shadows: 0 0 0;
+  --tw-prose-code: var(--color-ink);
+  --tw-prose-pre-code: var(--color-paper);
+  --tw-prose-pre-bg: var(--color-dark-ink);
+  --tw-prose-th-borders: var(--color-border);
+  --tw-prose-td-borders: var(--color-border);
+}
+
 *,
 *::before,
 *::after {
-  --tw-shadow: 0 0 #0000 !important;
-  --tw-shadow-colored: 0 0 #0000 !important;
+  --tw-shadow: 0 0 transparent !important;
+  --tw-shadow-colored: 0 0 transparent !important;
   box-shadow: none !important;
 }
 
@@ -95,8 +204,8 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 9999px #241813 inset !important;
-  -webkit-text-fill-color: #fffaf5 !important;
+  -webkit-box-shadow: 0 0 0 9999px var(--color-espresso) inset !important;
+  -webkit-text-fill-color: var(--color-paper) !important;
   transition: background-color 5000s ease-in-out 0s;
 }
 
@@ -183,7 +292,7 @@ html {
 
 .passport-card-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(239, 95, 0, 0.8) rgba(58, 36, 24, 0.08);
+  scrollbar-color: color-mix(in srgb,var(--color-brand) 80%,transparent) color-mix(in srgb,var(--color-ink-warm) 8%,transparent);
   scrollbar-gutter: stable;
   overscroll-behavior-x: contain;
   overscroll-behavior-y: auto;
@@ -196,21 +305,21 @@ html {
 
 .passport-card-scroll::-webkit-scrollbar-track {
   border-radius: 9999px;
-  background: rgba(58, 36, 24, 0.08);
+  background: color-mix(in srgb,var(--color-ink-warm) 8%,transparent);
 }
 
 .passport-card-scroll::-webkit-scrollbar-thumb {
-  border: 2px solid rgba(255, 250, 243, 0.82);
+  border: 2px solid color-mix(in srgb,var(--color-paper) 82%,transparent);
   border-radius: 9999px;
-  background: rgba(239, 95, 0, 0.82);
+  background: color-mix(in srgb,var(--color-brand) 82%,transparent);
 }
 
 .passport-card-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(239, 95, 0, 1);
+  background: var(--color-brand);
 }
 
 .passport-leaflet-map {
-  background: #fff2cf;
+  background: var(--color-ochre-soft);
   font-family: var(--font-inter), system-ui, sans-serif;
 }
 
@@ -240,13 +349,13 @@ html {
 
 .passport-leaflet-map .leaflet-popup-content-wrapper {
   border-radius: 1rem;
-  background: rgba(255, 250, 243, 0.94);
-  color: #2a211d;
-  border: 1px solid rgba(58, 36, 24, 0.1);
+  background: color-mix(in srgb,var(--color-paper) 94%,transparent);
+  color: var(--color-ink);
+  border: 1px solid color-mix(in srgb,var(--color-ink-warm) 10%,transparent);
 }
 
 .passport-leaflet-map .leaflet-popup-tip {
-  background: rgba(255, 250, 243, 0.94);
+  background: color-mix(in srgb,var(--color-paper) 94%,transparent);
 }
 
 .passport-leaflet-map .leaflet-popup-content {
@@ -264,10 +373,10 @@ html {
   width: 100%;
   place-items: center;
   border-radius: 9999px;
-  background: #fffaf3;
+  background: var(--color-paper);
   color: var(--marker-color);
-  border: 2px solid color-mix(in srgb, var(--marker-color) 84%, #2a211d 16%);
-  filter: drop-shadow(0 0.45rem 0.8rem rgba(58, 36, 24, 0.2));
+  border: 2px solid color-mix(in srgb, var(--marker-color) 84%, var(--color-ink) 16%);
+  filter: drop-shadow(0 0.45rem 0.8rem color-mix(in srgb,var(--color-ink-warm) 20%,transparent));
 }
 
 .passport-map-marker::before {
@@ -295,8 +404,8 @@ html {
 
 .passport-map-marker.is-active {
   background: var(--marker-color);
-  color: #fffaf3;
-  border-color: #fffaf3;
+  color: var(--color-paper);
+  border-color: var(--color-paper);
 }
 
 .passport-leaflet-map .leaflet-marker-icon {
@@ -313,16 +422,16 @@ html {
   transform: translateX(-50%);
   align-items: center;
   gap: 0.34rem;
-  border: 2px solid #17100d;
+  border: 2px solid var(--color-ink-deep);
   border-radius: 0.48rem;
   background: var(--marker-color);
   padding: 0.32rem 0.5rem 0.36rem;
-  color: #17100d;
+  color: var(--color-ink-deep);
   font-size: 0.78rem;
   font-weight: 950;
   line-height: 1;
   letter-spacing: -0.04em;
-  filter: drop-shadow(0 0.38rem 0 rgba(42, 33, 29, 0.16));
+  filter: drop-shadow(0 0.38rem 0 color-mix(in srgb,var(--color-ink) 16%,transparent));
   transition:
     transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
     background-color 260ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -338,9 +447,9 @@ html {
   height: 0.42rem;
   width: 0.42rem;
   flex: 0 0 auto;
-  border: 2px solid #17100d;
+  border: 2px solid var(--color-ink-deep);
   border-radius: 9999px;
-  background: #fffaf3;
+  background: var(--color-paper);
 }
 
 .passport-map-label-text {
@@ -358,10 +467,10 @@ html {
   width: 1.85rem;
   transform: translateX(-50%) rotate(-45deg);
   place-items: center;
-  border: 2px solid #fffaf3;
+  border: 2px solid var(--color-paper);
   border-radius: 9999px 9999px 9999px 0;
   background: var(--marker-color);
-  filter: drop-shadow(0 0.4rem 0 rgba(42, 33, 29, 0.14));
+  filter: drop-shadow(0 0.4rem 0 color-mix(in srgb,var(--color-ink) 14%,transparent));
   transition:
     transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
     background-color 260ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -378,7 +487,7 @@ html {
   width: 0.72rem;
   transform: rotate(45deg);
   border-radius: 9999px;
-  background: #fffaf3;
+  background: var(--color-paper);
 }
 
 .passport-restaurant-pin {
@@ -387,12 +496,12 @@ html {
   height: 2.65rem;
   width: 2.65rem;
   place-items: center;
-  border: 2px solid #17100d;
+  border: 2px solid var(--color-ink-deep);
   border-radius: 9999px 9999px 9999px 0;
-  background: #fffaf3;
+  background: var(--color-paper);
   color: var(--marker-color);
   transform: rotate(-45deg);
-  filter: drop-shadow(0 0.45rem 0 rgba(42, 33, 29, 0.16));
+  filter: drop-shadow(0 0.45rem 0 color-mix(in srgb,var(--color-ink) 16%,transparent));
 }
 
 .passport-restaurant-pin::before {
@@ -414,7 +523,7 @@ html {
   place-items: center;
   border-radius: 9999px;
   background: var(--marker-color);
-  color: #fffaf3;
+  color: var(--color-paper);
   font-size: 0.52rem;
   font-weight: 950;
   letter-spacing: -0.08em;

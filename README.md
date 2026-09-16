@@ -41,6 +41,21 @@ pnpm dev
 
 Open [http://localhost:3002](http://localhost:3002).
 
+## Colors
+
+Edit the named palette in `src/app/globals.css`. `--color-brand` is the primary
+orange; its lighter and darker shades are derived automatically. Surface,
+status, map, and illustration colors have their own named tokens in the same
+block. Use theme utilities such as `bg-brand` and `text-paper`, or
+`var(--color-brand)` in inline styles and SVG attributes.
+
+`pnpm dev` watches the palette and synchronizes external SVGs, favicon PNGs,
+the Apple icon, and manifest colors. `pnpm build` synchronizes them before
+compiling. Run `pnpm theme:sync` to regenerate those files on their own; do not
+edit generated SVG fallback colors or `src/generated/theme-colors.json`.
+Asset colors support hex values, token aliases, and `color-mix(in srgb, ...)`.
+Food photographs retain their original pixels.
+
 ## Waitlist
 
 The `/waitlist` page and footer newsletter use the same EmailJS submission

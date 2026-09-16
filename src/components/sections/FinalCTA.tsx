@@ -14,7 +14,7 @@ export default function FinalCTA() {
       id="final-cta"
       data-nav-theme="dark"
       aria-labelledby="final-cta-title"
-      className="overflow-hidden bg-[#1c120f] text-paper scroll-mt-24"
+      className="overflow-hidden bg-dark-ink text-paper scroll-mt-24"
     >
       <SectionWave to="ink" splitBackground />
       <motion.div
@@ -26,13 +26,13 @@ export default function FinalCTA() {
       >
         <div
           data-cta-copy
-          className="relative isolate flex min-h-64 flex-col justify-between gap-14 overflow-hidden rounded-4xl bg-[#382c26] p-6 sm:min-h-48 sm:gap-8 sm:p-7 lg:min-h-40 lg:flex-row lg:items-center lg:gap-4 lg:px-10 lg:py-8 xl:min-h-44 2xl:min-h-48 2xl:px-14"
+          className="relative isolate flex min-h-64 flex-col justify-between gap-14 overflow-hidden rounded-4xl bg-ink-soft p-6 sm:min-h-48 sm:gap-8 sm:p-7 lg:min-h-40 lg:flex-row lg:items-center lg:gap-4 lg:px-10 lg:py-8 xl:min-h-44 2xl:min-h-48 2xl:px-14"
         >
           <BackgroundGrainTexture />
           <svg
             aria-hidden="true"
             viewBox="0 0 600 260"
-            className="pointer-events-none absolute -bottom-12 left-[18%] -z-10 h-64 w-[38rem] max-w-none text-[#f06400] sm:left-[5%] lg:-bottom-[2.8vw] lg:left-1/2 lg:h-auto lg:w-[60%] lg:-translate-x-1/2"
+            className="pointer-events-none absolute -bottom-12 left-[18%] -z-10 h-64 w-[38rem] max-w-none text-brand sm:left-[5%] lg:-bottom-[2.8vw] lg:left-1/2 lg:h-auto lg:w-[60%] lg:-translate-x-1/2"
           >
             <g stroke="currentColor" strokeOpacity=".18" strokeWidth="0.8">
               <path d="M290 220 5 75M290 220 80 0M290 220 160 0M290 220 230 0M290 220 295 0M290 220 360 0M290 220 440 0M290 220 550 0M290 220 600 85M290 220 600 185M290 220 590 260M290 220 20 260M290 220 0 175" />
@@ -54,7 +54,7 @@ export default function FinalCTA() {
             <svg
               aria-hidden="true"
               viewBox="0 0 40 40"
-              className="pointer-events-none absolute -right-1 -top-8 size-7 text-[#f06400] lg:-top-12 lg:right-14"
+              className="pointer-events-none absolute -right-1 -top-8 size-7 text-brand lg:-top-12 lg:right-14"
             >
               <path fill="currentColor" d="m20 0 3 12 8-8-3 12 12-2-10 8 9 7-12-1 1 12-8-10-7 10 1-12-12 1 10-8-12-7 12 2L8 4l9 8Z" />
             </svg>

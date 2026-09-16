@@ -249,7 +249,7 @@ export default function CommunityBento() {
           <Reveal delay={0.48} className="lg:col-start-3 lg:col-span-2 lg:row-start-3">
             <BentoCard className="flex min-h-[18rem] flex-col justify-between bg-navy text-white lg:min-h-0">
               <Image
-                src="/quickbite-mark.svg"
+                src="/logo-mark-light.svg"
                 alt=""
                 width={220}
                 height={220}

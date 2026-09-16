@@ -7,7 +7,7 @@ import MagneticFillButton from "../ui/MagneticFillButton";
 
 const pages = [
   { label: "Discover", title: "Good food.", accent: "Closer to home.", copy: "Your favourite local flavours, all in one place.", icon: MapPin, surface: "bg-paper text-ink", iconSurface: "border-ink/15 bg-cream-200 text-brand-dark" },
-  { label: "Choose", title: "A little craving.", accent: "A lot of choice.", copy: "Find your usual. Make room for something new.", icon: ShoppingBasket, surface: "bg-[#1c120f] text-paper", iconSurface: "border-paper/20 bg-paper/10 text-paper" },
+  { label: "Choose", title: "A little craving.", accent: "A lot of choice.", copy: "Find your usual. Make room for something new.", icon: ShoppingBasket, surface: "bg-dark-ink text-paper", iconSurface: "border-paper/20 bg-paper/10 text-paper" },
   { label: "Enjoy", title: "Your next bite.", accent: "On its way.", copy: "From the kitchens you love to the places you call home.", icon: Bike, surface: "bg-brand text-white", iconSurface: "border-white/30 bg-white/10 text-white" },
 ] as const;
 
@@ -92,7 +92,7 @@ export default function QuickBiteBentoLoader({
         <span className="text-right text-cocoa">A little local goodness.</span>
       </div>
 
-      <div aria-hidden="true" className="relative my-6 min-h-80 flex-1 overflow-hidden rounded-[1.75rem] sm:my-8 sm:rounded-[2.5rem]">
+      <div aria-hidden="true" className="relative my-6 min-h-80 flex-1 overflow-hidden rounded-[2.75rem] sm:my-8 sm:rounded-[2.5rem]">
         {pages.map(({ label, title, accent, copy, icon: Icon, surface, iconSurface }, index) => (
           <div key={label} data-loader-page={index} className={["absolute inset-0 flex flex-col justify-between gap-4 p-6 sm:p-10 lg:p-16", surface, index === 0 ? "visible" : "invisible"].join(" ")}>
             <div className="flex items-center justify-between gap-3 text-[0.65rem] font-medium uppercase tracking-[0.2em] sm:text-xs">

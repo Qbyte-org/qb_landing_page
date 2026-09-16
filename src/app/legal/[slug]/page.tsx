@@ -42,7 +42,7 @@ async function getBody(file: string) {
 }
 
 const prose = [
-  "prose prose-zinc max-w-none",
+  "prose max-w-none",
   "prose-headings:font-display prose-headings:text-navy prose-headings:tracking-tight",
   "prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:scroll-mt-24",
   "prose-h3:text-lg prose-h3:mt-8",

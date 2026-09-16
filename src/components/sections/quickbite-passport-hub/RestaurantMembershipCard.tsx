@@ -47,7 +47,7 @@ export default function RestaurantMembershipCard({
           onClick={toggle}
           variant="light"
           customFillClass="bg-cream-200"
-          customHoverTextColor="#2a211d"
+          customHoverTextColor="var(--color-ink)"
           className="absolute! right-3 top-3 z-30 size-11 rounded-full border! border-ink/15 bg-paper! text-ink!"
         >
           <Plus aria-hidden="true" className={`size-4 transition-transform motion-reduce:transition-none ${isOpen ? "rotate-45" : ""}`} />

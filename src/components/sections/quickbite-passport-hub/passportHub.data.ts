@@ -81,13 +81,13 @@ const cityMeta = [
 ];
 
 const palettes = [
-  { accent: "#ef5f00", paper: "#fff4e7" },
-  { accent: "#ef5f00", paper: "#fff6ec" },
-  { accent: "#ef5f00", paper: "#fff2e3" },
-  { accent: "#ef5f00", paper: "#fff7ef" },
-  { accent: "#ef5f00", paper: "#fff5ea" },
-  { accent: "#ef5f00", paper: "#fff3e6" },
-  { accent: "#ef5f00", paper: "#fff6ed" },
+  { accent: "var(--color-brand)", paper: "var(--color-cream-200)" },
+  { accent: "var(--color-brand)", paper: "var(--color-cream)" },
+  { accent: "var(--color-brand)", paper: "var(--color-cream-200)" },
+  { accent: "var(--color-brand)", paper: "var(--color-cream)" },
+  { accent: "var(--color-brand)", paper: "var(--color-cream)" },
+  { accent: "var(--color-brand)", paper: "var(--color-cream-200)" },
+  { accent: "var(--color-brand)", paper: "var(--color-cream)" },
 ];
 
 // Source IDs, snapshot and the exact map bounds are recorded in /maps/ile-ife-sources.json.

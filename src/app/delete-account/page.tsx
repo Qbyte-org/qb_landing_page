@@ -14,10 +14,10 @@ export default function DeleteAccountPage() {
     <SiteShell>
       <section className="mx-auto max-w-2xl px-5 py-20 sm:py-28">
         {/* Icon */}
-        <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-red-50">
+        <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-danger-soft">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-7 w-7 text-red-500"
+            className="h-7 w-7 text-danger"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -62,7 +62,7 @@ export default function DeleteAccountPage() {
               "Any active referral codes or credits",
             ].map((item) => (
               <li key={item} className="flex items-start gap-2.5">
-                <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-red-100 text-red-500">
+                <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-danger-tint text-danger">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-2.5 w-2.5"
@@ -97,8 +97,8 @@ export default function DeleteAccountPage() {
           <LinkArrow
             id="delete-account-email-btn"
             appearance="plain"
-            href="mailto:support@quickbiteltd.org?subject=Account%20Deletion%20Request&body=Hi%20QuickBite%20team%2C%0A%0AI%20would%20like%20to%20permanently%20delete%20my%20QuickBite%20account%20and%20all%20associated%20data.%0A%0AEmail%20linked%20to%20account%3A%20%5Byour%20email%5D%0A%0AThank%20you."
-            className="inline-flex items-center gap-2 rounded-full bg-red-500 px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+            href="mailto:quickbiteinfo01@gmail.com?subject=Account%20Deletion%20Request&body=Hi%20QuickBite%20team%2C%0A%0AI%20would%20like%20to%20permanently%20delete%20my%20QuickBite%20account%20and%20all%20associated%20data.%0A%0AEmail%20linked%20to%20account%3A%20%5Byour%20email%5D%0A%0AThank%20you."
+            className="inline-flex items-center gap-2 rounded-full bg-danger px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

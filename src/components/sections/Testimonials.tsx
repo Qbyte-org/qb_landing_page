@@ -7,6 +7,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { testimonials } from "@/content/site";
 import Container from "../ui/Container";
 import SectionTag from "../ui/SectionTag";
+import BackgroundGrainTexture from "../ui/BackgroundGrainTexture";
 
 const extraTestimonials = [
   {
@@ -15,7 +16,7 @@ const extraTestimonials = [
     name: "Aisha Lawal",
     role: "Customer • OAU Campus",
     initials: "AL",
-    accent: "#ffe7d7",
+    accent: "var(--color-peach)",
   },
   {
     quote:
@@ -23,7 +24,7 @@ const extraTestimonials = [
     name: "Bola Adeyemi",
     role: "Kitchen Lead • Mayfair",
     initials: "BA",
-    accent: "#f06400",
+    accent: "var(--color-brand)",
   },
   {
     quote:
@@ -31,7 +32,7 @@ const extraTestimonials = [
     name: "David Ojo",
     role: "Dispatch Rider • Lagere",
     initials: "DO",
-    accent: "#2a211d",
+    accent: "var(--color-ink)",
   },
   {
     quote:
@@ -39,7 +40,7 @@ const extraTestimonials = [
     name: "Mariam Yusuf",
     role: "Customer • Moremi Hall",
     initials: "MY",
-    accent: "#f4dfcc",
+    accent: "var(--color-linen)",
   },
   {
     quote:
@@ -47,7 +48,7 @@ const extraTestimonials = [
     name: "Kunle Ajayi",
     role: "Restaurant Owner • Sabo",
     initials: "KA",
-    accent: "#22c55e",
+    accent: "var(--color-success)",
   },
   {
     quote:
@@ -55,7 +56,7 @@ const extraTestimonials = [
     name: "Grace Effiong",
     role: "Rider • Mayfair",
     initials: "GE",
-    accent: "#ff6b00",
+    accent: "var(--color-brand)",
   },
 ];
 
@@ -180,7 +181,8 @@ function CommunityPanel() {
 
 function StoryCardShell({ children, expandable = false }: { children: ReactNode; expandable?: boolean }) {
   return (
-    <figure className={`group relative flex min-w-0 shrink-0 flex-col overflow-hidden rounded-[2.35rem] border border-ink/10 bg-cream p-5 text-ink transition-colors duration-300 hover:border-ink/25 sm:p-6 ${expandable ? "grow" : ""}`}>
+    <figure className={`group relative flex min-w-0 shrink-0 flex-col overflow-hidden rounded-[2.35rem] border border-ink/10 bg-cream-200 p-5 text-ink transition-colors duration-300 hover:border-ink/25 sm:p-6 ${expandable ? "grow" : ""}`}>
+      <BackgroundGrainTexture className="opacity-72!" />
       {children}
     </figure>
   );
@@ -196,7 +198,7 @@ function AuthorRow({
   const [role, location] = testimonial.role.split(" • ");
 
   return (
-    <figcaption className={`relative flex shrink-0 items-center gap-3 ${withDivider ? "border-t border-dashed border-[#2a211d]/20 pt-5" : ""}`}>
+    <figcaption className={`relative flex shrink-0 items-center gap-3 ${withDivider ? "border-t border-dashed border-ink/20 pt-5" : ""}`}>
       <span aria-hidden="true" className="grid size-11 shrink-0 place-items-center rounded-full border border-ink/10 bg-paper font-display text-sm font-semibold">
         {testimonial.initials}
       </span>
@@ -204,11 +206,11 @@ function AuthorRow({
         <span className="block text-base font-semibold leading-snug sm:text-lg">
           {testimonial.name}
         </span>
-        <span className="mt-1 block text-xs text-[#6d5c52] sm:text-sm">
+        <span className="mt-1 block text-xs text-cocoa sm:text-sm">
           {role}
         </span>
         {location ? (
-          <span className="mt-1 flex items-center gap-1 text-xs text-[#6d5c52]">
+          <span className="mt-1 flex items-center gap-1 text-xs text-cocoa">
             <MapPin aria-hidden="true" className="size-3 shrink-0" />
             {location}
           </span>
@@ -223,8 +225,9 @@ function MediaStoryCard({ story }: { story: StoryCard }) {
 
   return (
     <StoryCardShell expandable>
+      <BackgroundGrainTexture className="opacity-72!" />
       <AuthorRow testimonial={story.testimonial} />
-      <div className={`relative mt-5 grow shrink-0 overflow-hidden rounded-[2.35rem] ${isIllustration ? "bg-cream-200" : "bg-[#2a211d]"} ${story.mediaClassName ?? "min-h-[16rem]"}`}>
+      <div className={`relative mt-5 grow shrink-0 overflow-hidden rounded-[2.35rem] ${isIllustration ? "bg-cream-200" : "bg-ink"} ${story.mediaClassName ?? "min-h-[16rem]"}`}>
         {story.image ? (
           <Image
             src={story.image}
@@ -236,15 +239,15 @@ function MediaStoryCard({ story }: { story: StoryCard }) {
           />
         ) : null}
         {!isIllustration ? (
-          <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-[#2a211d]/95 via-[#2a211d]/10 to-transparent" />
+          <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-ink/95 via-ink/10 to-transparent" />
         ) : null}
         {story.title ? (
-          <p className={`absolute bottom-4 left-4 right-4 font-display text-xl font-semibold leading-tight sm:text-2xl ${isIllustration ? "text-[#2a211d]" : "text-[#fffaf5]"}`}>
+          <p className={`absolute bottom-4 left-4 right-4 font-display text-xl font-semibold leading-tight sm:text-2xl ${isIllustration ? "text-ink" : "text-paper"}`}>
             {story.title}
           </p>
         ) : null}
       </div>
-      <blockquote className="mt-5 shrink-0 border-t border-dashed border-[#2a211d]/20 pt-5 text-base leading-relaxed">
+      <blockquote className="mt-5 shrink-0 border-t border-dashed border-ink/20 pt-5 text-base leading-relaxed">
         &ldquo;{story.testimonial.quote}&rdquo;
       </blockquote>
     </StoryCardShell>
@@ -258,8 +261,8 @@ function QuoteStoryCard({ story, index }: { story: StoryCard; index: number }) {
       <div className="relative flex flex-col">
         <div className="flex items-end justify-between gap-3">
           {/* <StoryLabel label={story.label} /> */}
-          <Quote aria-hidden="true" className="mt-7 size-8 text-[#f06400]" strokeWidth={1.5} />
-          <span aria-hidden="true" className="font-mono text-xs text-[#6d5c52]">
+          <Quote aria-hidden="true" className="mt-7 size-8 text-brand" strokeWidth={1.5} />
+          <span aria-hidden="true" className="font-mono text-xs text-cocoa">
             {String(index + 1).padStart(2, "0")}
           </span>
         </div>
@@ -303,7 +306,7 @@ export default function Testimonials() {
           <div className="mt-5 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
             <h2 id="testimonials-title" className="section-heading leading-[1.05]!">
               Good food.
-              <span className="block">Better together.</span>
+              <span className="block text-brand-dark">Better together.</span>
             </h2>
             <p className="max-w-md text-base leading-relaxed text-cocoa sm:text-lg lg:max-w-sm">
               From campus cravings to the kitchen counter, meet the food lovers,

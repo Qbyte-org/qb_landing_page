@@ -62,13 +62,13 @@ type RestaurantDiscovery = Restaurant & {
 };
 
 const palettes = [
-  { accent: "#f15f00", dark: "#24180f", soft: "#fff0e4", water: "#9bd7ff" },
-  { accent: "#0f7a5a", dark: "#10231c", soft: "#e8fff6", water: "#8bd8cc" },
-  { accent: "#d88b15", dark: "#2c1c0b", soft: "#fff5d6", water: "#a9d6ff" },
-  { accent: "#ff4f1f", dark: "#2a140d", soft: "#ffe8dd", water: "#98dff0" },
-  { accent: "#6757df", dark: "#17152e", soft: "#eeebff", water: "#adc8ff" },
-  { accent: "#178c83", dark: "#0e2422", soft: "#ebfffb", water: "#8ddfe8" },
-  { accent: "#c96b25", dark: "#2c180d", soft: "#fff0e3", water: "#add8ff" },
+  { accent: "var(--color-brand)", dark: "var(--color-espresso)", soft: "var(--color-cream-200)", water: "var(--color-water-sky)" },
+  { accent: "var(--color-forest)", dark: "var(--color-forest-dark)", soft: "var(--color-forest-soft)", water: "var(--color-water-teal)" },
+  { accent: "var(--color-ochre)", dark: "var(--color-ochre-dark)", soft: "var(--color-ochre-soft)", water: "var(--color-water-sky)" },
+  { accent: "var(--color-brand)", dark: "var(--color-espresso)", soft: "var(--color-peach)", water: "var(--color-water-cyan)" },
+  { accent: "var(--color-violet)", dark: "var(--color-violet-dark)", soft: "var(--color-violet-soft)", water: "var(--color-water-indigo)" },
+  { accent: "var(--color-teal)", dark: "var(--color-teal-dark)", soft: "var(--color-teal-soft)", water: "var(--color-water-cyan)" },
+  { accent: "var(--color-copper)", dark: "var(--color-copper-ink)", soft: "var(--color-copper-soft)", water: "var(--color-water-sky)" },
 ];
 
 const nodeCoords = [
@@ -221,9 +221,9 @@ function FloatingRestaurant({
       <LinkArrow
         href="/restaurants"
         appearance="plain"
-        className="group relative block! rounded-[1.45rem] bg-white/90 p-3 text-[#24180f] ring-1 ring-black/5 backdrop-blur-xl transition-transform duration-300"
+        className="group relative block! rounded-[1.45rem] bg-white/90 p-3 text-espresso ring-1 ring-black/5 backdrop-blur-xl transition-transform duration-300"
       >
-        <div className="absolute -inset-1 rounded-[1.65rem] bg-[#2a211d]/20 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-60" />
+        <div className="absolute -inset-1 rounded-[1.65rem] bg-ink/20 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-60" />
         <div className="relative">
           <motion.div
             animate={{
@@ -231,7 +231,7 @@ function FloatingRestaurant({
               scale: hovered ? 1.14 : 1,
             }}
             transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
-            className="relative h-24 overflow-hidden rounded-[1.1rem] bg-[#fff7f0]"
+            className="relative h-24 overflow-hidden rounded-[1.1rem] bg-cream"
           >
             <Image
               src={restaurant.image}
@@ -258,13 +258,13 @@ function FloatingRestaurant({
               <MapPinned className="h-4 w-4" strokeWidth={2.3} />
             </motion.span>
           </div>
-          <div className="mt-3 flex items-center justify-between text-[0.68rem] font-black text-[#4a3d38]">
+          <div className="mt-3 flex items-center justify-between text-[0.68rem] font-black text-cocoa-dark">
             <span className="flex items-center gap-1">
               <Clock3 className="h-3.5 w-3.5 text-[var(--district-accent)]" strokeWidth={2.3} />
               {restaurant.eta}
             </span>
             <span className="flex items-center gap-1">
-              <Star className="h-3.5 w-3.5 fill-[#f3a629] text-[#f3a629]" strokeWidth={2.3} />
+              <Star className="h-3.5 w-3.5 fill-map-road text-map-road" strokeWidth={2.3} />
               {restaurant.rating}
             </span>
             <span>{restaurant.deliveryFrom}</span>
@@ -286,10 +286,10 @@ function DiscoveryStripCard({
     <motion.div
       whileHover={{ y: -6, scale: 1.015 }}
       transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-      className="min-w-[18rem] flex-1 rounded-[1.5rem] bg-white/86 p-3 text-[#24180f] ring-1 ring-black/5 backdrop-blur"
+      className="min-w-[18rem] flex-1 rounded-[1.5rem] bg-white/86 p-3 text-espresso ring-1 ring-black/5 backdrop-blur"
     >
       <div className="flex gap-3">
-        <div className="relative h-20 w-24 shrink-0 overflow-hidden rounded-[1.1rem] bg-[#fff0e4]">
+        <div className="relative h-20 w-24 shrink-0 overflow-hidden rounded-[1.1rem] bg-cream-200">
           <Image
             src={restaurant.image}
             alt={`Food from ${restaurant.name}`}
@@ -308,7 +308,7 @@ function DiscoveryStripCard({
           <h3 className="mt-2 line-clamp-1 font-display text-base font-black">
             {restaurant.name}
           </h3>
-          <p className="mt-1 line-clamp-1 text-xs font-semibold text-[#7c6253]">
+          <p className="mt-1 line-clamp-1 text-xs font-semibold text-cocoa">
             {restaurant.cuisine}
           </p>
         </div>
@@ -578,7 +578,7 @@ export default function QuickBiteDistrictExplorer() {
       ref={sectionRef}
       id="restaurants"
       data-nav-theme="neutral"
-      className="relative overflow-hidden bg-[#fff8ef] py-16 text-[#24180f] sm:py-24"
+      className="relative overflow-hidden bg-map-side-road py-16 text-espresso sm:py-24"
       style={
         {
           "--district-accent": activeCity.accent,
@@ -591,7 +591,7 @@ export default function QuickBiteDistrictExplorer() {
       <span id="cities" className="absolute top-0" aria-hidden="true" />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.3] [background-image:radial-gradient(#3a2418_0.7px,transparent_0.7px)] [background-size:18px_18px]"
+        className="pointer-events-none absolute inset-0 opacity-[0.3] [background-image:radial-gradient(var(--color-ink-warm)_0.7px,transparent_0.7px)] [background-size:18px_18px]"
       />
       <div
         aria-hidden="true"
@@ -626,7 +626,7 @@ export default function QuickBiteDistrictExplorer() {
             <h2 className="mt-4 font-display text-[2.45rem] font-black leading-[0.95] tracking-[-0.07em] sm:text-5xl lg:text-[4.55rem]">
               Browse the city by food districts, not by lists.
             </h2>
-            <p className="mt-5 max-w-2xl text-base font-semibold leading-relaxed text-[#745c50]">
+            <p className="mt-5 max-w-2xl text-base font-semibold leading-relaxed text-cocoa">
               {activeCity.summary}
             </p>
           </div>
@@ -646,7 +646,7 @@ export default function QuickBiteDistrictExplorer() {
                     className={`rounded-pill px-4 py-2 text-xs font-black transition-colors ${
                       active
                         ? "bg-[var(--district-accent)] text-white"
-                        : "bg-white/78 text-[#6d554a] ring-1 ring-[#3a2418]/10 hover:bg-white hover:text-[#24180f]"
+                        : "bg-white/78 text-cocoa ring-1 ring-ink-warm/10 hover:bg-white hover:text-espresso"
                     }`}
                   >
                     {city.name}
@@ -661,15 +661,15 @@ export default function QuickBiteDistrictExplorer() {
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search restaurants, cuisine, or district mood"
-                className="h-14 w-full rounded-pill bg-white/86 px-11 text-sm font-bold text-[#24180f] ring-1 ring-[#3a2418]/10 outline-none transition focus:ring-[var(--district-accent)]"
+                className="h-14 w-full rounded-pill bg-white/86 px-11 text-sm font-bold text-espresso ring-1 ring-ink-warm/10 outline-none transition focus:ring-[var(--district-accent)]"
               />
             </label>
           </div>
         </div>
 
-        <div className="mt-10 overflow-hidden rounded-[2.5rem] bg-[#1e1510] p-3 text-white ring-1 ring-black/10">
-          <div className="relative min-h-[43rem] overflow-hidden rounded-[2rem] bg-[#f8efe3]">
-            <div className="absolute inset-0 opacity-[0.2] [background-image:linear-gradient(rgba(58,36,24,.18)_1px,transparent_1px),linear-gradient(90deg,rgba(58,36,24,.18)_1px,transparent_1px)] [background-size:58px_58px]" />
+        <div className="mt-10 overflow-hidden rounded-[2.5rem] bg-espresso p-3 text-white ring-1 ring-black/10">
+          <div className="relative min-h-[43rem] overflow-hidden rounded-[2rem] bg-parchment">
+            <div className="absolute inset-0 opacity-[0.2] [background-image:linear-gradient(color-mix(in_srgb,var(--color-ink-warm)_18%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--color-ink-warm)_18%,transparent)_1px,transparent_1px)] [background-size:58px_58px]" />
             <div className="absolute left-1/2 top-1/2 h-[44rem] w-[44rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--district-soft)] opacity-75 blur-3xl" />
 
             <svg
@@ -691,7 +691,7 @@ export default function QuickBiteDistrictExplorer() {
               <g data-district-world>
                 <path
                   d="M-30 410C78 334 172 384 276 286C390 179 492 242 596 136C708 22 810 88 962 188V604H-30V410Z"
-                  fill="#ffffff"
+                  fill="var(--color-white)"
                   opacity="0.58"
                 />
                 <path
@@ -705,14 +705,14 @@ export default function QuickBiteDistrictExplorer() {
                 <path
                   d="M76 398C120 356 176 367 226 328C286 281 334 307 394 258C462 202 534 216 594 172C670 116 760 122 850 158"
                   fill="none"
-                  stroke="#8ecf8f"
+                  stroke="var(--color-map-grass)"
                   strokeWidth="54"
                   strokeLinecap="round"
                   opacity="0.2"
                 />
                 <path
                   d="M655 384C704 345 772 344 832 394C790 464 700 482 626 440C620 420 628 398 655 384Z"
-                  fill="#6fcf80"
+                  fill="var(--color-map-tree)"
                   opacity="0.22"
                 />
                 <path
@@ -722,7 +722,7 @@ export default function QuickBiteDistrictExplorer() {
                 />
                 <path
                   d="M404 82L574 108L636 250L482 310L354 206Z"
-                  fill="#fff7f0"
+                  fill="var(--color-cream)"
                   opacity="0.82"
                 />
                 <path
@@ -739,7 +739,7 @@ export default function QuickBiteDistrictExplorer() {
                       width={70 + (index % 2) * 18}
                       height={92 + (index % 3) * 16}
                       rx="16"
-                      fill="#24180f"
+                      fill="var(--color-espresso)"
                       opacity="0.09"
                     />
                     <rect
@@ -759,7 +759,7 @@ export default function QuickBiteDistrictExplorer() {
                     key={`${activeCity.id}-road-${index}`}
                     data-district-road
                     d={road}
-                    stroke="#24180f"
+                    stroke="var(--color-espresso)"
                     strokeOpacity="0.14"
                     strokeWidth={index === 0 ? 30 : 19}
                     strokeLinecap="round"
@@ -786,7 +786,7 @@ export default function QuickBiteDistrictExplorer() {
                 />
                 <polyline
                   points={routePoints}
-                  stroke="#24180f"
+                  stroke="var(--color-espresso)"
                   strokeOpacity="0.18"
                   strokeWidth="2.4"
                   strokeDasharray="7 12"
@@ -842,7 +842,7 @@ export default function QuickBiteDistrictExplorer() {
                       className={`flex items-center gap-2 rounded-pill px-3.5 py-2 text-xs font-black ring-1 backdrop-blur-xl transition-colors ${
                         active
                           ? "bg-[var(--district-accent)] text-white ring-white/30"
-                          : "bg-white/82 text-[#24180f] ring-[#24180f]/10"
+                          : "bg-white/82 text-espresso ring-espresso/10"
                       }`}
                     >
                       <span className="relative flex h-3.5 w-3.5">
@@ -850,7 +850,7 @@ export default function QuickBiteDistrictExplorer() {
                         <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-[var(--district-accent)]" />
                       </span>
                       {node.name}
-                      <span className={active ? "text-white/65" : "text-[#8f6a57]"}>
+                      <span className={active ? "text-white/65" : "text-terracotta"}>
                         {node.eta}m
                       </span>
                     </span>
@@ -881,13 +881,13 @@ export default function QuickBiteDistrictExplorer() {
             />
             <div
               data-delivery-note
-              className="pointer-events-none absolute left-1/2 top-[58%] z-40 -translate-x-1/2 rounded-pill bg-[#24180f] px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-white opacity-0"
+              className="pointer-events-none absolute left-1/2 top-[58%] z-40 -translate-x-1/2 rounded-pill bg-espresso px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-white opacity-0"
             >
               Delivery completed
             </div>
 
             <div className="absolute left-5 top-5 z-40 flex max-w-[calc(100%-2.5rem)] flex-wrap items-center gap-3">
-              <div className="rounded-[1.35rem] bg-[#24180f]/88 px-4 py-3 text-white ring-1 ring-white/10 backdrop-blur-xl">
+              <div className="rounded-[1.35rem] bg-espresso/88 px-4 py-3 text-white ring-1 ring-white/10 backdrop-blur-xl">
                 <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-white/45">
                   Active district
                 </p>
@@ -896,16 +896,16 @@ export default function QuickBiteDistrictExplorer() {
                   {activeDistrict.name}
                 </p>
               </div>
-              <div className="rounded-[1.35rem] bg-white/86 px-4 py-3 text-[#24180f] ring-1 ring-black/5 backdrop-blur-xl">
-                <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-[#8f6a57]">
+              <div className="rounded-[1.35rem] bg-white/86 px-4 py-3 text-espresso ring-1 ring-black/5 backdrop-blur-xl">
+                <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-terracotta">
                   Delivery time
                 </p>
                 <p className="mt-1 font-display text-xl font-black text-[var(--district-accent)]">
                   {activeDistrict.eta} min
                 </p>
               </div>
-              <div className="rounded-[1.35rem] bg-white/86 px-4 py-3 text-[#24180f] ring-1 ring-black/5 backdrop-blur-xl">
-                <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-[#8f6a57]">
+              <div className="rounded-[1.35rem] bg-white/86 px-4 py-3 text-espresso ring-1 ring-black/5 backdrop-blur-xl">
+                <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-terracotta">
                   Orders today
                 </p>
                 <p className="mt-1 font-display text-xl font-black">
@@ -914,13 +914,13 @@ export default function QuickBiteDistrictExplorer() {
               </div>
             </div>
 
-            <div className="absolute bottom-5 right-5 z-40 hidden items-center gap-3 rounded-pill bg-[#24180f]/88 px-4 py-3 text-xs font-black uppercase tracking-[0.16em] text-white/70 ring-1 ring-white/10 backdrop-blur-xl sm:flex">
+            <div className="absolute bottom-5 right-5 z-40 hidden items-center gap-3 rounded-pill bg-espresso/88 px-4 py-3 text-xs font-black uppercase tracking-[0.16em] text-white/70 ring-1 ring-white/10 backdrop-blur-xl sm:flex">
               <Bike className="h-4 w-4 text-[var(--district-accent)]" strokeWidth={2.4} />
               Rider reroutes when you choose a district
             </div>
           </div>
 
-          <div className="border-t border-white/10 bg-[#1e1510] p-4 sm:p-5">
+          <div className="border-t border-white/10 bg-espresso p-4 sm:p-5">
             <div className="mb-4 flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.2em] text-[var(--district-accent)]">
@@ -972,13 +972,13 @@ export default function QuickBiteDistrictExplorer() {
           ].map((item) => (
             <div
               key={item.label}
-              className="rounded-[1.4rem] bg-white/74 p-5 ring-1 ring-[#3a2418]/10"
+              className="rounded-[1.4rem] bg-white/74 p-5 ring-1 ring-ink-warm/10"
             >
               <item.icon className="h-5 w-5 text-[var(--district-accent)]" strokeWidth={2.3} />
-              <p className="mt-3 text-sm font-black uppercase tracking-[0.14em] text-[#24180f]">
+              <p className="mt-3 text-sm font-black uppercase tracking-[0.14em] text-espresso">
                 {item.label}
               </p>
-              <p className="mt-2 text-sm font-semibold leading-relaxed text-[#745c50]">
+              <p className="mt-2 text-sm font-semibold leading-relaxed text-cocoa">
                 {item.copy}
               </p>
             </div>

@@ -18,7 +18,7 @@ export default function WaitlistForm({ initialEmail = "" }: { initialEmail?: str
       <form ref={formRef} noValidate onSubmit={handleSubmit} aria-busy={!isReady || isSubmitting} className="relative mb-8 flex w-full flex-col gap-4">
         <div className="flex w-full flex-col gap-4">
           {fields.map((field) => (
-            <div key={field.name} className="relative flex h-14 w-full items-center rounded-full border border-paper/20 bg-[#241813] px-4 transition-colors focus-within:border-brand hover:border-paper/40 motion-reduce:transition-none">
+            <div key={field.name} className="relative flex h-14 w-full items-center rounded-full border border-paper/20 bg-espresso px-4 transition-colors focus-within:border-brand hover:border-paper/40 motion-reduce:transition-none">
               <input
                 id={`waitlist-${field.name}`}
                 name={field.name}
@@ -33,7 +33,7 @@ export default function WaitlistForm({ initialEmail = "" }: { initialEmail?: str
                 maxLength={field.maxLength}
                 className="peer relative z-10 w-full min-w-0 appearance-none border-none bg-transparent text-base text-paper shadow-none outline-none! placeholder-transparent focus-visible:outline-none! disabled:opacity-60"
               />
-              <label htmlFor={`waitlist-${field.name}`} className="pointer-events-none absolute left-4 top-0 z-20 -translate-y-1/2 rounded-full bg-[#241813] px-1 text-xs text-[#c9aa96] transition-all duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs peer-focus:text-brand motion-reduce:transition-none">
+              <label htmlFor={`waitlist-${field.name}`} className="pointer-events-none absolute left-4 top-0 z-20 -translate-y-1/2 rounded-full bg-espresso px-1 text-xs text-tan transition-all duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs peer-focus:text-brand motion-reduce:transition-none">
                 {field.label}
               </label>
             </div>
@@ -44,7 +44,7 @@ export default function WaitlistForm({ initialEmail = "" }: { initialEmail?: str
           type="submit"
           className="mt-2 min-h-12 w-full shrink-0 rounded-full bg-brand! px-8 py-3 font-semibold text-white! disabled:cursor-not-allowed disabled:opacity-50"
           customFillClass="bg-cream-200"
-          customHoverTextColor="#2a211d"
+          customHoverTextColor="var(--color-ink)"
         >
           {isSubmitting ? <><LoaderCircle className="size-4 motion-safe:animate-spin" aria-hidden="true" />Joining...</> : "Join Waitlist"}
         </MagneticFillButton>

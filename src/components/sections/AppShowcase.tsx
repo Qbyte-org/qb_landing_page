@@ -77,7 +77,7 @@ export default function AppShowcase() {
                   type="button"
                   variant="light"
                   customFillClass="bg-brand"
-                  customHoverTextColor="#ffffff"
+                  customHoverTextColor="var(--color-white)"
                   contentClassName="flex w-full items-center gap-2.5 sm:gap-3"
                   aria-pressed={activeFeature === index}
                   aria-controls="app-feature-preview"
@@ -98,14 +98,14 @@ export default function AppShowcase() {
               <LinkArrow
                 href="/waitlist"
                 variant="light"
-                className="min-h-12 text-base! font-semibold normal-case! [--link-arrow-spacing:0em]"
+                className="min-h-12 w-64! text-base! font-semibold normal-case! [--link-arrow-spacing:0em]"
               >
                 Get launch updates
               </LinkArrow>
               <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-cocoa">
                 <span>Coming to</span>
                 <span className="inline-flex items-center gap-1.5"><AppStoreIcon /> iOS</span>
-                <span className="inline-flex items-center gap-1.5"><GooglePlayIcon /> Android</span>
+                {/* <span className="inline-flex items-center gap-1.5"><GooglePlayIcon /> Android</span> */}
               </p>
             </div>
           </div>

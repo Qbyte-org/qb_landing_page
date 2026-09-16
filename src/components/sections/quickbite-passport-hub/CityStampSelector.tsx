@@ -24,7 +24,7 @@ export default function CityStampSelector({
             onClick={() => onSelect(city.id)}
             variant="light"
             customFillClass="bg-brand"
-            customHoverTextColor="#ffffff"
+            customHoverTextColor="var(--color-white)"
             className={`rounded-full px-3 py-1.5 text-sm font-semibold ${
               active
                 ? "bg-ink! text-paper!"

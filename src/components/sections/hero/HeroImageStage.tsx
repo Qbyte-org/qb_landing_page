@@ -12,11 +12,11 @@ export default function HeroImageStage({
   return (
     <div
       data-hero-next-image
-      className="relative h-[15rem] w-full overflow-visible bg-[#1c120f] sm:h-[20rem] lg:h-[clamp(19rem,38svh,28rem)] xl:h-[clamp(23rem,40svh,32rem)]"
+      className="relative h-[15rem] w-full overflow-visible bg-dark-ink sm:h-[20rem] lg:h-[clamp(19rem,38svh,28rem)] xl:h-[clamp(23rem,40svh,32rem)]"
     >
       <div
         data-hero-image-stage
-        className="absolute left-0 top-0 h-full w-full overflow-hidden rounded-tl-[2.25rem] bg-[#1c120f] sm:rounded-tl-[3.25rem] xl:rounded-tl-[4.5rem]"
+        className="absolute left-0 top-0 h-full w-full overflow-hidden rounded-tl-[2.25rem] bg-dark-ink sm:rounded-tl-[3.25rem] xl:rounded-tl-[4.5rem]"
       >
         <AnimatePresence initial={false}>
           <motion.div
@@ -54,7 +54,7 @@ export default function HeroImageStage({
         </AnimatePresence>
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(42,33,29,0.08),rgba(42,33,29,0)_42%)]"
+          className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-ink)_8%,transparent),transparent_42%)]"
         />
       </div>
     </div>

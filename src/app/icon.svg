@@ -1,8 +1,6 @@
-<svg width="32" height="32" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="44" height="44" rx="12" fill="#FF6B00"/>
-  <path d="M10 16h10" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
-  <path d="M8 21h8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
-  <path d="M10 26h10" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
-  <path d="M24 13v8m4-8v8m-4 0c-2.2 0-4-1.8-4-4m8 4c0 1-.2 9-.3 11" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M33 13c1.7 0 3 1.4 3 3.2 0 3-1.5 5-3 5.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Color fallbacks are generated from src/app/globals.css by pnpm theme:sync. -->
+  <rect width="32" height="32" fill="var(--color-brand, #FF4D1D)"/>
+  <path fill="var(--color-logo-light, #FFF9DA)" d="M23.44 22.06s-.07.04-.1.06c-.02 0-.03.02-.05.03-1.01.62-3.91 1.82-10 .46-2.78-.62-4.58-.94-5.71-1.11-.2-.03-.46-.06-.46-.06l-1.04-2.91 7.26.28-.03 1.1 5.17.14.03-1.13h1.33v-1.68h-.08l-15.33-.41.92-2.39h10.94c.9 0 1.63-.73 1.63-1.63v-.27H6.62l.81-2.45s5.67-.79 7.01-.91c1.17-.1 4.62-1.19 7.97.58.27.17.63.39 1.05.65.02.02.05.03.07.05 4.26 2.71 4.22 8.94-.08 11.59Z"/>
 </svg>

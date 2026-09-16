@@ -48,7 +48,7 @@ export default function CtaFoodSlideshow() {
     <div
       ref={containerRef}
       data-cta-media
-      className="group relative min-h-40 overflow-hidden rounded-4xl bg-[#382c26] sm:min-h-0"
+      className="group relative min-h-40 overflow-hidden rounded-4xl bg-ink-soft sm:min-h-0"
     >
       <AnimatePresence initial={false}>
         <motion.div
@@ -90,7 +90,7 @@ export default function CtaFoodSlideshow() {
           variant="dark"
           onClick={() => setPaused((value) => !value)}
           ariaLabel={paused ? "Resume food slideshow" : "Pause food slideshow"}
-          className="absolute! bottom-2 right-2 z-20 size-9 rounded-full border! border-paper/25 bg-[#1c120f]/80! text-paper! backdrop-blur-sm"
+          className="absolute! bottom-2 right-2 z-20 size-9 rounded-full border! border-paper/25 bg-dark-ink/80! text-paper! backdrop-blur-sm"
         >
           {paused ? <Play className="size-4" aria-hidden="true" /> : <Pause className="size-4" aria-hidden="true" />}
         </MagneticFillButton>

@@ -66,13 +66,13 @@ const nodeLayouts: Pick<HubNode, "x" | "y">[] = [
 ];
 
 const accents = [
-  { accent: "#f15f00", soft: "#fff0e4" },
-  { accent: "#0f7a5a", soft: "#e8fff6" },
-  { accent: "#f4a51c", soft: "#fff6d8" },
-  { accent: "#ff4f1f", soft: "#ffeade" },
-  { accent: "#6a5cff", soft: "#eeecff" },
-  { accent: "#169b89", soft: "#e9fffb" },
-  { accent: "#d86420", soft: "#fff0e8" },
+  { accent: "var(--color-brand)", soft: "var(--color-cream-200)" },
+  { accent: "var(--color-forest)", soft: "var(--color-forest-soft)" },
+  { accent: "var(--color-map-road)", soft: "var(--color-ochre-soft)" },
+  { accent: "var(--color-brand)", soft: "var(--color-peach)" },
+  { accent: "var(--color-violet)", soft: "var(--color-violet-soft)" },
+  { accent: "var(--color-teal)", soft: "var(--color-teal-soft)" },
+  { accent: "var(--color-copper)", soft: "var(--color-copper-soft)" },
 ];
 
 const routes = [
@@ -134,9 +134,9 @@ const hubCities: HubCity[] = [liveCity, ...expansionCities].map((city, index) =>
     nodes: makeNodes(index),
     buildings: [
       { x: 102, y: 238, w: 74, h: 96, tone: palette.soft },
-      { x: 226, y: 130, w: 82, h: 128, tone: "#fff7f0" },
+      { x: 226, y: 130, w: 82, h: 128, tone: "var(--color-cream)" },
       { x: 446, y: 126, w: 96, h: 92, tone: palette.soft },
-      { x: 614, y: 245, w: 92, h: 118, tone: "#fff7f0" },
+      { x: 614, y: 245, w: 92, h: 118, tone: "var(--color-cream)" },
       { x: 758, y: 186, w: 72, h: 102, tone: palette.soft },
     ],
   };
@@ -246,14 +246,14 @@ function RestaurantDiscoveryCard({
       transition={{ delay: index * 0.06, duration: 0.44, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -7 }}
     >
-      <div className="pointer-events-none absolute -inset-1 rounded-[1.6rem] bg-[#2a211d]/30 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-50" />
+      <div className="pointer-events-none absolute -inset-1 rounded-[1.6rem] bg-ink/30 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-50" />
       <LinkArrow
         href="/restaurants"
         appearance="plain"
-        className="relative flex! min-h-[8.25rem] overflow-hidden rounded-[1.45rem] bg-white/92 p-4 text-[#24180f] ring-1 ring-black/5 backdrop-blur"
+        className="relative flex! min-h-[8.25rem] overflow-hidden rounded-[1.45rem] bg-white/92 p-4 text-espresso ring-1 ring-black/5 backdrop-blur"
       >
         <motion.div
-          className="absolute -right-5 -top-5 h-28 w-32 overflow-hidden rounded-[2rem] bg-[#fff7ef]"
+          className="absolute -right-5 -top-5 h-28 w-32 overflow-hidden rounded-[2rem] bg-cream"
           whileHover={{ scale: 1.08, rotate: 2 }}
           transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
         >
@@ -274,7 +274,7 @@ function RestaurantDiscoveryCard({
             >
               {getInitials(restaurant.name)}
             </span>
-            <span className="rounded-pill bg-[#fff0e4] px-2.5 py-1 text-[0.62rem] font-black uppercase tracking-[0.12em] text-[#f15f00]">
+            <span className="rounded-pill bg-cream-200 px-2.5 py-1 text-[0.62rem] font-black uppercase tracking-[0.12em] text-brand">
               {restaurantBadges[index % restaurantBadges.length]}
             </span>
           </div>
@@ -282,17 +282,17 @@ function RestaurantDiscoveryCard({
           <h3 className="mt-3 font-display text-base font-black leading-tight">
             {restaurant.name}
           </h3>
-          <p className="mt-1 line-clamp-1 text-xs font-semibold text-[#6d554a]">
+          <p className="mt-1 line-clamp-1 text-xs font-semibold text-cocoa">
             {restaurant.cuisine}
           </p>
 
-          <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1 pt-3 text-[0.72rem] font-black text-[#3a2418]">
+          <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1 pt-3 text-[0.72rem] font-black text-ink-warm">
             <span className="inline-flex items-center gap-1">
-              <Timer className="h-3.5 w-3.5 text-[#f15f00]" strokeWidth={2.3} />
+              <Timer className="h-3.5 w-3.5 text-brand" strokeWidth={2.3} />
               {restaurant.eta}
             </span>
             <span className="inline-flex items-center gap-1">
-              <Star className="h-3.5 w-3.5 fill-[#f3a629] text-[#f3a629]" strokeWidth={2.3} />
+              <Star className="h-3.5 w-3.5 fill-map-road text-map-road" strokeWidth={2.3} />
               {restaurant.rating}
             </span>
             <span>{restaurant.deliveryFrom}</span>
@@ -504,7 +504,7 @@ export default function QuickBiteDeliveryHub() {
       ref={hubRef}
       id="restaurants"
       data-nav-theme="dark"
-      className="relative overflow-hidden bg-[#20140f] py-16 text-white sm:py-24"
+      className="relative overflow-hidden bg-espresso py-16 text-white sm:py-24"
       style={
         {
           "--hub-accent": activeCity.accent,
@@ -516,7 +516,7 @@ export default function QuickBiteDeliveryHub() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.14] [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:56px_56px]"
+        className="pointer-events-none absolute inset-0 opacity-[0.14] [background-image:linear-gradient(color-mix(in_srgb,var(--color-white)_8%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--color-white)_8%,transparent)_1px,transparent_1px)] [background-size:56px_56px]"
       />
       <div
         data-hub-bg-orb
@@ -565,7 +565,7 @@ export default function QuickBiteDeliveryHub() {
           </LinkArrow>
         </div>
 
-        <div className="relative overflow-hidden rounded-[2.4rem] bg-[#120d0b]/82 ring-1 ring-white/10 backdrop-blur-xl">
+        <div className="relative overflow-hidden rounded-[2.4rem] bg-ink-deep/82 ring-1 ring-white/10 backdrop-blur-xl">
           <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,var(--hub-accent),transparent)] opacity-20" />
 
           <div className="grid min-h-[45rem] lg:grid-cols-[0.82fr_1.55fr] xl:grid-cols-[0.8fr_1.65fr_0.95fr]">
@@ -666,7 +666,7 @@ export default function QuickBiteDeliveryHub() {
             </aside>
 
             <div className="relative min-h-[38rem] overflow-hidden p-5 sm:p-8 lg:p-7 xl:p-9">
-              <div className="absolute inset-0 opacity-55 [background-image:radial-gradient(rgba(255,255,255,.18)_1px,transparent_1px)] [background-size:22px_22px]" />
+              <div className="absolute inset-0 opacity-55 [background-image:radial-gradient(color-mix(in_srgb,var(--color-white)_18%,transparent)_1px,transparent_1px)] [background-size:22px_22px]" />
               <div className="absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--hub-soft)] opacity-[0.08] blur-2xl" />
 
               <svg
@@ -685,7 +685,7 @@ export default function QuickBiteDeliveryHub() {
                   </filter>
                   <linearGradient id="hubSkyline" x1="95" y1="80" x2="850" y2="430" gradientUnits="userSpaceOnUse">
                     <stop stopColor="var(--hub-soft)" stopOpacity="0.42" />
-                    <stop offset="1" stopColor="#ffffff" stopOpacity="0.08" />
+                    <stop offset="1" stopColor="var(--color-white)" stopOpacity="0.08" />
                   </linearGradient>
                 </defs>
 
@@ -696,7 +696,7 @@ export default function QuickBiteDeliveryHub() {
                 />
                 <path
                   d="M36 118C156 78 246 102 326 72C438 30 512 94 632 76C735 61 792 30 888 62"
-                  stroke="white"
+                  stroke="var(--color-white)"
                   strokeOpacity="0.08"
                   strokeWidth="30"
                   strokeLinecap="round"
@@ -719,7 +719,7 @@ export default function QuickBiteDeliveryHub() {
                       width={building.w - 36}
                       height="10"
                       rx="5"
-                      fill="white"
+                      fill="var(--color-white)"
                       opacity="0.18"
                     />
                     <rect
@@ -728,7 +728,7 @@ export default function QuickBiteDeliveryHub() {
                       width={building.w - 44}
                       height="10"
                       rx="5"
-                      fill="white"
+                      fill="var(--color-white)"
                       opacity="0.12"
                     />
                   </g>
@@ -737,7 +737,7 @@ export default function QuickBiteDeliveryHub() {
                 <path
                   data-hub-draw
                   d={activeCity.secondaryRoute}
-                  stroke="white"
+                  stroke="var(--color-white)"
                   strokeOpacity="0.13"
                   strokeWidth="18"
                   strokeLinecap="round"
@@ -746,7 +746,7 @@ export default function QuickBiteDeliveryHub() {
                   data-hub-draw
                   data-hub-route="draw"
                   d={activeCity.route}
-                  stroke="white"
+                  stroke="var(--color-white)"
                   strokeOpacity="0.18"
                   strokeWidth="24"
                   strokeLinecap="round"
@@ -772,7 +772,7 @@ export default function QuickBiteDeliveryHub() {
                 <polyline
                   data-hub-draw
                   points={nodePoints}
-                  stroke="white"
+                  stroke="var(--color-white)"
                   strokeOpacity="0.18"
                   strokeWidth="2.5"
                   strokeDasharray="8 12"
@@ -813,7 +813,7 @@ export default function QuickBiteDeliveryHub() {
                         className={`flex items-center gap-2 rounded-pill px-3 py-2 text-xs font-black ring-1 backdrop-blur transition ${
                           active
                             ? "bg-[var(--hub-accent)] text-white ring-white/25"
-                            : "bg-[#120d0b]/78 text-white/82 ring-white/12 hover:text-white"
+                            : "bg-ink-deep/78 text-white/82 ring-white/12 hover:text-white"
                         }`}
                       >
                         <span className="relative grid h-3 w-3 place-items-center">
@@ -828,7 +828,7 @@ export default function QuickBiteDeliveryHub() {
                 })}
               </div>
 
-              <div className="absolute bottom-6 left-6 z-30 flex items-center gap-3 rounded-pill bg-[#2a211d]/34 px-4 py-3 text-xs font-black uppercase tracking-[0.16em] text-white/70 ring-1 ring-white/10 backdrop-blur">
+              <div className="absolute bottom-6 left-6 z-30 flex items-center gap-3 rounded-pill bg-ink/34 px-4 py-3 text-xs font-black uppercase tracking-[0.16em] text-white/70 ring-1 ring-white/10 backdrop-blur">
                 <Signal className="h-4 w-4 text-[var(--hub-accent)]" strokeWidth={2.4} />
                 {selectedNode ? `${selectedNode.name} route selected` : "Live delivery routes"}
               </div>

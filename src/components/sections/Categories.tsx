@@ -72,7 +72,7 @@ export default function Categories() {
         {/* <div className="relative mx-auto mb-16 flex w-full justify-center">
           <div
             aria-hidden="true"
-            className="absolute left-1/2 top-[48%] h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ff6b00]/10 blur-3xl sm:h-72 sm:w-72"
+            className="absolute left-1/2 top-[48%] h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/10 blur-3xl sm:h-72 sm:w-72"
           />
           <Image
             src="/images/phone.png"

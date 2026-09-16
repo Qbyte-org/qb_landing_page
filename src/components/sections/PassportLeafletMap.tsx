@@ -28,17 +28,17 @@ export type PassportMapCity = {
 };
 
 const districtColors = [
-  "#F15F00",
-  "#c86b2b",
-  "#8f6a57",
-  "#f3a629",
-  "#0f7a5a",
-  "#b86024",
-  "#d9b38c",
+  "var(--color-brand)",
+  "var(--color-copper)",
+  "var(--color-terracotta)",
+  "var(--color-map-road)",
+  "var(--color-forest)",
+  "var(--color-copper-dark)",
+  "var(--color-tan)",
 ];
 
-const orangeMarkerColors = new Set([
-  "#f15f00", "#ef5f00", "#ff6b00", "#c86b2b", "#f3a629", "#b86024",
+const lightLabelColors = new Set([
+  "var(--color-brand)", "var(--color-copper)", "var(--color-map-road)", "var(--color-copper-dark)",
 ]);
 
 const districtSlots = [
@@ -90,70 +90,70 @@ export default function PassportLeafletMap({
   onHoverRestaurant?: (name: string | null) => void;
 }) {
   return (
-    <div className="@container relative h-full w-full overflow-hidden rounded-[2.35rem] border-[0.18rem] border-[#2a211d] bg-[#f7eadb]">
+    <div className="@container relative h-full w-full overflow-hidden rounded-[2.35rem] border-[0.18rem] border-ink bg-map-base">
       <svg
         aria-hidden="true"
         className="absolute inset-0 h-full w-full"
         viewBox="0 0 800 560"
         preserveAspectRatio="none"
       >
-        <rect width="800" height="560" fill="#f7eadb" />
-        <path d="M0 0H84L28 78V318L0 354Z" fill="#f0c9a8" />
-        <path d="M800 0V70L732 54L678 0Z" fill="#f0c9a8" />
-        <path d="M800 560H704L722 458L800 421Z" fill="#f0c9a8" />
+        <rect width="800" height="560" fill="var(--color-map-base)" />
+        <path d="M0 0H84L28 78V318L0 354Z" fill="var(--color-map-land)" />
+        <path d="M800 0V70L732 54L678 0Z" fill="var(--color-map-land)" />
+        <path d="M800 560H704L722 458L800 421Z" fill="var(--color-map-land)" />
         <path
           d="M-30 110H283L368 211L472 185L748 107L835 145"
           fill="none"
-          stroke="#f3a629"
+          stroke="var(--color-map-road)"
           strokeLinecap="round"
           strokeWidth="9"
         />
         <path
           d="M74 -38C112 78 86 171 84 258C82 362 89 432 111 594"
           fill="none"
-          stroke="#f3a629"
+          stroke="var(--color-map-road)"
           strokeLinecap="round"
           strokeWidth="10"
         />
         <path
           d="M274 -42C282 102 248 221 241 326C234 436 246 495 258 600"
           fill="none"
-          stroke="#b79c8c"
+          stroke="var(--color-beige)"
           strokeLinecap="round"
           strokeWidth="10"
         />
         <path
           d="M507 -45C510 96 548 156 520 271C497 367 472 448 486 611"
           fill="none"
-          stroke="#f3a629"
+          stroke="var(--color-map-road)"
           strokeLinecap="round"
           strokeWidth="9"
         />
         <path
           d="M646 -50C684 110 665 228 720 326C757 391 790 460 845 512"
           fill="none"
-          stroke="#f3a629"
+          stroke="var(--color-map-road)"
           strokeLinecap="round"
           strokeWidth="8"
         />
         <path
           d="M-38 244H258L341 301L621 292L846 220"
           fill="none"
-          stroke="#b79c8c"
+          stroke="var(--color-beige)"
           strokeLinecap="round"
           strokeWidth="9"
         />
         <path
           d="M-31 497C72 513 138 503 223 454C308 405 370 359 475 354C598 348 679 391 839 319"
           fill="none"
-          stroke="#f3a629"
+          stroke="var(--color-map-road)"
           strokeLinecap="round"
           strokeWidth="9"
         />
         <path
           d="M26 61L92 29L159 57L229 18M29 214L95 176L173 209L231 158M338 40L390 74V157L449 191M333 392L407 360L501 405L591 387M530 95L591 62L650 92L714 67M595 233L657 218L732 261L780 244M204 517L283 487L348 524L432 493M480 258L562 239L625 262"
           fill="none"
-          stroke="#fff8ef"
+          stroke="var(--color-map-side-road)"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="3"
@@ -162,7 +162,7 @@ export default function PassportLeafletMap({
         <path
           d="M128 0L116 90M388 0L385 112M752 115L698 171M40 399L110 355M636 500L707 463"
           fill="none"
-          stroke="#fff8ef"
+          stroke="var(--color-map-side-road)"
           strokeLinecap="round"
           strokeWidth="3"
           opacity="0.72"
@@ -174,7 +174,7 @@ export default function PassportLeafletMap({
           const active = selectedNode?.name === node.name;
           const slot = districtSlots[index % districtSlots.length];
           const color = getColor(index, active, city.accent);
-          const isOrange = orangeMarkerColors.has(color.toLowerCase());
+          const usesLightLabel = lightLabelColors.has(color);
 
           return (
             <motion.div
@@ -197,14 +197,14 @@ export default function PassportLeafletMap({
                 onClick={() => onSelectNode(node)}
                 variant="light"
                 customFillClass="bg-ink"
-                customHoverTextColor="#fffaf5"
+                customHoverTextColor="var(--color-paper)"
                 contentClassName="flex min-w-0 items-center gap-1"
-                className={`h-[clamp(1.5rem,6cqw,1.75rem)] max-w-[min(6.5rem,20cqw)] rounded-md border! border-ink bg-[var(--marker-color)]! px-1.5 py-0.5 text-[clamp(0.5625rem,2.2cqw,0.6875rem)]! font-bold leading-tight ${isOrange ? "text-white!" : "text-[#4f372d]!"}`}
+                className={`h-[clamp(1.5rem,6cqw,1.75rem)] max-w-[min(6.5rem,20cqw)] rounded-md border! border-ink bg-[var(--marker-color)]! px-1.5 py-0.5 text-[clamp(0.5625rem,2.2cqw,0.6875rem)]! font-bold leading-tight ${usesLightLabel ? "text-white!" : "text-cocoa-dark!"}`}
               >
-                <span className="size-1 shrink-0 rounded-full border border-[#2a211d] bg-[#fffaf3]" />
+                <span className="size-1 shrink-0 rounded-full border border-ink bg-paper" />
                 <span className="truncate">{truncateLabel(node.name)}</span>
               </MagneticFillButton>
-              <span aria-hidden="true" className="pointer-events-none relative mt-1 block h-8 w-8 rounded-full border-[0.32rem] border-[var(--marker-color)] bg-[#fffaf3]">
+              <span aria-hidden="true" className="pointer-events-none relative mt-1 block h-8 w-8 rounded-full border-[0.32rem] border-[var(--marker-color)] bg-paper">
                 <span className="absolute left-1/2 top-[1.05rem] h-4 w-4 -translate-x-1/2 rotate-45 rounded-br-[0.32rem] bg-[var(--marker-color)]" />
               </span>
             </motion.div>
@@ -230,7 +230,7 @@ export default function PassportLeafletMap({
                 onClick={() => onHoverRestaurant?.(restaurant.name)}
                 variant="light"
                 customFillClass="bg-ink"
-                customHoverTextColor="#ffffff"
+                customHoverTextColor="var(--color-white)"
                 className="size-[clamp(1.5rem,6.5cqw,2rem)] rounded-full border! border-ink bg-paper! text-[clamp(0.5rem,1.8cqw,0.625rem)]! font-bold text-brand-dark!"
               >
                 QB

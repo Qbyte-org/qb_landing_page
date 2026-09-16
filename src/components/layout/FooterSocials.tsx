@@ -1,13 +1,8 @@
-import LinkArrow from "../ui/LinkArrow";
+import MagneticFillButton from "../ui/MagneticFillButton";
 
-// Set these to the official profiles when they are available. An unset profile
-// stays visibly unavailable instead of sending visitors to a placeholder URL.
 const socialLinks = [
-  { label: "TikTok", href: process.env.NEXT_PUBLIC_SOCIAL_TIKTOK, icon: "tiktok" },
-  { label: "LinkedIn", href: process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN, icon: "linkedin" },
-  { label: "X", href: process.env.NEXT_PUBLIC_SOCIAL_X, icon: "x" },
-  { label: "YouTube", href: process.env.NEXT_PUBLIC_SOCIAL_YOUTUBE, icon: "youtube" },
-  { label: "Instagram", href: process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM, icon: "instagram" },
+  { label: "X", href: "https://x.com/quickbite01?s=11", icon: "x" },
+  { label: "Instagram", href: "https://www.instagram.com/quickbite.01?stkn=MWNieGR5c2U4NWdycQ%3D%3D", icon: "instagram" },
 ] as const;
 
 function SocialIcon({ name }: { name: typeof socialLinks[number]["icon"] }) {
@@ -21,20 +16,20 @@ function SocialIcon({ name }: { name: typeof socialLinks[number]["icon"] }) {
       </svg>
     );
   }
-  if (name === "linkedin") {
-    return (
-      <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="currentColor">
-        <path d="M3 9h4v12H3V9Zm2-7a2.3 2.3 0 1 0 0 4.6A2.3 2.3 0 0 0 5 2Zm5 7h4v1.6c.6-1.1 1.8-2 3.4-2 3.6 0 3.6 3 3.6 5.5V21h-4v-6.1c0-1.4 0-2.8-1.5-2.8S14 13.5 14 15v6h-4V9Z" />
-      </svg>
-    );
-  }
-  if (name === "youtube") {
-    return (
-      <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="currentColor">
-        <path fillRule="evenodd" d="M21.6 6.3C21 4.6 18 4.5 12 4.5s-9 .1-9.6 1.8C2 7.8 2 10 2 12s0 4.2.4 5.7c.6 1.7 3.6 1.8 9.6 1.8s9-.1 9.6-1.8C22 16.2 22 14 22 12s0-4.2-.4-5.7ZM10 8.5l6 3.5-6 3.5v-7Z" clipRule="evenodd" />
-      </svg>
-    );
-  }
+  // if (name === "linkedin") {
+  //   return (
+  //     <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="currentColor">
+  //       <path d="M3 9h4v12H3V9Zm2-7a2.3 2.3 0 1 0 0 4.6A2.3 2.3 0 0 0 5 2Zm5 7h4v1.6c.6-1.1 1.8-2 3.4-2 3.6 0 3.6 3 3.6 5.5V21h-4v-6.1c0-1.4 0-2.8-1.5-2.8S14 13.5 14 15v6h-4V9Z" />
+  //     </svg>
+  //   );
+  // }
+  // if (name === "youtube") {
+  //   return (
+  //     <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="currentColor">
+  //       <path fillRule="evenodd" d="M21.6 6.3C21 4.6 18 4.5 12 4.5s-9 .1-9.6 1.8C2 7.8 2 10 2 12s0 4.2.4 5.7c.6 1.7 3.6 1.8 9.6 1.8s9-.1 9.6-1.8C22 16.2 22 14 22 12s0-4.2-.4-5.7ZM10 8.5l6 3.5-6 3.5v-7Z" clipRule="evenodd" />
+  //     </svg>
+  //   );
+  // }
 
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="currentColor">
@@ -52,15 +47,17 @@ export default function FooterSocials() {
       {socialLinks.map(({ label, href, icon }) => (
         <li key={label}>
           {href ? (
-            <LinkArrow
+            <MagneticFillButton
               href={href}
-              appearance="plain"
               target="_blank"
+              rel="noreferrer"
+              external
+              variant="dark"
               ariaLabel={`QuickBite on ${label} (opens in a new tab)`}
-              className="size-10 justify-center rounded-full border border-paper/20 text-paper hover:bg-paper/10 motion-safe:hover:-translate-y-0.5"
+              className="size-10 justify-center rounded-full border! border-paper/20! bg-transparent! text-paper! motion-safe:hover:-translate-y-0.5"
             >
               <SocialIcon name={icon} />
-            </LinkArrow>
+            </MagneticFillButton>
           ) : (
             <span
               role="img"

@@ -1,6 +1,14 @@
 import Image from "next/image";
 import LinkArrow from "./LinkArrow";
 
+function LogoWordmark({ light = false }: { light?: boolean }) {
+  return (
+    <span className={light ? "text-paper" : "text-ink"}>
+      Quick<span className="text-brand">Bite</span>
+    </span>
+  );
+}
+
 export default function Logo({
   variant = "color",
   priority = false,
@@ -16,8 +24,7 @@ export default function Logo({
   height?: number;
   themeAware?: boolean;
 }) {
-  const src =
-    variant === "light" ? "/quickbite-logo-light.svg" : "/quickbite-logo.svg";
+  const markSrc = variant === "light" ? "/logo-mark-light.svg" : "/logo-mark.svg";
   const colorLogoState = variant === "light" ? "invisible opacity-0" : "";
   const lightLogoState = variant === "light" ? "" : "invisible opacity-0";
 
@@ -29,35 +36,35 @@ export default function Logo({
       className={`inline-flex items-center ${className}`}
     >
       {themeAware ? (
-        <span className="relative block h-7 w-[128px] sm:h-8 sm:w-[145px]">
-          <Image
-            data-logo-color
-            src="/quickbite-logo.svg"
-            alt="QuickBite"
-            fill
-            priority={priority}
-            sizes="145px"
-            className={`${colorLogoState} object-contain object-left`}
-          />
-          <Image
-            data-logo-light
-            src="/quickbite-logo-light.svg"
-            alt=""
-            fill
-            priority={priority}
-            sizes="145px"
-            aria-hidden="true"
-            className={`${lightLogoState} object-contain object-left`}
-          />
+        <span className="relative flex h-7 w-[128px] items-center sm:h-8 sm:w-[145px]" style={{ maxWidth: width }}>
+          <span data-logo-color className={`flex items-center gap-2 ${colorLogoState}`}>
+            <Image
+              src="/logo-mark.svg"
+              alt=""
+              width={32}
+              height={32}
+              priority={priority}
+              className="size-7 object-contain sm:size-8"
+            />
+            <LogoWordmark />
+          </span>
+          <span data-logo-light className={`absolute left-0 flex items-center gap-2 ${lightLogoState}`}>
+            <Image
+              src="/logo-mark-light.svg"
+              alt=""
+              width={32}
+              height={32}
+              priority={priority}
+              className="size-7 object-contain sm:size-8"
+            />
+            <LogoWordmark light />
+          </span>
         </span>
       ) : (
-        <Image
-          src={src}
-          alt="QuickBite"
-          width={width}
-          height={height}
-          priority={priority}
-        />
+        <span className="flex items-center gap-2 font-display font-black tracking-[-0.05em]" style={{ width, fontSize: Math.max(16, height * 0.62) }}>
+          <Image src={markSrc} alt="" width={height} height={height} priority={priority} className="shrink-0 object-contain" />
+          <LogoWordmark light={variant === "light"} />
+        </span>
       )}
     </LinkArrow>
   );

@@ -7,7 +7,7 @@ export default function FooterNewsletter() {
   return (
     <section
       aria-labelledby="footer-newsletter-title"
-      className="relative flex min-w-0 flex-col overflow-hidden bg-[#382c26] p-6  max-sm:px-10 text-paper sm:p-8 lg:min-h-[26rem] lg:p-6 xl:p-8 min-[1800px]:min-h-[31rem] rounded-4xl"
+      className="relative flex min-w-0 flex-col overflow-hidden bg-ink-soft p-6  max-sm:px-10 text-paper sm:p-8 lg:min-h-[26rem] lg:p-6 xl:p-8 min-[1800px]:min-h-[31rem] rounded-4xl"
     >
       <BackgroundGrainTexture />
 

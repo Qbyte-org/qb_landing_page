@@ -83,8 +83,8 @@ export default function CompanyPage() {
             products. Reach out and say hello.
           </p>
           <div className="mt-8">
-            <Button href="mailto:hello@quickbite.ng" external size="lg">
-              hello@quickbite.ng
+            <Button href="mailto:quickbiteinfo01@gmail.com" external size="lg">
+              hello@quickbiteltd.org
             </Button>
           </div>
         </Container>

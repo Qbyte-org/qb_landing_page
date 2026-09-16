@@ -25,12 +25,12 @@ export default function FeatureGrid({ features }: { features: WaitlistFeature[] 
             whileHover={{ scale: 1.015, y: -2 }}
             className="glass-card relative min-h-44 overflow-hidden rounded-xl p-6"
           >
-            <div className="absolute right-0 bottom-0 h-1/3 w-1/3 rounded-tl-3xl border border-[#f06400]/20 bg-[#f06400]/10 blur-sm" />
-            <div className="relative flex h-11 w-11 items-center justify-center rounded-lg border border-[#fffaf5]/[0.12] bg-[#fffaf5]/[0.08]">
-              <Icon className="h-5 w-5 text-[#f0d7c2]" aria-hidden="true" />
+            <div className="absolute right-0 bottom-0 h-1/3 w-1/3 rounded-tl-3xl border border-brand/20 bg-brand/10 blur-sm" />
+            <div className="relative flex h-11 w-11 items-center justify-center rounded-lg border border-paper/[0.12] bg-paper/[0.08]">
+              <Icon className="h-5 w-5 text-apricot" aria-hidden="true" />
             </div>
-            <h3 className="relative mt-4 text-lg font-semibold text-[#fffaf5]">{feature.title}</h3>
-            <p className="relative mt-2 text-sm leading-6 text-[#f0d7c2]">{feature.description}</p>
+            <h3 className="relative mt-4 text-lg font-semibold text-paper">{feature.title}</h3>
+            <p className="relative mt-2 text-sm leading-6 text-apricot">{feature.description}</p>
           </motion.article>
         );
       })}

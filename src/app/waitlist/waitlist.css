@@ -1,11 +1,11 @@
 .qb-waitlist {
-  --qb-waitlist-background: #2a211d;
-  --qb-waitlist-foreground: #fffaf5;
-  --qb-waitlist-brand: #f06400;
-  --qb-waitlist-cream: #fffaf5;
-  --qb-waitlist-cream-soft: #f4dfcc;
-  --qb-waitlist-muted: #f0d7c2;
-  --qb-waitlist-muted-strong: #c9aa96;
+  --qb-waitlist-background: var(--color-ink);
+  --qb-waitlist-foreground: var(--color-paper);
+  --qb-waitlist-brand: var(--color-brand);
+  --qb-waitlist-cream: var(--color-paper);
+  --qb-waitlist-cream-soft: var(--color-linen);
+  --qb-waitlist-muted: var(--color-apricot);
+  --qb-waitlist-muted-strong: var(--color-tan);
   background: var(--qb-waitlist-background);
   color: var(--qb-waitlist-foreground);
   font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont,
@@ -13,9 +13,9 @@
 }
 
 .qb-waitlist .glass-panel {
-  border: 1px solid rgba(255, 250, 245, 0.1);
-  background: rgba(255, 250, 245, 0.075);
-  box-shadow: 0 0 48px rgba(240, 100, 0, 0.045) !important;
+  border: 1px solid color-mix(in srgb,var(--color-paper) 10%,transparent);
+  background: color-mix(in srgb,var(--color-paper) 7.5%,transparent);
+  box-shadow: 0 0 48px color-mix(in srgb,var(--color-brand) 4.5%,transparent) !important;
   backdrop-filter: blur(14px);
   transition:
     background-color 300ms ease,
@@ -23,33 +23,33 @@
 }
 
 .qb-waitlist .glass-panel:hover {
-  border-color: rgba(240, 100, 0, 0.26);
-  background: rgba(255, 250, 245, 0.105);
+  border-color: color-mix(in srgb,var(--color-brand) 26%,transparent);
+  background: color-mix(in srgb,var(--color-paper) 10.5%,transparent);
 }
 
 .qb-waitlist .glass-card {
-  border: 1px solid rgba(255, 250, 245, 0.1);
-  background: rgba(255, 250, 245, 0.07);
-  box-shadow: 0 0 30px rgba(240, 100, 0, 0.04) !important;
+  border: 1px solid color-mix(in srgb,var(--color-paper) 10%,transparent);
+  background: color-mix(in srgb,var(--color-paper) 7%,transparent);
+  box-shadow: 0 0 30px color-mix(in srgb,var(--color-brand) 4%,transparent) !important;
   backdrop-filter: blur(14px);
 }
 
 .qb-waitlist .outline-display {
   color: transparent;
-  -webkit-text-stroke: 1px rgba(240, 215, 194, 0.28);
+  -webkit-text-stroke: 1px color-mix(in srgb,var(--color-apricot) 28%,transparent);
   background: linear-gradient(
     to bottom,
-    rgba(255, 250, 245, 0.14),
+    color-mix(in srgb,var(--color-paper) 14%,transparent),
     transparent
   );
   background-clip: text;
   -webkit-background-clip: text;
-  filter: drop-shadow(0 0 45px rgba(240, 100, 0, 0.075));
+  filter: drop-shadow(0 0 45px color-mix(in srgb,var(--color-brand) 7.5%,transparent));
   user-select: none;
 }
 
 .qb-waitlist .coming-soon-outline {
-  filter: drop-shadow(0 0 45px rgba(240, 100, 0, 0.075));
+  filter: drop-shadow(0 0 45px color-mix(in srgb,var(--color-brand) 7.5%,transparent));
 }
 
 .qb-waitlist .coming-soon-outline__text {
@@ -60,7 +60,7 @@
 
 .qb-waitlist .coming-soon-outline__trace {
   animation: qb-coming-soon-border-trace 5.8s linear infinite;
-  filter: drop-shadow(0 0 10px rgba(240, 100, 0, 0.72));
+  filter: drop-shadow(0 0 10px color-mix(in srgb,var(--color-brand) 72%,transparent));
   will-change: stroke-dashoffset;
 }
 
@@ -69,24 +69,24 @@
   color: transparent;
   background: linear-gradient(
     to bottom,
-    rgba(255, 250, 245, 0.82),
-    rgba(240, 215, 194, 0.22)
+    color-mix(in srgb,var(--color-paper) 82%,transparent),
+    color-mix(in srgb,var(--color-apricot) 22%,transparent)
   );
   background-clip: text;
   -webkit-background-clip: text;
-  filter: drop-shadow(0 0 24px rgba(240, 100, 0, 0.12));
+  filter: drop-shadow(0 0 24px color-mix(in srgb,var(--color-brand) 12%,transparent));
   will-change: transform, opacity;
 }
 
 .qb-waitlist .qb-loader-progress {
-  box-shadow: 0 0 12px rgba(240, 100, 0, 0.75) !important;
+  box-shadow: 0 0 12px color-mix(in srgb,var(--color-brand) 75%,transparent) !important;
 }
 
 .qb-waitlist .hero-panel {
-  border: 1px solid #fffaf51a;
+  border: 1px solid color-mix(in srgb,var(--color-paper) 10.196%,transparent);
   box-shadow:
-    inset 0 1px 0 rgba(255, 250, 245, 0.06),
-    0 0 48px rgba(240, 100, 0, 0.04) !important;
+    inset 0 1px 0 color-mix(in srgb,var(--color-paper) 6%,transparent),
+    0 0 48px color-mix(in srgb,var(--color-brand) 4%,transparent) !important;
 }
 
 .qb-waitlist .hero-panel::before,
@@ -97,7 +97,7 @@
   width: 34px;
   height: 84%;
   border-radius: 999px;
-  background: rgba(255, 250, 245, 0.22);
+  background: color-mix(in srgb,var(--color-paper) 22%,transparent);
   filter: blur(28px);
   pointer-events: none;
 }
@@ -118,9 +118,9 @@
   flex-direction: column;
   align-items: flex-start;
   overflow: hidden;
-  border: 1px solid rgba(255, 250, 245, 0.11);
+  border: 1px solid color-mix(in srgb,var(--color-paper) 11%,transparent);
   border-radius: 16px;
-  background: rgba(255, 250, 245, 0.055);
+  background: color-mix(in srgb,var(--color-paper) 5.5%,transparent);
   padding: 20px;
   backdrop-filter: blur(14px);
   transition:
@@ -137,7 +137,7 @@
   width: 70%;
   height: 70%;
   border-radius: 999px;
-  background: rgba(240, 100, 0, 0.13);
+  background: color-mix(in srgb,var(--color-brand) 13%,transparent);
   filter: blur(22px);
 }
 
@@ -148,16 +148,16 @@
 
 .qb-waitlist a.contact-item:hover {
   transform: translateY(-2px);
-  border-color: rgba(240, 100, 0, 0.28);
-  background: rgba(255, 250, 245, 0.08);
+  border-color: color-mix(in srgb,var(--color-brand) 28%,transparent);
+  background: color-mix(in srgb,var(--color-paper) 8%,transparent);
 }
 
 .qb-waitlist .background-grid {
   background-image:
-    linear-gradient(rgba(255, 250, 245, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 250, 245, 0.035) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb,var(--color-paper) 3.5%,transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb,var(--color-paper) 3.5%,transparent) 1px, transparent 1px);
   background-size: 54px 54px;
-  mask-image: radial-gradient(circle at center, black, transparent 72%);
+  mask-image: radial-gradient(circle at center, var(--color-black), transparent 72%);
 }
 
 .qb-waitlist .background-glow {
@@ -165,7 +165,7 @@
   width: 42rem;
   height: 18rem;
   border-radius: 50%;
-  background: rgba(240, 100, 0, 0.14);
+  background: color-mix(in srgb,var(--color-brand) 14%,transparent);
   filter: blur(90px);
 }
 
@@ -183,17 +183,17 @@
   position: absolute;
   display: block;
   border-radius: 999px;
-  background: rgba(240, 215, 194, 0.42);
+  background: color-mix(in srgb,var(--color-apricot) 42%,transparent);
   animation: qb-particle-drift ease-in-out infinite;
   will-change: transform, opacity;
 }
 
 .qb-waitlist .ripple-grid {
   background-image:
-    linear-gradient(rgba(240, 215, 194, 0.16) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(240, 215, 194, 0.16) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb,var(--color-apricot) 16%,transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb,var(--color-apricot) 16%,transparent) 1px, transparent 1px);
   background-size: 42px 42px;
-  mask-image: radial-gradient(ellipse at top, black 12%, transparent 78%);
+  mask-image: radial-gradient(ellipse at top, var(--color-black) 12%, transparent 78%);
   cursor: crosshair;
 }
 
@@ -201,7 +201,7 @@
   position: absolute;
   width: 18px;
   height: 18px;
-  border: 1px solid rgba(240, 100, 0, 0.85);
+  border: 1px solid color-mix(in srgb,var(--color-brand) 85%,transparent);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   animation: qb-ripple-wave 1.15s ease-out forwards;
@@ -223,13 +223,13 @@
 @keyframes qb-ripple-wave {
   from {
     opacity: 0.85;
-    filter: drop-shadow(0 0 0 rgba(240, 100, 0, 0.3));
+    filter: drop-shadow(0 0 0 color-mix(in srgb,var(--color-brand) 30%,transparent));
   }
   to {
     width: min(90vw, 720px);
     height: min(90vw, 720px);
     opacity: 0;
-    filter: drop-shadow(0 0 40px rgba(240, 100, 0, 0));
+    filter: drop-shadow(0 0 40px transparent);
   }
 }
 

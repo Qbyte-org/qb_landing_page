@@ -27,7 +27,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       data-nav-theme="hero"
-      className="relative overflow-hidden bg-[#1c120f] text-paper"
+      className="relative overflow-hidden bg-dark-ink text-paper"
     >
       <div className="relative pb-12 pt-30 sm:pb-14 sm:pt-38 lg:pb-16 lg:pt-48 xl:pt-52">
         <HeroDecor />
@@ -64,7 +64,7 @@ export default function Hero() {
               href="/restaurants"
               variant="brand"
               customFillClass="bg-paper"
-              customHoverTextColor="#2a211d"
+              customHoverTextColor="var(--color-ink)"
               className="pointer-events-auto h-14 cursor-pointer rounded-4xl border-brand bg-brand! px-7 text-base font-semibold text-white! sm:h-[3.75rem] sm:px-8"
             >
               Order now

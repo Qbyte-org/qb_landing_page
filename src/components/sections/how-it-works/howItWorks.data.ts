@@ -6,21 +6,21 @@ const processVisuals = [
     imageAlt: heroSlides[0].alt,
     plate: "/quickbite-delivery-bike.svg",
     accent: "/images/food/pinterest/akara-bean-cakes.webp",
-    background: "#fff7f0",
+    background: "var(--color-cream)",
   },
   {
     image: heroSlides[1].src,
     imageAlt: heroSlides[1].alt,
     plate: "/quickbite-delivery-bike.svg",
     accent: "/images/food/pinterest/puff-puff.webp",
-    background: "#fff2df",
+    background: "var(--color-cream-200)",
   },
   {
     image: heroSlides[2].src,
     imageAlt: heroSlides[2].alt,
     plate: "/quickbite-delivery-bike.svg",
     accent: "/images/food/pinterest/jollof-takeaway.webp",
-    background: "#fff9ed",
+    background: "var(--color-paper)",
   },
 ];
 

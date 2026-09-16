@@ -9,7 +9,7 @@ export default function ProcessVisualPanel({
   activeIndex: number;
 }) {
   return (
-    <div className="relative min-h-[20rem] overflow-hidden bg-[#1c120f] sm:min-h-[23rem] lg:min-h-[28rem]">
+    <div className="relative min-h-[20rem] overflow-hidden bg-dark-ink sm:min-h-[23rem] lg:min-h-[28rem]">
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={activeStep.title}
@@ -29,7 +29,7 @@ export default function ProcessVisualPanel({
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-tr from-[#1c120f]/80 via-[#1c120f]/15 to-transparent"
+            className="absolute inset-0 bg-gradient-to-tr from-dark-ink/80 via-dark-ink/15 to-transparent"
           />
         </motion.div>
       </AnimatePresence>

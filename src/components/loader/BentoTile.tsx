@@ -27,7 +27,7 @@ const BentoTile = forwardRef<HTMLDivElement, BentoTileProps>(
               <div data-brand-mark className="flex flex-col items-center gap-3 sm:flex-row">
                 <div className="relative h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0">
                   <Image
-                    src="/quickbite-logo-light.svg"
+                    src="/logo-mark-light.svg"
                     alt="QuickBite"
                     fill
                     className="object-contain"
@@ -77,7 +77,7 @@ const BentoTile = forwardRef<HTMLDivElement, BentoTileProps>(
 
           {data.type === "order" && (
             <div className="flex h-full flex-col justify-center p-4 sm:p-6">
-              <span className="mb-3 text-xs font-bold tracking-widest text-[#F15F00] sm:text-sm">
+              <span className="mb-3 text-xs font-bold tracking-widest text-brand sm:text-sm">
                 {data.content.text}
               </span>
               <ul className="flex flex-col gap-2 text-xs font-medium sm:text-sm">
@@ -89,7 +89,7 @@ const BentoTile = forwardRef<HTMLDivElement, BentoTileProps>(
                   <span>Picked up</span>
                   <span>✓</span>
                 </li>
-                <li data-bento-status-active className="flex items-center justify-between font-bold text-[#F15F00]">
+                <li data-bento-status-active className="flex items-center justify-between font-bold text-brand">
                   <span>On the way</span>
                   <span className="animate-pulse">●</span>
                 </li>
@@ -107,14 +107,14 @@ const BentoTile = forwardRef<HTMLDivElement, BentoTileProps>(
 
           {data.type === "map" && (
             <div className="relative flex h-full items-center justify-center p-4">
-              <div className="absolute inset-0 bg-[#fffaf5] opacity-50 [background-image:linear-gradient(rgba(0,0,0,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.05)_1px,transparent_1px)] [background-size:2rem_2rem]"></div>
+              <div className="absolute inset-0 bg-paper opacity-50 [background-image:linear-gradient(color-mix(in_srgb,var(--color-black)_5%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--color-black)_5%,transparent)_1px,transparent_1px)] [background-size:2rem_2rem]"></div>
               <div className="relative flex w-full flex-col items-center gap-2">
                 <div className="flex w-full items-center justify-between">
-                  <div className="h-2 w-2 rounded-full bg-[#2a211d]"></div>
+                  <div className="h-2 w-2 rounded-full bg-ink"></div>
                   <div className="h-[2px] flex-1 overflow-hidden">
-                    <div data-bento-route className="h-full w-full bg-[#F15F00] [transform-origin:left]"></div>
+                    <div data-bento-route className="h-full w-full bg-brand [transform-origin:left]"></div>
                   </div>
-                  <div className="h-3 w-3 rounded-full bg-[#F15F00]"></div>
+                  <div className="h-3 w-3 rounded-full bg-brand"></div>
                 </div>
               </div>
             </div>

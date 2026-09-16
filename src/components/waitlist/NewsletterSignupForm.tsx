@@ -28,7 +28,7 @@ export default function NewsletterSignupForm() {
               disabled={!isReady || isSubmitting}
               maxLength={254}
               placeholder="Email address"
-              className="min-w-0 w-full bg-transparent px-3 py-3 text-base text-paper placeholder:text-peach/75 focus-visible:outline-paper! autofill:[-webkit-box-shadow:0_0_0_9999px_#382c26_inset]! autofill:[-webkit-text-fill-color:#fffaf5]! sm:px-4 sm:text-lg min-[1800px]:text-xl rounded-4xl"
+              className="min-w-0 w-full bg-transparent px-3 py-3 text-base text-paper placeholder:text-peach/75 focus-visible:outline-paper! autofill:[-webkit-box-shadow:0_0_0_9999px_var(--color-ink-soft)_inset]! autofill:[-webkit-text-fill-color:var(--color-paper)]! sm:px-4 sm:text-lg min-[1800px]:text-xl rounded-4xl"
             />
           </div>
           <label htmlFor="footer-phone" className="sr-only">
@@ -46,7 +46,7 @@ export default function NewsletterSignupForm() {
               disabled={!isReady || isSubmitting}
               maxLength={32}
               placeholder="Phone (optional)"
-              className="min-w-0 flex-1 bg-transparent px-3 py-3 text-base text-paper placeholder:text-peach/75 focus-visible:outline-paper! autofill:[-webkit-box-shadow:0_0_0_9999px_#382c26_inset]! autofill:[-webkit-text-fill-color:#fffaf5]! sm:px-4 sm:text-lg min-[1800px]:text-xl rounded-4xl"
+              className="min-w-0 flex-1 bg-transparent px-3 py-3 text-base text-paper placeholder:text-peach/75 focus-visible:outline-paper! autofill:[-webkit-box-shadow:0_0_0_9999px_var(--color-ink-soft)_inset]! autofill:[-webkit-text-fill-color:var(--color-paper)]! sm:px-4 sm:text-lg min-[1800px]:text-xl rounded-4xl"
             />
             <MagneticFillButton
               type="submit"
@@ -55,7 +55,7 @@ export default function NewsletterSignupForm() {
               disabled={!isReady || isSubmitting}
               variant="dark"
               customFillClass="bg-cream-200"
-              customHoverTextColor="#2a211d"
+              customHoverTextColor="var(--color-ink)"
               className="group h-11 w-11 shrink-0 rounded-full bg-transparent! text-paper! focus-visible:outline-2! focus-visible:outline-offset-2 focus-visible:outline-paper!"
             >
               {isSubmitting ? <LoaderCircle className="size-5 motion-safe:animate-spin" aria-hidden="true" /> : <ArrowRight

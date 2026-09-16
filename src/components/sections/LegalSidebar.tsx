@@ -49,7 +49,7 @@ export default function LegalSidebar({ current }: { current: LegalSlug }) {
           Our team is happy to help clarify anything.
         </p>
         <LinkArrow
-          href="mailto:support@quickbite.ng"
+          href="mailto:quickbiteinfo01@gmail.com"
           variant="dark"
           className="mt-3 w-full min-w-0! text-sm! font-semibold normal-case! text-brand-light! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em]"
         >

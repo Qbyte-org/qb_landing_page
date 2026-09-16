@@ -20,7 +20,7 @@ const navigation = [
     links: [
       { label: "Join the waitlist", href: "/waitlist" },
       { label: "FAQs", href: "/#faq" },
-      { label: "Contact us", href: "mailto:support@quickbite.ng" },
+      { label: "Contact us", href: "mailto:quickbiteinfo01@gmail.com" },
     ],
   },
 ] as const;
@@ -45,7 +45,7 @@ export default function Footer() {
   return (
     <footer
       data-nav-theme="dark"
-      className="relative overflow-hidden bg-[#1c120f] text-paper"
+      className="relative overflow-hidden bg-dark-ink text-paper"
     >
       <div className="mx-auto grid w-[92%] max-w-[1840px] gap-10 pb-28 pt-10 sm:gap-12 sm:pt-12 lg:grid-cols-[minmax(0,3.2fr)_minmax(0,5.3fr)_minmax(0,1.6fr)] lg:gap-[4vw] lg:pb-12">
         <FooterNewsletter />
@@ -84,7 +84,7 @@ export default function Footer() {
               href="/#cities"
               variant="cream"
               prefetch={false}
-              className="min-h-10 w-fit justify-center gap-2 rounded-pill border-2 border-[#2a211d] px-3 py-2 text-sm 2xl:text-base"
+              className="min-h-10 w-fit justify-center gap-2 rounded-pill border-2 border-ink px-3 py-2 text-sm 2xl:text-base"
             >
               <MapPin className="size-4" aria-hidden="true" />
               All locations
@@ -110,7 +110,7 @@ export default function Footer() {
         </div>
 
         <div aria-hidden="true" className="relative hidden items-stretch justify-center lg:flex">
-          <div className="absolute -bottom-9 -top-9 left-0 w-px bg-[repeating-linear-gradient(to_bottom,rgba(255,231,215,0.45)_0px,rgba(255,231,215,0.45)_12px,transparent_12px,transparent_20px)]">
+          <div className="absolute -bottom-9 -top-9 left-0 w-px bg-[repeating-linear-gradient(to_bottom,color-mix(in_srgb,var(--color-peach)_45%,transparent)_0px,color-mix(in_srgb,var(--color-peach)_45%,transparent)_12px,transparent_12px,transparent_20px)]">
             <span className="absolute -left-3 -top-3 size-6 bg-peach/35 [clip-path:polygon(0_0,100%_0,50%_50%)]" />
             <span className="absolute -bottom-3 -left-3 size-6 bg-peach/35 [clip-path:polygon(50%_50%,100%_100%,0_100%)]" />
           </div>

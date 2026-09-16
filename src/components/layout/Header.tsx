@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { ListOrderedIcon, MapPin } from "lucide-react";
 import Image from "next/image";
 import { useNavbarTheme } from "@/hooks/use-navbar-theme";
+import { navThemes } from "@/config/navigation";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import MagneticFillButton from "../ui/MagneticFillButton";
 import LinkArrow from "../ui/LinkArrow";
@@ -26,22 +27,22 @@ const menuLinks = [
 ];
 
 const navThemeDefaults = {
-  "--nav-surface": "#fffaf5",
-  "--nav-foreground": "#2a211d",
-  "--nav-muted": "#6d5c52",
-  "--nav-icon": "#c24f00",
-  "--nav-chip": "#fff0e4",
-  "--nav-chip-text": "#2a211d",
-  "--nav-action": "#1c120f",
-  "--nav-action-text": "#ffffff",
-  "--nav-action-fill": "#fff0e4",
-  "--nav-action-hover-text": "#2a211d",
-  "--magnetic-bg": "#fff0e4",
-  "--magnetic-text": "#2a211d",
-  "--magnetic-fill": "#fff0e4",
-  "--magnetic-hover-text": "#2a211d",
-  "--nav-menu-fill": "#1c120f",
-  "--nav-menu-hover-text": "#fffaf5",
+  "--nav-surface": navThemes.hero.surface,
+  "--nav-foreground": navThemes.hero.foreground,
+  "--nav-muted": navThemes.hero.muted,
+  "--nav-icon": navThemes.hero.icon,
+  "--nav-chip": navThemes.hero.chip,
+  "--nav-chip-text": navThemes.hero.chipText,
+  "--nav-action": navThemes.hero.action,
+  "--nav-action-text": navThemes.hero.actionText,
+  "--nav-action-fill": "var(--color-cream-200)",
+  "--nav-action-hover-text": "var(--color-ink)",
+  "--magnetic-bg": navThemes.hero.chip,
+  "--magnetic-text": navThemes.hero.chipText,
+  "--magnetic-fill": "var(--color-cream-200)",
+  "--magnetic-hover-text": "var(--color-ink)",
+  "--nav-menu-fill": "var(--color-dark-ink)",
+  "--nav-menu-hover-text": "var(--color-paper)",
 } as CSSProperties;
 
 function MenuGlyph({ open }: { open: boolean }) {
@@ -261,7 +262,7 @@ export default function Header() {
               className="h-full w-full justify-center gap-2.5 rounded-pill text-[var(--nav-foreground)] sm:gap-3"
             >
               <Image
-                src="/quickbite-mark.svg"
+                src="/logo-mark.svg"
                 alt="QuickBite"
                 width={64}
                 height={64}
@@ -307,7 +308,7 @@ export default function Header() {
                 className="min-w-0 flex-1 gap-2 rounded-pill pl-1 text-[var(--nav-foreground)] sm:hidden!"
               >
                 <Image
-                  src="/quickbite-mark.svg"
+                  src="/logo-mark.svg"
                   alt=""
                   width={56}
                   height={56}
@@ -347,7 +348,7 @@ export default function Header() {
                 type="button"
                 aria-label="Theme preview"
                 data-nav-chip
-                className="hidden h-9 w-9 cursor-pointer items-center justify-center rounded-pill bg-white text-[#24180f] sm:flex sm:h-10 sm:w-10 xl:h-12 xl:w-12"
+                className="hidden h-9 w-9 cursor-pointer items-center justify-center rounded-pill bg-white text-dark-ink sm:flex sm:h-10 sm:w-10 xl:h-12 xl:w-12"
               >
                 <Sun data-nav-icon className="h-4 w-4" strokeWidth={2.2} aria-hidden="true" />
               </motion.button> */}
