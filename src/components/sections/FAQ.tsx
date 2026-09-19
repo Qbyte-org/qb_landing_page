@@ -61,10 +61,10 @@ export default function FAQ() {
               >
                 <MagneticFillButton
                   as="summary"
-                  variant="white"
+                  variant="ghost"
                   ariaLabel={faq.question}
-                  customFillClass="bg-cream-200"
-                  customHoverTextColor="var(--color-ink)"
+                  // customFillClass="bg-cream-200"
+                  // customHoverTextColor="var(--color-cream)!"
                   className="block! min-h-24 w-full list-none bg-transparent! px-2 py-6 text-left text-ink! focus-visible:outline-2! focus-visible:outline-ink! focus-visible:outline-offset-[-3px] sm:px-5"
                   contentClassName="grid! w-full grid-cols-[1.25rem_minmax(0,1fr)_2rem] items-center gap-3! sm:grid-cols-[1.5rem_minmax(0,1fr)_2.5rem] sm:gap-5!"
                 >

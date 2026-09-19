@@ -47,7 +47,21 @@ export default function Footer() {
       data-nav-theme="dark"
       className="relative overflow-hidden bg-dark-ink text-paper"
     >
-      <div className="mx-auto grid w-[92%] max-w-[1840px] gap-10 pb-28 pt-10 sm:gap-12 sm:pt-12 lg:grid-cols-[minmax(0,3.2fr)_minmax(0,5.3fr)_minmax(0,1.6fr)] lg:gap-[4vw] lg:pb-12">
+      <div className="mx-auto grid w-[92%] max-w-[1840px] grid-cols-1 gap-10 pb-28 pt-10 sm:gap-12 sm:pt-12 lg:grid-cols-[clamp(4.5rem,calc(5vw+1.5rem),6.5rem)_minmax(0,2fr)_minmax(0,3fr)_1px] lg:gap-x-6 lg:gap-y-0 lg:pb-12 xl:gap-x-10 2xl:gap-x-14">
+        <div aria-hidden="true" className="relative hidden items-stretch justify-center pr-6 lg:flex">
+          <svg
+            viewBox="0 0 72 420"
+            preserveAspectRatio="none"
+            className="h-full min-h-[26rem] w-3/4 max-w-14 text-paper/70"
+          >
+            <path d={barcodePath} fill="currentColor" />
+          </svg>
+          <div className="absolute -bottom-9 -top-9 right-0 w-px bg-[repeating-linear-gradient(to_bottom,color-mix(in_srgb,var(--color-peach)_45%,transparent)_0px,color-mix(in_srgb,var(--color-peach)_45%,transparent)_12px,transparent_12px,transparent_20px)]">
+            <span className="absolute -left-3 -top-3 size-6 bg-peach/35 [clip-path:polygon(0_0,100%_0,50%_50%)]" />
+            <span className="absolute -bottom-3 -left-3 size-6 bg-peach/35 [clip-path:polygon(50%_50%,100%_100%,0_100%)]" />
+          </div>
+        </div>
+
         <FooterNewsletter />
 
         <div className="flex min-w-0 flex-col">
@@ -64,7 +78,7 @@ export default function Footer() {
                         href={link.href}
                         variant="dark"
                         prefetch={false}
-                        className="min-h-10 w-72 min-w-0! gap-2! border-paper/15! text-sm! font-semibold uppercase leading-snug text-paper! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.02em] sm:min-h-9 sm:text-lg! lg:min-h-8 lg:text-[clamp(.8rem,1.05vw,1.25rem)]!"
+                        className="min-h-10 w-full min-w-0! gap-2! border-paper/15! text-sm! font-semibold uppercase leading-snug text-paper! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.02em] sm:min-h-9 sm:text-lg! lg:min-h-8 lg:text-[clamp(.8rem,1.05vw,1.25rem)]!"
                       >
                         {link.label}
                       </LinkArrow>
@@ -91,14 +105,14 @@ export default function Footer() {
             </MagneticFillButton>
 
             <nav aria-label="Legal" className="order-3 sm:col-span-2">
-              <ul className="flex flex-wrap gap-x-10 gap-y-1">
+              <ul className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,9rem),1fr))] gap-x-4 gap-y-1">
                 {legalLinks.map((link) => (
                   <li key={link.label}>
                     <LinkArrow
                       href={link.href}
                       prefetch={false}
                       variant="dark"
-                      className="min-h-9 w-52 gap-4! border-paper/15! text-sm! font-normal! normal-case! text-paper! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em] 2xl:text-base!"
+                      className="min-h-9 w-full min-w-0! gap-4! border-paper/15! text-sm! font-normal! normal-case! text-paper! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em] 2xl:text-base!"
                     >
                       {link.label}
                     </LinkArrow>
@@ -114,13 +128,6 @@ export default function Footer() {
             <span className="absolute -left-3 -top-3 size-6 bg-peach/35 [clip-path:polygon(0_0,100%_0,50%_50%)]" />
             <span className="absolute -bottom-3 -left-3 size-6 bg-peach/35 [clip-path:polygon(50%_50%,100%_100%,0_100%)]" />
           </div>
-          <svg
-            viewBox="0 0 72 420"
-            preserveAspectRatio="none"
-            className="ml-[15%] h-full min-h-[26rem] w-[36%] max-w-20 text-paper/70"
-          >
-            <path d={barcodePath} fill="currentColor" />
-          </svg>
         </div>
       </div>
     </footer>

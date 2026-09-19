@@ -202,6 +202,9 @@ export default function Header() {
     () => {
       if (!menuOpen) return;
       const previousOverflow = document.body.style.overflow;
+      const lenis = window.quickBiteLenis;
+      const shouldResumeScroll = lenis && !lenis.isStopped;
+      lenis?.stop();
       document.body.style.overflow = "hidden";
       const closeOnOutsidePointerDown = (event: PointerEvent) => {
         const nav = navRef.current;
@@ -214,6 +217,7 @@ export default function Header() {
       document.addEventListener("pointerdown", closeOnOutsidePointerDown, true);
       return () => {
         document.body.style.overflow = previousOverflow;
+        if (shouldResumeScroll && window.quickBiteLenis === lenis) lenis.start();
         document.removeEventListener(
           "pointerdown",
           closeOnOutsidePointerDown,

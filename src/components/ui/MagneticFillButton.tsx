@@ -20,12 +20,13 @@ export type MagneticFillVariant =
   | "white"
   | "ghost"
   | "cream"
+  | "cream_200"
   ;
 
 type MagneticElement = HTMLElement;
 
 export interface MagneticFillButtonProps extends Omit<HTMLAttributes<MagneticElement>, "children"> {
-  as?: "button" | "summary";
+  as?: "button" | "summary" | "div";
   variant?: MagneticFillVariant;
   /** @deprecated Hover surfaces now use the shared cream/ink palette. */
   customFillClass?: string;
@@ -84,6 +85,11 @@ const variants: Record<
     root: "bg-cream text-ink",
     fill: "bg-ink",
     hoverText: "text-cream-200!",
+  },
+  cream_200: {
+    root: "bg-cream-200 text-navy",
+    fill: "bg-cream",
+    hoverText: "text-ink!",
   },
 };
 
@@ -199,10 +205,15 @@ export default function MagneticFillButton({
     styles.root,
     className,
   ].join(" ");
-  const childColorClassName =
-    "[&_*]:![color:inherit] [&_svg]:!text-current [&_svg]:!stroke-current";
+  // Decorative card surfaces can contain their own photo captions and avatar
+  // backgrounds. Preserve those explicit foreground colors while the card's
+  // inherited text follows the same magnetic reveal as a button.
+  const childColorClassName = as === "div"
+    ? ""
+    : "[&_*]:![color:inherit] [&_svg]:!text-current [&_svg]:!stroke-current";
   const hoverAccentClassName =
     "[&_[data-magnetic-accent]]:!bg-current [&_[data-magnetic-accent]]:![fill:currentColor] [&_[data-magnetic-accent]]:![stroke:currentColor]";
+  const Content = as === "div" ? "div" : "span";
 
   const content = (
     <>
@@ -218,18 +229,18 @@ export default function MagneticFillButton({
           transform: `translate(-50%, -50%) scale(${isHovered ? 1 : 0})`,
         }}
       />
-      <span
+      <Content
         data-magnetic-content=""
         className={`relative z-10 transition-colors duration-300 motion-reduce:transition-none! ${contentClassName} ${isHovered
-            ? `${startsOnPaper ? "text-paper" : styles.hoverText} ${childColorClassName} ${hoverAccentClassName}`
-            : childColorClassName
+          ? `${startsOnPaper ? "text-paper" : styles.hoverText} ${childColorClassName} ${hoverAccentClassName}`
+          : childColorClassName
           }`}
         style={{
           color: isHovered ? activeHoverTextColor : idleTextColor,
         }}
       >
         {children}
-      </span>
+      </Content>
     </>
   );
 
@@ -254,6 +265,14 @@ export default function MagneticFillButton({
       <summary {...sharedProps} ref={buttonRef}>
         {content}
       </summary>
+    );
+  }
+
+  if (as === "div") {
+    return (
+      <div {...sharedProps} ref={buttonRef as RefObject<HTMLDivElement>}>
+        {content}
+      </div>
     );
   }
 

@@ -8,6 +8,7 @@ import { testimonials } from "@/content/site";
 import Container from "../ui/Container";
 import SectionTag from "../ui/SectionTag";
 import BackgroundGrainTexture from "../ui/BackgroundGrainTexture";
+import MagneticFillButton from "../ui/MagneticFillButton";
 
 const extraTestimonials = [
   {
@@ -181,10 +182,18 @@ function CommunityPanel() {
 
 function StoryCardShell({ children, expandable = false }: { children: ReactNode; expandable?: boolean }) {
   return (
-    <figure className={`group relative flex min-w-0 shrink-0 flex-col overflow-hidden rounded-[2.35rem] border border-ink/10 bg-cream-200 p-5 text-ink transition-colors duration-300 hover:border-ink/25 sm:p-6 ${expandable ? "grow" : ""}`}>
-      <BackgroundGrainTexture className="opacity-72!" />
-      {children}
-    </figure>
+    <MagneticFillButton
+      as="div"
+      variant="cream_200"
+      className={`group flex! min-w-0 shrink-0 cursor-default! flex-col rounded-[2.35rem] border! border-dashed!
+         border-ink p-0 font-normal! hover:border-ink/30 text-ink! ${expandable ? "grow" : ""}`}
+      contentClassName="flex w-full grow flex-col items-stretch text-left"
+    >
+      <figure className="relative flex min-w-0 grow flex-col p-5 sm:p-6">
+        <BackgroundGrainTexture className="opacity-24! transition-opacity duration-300 group-hover:opacity-15! motion-reduce:transition-none" />
+        {children}
+      </figure>
+    </MagneticFillButton>
   );
 }
 
@@ -199,18 +208,18 @@ function AuthorRow({
 
   return (
     <figcaption className={`relative flex shrink-0 items-center gap-3 ${withDivider ? "border-t border-dashed border-ink/20 pt-5" : ""}`}>
-      <span aria-hidden="true" className="grid size-11 shrink-0 place-items-center rounded-full border border-ink/10 bg-paper font-display text-sm font-semibold">
+      <span aria-hidden="true" className="grid size-11 shrink-0 place-items-center rounded-full border border-ink/10 bg-paper font-display text-sm font-semibold text-ink">
         {testimonial.initials}
       </span>
       <span className="min-w-0">
         <span className="block text-base font-semibold leading-snug sm:text-lg">
           {testimonial.name}
         </span>
-        <span className="mt-1 block text-xs text-cocoa sm:text-sm">
+        <span className="mt-1 block text-xs text-cocoa transition-colors duration-300 motion-reduce:transition-none sm:text-sm">
           {role}
         </span>
         {location ? (
-          <span className="mt-1 flex items-center gap-1 text-xs text-cocoa">
+          <span className="mt-1 flex items-center gap-1 text-xs text-cocoa transition-colors duration-300 motion-reduce:transition-none">
             <MapPin aria-hidden="true" className="size-3 shrink-0" />
             {location}
           </span>
@@ -225,9 +234,8 @@ function MediaStoryCard({ story }: { story: StoryCard }) {
 
   return (
     <StoryCardShell expandable>
-      <BackgroundGrainTexture className="opacity-72!" />
       <AuthorRow testimonial={story.testimonial} />
-      <div className={`relative mt-5 grow shrink-0 overflow-hidden rounded-[2.35rem] ${isIllustration ? "bg-cream-200" : "bg-ink"} ${story.mediaClassName ?? "min-h-[16rem]"}`}>
+      <div className={`relative mt-5 grow shrink-0 overflow-hidden rounded-[2.35rem] ${isIllustration ? "bg-cream-200 border border-dashed border-ink/30" : "bg-ink"} ${story.mediaClassName ?? "min-h-[16rem]"}`}>
         {story.image ? (
           <Image
             src={story.image}
@@ -257,12 +265,11 @@ function MediaStoryCard({ story }: { story: StoryCard }) {
 function QuoteStoryCard({ story, index }: { story: StoryCard; index: number }) {
   return (
     <StoryCardShell>
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[url('/images/footer-grain.svg')] bg-size-[128px_128px] opacity-10 mix-blend-multiply" />
       <div className="relative flex flex-col">
         <div className="flex items-end justify-between gap-3">
           {/* <StoryLabel label={story.label} /> */}
           <Quote aria-hidden="true" className="mt-7 size-8 text-brand" strokeWidth={1.5} />
-          <span aria-hidden="true" className="font-mono text-xs text-cocoa">
+          <span aria-hidden="true" className="font-mono text-xs text-cocoa transition-colors duration-300 motion-reduce:transition-none">
             {String(index + 1).padStart(2, "0")}
           </span>
         </div>

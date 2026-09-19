@@ -2,15 +2,21 @@ type SectionWaveProps = {
   to: "ink" | "paper";
   placement?: "flow" | "bottom";
   splitBackground?: boolean;
+  className?: string;
 };
 
-export default function SectionWave({ to, placement = "flow", splitBackground = false }: SectionWaveProps) {
+export default function SectionWave({
+  to,
+  placement = "flow",
+  splitBackground = false,
+  className = "",
+}: SectionWaveProps) {
   return (
     <div
       aria-hidden="true"
       data-section-wave={to}
       data-wave-split={splitBackground || undefined}
-      className={`pointer-events-none h-20 overflow-hidden sm:h-28 lg:h-36 ${to === "ink" ? "bg-paper text-dark-ink" : "bg-dark-ink text-paper"} ${placement === "bottom" ? "absolute inset-x-0 -bottom-px z-0" : "relative"}`}
+      className={`pointer-events-none h-20 overflow-hidden sm:h-28 lg:h-36 ${to === "ink" ? "bg-paper text-dark-ink" : "bg-dark-ink text-paper"} ${placement === "bottom" ? "absolute inset-x-0 -bottom-px z-0" : "relative"} ${className}`}
     >
       {splitBackground && (
         <div className="absolute inset-y-0 left-0 hidden w-1/2 bg-cream-200 lg:block" />

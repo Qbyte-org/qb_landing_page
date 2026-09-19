@@ -6,17 +6,34 @@ import SectionWave from "../ui/SectionWave";
 import BackgroundGrainTexture from "../ui/BackgroundGrainTexture";
 import CtaFoodSlideshow from "./final-cta/CtaFoodSlideshow";
 
-export default function FinalCTA() {
+type FinalCTAProps = {
+  id?: string;
+  heading?: string;
+  supportingCopy?: string;
+  actionLabel?: string;
+  actionHref?: string;
+  splitBackground?: boolean;
+};
+
+export default function FinalCTA({
+  id = "final-cta",
+  heading = "Find, Order & Enjoy",
+  supportingCopy = "Your next favourite meal starts here!",
+  actionLabel = "Explore restaurants",
+  actionHref = "/restaurants",
+  splitBackground = true,
+}: FinalCTAProps = {}) {
   const reducedMotion = useReducedMotion();
+  const titleId = `${id}-title`;
 
   return (
     <section
-      id="final-cta"
+      id={id}
       data-nav-theme="dark"
-      aria-labelledby="final-cta-title"
+      aria-labelledby={titleId}
       className="overflow-hidden bg-dark-ink text-paper scroll-mt-24"
     >
-      <SectionWave to="ink" splitBackground />
+      <SectionWave to="ink" splitBackground={splitBackground} />
       <motion.div
         initial={false}
         whileInView={reducedMotion === false ? { y: [16, 0], opacity: [0.75, 1] } : undefined}
@@ -44,10 +61,10 @@ export default function FinalCTA() {
           </svg>
 
           <h2
-            id="final-cta-title"
+            id={titleId}
             className="max-w-72 font-display text-[1.9rem] font-semibold leading-tight tracking-[0.01em]! sm:max-w-none sm:text-3xl lg:whitespace-nowrap lg:text-[clamp(1.65rem,2.45vw,3rem)]"
           >
-            Find, Order &amp; Enjoy
+            {heading}
           </h2>
 
           <div className="relative self-start lg:ml-auto lg:max-w-[18rem] lg:self-auto lg:text-right 2xl:max-w-[23rem]">
@@ -59,14 +76,14 @@ export default function FinalCTA() {
               <path fill="currentColor" d="m20 0 3 12 8-8-3 12 12-2-10 8 9 7-12-1 1 12-8-10-7 10 1-12-12 1 10-8-12-7 12 2L8 4l9 8Z" />
             </svg>
             <p className="max-w-72 text-lg font-medium uppercase leading-tight sm:text-xl lg:text-[clamp(1.1rem,1.6vw,1.875rem)] 2xl:max-w-none">
-              Your next favourite meal starts here!
+              {supportingCopy}
             </p>
             <LinkArrow
-              href="/restaurants"
+              href={actionHref}
               variant="dark"
               className="group mt-4 w-64 min-h-12 text-base! normal-case! [--link-arrow-spacing:0em] sm:text-lg!"
             >
-              Explore restaurants
+              {actionLabel}
             </LinkArrow>
           </div>
         </div>

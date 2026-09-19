@@ -179,7 +179,8 @@ export default function BackToTopButton() {
       return;
     }
 
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reducedMotion ? "instant" : "smooth" });
   };
 
   return (

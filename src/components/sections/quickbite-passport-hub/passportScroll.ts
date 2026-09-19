@@ -10,6 +10,12 @@ export function keepPassportCardScroll(event: WheelEvent<HTMLDivElement>) {
   const scrollingDown = event.deltaY > 0;
 
   if ((scrollingUp && !atTop) || (scrollingDown && !atBottom)) {
+    // Stop pending page momentum while this list handles the wheel natively.
+    // At either boundary the event bubbles to Lenis for a smooth handoff.
+    const lenis = window.quickBiteLenis;
+    if (lenis?.isScrolling === "smooth") {
+      lenis.scrollTo(window.scrollY, { immediate: true });
+    }
     event.stopPropagation();
   }
 }

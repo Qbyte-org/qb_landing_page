@@ -503,8 +503,7 @@ export default function QuickBitePassportHub() {
 
                 <div
                   className="passport-card-scroll mt-4 h-[23rem] min-h-0 space-y-3 overflow-y-auto overscroll-y-auto pb-2 pr-3 sm:h-[25rem] lg:h-auto lg:flex-1"
-                  data-lenis-prevent
-                  data-lenis-prevent-wheel
+                  data-lenis-prevent-touch
                   onTouchMove={keepPassportCardTouchScroll}
                   onTouchStart={startPassportCardTouchScroll}
                   onWheel={keepPassportCardScroll}

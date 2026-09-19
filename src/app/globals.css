@@ -209,9 +209,10 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
 }
 
-/* Smooth in-page anchor scrolling for nav links */
+/* Lenis owns in-page anchor scrolling while enabled. Keeping the browser
+   fallback instant avoids two independent smooth-scroll engines competing. */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 /* Display font helper for headings */

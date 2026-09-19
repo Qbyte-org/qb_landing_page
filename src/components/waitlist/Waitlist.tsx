@@ -35,7 +35,7 @@ export default function Waitlist({ initialEmail = "" }: { initialEmail?: string 
           </div>
 
           <div className="relative z-10 mx-auto w-full max-w-xl">
-            <div data-waitlist-enter className="hero-panel relative overflow-hidden rounded-t-[32px] bg-paper/[0.07] p-4 py-6 backdrop-blur-[14px] transition-colors duration-300 hover:bg-paper/[0.1] sm:p-8 sm:py-10">
+            <div data-waitlist-enter className="hero-panel relative overflow-hidden sm:rounded-t-[32px] bg-paper/[0.07] p-4 py-6 backdrop-blur-[14px] transition-colors duration-300 hover:bg-paper/[0.1] sm:p-8 sm:py-10">
               <div className="relative flex items-center justify-center max-sm:mt-10">
                 <h1 className="font-display mb-4 inline-block text-center text-3xl font-bold sm:text-5xl">
                   <span className="bg-gradient-to-b from-paper to-tan bg-clip-text text-transparent">Join our waitlist!</span>

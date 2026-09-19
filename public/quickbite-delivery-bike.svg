@@ -49,22 +49,20 @@
 
   <!-- handlebar -->
   <path d="M298 81L332 69" stroke="url(#frame)" stroke-width="12" stroke-linecap="round"/>
-  <!-- <path d="M332 69L347 73" stroke="var(--color-brand-light, #FF8665)" stroke-width="10" stroke-linecap="round"/> -->
 
   <!-- saddle -->
   <path d="M208 112H236" stroke="url(#frame)" stroke-width="12" stroke-linecap="round"/>
-  <!-- <path d="M206 106L225 92H252" stroke="var(--color-brand-light, #FF8665)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/> -->
 
   <!-- delivery box -->
   <g filter="url(#softShadow)">
     <path d="M118 46H202C208 46 213 51 213 57V109C213 115 208 120 202 120H118C112 120 107 115 107 109V57C107 51 112 46 118 46Z"
           fill="url(#boxGrad)" stroke="url(#frame)" stroke-width="10" stroke-linejoin="round"/>
     <path d="M107 61H213" stroke="var(--color-brand-100, #FFDED2)" stroke-width="6" stroke-linecap="round" opacity="0.45"/>
-  <path d="M121 47L140 32H181L198 47" stroke="url(#frame)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M121 47L140 32H181L198 47" stroke="url(#frame)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M127 54H193" stroke="var(--color-brand-50, #FFEEE6)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
 
-    <!-- QuickBite mark, kept in sync with public/logo-mark-light.svg -->
-    <path fill="var(--color-logo-light, #FFF9DA)" transform="translate(136 55) scale(1.6)"
+    <!-- Current QuickBite mark from public/logo-mark-light.svg -->
+    <path fill="var(--color-logo-light, #FFF9DA)" transform="translate(126 48) scale(2.2)"
       d="M23.44 22.06s-.07.04-.1.06c-.02 0-.03.02-.05.03-1.01.62-3.91 1.82-10 .46-2.78-.62-4.58-.94-5.71-1.11-.2-.03-.46-.06-.46-.06l-1.04-2.91 7.26.28-.03 1.1 5.17.14.03-1.13h1.33v-1.68h-.08l-15.33-.41.92-2.39h10.94c.9 0 1.63-.73 1.63-1.63v-.27H6.62l.81-2.45s5.67-.79 7.01-.91c1.17-.1 4.62-1.19 7.97.58.27.17.63.39 1.05.65.02.02.05.03.07.05 4.26 2.71 4.22 8.94-.08 11.59Z"/>
   </g>
 
@@ -73,7 +71,6 @@
   <path d="M228 57C231 42 242 34 256 37C264 39 270 45 272 53" stroke="var(--color-brand-light, #FF8665)" stroke-width="6" stroke-linecap="round"/>
   <path d="M244 84L230 132" stroke="url(#frame)" stroke-width="12" stroke-linecap="round"/>
   <path d="M244 84L270 110L302 102" stroke="url(#frame)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- <path d="M270 110L284 146" stroke="var(--color-ink, #2A211D)" stroke-width="12" stroke-linecap="round"/> -->
   <path d="M230 132L205 144" stroke="var(--color-ink, #2A211D)" stroke-width="12" stroke-linecap="round"/>
 
   <!-- little accent -->
