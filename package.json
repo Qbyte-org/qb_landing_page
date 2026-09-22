@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "pnpm@10.32.1",
   "scripts": {
-    "dev": "node scripts/sync-theme-assets.mjs dev -p 3002",
+    "dev": "node scripts/syn  c-theme-assets.mjs dev -p 3002",
     "build": "node scripts/sync-theme-assets.mjs build",
     "theme:sync": "node scripts/sync-theme-assets.mjs",
     "start": "next start -p 3002",

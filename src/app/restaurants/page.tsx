@@ -5,7 +5,7 @@ import RestaurantsExperience from "@/components/sections/RestaurantsExperience";
 export const metadata: Metadata = {
   title: "Restaurants — QuickBite",
   description:
-    "Preview local meals and kitchens around Ile-Ife, explore your next craving, and get updates when ordering opens on the QuickBite app.",
+    "Explore menu previews, upcoming special offers and local kitchens around Ile-Ife. Find your next craving and get updates when QuickBite launches.",
 };
 
 export default function RestaurantsPage() {

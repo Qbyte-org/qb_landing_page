@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Sora } from "next/font/google";
+import PageTransitions from "@/components/layout/PageTransitions";
 import "./globals.css";
 
 const inter = Inter({
@@ -67,7 +68,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${sora.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col"><PageTransitions>{children}</PageTransitions></body>
     </html>
   );
 }

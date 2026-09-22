@@ -16,8 +16,8 @@ export default function FAQ() {
       aria-labelledby="faq-title"
       className="scroll-mt-24 bg-paper text-ink"
     >
-        <div className="grid lg:grid-cols-2">
-          <div data-faq-surface="cream" className="bg-cream-200 px-6 py-14 sm:px-10 sm:py-16 lg:px-[5vw] lg:py-20">
+      <div className="grid lg:grid-cols-2">
+        <div data-faq-surface="cream" className="bg-cream-200 px-6 py-14 sm:px-10 sm:py-16 lg:px-[5vw] lg:py-20 border-x border-dashed border-ink/20">
           <motion.div initial={false} whileInView={reducedMotion === false ? { opacity: [0.7, 1], y: [14, 0] } : undefined} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }} className="mx-auto max-w-[46rem]">
             <SectionTag>FAQ</SectionTag>
             <h2
@@ -48,16 +48,16 @@ export default function FAQ() {
               </div>
             </div>
           </motion.div>
-          </div>
+        </div>
 
-          <div data-faq-surface="paper" className="min-w-0 bg-paper px-6 py-14 sm:px-10 sm:py-16 lg:px-[5vw] lg:py-20">
+        <div data-faq-surface="paper" className="min-w-0 bg-paper px-6 py-14 sm:px-10 sm:py-16 lg:px-[5vw] lg:py-20">
           <motion.div initial={false} whileInView={reducedMotion === false ? { opacity: [0.7, 1], y: [14, 0] } : undefined} viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.5, delay: 0.08 }} className="mx-auto max-w-[46rem] border-t border-ink/20">
             {faqs.map((faq, i) => (
               <details
                 key={faq.question}
                 name="quickbite-faq"
                 open={i === 0}
-                className="group border-b border-ink/20 transition-colors duration-200 open:bg-cream-200 motion-reduce:transition-none [&_summary::-webkit-details-marker]:hidden"
+                className="group border-b border-dashed border-ink/20 transition-colors duration-200 open:bg-cream-200 motion-reduce:transition-none [&_summary::-webkit-details-marker]:hidden"
               >
                 <MagneticFillButton
                   as="summary"
@@ -93,8 +93,8 @@ export default function FAQ() {
               </details>
             ))}
           </motion.div>
-          </div>
         </div>
+      </div>
     </section>
   );
 }

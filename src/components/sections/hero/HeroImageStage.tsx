@@ -1,6 +1,7 @@
 import Image from "../../ui/FoodImage";
 import { AnimatePresence, motion } from "motion/react";
 import type { HeroSlide } from "./hero.data";
+import BackgroundGrainTexture from "@/components/ui/BackgroundGrainTexture";
 
 export default function HeroImageStage({
   activeSlide,
@@ -18,6 +19,8 @@ export default function HeroImageStage({
         data-hero-image-stage
         className="absolute left-0 top-0 h-full w-full overflow-hidden rounded-tl-[2.25rem] bg-dark-ink sm:rounded-tl-[3.25rem] xl:rounded-tl-[4.5rem]"
       >
+        <BackgroundGrainTexture className="opacity-32" />
+
         <AnimatePresence initial={false}>
           <motion.div
             key={activeSlide.word}

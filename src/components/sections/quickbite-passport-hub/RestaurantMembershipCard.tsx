@@ -36,7 +36,7 @@ export default function RestaurantMembershipCard({
       style={{ "--card-accent": accent } as CSSProperties}
     >
       <div
-        className={`relative h-full w-full overflow-hidden rounded-[2.35rem] border bg-cream-200 transition-colors duration-300 ${highlighted ? "border-[var(--card-accent)]" : "border-ink/10"
+        className={`relative h-full w-full overflow-hidden rounded-[2.35rem] border border-dashed border-ink/2 bg-cream-200 transition-colors duration-300 ${highlighted ? "border-[var(--card-accent)]" : "border-ink/10"
           }`}
       >
         <BackgroundGrainTexture tone="light" className="opacity-20" />

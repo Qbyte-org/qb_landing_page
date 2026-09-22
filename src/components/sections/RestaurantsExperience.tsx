@@ -2,12 +2,16 @@ import SectionWave from "../ui/SectionWave";
 import FinalCTA from "./FinalCTA";
 import RestaurantDirectory from "./restaurants/RestaurantDirectory";
 import RestaurantHero from "./restaurants/RestaurantHero";
+import RestaurantMenu from "./restaurants/RestaurantMenu";
+import RestaurantOffers from "./restaurants/RestaurantOffers";
 
 export default function RestaurantsExperience() {
   return (
     <div className="overflow-hidden bg-paper text-ink">
       <RestaurantHero />
       <SectionWave to="paper" />
+      <RestaurantMenu />
+      <RestaurantOffers />
       <RestaurantDirectory />
       <FinalCTA
         id="restaurant-cta"

@@ -19,7 +19,7 @@ export default function SectionWave({
       className={`pointer-events-none h-20 overflow-hidden sm:h-28 lg:h-36 ${to === "ink" ? "bg-paper text-dark-ink" : "bg-dark-ink text-paper"} ${placement === "bottom" ? "absolute inset-x-0 -bottom-px z-0" : "relative"} ${className}`}
     >
       {splitBackground && (
-        <div className="absolute inset-y-0 left-0 hidden w-1/2 bg-cream-200 lg:block" />
+        <div className="absolute inset-y-0 left-0 hidden w-1/2 bg-cream-200 lg:block border-x border-dashed border-ink/20" />
       )}
       <svg
         className="absolute left-1/2 top-0 h-full w-[178%] -translate-x-1/2 sm:w-full"

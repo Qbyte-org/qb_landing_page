@@ -6,9 +6,17 @@ import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import LinkArrow from "./LinkArrow";
 import MagneticFillButton from "./MagneticFillButton";
 
+const pageActions: Record<string, { title: string; detail: string; label: string; href: string }> = {
+  "/restaurants": { title: "Be first at the table", detail: "Get QuickBite launch updates", label: "Join waitlist", href: "/waitlist" },
+  "/partners": { title: "Your kitchen. More tables.", detail: "Get partner launch updates", label: "Join waitlist", href: "/waitlist" },
+  "/riders": { title: "Your next chapter.", detail: "Get rider launch updates", label: "Join waitlist", href: "/waitlist" },
+  "/company": { title: "A little local goodness.", detail: "Meet the kitchens around you", label: "Explore food", href: "/restaurants" },
+  "/contact": { title: "Let's talk.", detail: "We're here to help", label: "Email us", href: "mailto:quickbiteinfo01@gmail.com" },
+};
+
 export default function StickyOrderBar() {
   const barRef = useRef<HTMLDivElement>(null);
-  const isRestaurantPreview = usePathname() === "/restaurants";
+  const pageAction = pageActions[usePathname()];
 
   useGSAP(
     () => {
@@ -47,21 +55,21 @@ export default function StickyOrderBar() {
   return (
     <div
       ref={barRef}
-      className={`fixed inset-x-0 bottom-0 z-50 border-t border-border px-4 py-3 backdrop-blur lg:hidden ${isRestaurantPreview ? "bg-paper/95" : "bg-white/95"}`}
+      className={`fixed inset-x-0 bottom-0 z-50 border-t border-border px-4 py-3 backdrop-blur lg:hidden ${pageAction ? "bg-paper/95" : "bg-white/95"}`}
     >
       <div className="flex items-center gap-3">
         <div className="min-w-0 flex-1 leading-tight">
-          <p className={`text-sm font-bold ${isRestaurantPreview ? "text-ink" : "text-navy"}`}>
-            {isRestaurantPreview ? "Be first at the table" : "Hungry right now?"}
+          <p className={`text-sm font-bold ${pageAction ? "text-ink" : "text-navy"}`}>
+            {pageAction?.title ?? "Hungry right now?"}
           </p>
           <p className="truncate text-xs text-muted">
-            {isRestaurantPreview ? "Get QuickBite launch updates" : "Free delivery on your first order"}
+            {pageAction?.detail ?? "Free delivery on your first order"}
           </p>
         </div>
         <div className="shrink-0">
-          {isRestaurantPreview ? (
-            <MagneticFillButton href="/waitlist" variant="brand" className="h-12 rounded-pill bg-brand! px-5 text-sm">
-              Join waitlist
+          {pageAction ? (
+            <MagneticFillButton href={pageAction.href} variant="brand" className="h-12 rounded-pill bg-brand! px-5 text-sm">
+              {pageAction.label}
             </MagneticFillButton>
           ) : <LinkArrow
             href="/restaurants"

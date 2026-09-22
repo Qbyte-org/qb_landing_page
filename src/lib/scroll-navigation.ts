@@ -38,6 +38,9 @@ export function bindScrollNavigation(lenis: Lenis) {
         window.history.pushState(window.history.state, "", url);
       }
       lenis.scrollTo(target, {
+        // Fractional section positions can leave lerp scrolling just short of
+        // completion. A timed anchor scroll reliably hands focus to the section.
+        duration: 0.9,
         onComplete: () => {
           restoreFocusTarget?.();
           if (!target.hasAttribute("tabindex")) {

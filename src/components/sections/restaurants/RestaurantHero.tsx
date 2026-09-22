@@ -46,8 +46,8 @@ export default function RestaurantHero() {
             </div>
             <p role="status" className="sr-only">Meal {selectedIndex + 1} of {restaurantDishes.length}: {selected.name}</p>
             <div className="mt-7 flex flex-wrap items-center gap-x-7 gap-y-4">
-              <MagneticFillButton href="#restaurant-list" variant="brand" className="h-14 rounded-4xl bg-brand! px-7 text-base font-semibold sm:h-[3.75rem] sm:px-8">
-                Explore kitchens <ArrowRight className="size-5" strokeWidth={2.35} aria-hidden="true" />
+              <MagneticFillButton href="#restaurant-menu" variant="brand" className="h-14 rounded-4xl bg-brand! px-7 text-base font-semibold sm:h-[3.75rem] sm:px-8">
+                Explore menu <ArrowRight className="size-5" strokeWidth={2.35} aria-hidden="true" />
               </MagneticFillButton>
               <LinkArrow href="/waitlist" variant="dark" className="min-w-56! text-base! normal-case! pb-3! mt-3! [--link-arrow-spacing:0em]">
                 Get launch updates

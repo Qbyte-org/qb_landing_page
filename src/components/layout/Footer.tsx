@@ -20,7 +20,7 @@ const navigation = [
     links: [
       { label: "Join the waitlist", href: "/waitlist" },
       { label: "FAQs", href: "/#faq" },
-      { label: "Contact us", href: "mailto:quickbiteinfo01@gmail.com" },
+      { label: "Contact us", href: "/contact" },
     ],
   },
 ] as const;
@@ -45,7 +45,7 @@ export default function Footer() {
   return (
     <footer
       data-nav-theme="dark"
-      className="relative overflow-hidden bg-dark-ink text-paper"
+      className="relative overflow-hidden bg-dark-ink text-paper border-t border-peach/10"
     >
       <div className="mx-auto grid w-[92%] max-w-[1840px] grid-cols-1 gap-10 pb-28 pt-10 sm:gap-12 sm:pt-12 lg:grid-cols-[clamp(4.5rem,calc(5vw+1.5rem),6.5rem)_minmax(0,2fr)_minmax(0,3fr)_1px] lg:gap-x-6 lg:gap-y-0 lg:pb-12 xl:gap-x-10 2xl:gap-x-14">
         <div aria-hidden="true" className="relative hidden items-stretch justify-center pr-6 lg:flex">

@@ -186,7 +186,7 @@ function StoryCardShell({ children, expandable = false }: { children: ReactNode;
       as="div"
       variant="cream_200"
       className={`group flex! min-w-0 shrink-0 cursor-default! flex-col rounded-[2.35rem] border! border-dashed!
-         border-ink p-0 font-normal! hover:border-ink/30 text-ink! ${expandable ? "grow" : ""}`}
+          border-ink/40 p-0 font-normal! hover:border-ink/30 text-ink! ${expandable ? "grow" : ""}`}
       contentClassName="flex w-full grow flex-col items-stretch text-left"
     >
       <figure className="relative flex min-w-0 grow flex-col p-5 sm:p-6">

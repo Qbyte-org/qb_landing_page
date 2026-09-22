@@ -8,12 +8,14 @@ import SmoothScroll from "./SmoothScroll";
 import BackToTopButton from "../ui/BackToTopButton";
 import StickyOrderBar from "../ui/StickyOrderBar";
 import QuickBiteBentoLoader from "../loader/QuickBiteBentoLoader";
+import { useHasNavigated } from "./PageTransitions";
 
 type IntroPhase = "loading" | "revealing" | "ready";
 
 export default function SiteShell({ children, heroIntro = false }: { children: ReactNode; heroIntro?: boolean }) {
   const shellRef = useRef<HTMLDivElement>(null);
-  const [phase, setPhase] = useState<IntroPhase>(heroIntro ? "loading" : "ready");
+  const hasNavigated = useHasNavigated();
+  const [phase, setPhase] = useState<IntroPhase>(heroIntro && !hasNavigated ? "loading" : "ready");
   const startReveal = useCallback(() => setPhase(current => current === "loading" ? "revealing" : current), []);
   const finishIntro = useCallback(() => setPhase("ready"), []);
 
