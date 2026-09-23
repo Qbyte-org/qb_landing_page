@@ -1,15 +1,14 @@
 "use client";
 
-import { ArrowRight, ChefHat, ClipboardList, House, PackageCheck, Store } from "lucide-react";
+import { ArrowRight, ChefHat, ClipboardList, PackageCheck, Store } from "lucide-react";
 import Container from "@/components/ui/Container";
-import FoodImage from "@/components/ui/FoodImage";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import SectionTag from "@/components/ui/SectionTag";
 import MagneticFillButton from "@/components/ui/MagneticFillButton";
 import BackgroundGrainTexture from "@/components/ui/BackgroundGrainTexture";
 import FinalCTA from "@/components/sections/FinalCTA";
-import BrandPageHero from "./BrandPageHero";
+import PartnerShowcase from "./PartnerShowcase";
 import BrandPageCard from "./BrandPageCard";
 
 const partnerBenefits = [
@@ -72,61 +71,10 @@ const onboardingSteps = [
   },
 ];
 
-function PartnerKitchenArtwork() {
-  return (
-    <div className="relative mx-auto w-full max-w-[35rem] pb-20 pl-4 sm:pl-8">
-      <div className="relative isolate overflow-hidden rounded-[2.5rem] border border-paper/15 bg-ink-soft p-3 sm:rounded-[3.5rem] sm:p-4">
-        <div className="relative aspect-[5/4] overflow-hidden rounded-[1.8rem] sm:rounded-[2.6rem]">
-          <FoodImage
-            src="/images/food/pinterest/meal-prep-packs.webp"
-            alt="Prepared meals portioned into takeaway packs, ready for collection"
-            fill
-            priority
-            sizes="(min-width: 1024px) 42vw, (min-width: 640px) 520px, 90vw"
-            className="object-cover"
-          />
-        </div>
-        <div className="flex items-center justify-between gap-4 px-3 pb-2 pt-5 sm:px-4 sm:pb-3">
-          <div>
-            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-paper/60">Made with care</p>
-            <p className="mt-1 font-display text-lg font-semibold text-paper sm:text-xl">Packed with possibility.</p>
-          </div>
-          <PackageCheck className="size-7 shrink-0 text-brand" aria-hidden="true" />
-        </div>
-      </div>
-      <div className="absolute -left-1 bottom-0 flex max-w-[85%] items-center gap-3 rounded-2xl border border-ink/10 bg-paper px-4 py-3 text-ink shadow-lg sm:px-5 sm:py-4">
-        <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">
-          <ChefHat className="size-5" aria-hidden="true" />
-        </span>
-        <div>
-          <p className="text-xs text-cocoa">Your kitchen. Your craft.</p>
-          <p className="mt-0.5 text-sm font-semibold sm:text-base">Our next great food story.</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function PartnersExperience() {
   return (
     <>
-      <BrandPageHero
-        id="partners-hero"
-        eyebrow="For restaurants & home kitchens"
-        title={<>You bring<br />the flavour.<br /><span className="text-brand">Let’s grow.</span></>}
-        description="You put care into every plate. Bring your kitchen to QuickBite and be part of a community built around good food, close to home."
-        primaryAction={{ label: "Join the partner waitlist", href: "/waitlist" }}
-        secondaryAction={{ label: "How partnership works", href: "#partner-process" }}
-        footer={
-          <>
-            <span className="inline-flex items-center gap-2"><Store className="size-4 text-brand" aria-hidden="true" />Neighbourhood restaurants</span>
-            <span className="inline-flex items-center gap-2"><House className="size-4 text-brand" aria-hidden="true" />Independent home kitchens</span>
-            <span>Partner applications open with launch.</span>
-          </>
-        }
-      >
-        <PartnerKitchenArtwork />
-      </BrandPageHero>
+      <PartnerShowcase />
 
       <section id="partner-benefits" aria-labelledby="partner-benefits-title" data-nav-theme="neutral" className="bg-paper py-14 sm:py-20 lg:py-24">
         <Container>

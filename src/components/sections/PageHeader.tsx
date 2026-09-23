@@ -14,12 +14,14 @@ export default function PageHeader({
   children?: ReactNode;
 }) {
   return (
-    <section data-nav-theme="light" className="relative overflow-hidden bg-cream py-24 sm:py-28">
+    <section data-scroll-hero data-nav-theme="light" className="relative overflow-hidden bg-cream py-24 sm:py-28">
       <div
         aria-hidden="true"
+        data-scroll-hero-media
         className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-brand/15 blur-3xl"
       />
       <Container className="relative text-center">
+        <div data-scroll-hero-copy>
         <Reveal>
           {eyebrow ? (
             <span className="mb-4 inline-flex items-center gap-2 rounded-pill bg-brand-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand-dark">
@@ -40,6 +42,7 @@ export default function PageHeader({
             {children}
           </Reveal>
         ) : null}
+        </div>
       </Container>
     </section>
   );

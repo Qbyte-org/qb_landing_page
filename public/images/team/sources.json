@@ -1,0 +1,26 @@
+{
+  "demo-robot.webp": {
+    "purpose": "User-selected character illustration for the engineering role profile.",
+    "reference": "https://www.pinterest.com/pin/920282505127474053/",
+    "source": "https://i.pinimg.com/originals/33/ea/73/33ea736c8ed6e7dadc5913f43365cd02.jpg",
+    "processing": "Resized to 640 pixels wide and converted to WebP."
+  },
+  "white-ninja.webp": {
+    "purpose": "User-selected art-toy illustration for the product and design role profile.",
+    "reference": "https://www.pinterest.com/pin/920282505127474685/",
+    "source": "https://i.pinimg.com/originals/1c/85/88/1c85881691fc8e4dc360ec4341b3e252.jpg",
+    "processing": "Removed excess top margin, resized to 800 pixels wide and converted to WebP."
+  },
+  "orange-robot.webp": {
+    "purpose": "Character illustration for the community and care role profile.",
+    "reference": "https://www.pinterest.com/pin/artstation-shy-robot--12244230228535895/",
+    "source": "https://i.pinimg.com/originals/f3/e4/b6/f3e4b67f137116e0b0e42cad4bc97c54.png",
+    "processing": "Converted to WebP at original 580 pixel width."
+  },
+  "black-ninja.webp": {
+    "purpose": "Character illustration for the kitchen partnerships role profile.",
+    "reference": "https://www.lummi.ai/3d/chibi-ninja-character-mixqy",
+    "source": "https://assets.lummi.ai/assets/QmWV7aG3iQC7WXR46EVTnCBrfhQojPhxL6UMMDUhWYBDC7?auto=format&w=1200",
+    "processing": "Resized to 800 pixels wide and converted to WebP."
+  }
+}

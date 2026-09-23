@@ -1,10 +1,8 @@
-import Image from "next/image";
 import {
   ArrowRight,
   Bike,
   Check,
   MapPin,
-  Navigation,
   Route,
   Smartphone,
   UsersRound,
@@ -17,7 +15,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import SectionTag from "@/components/ui/SectionTag";
 import FinalCTA from "../FinalCTA";
 import BrandPageCard from "./BrandPageCard";
-import BrandPageHero from "./BrandPageHero";
+import RiderShowcase from "./RiderShowcase";
 
 const pathways = [
   {
@@ -91,62 +89,10 @@ const benefits = [
   },
 ];
 
-function RiderHeroArtwork() {
-  return (
-    <div className="relative mx-auto w-full max-w-xl pb-7 sm:pb-10">
-      <div className="relative isolate aspect-square overflow-hidden rounded-full bg-cream-200 text-ink">
-        <BackgroundGrainTexture tone="light" />
-        <div aria-hidden="true" className="absolute inset-[12%] rounded-full border border-dashed border-cocoa/30" />
-        <div className="absolute inset-x-0 top-[13%] flex justify-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2 text-xs font-semibold sm:text-sm">
-            <MapPin aria-hidden="true" className="size-4 text-brand" />
-            First stop: Ile-Ife
-          </span>
-        </div>
-        <Image
-          src="/quickbite-delivery-bike.svg"
-          alt="QuickBite delivery bicycle with a branded food carrier"
-          width={520}
-          height={260}
-          priority
-          className="absolute left-[2%] top-[29%] h-auto w-[96%]"
-        />
-        <span aria-hidden="true" className="absolute bottom-[15%] right-[16%] flex size-12 items-center justify-center rounded-full bg-brand text-paper sm:size-16">
-          <Navigation className="size-6 sm:size-7" strokeWidth={1.6} />
-        </span>
-      </div>
-      <div className="absolute inset-x-[7%] bottom-0 rounded-3xl border border-ink/10 bg-paper px-5 py-4 text-ink sm:px-7 sm:py-5">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cocoa">
-          Good food. In good hands.
-        </p>
-        <div className="mt-3 flex items-center justify-between gap-3 text-sm font-semibold sm:text-base">
-          <span className="flex items-center gap-2">
-            <span aria-hidden="true" className="size-2 rounded-full bg-brand" />
-            Local kitchen
-          </span>
-          <span aria-hidden="true" className="min-w-4 flex-1 border-t border-dashed border-cocoa/35" />
-          <ArrowRight aria-hidden="true" className="size-4 shrink-0 text-brand" />
-          <span>Happy doorstep</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function RidersExperience() {
   return (
     <div className="overflow-hidden bg-paper text-ink">
-      <BrandPageHero
-        id="rider-hero"
-        eyebrow="Ride with QuickBite"
-        title={<>Good food.<br /><span className="text-brand">Great journeys.</span></>}
-        description="Every good food run has someone who brings it home. Ride with us, or bring your delivery team along."
-        primaryAction={{ label: "Join the rider waitlist", href: "/waitlist" }}
-        secondaryAction={{ label: "Find your path", href: "#rider-paths" }}
-        footer={<p className="flex items-center gap-2 text-sm text-paper/65"><Bike aria-hidden="true" className="size-4 shrink-0 text-brand" />Preparing for launch in Ile-Ife.</p>}
-      >
-        <RiderHeroArtwork />
-      </BrandPageHero>
+      <RiderShowcase />
 
       <section id="rider-paths" data-nav-theme="neutral" className="scroll-mt-28 bg-paper py-14 sm:py-20 lg:py-24">
         <Container>

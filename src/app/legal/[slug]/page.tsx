@@ -1,137 +1,60 @@
 import { readFile } from "fs/promises";
 import path from "path";
 import type { Metadata } from "next";
-import LinkArrow from "@/components/ui/LinkArrow";
 import { notFound } from "next/navigation";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { ShieldCheck, Clock3 } from "lucide-react";
 import SiteShell from "@/components/layout/SiteShell";
-import LegalSidebar from "@/components/sections/LegalSidebar";
-import PageHeader from "@/components/sections/PageHeader";
-import Container from "@/components/ui/Container";
-import Reveal from "@/components/ui/Reveal";
+import LegalDocument from "@/components/sections/legal/LegalDocument";
 import { legalDocs, legalSlugs, type LegalSlug } from "@/content/legal";
 
-// Only the known slugs are valid; anything else 404s and the route stays static.
 export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return legalSlugs.map((slug) => ({ slug }));
-}
-
+export function generateStaticParams() { return legalSlugs.map(slug => ({ slug })); }
 type Params = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const doc = legalDocs[slug as LegalSlug];
-  if (!doc) return {};
-  return {
-    title: `${doc.title} — QuickBite`,
-    description: doc.description,
-  };
-}
-
-async function getBody(file: string) {
-  const raw = await readFile(
-    path.join(process.cwd(), "content", "legal", file),
-    "utf8",
-  );
-  // Drop the leading H1 — the title is rendered in the page header instead.
-  return raw.replace(/^#\s.*\r?\n/, "").trimStart();
+  return doc ? { title: `${doc.title} — QuickBite`, description: doc.description } : {};
 }
 
 const prose = [
-  "prose max-w-none",
-  "prose-headings:font-display prose-headings:text-navy prose-headings:tracking-tight",
-  "prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:scroll-mt-24",
-  "prose-h3:text-lg prose-h3:mt-8",
-  "prose-p:text-navy/80 prose-li:text-navy/80 prose-li:my-1",
-  "prose-a:text-brand-dark prose-a:font-semibold prose-a:no-underline hover:prose-a:underline",
-  "prose-strong:text-navy",
-  "prose-blockquote:not-italic prose-blockquote:rounded-r-card prose-blockquote:border-l-4 prose-blockquote:border-brand prose-blockquote:bg-cream prose-blockquote:px-5 prose-blockquote:py-1 prose-blockquote:text-navy/80 prose-blockquote:font-normal",
-  "prose-table:text-sm prose-th:text-navy prose-td:text-navy/80",
-  "prose-hr:border-border",
+  "prose prose-sm max-w-none break-words [overflow-wrap:anywhere]",
+  "prose-headings:font-display prose-headings:text-ink prose-headings:tracking-tight",
+  "prose-h3:text-base prose-h3:mt-7 prose-h3:mb-3",
+  "prose-p:leading-[1.85] prose-p:text-cocoa prose-li:text-cocoa prose-li:my-1",
+  "prose-a:text-brand-dark prose-a:font-medium prose-a:underline-offset-4",
+  "prose-strong:text-ink prose-strong:font-semibold",
+  "prose-blockquote:not-italic prose-blockquote:border-brand prose-blockquote:bg-peach/35 prose-blockquote:px-4 prose-blockquote:py-1 prose-blockquote:text-cocoa prose-blockquote:font-normal",
+  "prose-table:text-xs prose-th:text-ink prose-td:text-cocoa prose-hr:border-ink/15",
+  "[&>:first-child]:mt-0 [&>:last-child]:mb-0 [&_table]:block [&_table]:overflow-x-auto",
 ].join(" ");
+
+function DocumentBody({ body }: { body: string }) {
+  return <div className={prose}><Markdown remarkPlugins={[remarkGfm]}>{body}</Markdown></div>;
+}
 
 export default async function LegalPage({ params }: Params) {
   const { slug } = await params;
   const typedSlug = slug as LegalSlug;
   const doc = legalDocs[typedSlug];
   if (!doc) notFound();
-
-  const body = await getBody(doc.file);
-  const related = legalSlugs.filter((s) => s !== typedSlug);
-
+  const raw = await readFile(path.join(process.cwd(), "content", "legal", doc.file), "utf8");
+  const body = raw.replace(/^#\s.*\r?\n/, "").trimStart();
+  // Split only second-level headings. Every original paragraph, list, table,
+  // disclaimer and subheading is still rendered in its original order.
+  const chunks = body.split(/^##\s+(.+)\r?$/m);
+  const sections = [];
+  for (let index = 1; index < chunks.length; index += 2) {
+    sections.push({
+      id: `policy-section-${(index + 1) / 2}`,
+      title: chunks[index].trim().replace(/^\d+\.\s*/, ""),
+      content: <DocumentBody body={chunks[index + 1] ?? ""} />,
+    });
+  }
   return (
     <SiteShell>
-      <PageHeader eyebrow="Legal" title={doc.title} subtitle={doc.description}>
-        <span className="inline-flex items-center gap-2 rounded-pill bg-white px-4 py-1.5 text-sm font-semibold text-navy">
-          <ShieldCheck className="h-4 w-4 text-brand-dark" strokeWidth={2} aria-hidden="true" />
-          Nigeria · NDPR &amp; NDPA
-        </span>
-        <span className="inline-flex items-center gap-2 rounded-pill bg-white px-4 py-1.5 text-sm font-semibold text-navy">
-          <Clock3 className="h-4 w-4 text-brand-dark" strokeWidth={2} aria-hidden="true" />
-          Last updated: June 2026
-        </span>
-      </PageHeader>
-
-      <section className="bg-cream py-12 sm:py-16">
-        <Container>
-          <div className="grid gap-8 lg:grid-cols-[260px_1fr] lg:gap-12">
-            <LegalSidebar current={typedSlug} />
-
-            <Reveal>
-              <article className="rounded-[1.25rem] border border-border bg-white p-6 sm:p-10">
-                <div className={prose}>
-                  <Markdown
-                    remarkPlugins={[remarkGfm]}
-                    components={{
-                      a: ({ children, href, title }) => (
-                        <LinkArrow href={href} title={title} appearance="plain" className="inline!">
-                          {children}
-                        </LinkArrow>
-                      ),
-                    }}
-                  >
-                    {body}
-                  </Markdown>
-                </div>
-              </article>
-
-              {/* Related policies */}
-              <div className="mt-10">
-                <h2 className="font-display text-xl font-bold text-navy">
-                  Other policies
-                </h2>
-                <div className="mt-4 grid gap-4 sm:grid-cols-3">
-                  {related.map((s) => {
-                    const r = legalDocs[s];
-                    return (
-                      <LinkArrow
-                        key={s}
-                        href={`/legal/${s}`}
-                        appearance="plain"
-                        className="group flex! items-center gap-3 rounded-card border border-border bg-white p-4 transition-all duration-200 motion-safe:hover:-translate-y-0.5 hover:border-brand"
-                      >
-                        <span
-                          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cream text-brand-dark"
-                          aria-hidden="true"
-                        >
-                          <r.icon className="h-5 w-5" strokeWidth={1.75} />
-                        </span>
-                        <span className="text-sm font-bold text-navy group-hover:text-brand-dark">
-                          {r.short}
-                        </span>
-                      </LinkArrow>
-                    );
-                  })}
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </Container>
-      </section>
+      <LegalDocument current={typedSlug} title={doc.title} description={doc.description} introduction={chunks[0].trim() ? <DocumentBody body={chunks[0]} /> : undefined} sections={sections} />
     </SiteShell>
   );
 }

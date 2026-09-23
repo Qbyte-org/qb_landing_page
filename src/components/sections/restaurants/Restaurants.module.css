@@ -1,0 +1,97 @@
+.hero { position: relative; isolation: isolate; display: grid; grid-template-columns: 52% 1fr 72px; height: 100svh; overflow: hidden; background: var(--color-paper); color: var(--color-ink); }
+.dishStage { position: relative; height: 100%; min-width: 0; isolation: isolate; overflow: hidden; }
+.angledSurface { position: absolute; z-index: -2; width: 135%; height: 155%; left: -48%; top: -23%; border-radius: 12%; background: var(--color-dark-ink); transform-origin: 45% 50%; }
+.plateHalo { position: absolute; width: min(76%, 62svh); aspect-ratio: 1; left: 24%; top: 52%; transform: translateY(-50%); border: 1px solid color-mix(in srgb, var(--color-paper) 16%, transparent); border-radius: 50%; background: var(--color-ink-soft); }
+.featuredDish { position: absolute; width: min(70%, 57svh); aspect-ratio: 1; left: 27%; top: 52%; transform: translateY(-50%); z-index: 3; }
+.satellite { position: absolute; width: min(18%, 14svh); aspect-ratio: 1; overflow: hidden; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--color-paper) 45%, transparent); box-shadow: 0 12px 30px color-mix(in srgb, var(--color-black) 24%, transparent); }
+.satellite1 { top: 18%; left: 10%; transform: rotate(-18deg); }
+.satellite2 { top: 51%; left: 4%; transform: rotate(12deg); }
+.satellite3 { bottom: 12%; left: 30%; transform: rotate(-8deg); }
+.stageNote { position: absolute; top: 128px; left: 8%; font-size: 10px; text-transform: uppercase; letter-spacing: .2em; color: var(--color-paper); opacity: .6; }
+.heroCopy { z-index: 5; min-width: 0; align-self: center; padding: 90px clamp(18px, 2.5vw, 48px) 55px 3vw; }
+.copyWindow { min-height: 265px; }
+.heroTitle { max-width: 12ch; font-family: var(--font-display); font-size: clamp(2.25rem, 3.6vw, 4.5rem); font-weight: 600; line-height: 1.06; letter-spacing: -.045em; }
+.heroDescription { max-width: 26rem; margin-top: 12px; font-size: clamp(.8rem, 1.1vw, 1rem); line-height: 1.75; color: var(--color-cocoa); }
+.heroBottom { position: absolute; inset: auto 110px 30px 4%; z-index: 10; display: flex; align-items: center; justify-content: space-between; }
+.heroBottom > p { color: var(--color-paper); }
+.miniRail { position: relative; z-index: 20; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 135px 10px 38px; border-left: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent); background: var(--color-cream); }
+.railLabel { writing-mode: vertical-rl; text-transform: uppercase; font-size: 10px; letter-spacing: .22em; color: var(--color-cocoa); }
+.dishSidebar { position: absolute; z-index: 45; inset: 0 0 0 auto; display: flex; flex-direction: column; width: min(360px, 88vw); padding: 115px 22px 24px; background: var(--color-dark-ink); color: var(--color-paper); }
+.menuIntro { display: grid; grid-template-columns: 48% 68px 1fr; position: relative; height: 100svh; overflow: hidden; border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent); background: var(--color-paper); }
+.menuVisual { display: flex; flex-direction: column; position: relative; min-width: 0; min-height: 0; padding: 116px 32px 35px; background: var(--color-cream); }
+.menuPlateArea { flex: 1; display: grid; place-items: center; min-height: 0; position: relative; }
+.menuPlate { position: relative; width: min(90%, 53svh); aspect-ratio: 1; flex-shrink: 0; border-radius: 50%; box-shadow: 0 32px 26px -24px color-mix(in srgb, var(--color-ink) 48%, transparent); }
+.menuTabs { display: flex; flex-direction: column; justify-content: center; align-items: stretch; border-inline: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent); }
+.menuTab { display: grid; place-items: center; position: relative; height: 120px; cursor: pointer; transition: color .2s, background .2s; }
+.menuTab span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .16em; }
+.menuTab[aria-selected=true] { color: var(--color-brand-dark); background: var(--color-brand-50); }
+.menuTab[aria-selected=true]::before { content: ""; position: absolute; top: 30%; bottom: 30%; width: 2px; left: -1px; background: var(--color-brand); }
+.menuDetails { display: flex; flex-direction: column; min-width: 0; min-height: 0; padding: 122px clamp(24px, 4vw, 70px) 38px; }
+.menuTitle { max-width: 15ch; font-family: var(--font-display); font-size: clamp(1.8rem, 3.3vw, 3.5rem); line-height: 1.06; letter-spacing: -.04em; font-weight: 600; }
+.menuPanel { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--color-brand) transparent; padding-top: 30px; }
+.menuFacts { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 20px; margin-top: 30px; }
+.menuFacts dt { font-size: 9px; text-transform: uppercase; letter-spacing: .15em; color: var(--color-cocoa); }
+.menuFacts dd { margin-top: 7px; font-size: clamp(.9rem, 1.35vw, 1.25rem); line-height: 1.4; }
+.menuActions { display: flex; flex-shrink: 0; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; border-top: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent); padding-top: 22px; margin-top: 24px; }
+@media (min-width: 1024px) and (max-height: 740px) {
+  .heroTitle { font-size: clamp(2rem, 3vw, 3.7rem); }
+  .copyWindow { min-height: 218px; }
+  .heroCopy { padding-top: 100px; }
+  .heroDescription { font-size: .8rem; }
+  .menuDetails { padding-top: 105px; padding-bottom: 24px; }
+  .menuVisual { padding-top: 100px; padding-bottom: 24px; }
+  .menuPanel { padding-top: 20px; }
+  .menuFacts { gap: 16px; margin-top: 20px; }
+}
+@media (max-width: 1023px) {
+  .hero { grid-template-columns: 1fr 58px; grid-template-rows: 48% 1fr; }
+  .dishStage { grid-column: 1 / -1; grid-row: 1; }
+  .angledSurface { width: 115%; height: 170%; left: -30%; top: -50%; }
+  .plateHalo { width: min(55%, 31svh); left: 44%; top: 62%; }
+  .featuredDish { width: min(50%, 28svh); left: 46%; top: 62%; }
+  .satellite { width: min(15%, 10svh); }
+  .satellite1 { left: 14%; top: 36%; }
+  .satellite2 { left: 9%; top: 65%; }
+  .satellite3 { left: 31%; bottom: 5%; }
+  .stageNote { top: 110px; left: 8%; font-size: 8px; }
+  .heroCopy { grid-column: 1; grid-row: 2; align-self: start; padding: 8px 24px 80px; }
+  .heroTitle { max-width: 18ch; font-size: clamp(1.65rem, 4.7vw, 2.8rem); }
+  .copyWindow { min-height: 0; }
+  .heroDescription { font-size: .8rem; line-height: 1.6; max-width: 32rem; }
+  .heroCopy > p:first-child { margin-bottom: 10px; }
+  .heroCopy h1 + p { margin-top: 10px; }
+  .heroCopy > p:last-child { display: none; }
+  .heroBottom { inset: auto 78px 16px 24px; }
+  .heroBottom > p { color: var(--color-ink); }
+  .heroBottom > a { display: none; }
+  .miniRail { grid-column: 2; grid-row: 2; padding: 16px 5px 28px; }
+  .railLabel { font-size: 9px; }
+  .dishSidebar { padding-top: 110px; }
+  .menuIntro { grid-template-columns: 1fr 58px; grid-template-rows: 41% minmax(0,1fr); }
+  .menuVisual { grid-row: 1; grid-column: 1 / -1; padding: 82px 24px 8px; }
+  .menuPlate { width: auto; height: min(95%, 27svh); max-width: 62vw; }
+  .menuTabs { grid-row: 2; grid-column: 2; }
+  .menuTab { height: 100px; }
+  .menuDetails { grid-row: 2; grid-column: 1; padding: 20px 24px 90px; }
+  .menuTitle { max-width: 19ch; font-size: clamp(1.5rem, 4.4vw, 2.2rem); }
+  .menuPanel { padding-top: 18px; }
+  .menuFacts { gap: 14px 18px; margin-top: 18px; }
+  .menuFacts dd { font-size: .9rem; margin-top: 3px; }
+  .menuActions { padding-top: 14px; margin-top: 18px; gap: 10px; }
+  .menuActions > div { display: none; }
+  .menuActions > a { width: 100%; }
+}
+@media (max-width: 380px) {
+  .heroCopy { padding-inline: 18px; }
+  .heroDescription { font-size: .75rem; }
+  .heroCopy > a { margin-top: 14px; }
+  .heroBottom { left: 18px; }
+  .menuDetails { padding: 18px 18px 84px; }
+  .menuTitle { font-size: 1.5rem; }
+  .menuActions { gap: 8px; }
+}
+@media (max-height: 650px) {
+  .hero { height: auto; min-height: 680px; }
+  .menuIntro { height: auto; min-height: 720px; }
+}
+@media (prefers-reduced-motion: reduce) { .menuTab { transition: none; } }

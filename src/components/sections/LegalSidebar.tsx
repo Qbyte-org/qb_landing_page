@@ -1,61 +1,43 @@
-import LinkArrow from "../ui/LinkArrow";
+import Link from "next/link";
+import { Mail, Trash2 } from "lucide-react";
 import { legalDocs, legalSlugs, type LegalSlug } from "@/content/legal";
 
-export default function LegalSidebar({ current }: { current: LegalSlug }) {
+export default function LegalSidebar({ current }: { current: LegalSlug | "delete-account" }) {
   return (
-    <aside className="lg:sticky lg:top-24 lg:self-start">
+    <aside className="border-b border-ink/20 lg:sticky lg:top-28 lg:flex lg:min-h-[calc(100svh-8rem)] lg:flex-col lg:self-start lg:border-b-0 lg:border-r">
       <nav
         aria-label="Legal documents"
-        className="rounded-card border border-border bg-white p-3"
+        className="flex flex-wrap gap-1 p-2 lg:flex-col lg:gap-3 lg:px-3 lg:py-6"
       >
-        <p className="px-3 pb-2 pt-1 text-xs font-bold uppercase tracking-wider text-muted">
-          Legal Center
-        </p>
-        <ul className="space-y-1">
+        <ul className="contents">
           {legalSlugs.map((slug) => {
             const doc = legalDocs[slug];
             const active = slug === current;
             return (
               <li key={slug}>
-                <LinkArrow
+                <Link
                   href={`/legal/${slug}`}
-                  appearance="plain"
+                  title={doc.title}
                   aria-current={active ? "page" : undefined}
-                  className={`flex! items-center gap-3 rounded-pill px-3 py-2.5 text-sm font-semibold transition-colors ${
+                  className={`group flex min-h-11 items-center justify-center gap-2 rounded-full px-3 text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand lg:size-11 lg:px-0 ${
                     active
-                      ? "bg-brand-50 text-brand-dark"
-                      : "text-navy/70 hover:bg-cream hover:text-navy"
+                      ? "bg-ink text-paper"
+                      : "text-cocoa hover:bg-brand/10 hover:text-brand"
                   }`}
                 >
-                  <span
-                    className={`flex h-8 w-8 items-center justify-center rounded-lg ${
-                      active ? "bg-white text-brand-dark" : "bg-cream text-navy/60"
-                    }`}
-                    aria-hidden="true"
-                  >
-                    <doc.icon className="h-4 w-4" strokeWidth={1.75} />
-                  </span>
-                  {doc.short}
-                </LinkArrow>
+                  <doc.icon className="size-4 shrink-0" strokeWidth={1.6} aria-hidden="true" />
+                  <span className="lg:sr-only">{doc.short}</span>
+                </Link>
               </li>
             );
           })}
         </ul>
+        <Link href="/delete-account" aria-current={current === "delete-account" ? "page" : undefined} title="Delete your account" className={`flex min-h-11 items-center justify-center gap-2 rounded-full px-3 text-xs font-semibold transition-colors lg:size-11 lg:px-0 ${current === "delete-account" ? "bg-ink text-paper" : "text-cocoa hover:bg-brand/10 hover:text-brand"}`}>
+          <Trash2 className="size-4" strokeWidth={1.6} aria-hidden="true" /><span className="lg:sr-only">Delete account</span>
+        </Link>
       </nav>
-
-      <div className="mt-4 rounded-card border border-border bg-navy p-5 text-white">
-        <p className="text-sm font-bold">Questions about our policies?</p>
-        <p className="mt-1 text-sm text-white/70">
-          Our team is happy to help clarify anything.
-        </p>
-        <LinkArrow
-          href="mailto:quickbiteinfo01@gmail.com"
-          variant="dark"
-          className="mt-3 w-full min-w-0! text-sm! font-semibold normal-case! text-brand-light! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em]"
-        >
-          Contact support
-        </LinkArrow>
-      </div>
+      <span aria-hidden="true" className="mx-auto hidden grow items-center justify-center py-8 text-[0.6rem] uppercase tracking-[0.25em] text-cocoa [writing-mode:vertical-rl] lg:flex">The QuickBite legal desk</span>
+      <a href="mailto:quickbiteinfo01@gmail.com" aria-label="Email QuickBite about our policies" title="Contact our team" className="mx-auto mb-6 hidden size-11 items-center justify-center rounded-full border border-ink/20 text-ink transition-colors hover:bg-ink hover:text-paper lg:flex"><Mail className="size-4" aria-hidden="true" /></a>
     </aside>
   );
 }

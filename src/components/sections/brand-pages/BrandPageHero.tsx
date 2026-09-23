@@ -34,6 +34,7 @@ export default function BrandPageHero({
     <>
       <section
         id={id}
+        data-scroll-hero
         data-nav-theme="hero"
         aria-labelledby={`${id}-title`}
         className="relative isolate overflow-hidden bg-dark-ink pb-10 pt-40 text-paper sm:pb-12 sm:pt-38 lg:pt-48 xl:pt-52"
@@ -43,7 +44,7 @@ export default function BrandPageHero({
         </div>
         <Container className="lg:max-w-none lg:pl-[max(4.5rem,calc((100%-103rem)/2+4.5rem))] xl:pl-[max(10rem,calc((100%-103rem)/2+10rem))]">
           <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,.95fr)] lg:gap-10 xl:gap-14">
-            <div className="relative z-10 min-w-0">
+            <div data-scroll-hero-copy className="relative z-10 min-w-0">
               <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-brand sm:text-sm">
                 <span aria-hidden="true" className="h-px w-8 shrink-0 bg-brand" />
                 {eyebrow}
@@ -66,7 +67,7 @@ export default function BrandPageHero({
                 ) : null}
               </div>
             </div>
-            <div className="relative mx-auto w-full min-w-0 max-w-[42rem] lg:ml-auto lg:mr-0">
+            <div data-scroll-hero-media className="relative mx-auto w-full min-w-0 max-w-[42rem] lg:ml-auto lg:mr-0">
               {children}
             </div>
           </div>

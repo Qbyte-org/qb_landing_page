@@ -19,8 +19,8 @@ export default function SiteShell({ children, heroIntro = false }: { children: R
   const startReveal = useCallback(() => setPhase(current => current === "loading" ? "revealing" : current), []);
   const finishIntro = useCallback(() => setPhase("ready"), []);
 
-  // Prepare the existing hero entrance while the opaque intro still covers it.
-  useSiteIntro(shellRef, heroIntro, phase !== "loading");
+  // Both the full intro and its exit must finish before the hero can enter.
+  useSiteIntro(shellRef, heroIntro, phase === "ready");
 
   return (
     <>
@@ -31,7 +31,7 @@ export default function SiteShell({ children, heroIntro = false }: { children: R
         ref={shellRef}
         data-site-intro={phase}
         inert={phase !== "ready"}
-        className={`flex min-h-full flex-col ${phase === "loading" ? "invisible" : "visible"}`}
+        className={`flex min-h-full flex-col ${phase === "ready" ? "visible opacity-100" : "invisible opacity-0"}`}
       >
         <SmoothScroll enabled={phase === "ready"} />
         <Header />

@@ -27,9 +27,9 @@ export default function Waitlist({ initialEmail = "" }: { initialEmail?: string 
     <main ref={pageRef} className="qb-waitlist relative isolate min-h-screen overflow-x-clip bg-ink text-paper">
       <AnimatedBackground />
       <div className="relative">
-        <section id="waitlist-hero" className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-0">
+        <section id="waitlist-hero" data-scroll-hero className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-0">
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
-            <p className="outline-display text-center text-[20vw] font-bold leading-none tracking-wider text-transparent">
+            <p data-scroll-hero-media className="outline-display text-center text-[20vw] font-bold leading-none tracking-wider text-transparent">
               Coming<br />soon!
             </p>
           </div>

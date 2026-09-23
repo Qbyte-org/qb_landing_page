@@ -1,17 +1,20 @@
-import SectionWave from "../ui/SectionWave";
+"use client";
+
 import FinalCTA from "./FinalCTA";
 import RestaurantDirectory from "./restaurants/RestaurantDirectory";
 import RestaurantHero from "./restaurants/RestaurantHero";
 import RestaurantMenu from "./restaurants/RestaurantMenu";
-import RestaurantOffers from "./restaurants/RestaurantOffers";
+import { restaurantDishes } from "./restaurants/restaurantDishes";
+import { useDishOrbitSteps } from "./restaurants/useDishOrbitSteps";
 
 export default function RestaurantsExperience() {
+  const { selectedIndex, position, reducedMotion, selectDish, stepDish } = useDishOrbitSteps(restaurantDishes.length);
+
   return (
     <div className="overflow-hidden bg-paper text-ink">
-      <RestaurantHero />
-      <SectionWave to="paper" />
-      <RestaurantMenu />
-      <RestaurantOffers />
+      <RestaurantHero selectedIndex={selectedIndex} position={position} reducedMotion={reducedMotion} onSelect={selectDish} onStep={stepDish} />
+      <RestaurantMenu selectedDish={restaurantDishes[selectedIndex]} onSelect={selectDish} />
+      {/* <RestaurantOffers /> */}
       <RestaurantDirectory />
       <FinalCTA
         id="restaurant-cta"
@@ -24,3 +27,5 @@ export default function RestaurantsExperience() {
     </div>
   );
 }
+
+

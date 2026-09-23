@@ -101,6 +101,7 @@ export default function Reveal({
     <div
       ref={elementRef}
       className={className}
+      data-scroll-reveal
       {...props}
     >
       {children}
