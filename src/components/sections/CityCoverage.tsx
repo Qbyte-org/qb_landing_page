@@ -1,3 +1,4 @@
+import { cityCoverageCopy } from "@/content/home/sections";
 import { MapPin, CircleCheck } from "lucide-react";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/SectionHeading";
@@ -15,12 +16,11 @@ export default function CityCoverage() {
       <Container>
         <SectionHeading
           title={
-            <>
-              Now live in {liveCity} —{" "}
-              <span className="text-brand-dark">Nigeria next</span>
+            <>{cityCoverageCopy.nowLiveIn}{liveCity}{" —"}{" "}
+              <span className="text-brand-dark">{cityCoverageCopy.nigeriaNext}</span>
             </>
           }
-          subtitle="We started in Ile-Ife and we're just getting going. Don't see your city yet? It's probably next on the map."
+          subtitle={cityCoverageCopy.subtitleWeStartedInIleIfeAnd}
         />
 
         <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-5">
@@ -36,14 +36,12 @@ export default function CityCoverage() {
                     <h3 className="font-display text-2xl font-extrabold text-navy">
                       {liveCity}
                     </h3>
-                    <p className="text-sm text-muted">{liveCityState}, Nigeria</p>
+                    <p className="text-sm text-muted">{liveCityState}{cityCoverageCopy.nigeria}</p>
                   </div>
                 </div>
               </div>
 
-              <p className="relative mt-6 text-sm font-semibold uppercase tracking-wider text-muted">
-                Neighbourhoods we cover
-              </p>
+              <p className="relative mt-6 text-sm font-semibold uppercase tracking-wider text-muted">{cityCoverageCopy.neighbourhoodsWeCover}</p>
               <div className="relative mt-3 flex flex-wrap gap-2">
                 {coverageAreas.map((area) => (
                   <span
@@ -61,12 +59,8 @@ export default function CityCoverage() {
           {/* Coming soon — expansion roadmap */}
           <Reveal delay={0.1} className="lg:col-span-2">
             <div className="flex h-full flex-col rounded-2xl border border-border bg-navy p-7 text-white sm:p-8">
-              <h3 className="font-display text-xl font-bold">
-                Rolling out across Nigeria
-              </h3>
-              <p className="mt-1 text-sm text-white/60">
-                These cities are next on the QuickBite map.
-              </p>
+              <h3 className="font-display text-xl font-bold">{cityCoverageCopy.rollingOutAcrossNigeria}</h3>
+              <p className="mt-1 text-sm text-white/60">{cityCoverageCopy.theseCitiesAreNextOnTheQuickBite}</p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {expansionCities.map((city) => (
                   <span

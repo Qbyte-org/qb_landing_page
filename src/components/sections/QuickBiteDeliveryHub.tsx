@@ -1,6 +1,8 @@
 "use client";
 
-import Image from "next/image";
+import { quickBiteDeliveryHubCopy } from "@/content/home/sections";
+
+import Image from "@/components/ui/SiteImage";
 import LinkArrow from "../ui/LinkArrow";
 import {
   useMemo,
@@ -118,11 +120,11 @@ const hubCities: HubCity[] = [liveCity, ...expansionCities].map((city, index) =>
   return {
     id: slugify(city),
     name: city,
-    state: isLive ? liveCityState : "Nigeria rollout",
+    state: isLive ? liveCityState : quickBiteDeliveryHubCopy.nigeriaRollout,
     copy: isLive
-      ? "Campus kitchens, neighbourhood staples, and late-night favourites connected into one live delivery grid."
-      : "A launch simulation of the next QuickBite delivery cluster, tuned for restaurants, riders, and city-wide demand.",
-    status: isLive ? "Live and healthy" : "Opening soon",
+      ? quickBiteDeliveryHubCopy.campusKitchensNeighbourhoodStaplesAndLateNight
+      : quickBiteDeliveryHubCopy.aLaunchSimulationOfTheNextQuickBite,
+    status: isLive ? quickBiteDeliveryHubCopy.liveAndHealthy : quickBiteDeliveryHubCopy.openingSoon,
     accent: palette.accent,
     soft: palette.soft,
     eta: isLive ? 24 : 18 + ((index + 2) * 3) % 16,
@@ -143,12 +145,12 @@ const hubCities: HubCity[] = [liveCity, ...expansionCities].map((city, index) =>
 });
 
 const restaurantBadges = [
-  "Most ordered",
-  "Popular",
-  "Fast lane",
-  "Campus pick",
-  "Dinner rush",
-  "Fresh drop",
+  quickBiteDeliveryHubCopy.mostOrdered,
+  quickBiteDeliveryHubCopy.popular,
+  quickBiteDeliveryHubCopy.fastLane,
+  quickBiteDeliveryHubCopy.campusPick,
+  quickBiteDeliveryHubCopy.dinnerRush,
+  quickBiteDeliveryHubCopy.freshDrop,
 ];
 
 function getInitials(name: string) {
@@ -248,7 +250,7 @@ function RestaurantDiscoveryCard({
     >
       <div className="pointer-events-none absolute -inset-1 rounded-[1.6rem] bg-ink/30 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-50" />
       <LinkArrow
-        href="/restaurants"
+        href={quickBiteDeliveryHubCopy.hrefRestaurants}
         appearance="plain"
         className="relative flex! min-h-[8.25rem] overflow-hidden rounded-[1.45rem] bg-white/92 p-4 text-espresso ring-1 ring-black/5 backdrop-blur"
       >
@@ -259,7 +261,7 @@ function RestaurantDiscoveryCard({
         >
           <Image
             src={restaurant.image}
-            alt={`Food from ${restaurant.name}`}
+            alt={quickBiteDeliveryHubCopy.altFoodFromFormat(restaurant.name)}
             fill
             sizes="128px"
             className="object-cover"
@@ -529,7 +531,7 @@ export default function QuickBiteDeliveryHub() {
         className="pointer-events-none absolute bottom-10 right-10 h-96 w-96 rounded-full bg-white/10 blur-3xl"
       />
       <Image
-        src="/food/pizza.svg"
+        src={quickBiteDeliveryHubCopy.srcFoodPizzaSvg}
         alt=""
         width={130}
         height={130}
@@ -537,7 +539,7 @@ export default function QuickBiteDeliveryHub() {
         aria-hidden="true"
       />
       <Image
-        src="/food/drinks.svg"
+        src={quickBiteDeliveryHubCopy.srcFoodDrinksSvg}
         alt=""
         width={120}
         height={120}
@@ -548,20 +550,14 @@ export default function QuickBiteDeliveryHub() {
       <Container className="relative z-10">
         <div className="mb-10 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <div className="max-w-3xl">
-            <p className="text-xs font-black uppercase tracking-[0.24em] text-[var(--hub-accent)]">
-              QuickBite Delivery Hub
-            </p>
-            <h2 className="mt-4 font-display text-[2.5rem] font-black leading-[0.95] tracking-[-0.07em] sm:text-5xl lg:text-[4.65rem]">
-              A live view of the food network around you.
-            </h2>
+            <p className="text-xs font-black uppercase tracking-[0.24em] text-[var(--hub-accent)]">{quickBiteDeliveryHubCopy.quickBiteDeliveryHub}</p>
+            <h2 className="mt-4 font-display text-[2.5rem] font-black leading-[0.95] tracking-[-0.07em] sm:text-5xl lg:text-[4.65rem]">{quickBiteDeliveryHubCopy.aLiveViewOfTheFoodNetwork}</h2>
           </div>
           <LinkArrow
-            href="/restaurants"
+            href={quickBiteDeliveryHubCopy.hrefRestaurants}
             appearance="plain"
             className="h-14 w-max justify-center gap-2 rounded-pill border-0 bg-[var(--hub-accent)] px-7 text-sm font-black text-white sm:px-9"
-          >
-            Explore restaurants
-            <Navigation className="h-4 w-4" strokeWidth={2.35} />
+          >{quickBiteDeliveryHubCopy.exploreRestaurants}<Navigation className="h-4 w-4" strokeWidth={2.35} />
           </LinkArrow>
         </div>
 
@@ -571,9 +567,7 @@ export default function QuickBiteDeliveryHub() {
           <div className="grid min-h-[45rem] lg:grid-cols-[0.82fr_1.55fr] xl:grid-cols-[0.8fr_1.65fr_0.95fr]">
             <aside className="relative z-20 border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r xl:p-9">
               <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-white/45">
-                <Radio className="h-4 w-4 text-[var(--hub-accent)]" strokeWidth={2.3} />
-                Active city
-              </div>
+                <Radio className="h-4 w-4 text-[var(--hub-accent)]" strokeWidth={2.3} />{quickBiteDeliveryHubCopy.activeCity}</div>
 
               <AnimatePresence mode="wait">
                 <motion.div
@@ -596,25 +590,21 @@ export default function QuickBiteDeliveryHub() {
               </AnimatePresence>
 
               <div className="mt-7 grid grid-cols-2 gap-3">
-                <AnimatedMetric value={activeCity.eta} suffix="m" label="Avg delivery" />
-                <AnimatedMetric value={activeCity.activeRestaurants} label="Restaurants" />
-                <AnimatedMetric value={activeCity.ridersOnline} label="Riders online" />
+                <AnimatedMetric value={activeCity.eta} suffix="m" label={quickBiteDeliveryHubCopy.labelAvgDelivery} />
+                <AnimatedMetric value={activeCity.activeRestaurants} label={quickBiteDeliveryHubCopy.labelRestaurants} />
+                <AnimatedMetric value={activeCity.ridersOnline} label={quickBiteDeliveryHubCopy.labelRidersOnline} />
                 <div className="rounded-[1.2rem] bg-white/8 px-4 py-3 text-white ring-1 ring-white/10">
                   <p className="flex items-center gap-2 font-display text-2xl font-black leading-none tracking-[-0.04em]">
                     <CloudSun className="h-6 w-6 text-[var(--hub-accent)]" strokeWidth={2.2} />
                     <AnimatedNumber value={activeCity.temperature} suffix="°" />
                   </p>
-                  <p className="mt-1 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white/45">
-                    Weather
-                  </p>
+                  <p className="mt-1 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white/45">{quickBiteDeliveryHubCopy.weather}</p>
                 </div>
               </div>
 
               <div className="mt-5 flex items-center justify-between rounded-[1.35rem] bg-white/8 px-4 py-4 ring-1 ring-white/10">
                 <div>
-                  <p className="text-xs font-black uppercase tracking-[0.16em] text-white/45">
-                    Service status
-                  </p>
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-white/45">{quickBiteDeliveryHubCopy.serviceStatus}</p>
                   <AnimatePresence mode="wait">
                     <motion.p
                       key={activeCity.status}
@@ -635,9 +625,7 @@ export default function QuickBiteDeliveryHub() {
               </div>
 
               <div className="mt-7">
-                <p className="mb-3 text-xs font-black uppercase tracking-[0.18em] text-white/45">
-                  Switch city
-                </p>
+                <p className="mb-3 text-xs font-black uppercase tracking-[0.18em] text-white/45">{quickBiteDeliveryHubCopy.switchCity}</p>
                 <div className="flex flex-wrap gap-2">
                   {hubCities.map((city) => {
                     const active = city.id === activeCity.id;
@@ -673,7 +661,7 @@ export default function QuickBiteDeliveryHub() {
                 className="relative z-10 h-full min-h-[35rem] w-full overflow-visible"
                 viewBox="0 0 920 520"
                 fill="none"
-                aria-label={`Stylised QuickBite delivery network in ${activeCity.name}`}
+                aria-label={quickBiteDeliveryHubCopy.ariaLabelStylisedQuickBiteDeliveryNetworkInFormat(activeCity.name)}
               >
                 <defs>
                   <filter id="hubRouteGlow" x="-20%" y="-20%" width="140%" height="140%">
@@ -786,7 +774,7 @@ export default function QuickBiteDeliveryHub() {
                 />
                 <image
                   data-hub-rider
-                  href="/quickbite-delivery-bike.svg"
+                  href={quickBiteDeliveryHubCopy.hrefQuickbiteDeliveryBikeSvg}
                   width="138"
                   height="82"
                 />
@@ -830,19 +818,16 @@ export default function QuickBiteDeliveryHub() {
 
               <div className="absolute bottom-6 left-6 z-30 flex items-center gap-3 rounded-pill bg-ink/34 px-4 py-3 text-xs font-black uppercase tracking-[0.16em] text-white/70 ring-1 ring-white/10 backdrop-blur">
                 <Signal className="h-4 w-4 text-[var(--hub-accent)]" strokeWidth={2.4} />
-                {selectedNode ? `${selectedNode.name} route selected` : "Live delivery routes"}
+                {selectedNode ? quickBiteDeliveryHubCopy.routeSelected(selectedNode.name) : quickBiteDeliveryHubCopy.liveDeliveryRoutes}
               </div>
             </div>
 
             <aside className="relative z-20 border-t border-white/10 p-6 sm:p-8 xl:border-l xl:border-t-0 xl:p-7">
               <div className="mb-5 flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs font-black uppercase tracking-[0.2em] text-[var(--hub-accent)]">
-                    Discover
-                  </p>
+                  <p className="text-xs font-black uppercase tracking-[0.2em] text-[var(--hub-accent)]">{quickBiteDeliveryHubCopy.discover}</p>
                   <h3 className="mt-2 font-display text-2xl font-black leading-none">
-                    {selectedNode ? selectedNode.name : activeCity.name} kitchens
-                  </h3>
+                    {selectedNode ? selectedNode.name : activeCity.name}{quickBiteDeliveryHubCopy.kitchens}</h3>
                 </div>
                 <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white/8 text-[var(--hub-accent)] ring-1 ring-white/10">
                   <UtensilsCrossed className="h-5 w-5" strokeWidth={2.25} />
@@ -875,12 +860,8 @@ export default function QuickBiteDeliveryHub() {
                     <Zap className="h-5 w-5" strokeWidth={2.35} />
                   </span>
                   <div>
-                    <p className="text-sm font-black text-white">
-                      Smart routing active
-                    </p>
-                    <p className="text-xs font-semibold text-white/48">
-                      Restaurants update as routes and neighbourhood demand shift.
-                    </p>
+                    <p className="text-sm font-black text-white">{quickBiteDeliveryHubCopy.smartRoutingActive}</p>
+                    <p className="text-xs font-semibold text-white/48">{quickBiteDeliveryHubCopy.restaurantsUpdateAsRoutesAndNeighbourhoodDemand}</p>
                   </div>
                 </div>
               </div>

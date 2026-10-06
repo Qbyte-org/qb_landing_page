@@ -1,4 +1,5 @@
-import Image from "next/image";
+import { communityBentoCopy } from "@/content/home/sections";
+import Image from "@/components/ui/SiteImage";
 import type { ReactNode } from "react";
 import { Bike, MapPin, Store } from "lucide-react";
 import {
@@ -16,9 +17,9 @@ import LinkArrow from "../ui/LinkArrow";
 import Reveal from "../ui/Reveal";
 import SectionHeading from "../ui/SectionHeading";
 
-const partnerHeadline = "Grow your food business with QuickBite";
+const partnerHeadline = communityBentoCopy.growYourFoodBusinessWithQuickBite;
 const partnerSubtext =
-  "Whether you run a busy restaurant or cook from home, reach more hungry customers and get paid reliably.";
+  communityBentoCopy.whetherYouRunABusyRestaurantOr;
 
 const coveragePreview = coverageAreas.slice(0, 4);
 const remainingAreas = Math.max(0, coverageAreas.length - coveragePreview.length);
@@ -49,14 +50,13 @@ export default function CommunityBento() {
     <section data-nav-theme="neutral" className="overflow-hidden bg-cream py-16 sm:py-24">
       <Container>
         <SectionHeading
-          eyebrow="Join the ecosystem"
+          eyebrow={communityBentoCopy.eyebrowJoinTheEcosystem}
           title={
-            <>
-              Built for partners, riders, and{" "}
-              <span className="text-brand-dark">every city we reach</span>
+            <>{communityBentoCopy.builtForPartnersRidersAnd}{" "}
+              <span className="text-brand-dark">{communityBentoCopy.everyCityWeReach}</span>
             </>
           }
-          subtitle="QuickBite connects restaurants, home kitchens, riders, and hungry neighbourhoods inside one fast-moving delivery network."
+          subtitle={communityBentoCopy.subtitleQuickBiteConnectsRestaurantsHomeKitchensRiders}
         />
 
         <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:auto-rows-[12rem] lg:grid-rows-3 lg:gap-6">
@@ -66,17 +66,15 @@ export default function CommunityBento() {
               id="partners"
             >
               <Image
-                src="/images/food/partner-kitchen.webp"
-                alt="A restaurant kitchen preparing fresh food"
+                src={communityBentoCopy.srcImagesFoodPartnerKitchenWebp}
+                alt={communityBentoCopy.altARestaurantKitchenPreparingFreshFood}
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
               <div className="relative z-10">
-                <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.22em] text-brand-light">
-                  Partner hero
-                </p>
+                <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.22em] text-brand-light">{communityBentoCopy.partnerHero}</p>
                 <h3 className="font-display text-3xl font-extrabold leading-[1.02] sm:text-4xl">
                   {partnerHeadline}
                 </h3>
@@ -84,9 +82,7 @@ export default function CommunityBento() {
                   {partnerSubtext}
                 </p>
                 <div className="mt-6">
-                  <Button href="/partners" size="md" className="px-6">
-                    Become a partner
-                  </Button>
+                  <Button href={communityBentoCopy.hrefPartners} size="md" className="px-6">{communityBentoCopy.becomeAPartner}</Button>
                 </div>
               </div>
             </BentoCard>
@@ -96,24 +92,20 @@ export default function CommunityBento() {
             <BentoCard className="flex min-h-[13rem] flex-col justify-between bg-navy text-white lg:min-h-0">
               <div className="flex items-start justify-between gap-4">
                 <IconChip icon={Store} tone="light" size="sm" />
-                <span className="rounded-pill bg-white/10 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/60">
-                  Partner CTA
-                </span>
+                <span className="rounded-pill bg-white/10 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/60">{communityBentoCopy.partnerCTA}</span>
               </div>
               <div>
                 <h3 className="font-display text-xl font-extrabold leading-tight">
-                  {firstPartnerPerk?.title ?? "Own a kitchen or cook from home?"}
+                  {firstPartnerPerk?.title ?? communityBentoCopy.defaultKitchenPrompt}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/65">
                   {firstPartnerPerk?.description ?? partnerSubtext}
                 </p>
                 <LinkArrow
-                  href="/partners"
+                  href={communityBentoCopy.hrefPartners}
                   variant="dark"
                   className="mt-4 min-w-0! text-sm! font-extrabold normal-case! text-brand-light! [--link-arrow-spacing:0em] [--link-arrow-expanded-spacing:0.04em]"
-                >
-                  Become a partner
-                </LinkArrow>
+                >{communityBentoCopy.becomeAPartner}</LinkArrow>
               </div>
             </BentoCard>
           </Reveal>
@@ -121,21 +113,17 @@ export default function CommunityBento() {
           <Reveal delay={0.16} className="lg:col-start-1 lg:row-start-2 lg:row-span-2">
             <BentoCard className="flex min-h-[20rem] flex-col justify-between bg-white text-navy lg:min-h-0">
               <div>
-                <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-muted">
-                  Ride with us
-                </p>
-                <h3 className="mt-4 font-display text-2xl font-extrabold">
-                  Two ways to earn
-                </h3>
+                <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-muted">{communityBentoCopy.rideWithUs}</p>
+                <h3 className="mt-4 font-display text-2xl font-extrabold">{communityBentoCopy.twoWaysToEarn}</h3>
               </div>
 
               <div className="space-y-5">
                 {riderTiers.map((tier, index) => (
                   <LinkArrow
                     key={tier.name}
-                    href="/riders"
+                    href={communityBentoCopy.hrefRiders}
                     variant="light"
-                    imageSrc={index === 0 ? "/menu/app-phone.svg" : "/menu/company-card.svg"}
+                    imageSrc={communityBentoCopy.riderProgramImages[index === 0 ? 0 : 1]}
                     className="w-full [--link-arrow-expanded-spacing:0.12em] [--link-arrow-image-size:2rem] [--link-arrow-min-width:100%] [--link-arrow-spacing:0.02em] border-navy/10 pb-3 text-[0.8rem]"
                     textClassName="font-extrabold"
                   >
@@ -152,19 +140,13 @@ export default function CommunityBento() {
               id="riders"
             >
               <div className="flex items-start justify-between gap-4">
-                <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-white/70">
-                  Rider program
-                </p>
+                <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-white/70">{communityBentoCopy.riderProgram}</p>
                 <Bike className="h-7 w-7 text-white/80" strokeWidth={1.7} aria-hidden="true" />
               </div>
 
               <div>
-                <h3 className="font-display text-3xl font-extrabold leading-none">
-                  Two-tier model
-                </h3>
-                <p className="mt-4 max-w-xs text-base font-semibold leading-relaxed text-white/85">
-                  Smartphone or not, everyone can earn with QuickBite.
-                </p>
+                <h3 className="font-display text-3xl font-extrabold leading-none">{communityBentoCopy.twoTierModel}</h3>
+                <p className="mt-4 max-w-xs text-base font-semibold leading-relaxed text-white/85">{communityBentoCopy.smartphoneOrNotEveryoneCanEarnWith}</p>
               </div>
 
               <div className="flex items-center gap-3">
@@ -190,22 +172,19 @@ export default function CommunityBento() {
               id="cities"
             >
               <Image
-                src="/menu/city-pin.svg"
+                src={communityBentoCopy.srcMenuCityPinSvg}
                 alt=""
                 width={140}
                 height={140}
                 className="absolute -right-5 -top-5 h-28 w-28 opacity-20"
                 aria-hidden="true"
               />
-              <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-white/70">
-                Live city
-              </p>
+              <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-white/70">{communityBentoCopy.liveCity}</p>
               <h3 className="mt-5 font-display text-3xl font-extrabold leading-none">
                 {liveCity}
               </h3>
               <p className="mt-2 text-sm font-semibold text-white/75">
-                {liveCityState}, Nigeria
-              </p>
+                {liveCityState}{communityBentoCopy.nigeria}</p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {coveragePreview.map((area) => (
                   <span
@@ -216,9 +195,7 @@ export default function CommunityBento() {
                   </span>
                 ))}
                 {remainingAreas > 0 ? (
-                  <span className="rounded-pill bg-white px-3 py-1 text-[0.7rem] font-black text-brand-dark">
-                    +{remainingAreas} more
-                  </span>
+                  <span className="rounded-pill bg-white px-3 py-1 text-[0.7rem] font-black text-brand-dark">{"+"}{remainingAreas}{communityBentoCopy.more}</span>
                 ) : null}
               </div>
             </BentoCard>
@@ -228,7 +205,7 @@ export default function CommunityBento() {
             <BentoCard className="flex min-h-[13rem] items-end bg-white text-navy lg:min-h-0">
               <div className="absolute inset-0 bg-brand-50" />
               <Image
-                src="/quickbite-delivery-bike.svg"
+                src={communityBentoCopy.srcQuickbiteDeliveryBikeSvg}
                 alt=""
                 width={260}
                 height={150}
@@ -236,12 +213,8 @@ export default function CommunityBento() {
                 aria-hidden="true"
               />
               <div className="relative z-10">
-                <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-muted">
-                  Riders photo
-                </p>
-                <h3 className="mt-1 font-display text-2xl font-extrabold">
-                  Our riders
-                </h3>
+                <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-muted">{communityBentoCopy.ridersPhoto}</p>
+                <h3 className="mt-1 font-display text-2xl font-extrabold">{communityBentoCopy.ourRiders}</h3>
               </div>
             </BentoCard>
           </Reveal>
@@ -249,7 +222,7 @@ export default function CommunityBento() {
           <Reveal delay={0.48} className="lg:col-start-3 lg:col-span-2 lg:row-start-3">
             <BentoCard className="flex min-h-[18rem] flex-col justify-between bg-navy text-white lg:min-h-0">
               <Image
-                src="/logo-mark-light.svg"
+                src={communityBentoCopy.srcLogoMarkLightSvg}
                 alt=""
                 width={220}
                 height={220}
@@ -258,15 +231,9 @@ export default function CommunityBento() {
               />
               <div className="relative z-10 flex items-start justify-between gap-5">
                 <div>
-                  <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-brand-light">
-                    Expansion cities
-                  </p>
-                  <h3 className="mt-4 font-display text-2xl font-extrabold">
-                    Rolling out across Nigeria
-                  </h3>
-                  <p className="mt-2 max-w-md text-sm leading-relaxed text-white/60">
-                    These cities are next on the QuickBite map.
-                  </p>
+                  <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-brand-light">{communityBentoCopy.expansionCities}</p>
+                  <h3 className="mt-4 font-display text-2xl font-extrabold">{communityBentoCopy.rollingOutAcrossNigeria}</h3>
+                  <p className="mt-2 max-w-md text-sm leading-relaxed text-white/60">{communityBentoCopy.theseCitiesAreNextOnTheQuickBite}</p>
                 </div>
                 <IconChip icon={MapPin} tone="light" size="sm" />
               </div>

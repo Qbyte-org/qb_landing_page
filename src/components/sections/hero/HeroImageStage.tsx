@@ -1,6 +1,6 @@
 import Image from "../../ui/FoodImage";
 import { AnimatePresence, motion } from "motion/react";
-import type { HeroSlide } from "./hero.data";
+import type { HeroSlide } from "@/content/home/hero";
 import BackgroundGrainTexture from "@/components/ui/BackgroundGrainTexture";
 
 export default function HeroImageStage({
