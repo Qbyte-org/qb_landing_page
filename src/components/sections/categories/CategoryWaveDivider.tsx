@@ -8,6 +8,7 @@ export function HomeToCategoriesWave() {
         className="absolute left-1/2 top-0 h-full w-[178vw] -translate-x-1/2 overflow-visible text-paper sm:static sm:w-full sm:translate-x-0"
         viewBox="0 0 1440 210"
         preserveAspectRatio="none"
+        focusable="false"
       >
         <path
           d="M0 42C143 87 244 87 391 54C544 20 625 99 769 125C914 151 984 68 1124 41C1254 16 1328 71 1440 37V210H0V42Z"
@@ -42,9 +43,10 @@ export function CategoriesToHowWave() {
       className="pointer-events-none absolute inset-x-0 bottom-[-1px] z-20 h-40 overflow-x-clip overflow-y-visible sm:h-48 sm:overflow-visible"
     >
       <svg
-        className="absolute left-1/2 top-0 h-full w-[178vw] -translate-x-1/2 overflow-visible text-ink sm:static sm:w-full sm:translate-x-0"
+        className="absolute left-1/2 top-0 h-full w-[178vw] -translate-x-1/2 overflow-visible text-dark-ink sm:static sm:w-full sm:translate-x-0"
         viewBox="0 0 1440 210"
         preserveAspectRatio="none"
+        focusable="false"
       >
         <path
           d="M0 65C136 110 244 105 392 72C545 38 626 117 770 143C915 169 987 86 1126 59C1255 34 1328 89 1440 55V210H0V65Z"
