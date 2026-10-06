@@ -1,6 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { categoriesCopy } from "@/content/home/sections";
+
+import { useRef, useSyncExternalStore } from "react";
 import { categories } from "@/content/site";
 import { gsap, useGSAP } from "@/lib/gsap";
 import CategoriesDecor from "./categories/CategoriesDecor";
@@ -11,52 +13,82 @@ import {
 import Container from "../ui/Container";
 import SectionHeading from "../ui/SectionHeading";
 
+const desktopQuery = "(min-width: 768px)";
+const mobileCategories = categories.filter(category => categoriesCopy.mobileCategoryNames.includes(category.name));
+const carouselItems = [...categories, ...categories];
+const subscribeToDesktop = (listener: () => void) => {
+  const media = window.matchMedia(desktopQuery);
+  media.addEventListener("change", listener);
+  return () => media.removeEventListener("change", listener);
+};
+const getDesktopSnapshot = () => window.matchMedia(desktopQuery).matches;
+const getServerSnapshot = () => false;
+
 export default function Categories() {
   const sectionRef = useRef<HTMLElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
+  const isDesktop = useSyncExternalStore(subscribeToDesktop, getDesktopSnapshot, getServerSnapshot);
 
   useGSAP(
     () => {
+      if (!isDesktop) return;
       const track = trackRef.current;
       const carousel = carouselRef.current;
-      if (!track) return;
+      if (!track || !carousel) return;
 
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        gsap.set(track, { xPercent: 0 });
-        return;
-      }
+      const media = gsap.matchMedia();
+      media.add("(prefers-reduced-motion: no-preference)", () => {
+        const tween = gsap.to(track, {
+          xPercent: -50,
+          duration: 68,
+          ease: "none",
+          repeat: -1,
+          paused: true,
+        });
+        tweenRef.current = tween;
 
-      const tween = gsap.to(track, {
-        xPercent: -50,
-        duration: 68,
-        ease: "none",
-        repeat: -1,
+        let visible = false;
+        let hovered = false;
+        let focused = carousel.contains(document.activeElement);
+        const updatePlayback = () => {
+          tween.paused(!visible || document.hidden || hovered || focused);
+        };
+        const enter = () => { hovered = true; updatePlayback(); };
+        const leave = () => { hovered = false; updatePlayback(); };
+        const focus = () => { focused = true; updatePlayback(); };
+        const blur = (event: FocusEvent) => {
+          focused = event.relatedTarget instanceof Node && carousel.contains(event.relatedTarget);
+          updatePlayback();
+        };
+        const observer = new IntersectionObserver(([entry]) => {
+          visible = entry.isIntersecting;
+          updatePlayback();
+        });
+        observer.observe(carousel);
+
+        carousel.addEventListener("mouseenter", enter);
+        carousel.addEventListener("mouseleave", leave);
+        carousel.addEventListener("focusin", focus);
+        carousel.addEventListener("focusout", blur);
+        document.addEventListener("visibilitychange", updatePlayback);
+
+        return () => {
+          observer.disconnect();
+          carousel.removeEventListener("mouseenter", enter);
+          carousel.removeEventListener("mouseleave", leave);
+          carousel.removeEventListener("focusin", focus);
+          carousel.removeEventListener("focusout", blur);
+          document.removeEventListener("visibilitychange", updatePlayback);
+          tween.kill();
+          tweenRef.current = null;
+        };
       });
-      tweenRef.current = tween;
-
-      const pause = () => tween.pause();
-      const resume = () => tween.resume();
-
-      carousel?.addEventListener("mouseenter", pause);
-      carousel?.addEventListener("mouseleave", resume);
-      carousel?.addEventListener("focusin", pause);
-      carousel?.addEventListener("focusout", resume);
-
-      return () => {
-        carousel?.removeEventListener("mouseenter", pause);
-        carousel?.removeEventListener("mouseleave", resume);
-        carousel?.removeEventListener("focusin", pause);
-        carousel?.removeEventListener("focusout", resume);
-        tween.kill();
-        tweenRef.current = null;
-      };
+      return () => media.revert();
     },
-    { scope: carouselRef },
+    { scope: carouselRef, dependencies: [isDesktop], revertOnUpdate: true },
   );
-
-  const carouselItems = [...categories, ...categories];
 
   return (
     <section
@@ -87,12 +119,12 @@ export default function Categories() {
 
         <SectionHeading
           warm
-          title="What are you craving?"
-          subtitle="From smoky jollof to late-night small chops, pick a category and dig in."
+          title={categoriesCopy.titleWhatAreYouCraving}
+          subtitle={categoriesCopy.subtitleFromSmokyJollofToLateNight}
         />
       </Container>
 
-      <div
+      {isDesktop ? <div
         ref={carouselRef}
         data-categories-carousel
         className="relative z-10 mt-12 overflow-hidden"
@@ -115,10 +147,15 @@ export default function Categories() {
             <CategoryCard
               key={`${category.name}-${index}`}
               category={category}
+              duplicate={index >= categories.length}
             />
           ))}
         </div>
-      </div>
+      </div> : <Container className="relative z-10 mt-10 grid gap-5">
+        {mobileCategories.map(category => (
+          <CategoryCard key={category.name} category={category} layout="grid" actionAriaLabel={categoriesCopy.actionAriaLabelBrowseFormat(category.name.toLowerCase())} />
+        ))}
+      </Container>}
     </section>
   );
 }
