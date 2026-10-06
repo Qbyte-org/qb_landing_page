@@ -1,0 +1,103 @@
+{
+  "description": "Standalone photographic ingredients for the restaurant hero tray. Original transparent image silhouettes are retained; these are not circular photo crops or generated food.",
+  "retrievedAt": "2026-09-23",
+  "processing": "Trimmed empty transparent margins, resized to a maximum 560 pixels per dimension and encoded as WebP with alpha preserved. Source photographs were not recolored or reconstructed.",
+  "assets": [
+    {
+      "file": "red-chili.webp",
+      "description": "One red chili pepper with green stem",
+      "author": "Spicy Anonymous",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Red_Chili_Pepper_PNG.png",
+      "sourceImage": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Red_Chili_Pepper_PNG.png",
+      "license": "CC0 1.0 Universal Public Domain Dedication",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "originalDimensions": [3500, 3688],
+      "dimensions": [532, 560]
+    },
+    {
+      "file": "lime-half.webp",
+      "description": "One halved lime with a falling juice drop",
+      "contributor": "hadiaaltaf",
+      "sourcePage": "https://purepng.com/photo/29070/food-half-green-juicy-lemon",
+      "sourceImage": "https://purepng.com/public/uploads/large/half-green-juicy-lemon-epu.png",
+      "license": "CC0, as described by PurePNG; the individual source page states free for commercial use with no attribution required",
+      "licenseUrl": "https://purepng.com/page/terms-of-service",
+      "originalDimensions": [2336, 2970],
+      "dimensions": [383, 560]
+    },
+    {
+      "file": "lime-pair.webp",
+      "description": "Two lime halves showing flesh and rind",
+      "contributor": "hadiaaltaf",
+      "sourcePage": "https://purepng.com/photo/29065/food-half-cut-lemon",
+      "sourceImage": "https://purepng.com/public/uploads/large/half-cut-lemon-lbn.png",
+      "license": "CC0, as described by PurePNG; the individual source page states free for commercial use with no attribution required",
+      "licenseUrl": "https://purepng.com/page/terms-of-service",
+      "originalDimensions": [3184, 2024],
+      "dimensions": [560, 271]
+    },
+    {
+      "file": "tomato.webp",
+      "description": "Halved tomato for the jollof tomato and pepper base",
+      "contributor": "ELL3G4NCE",
+      "sourcePage": "https://purepng.com/photo/342/food-tomato",
+      "sourceImage": "https://purepng.com/public/uploads/large/91506418762odclmt7apiz8g6oxnrlucbcqttcqtes3ycx29meesiiro9p6ctnrd6nujlagpzeg4tqu0xx5ajx57ucsa43xayulk9zqcyg7anjh.png",
+      "license": "CC0, as described by PurePNG; the individual source page states free for commercial use with no attribution required",
+      "licenseUrl": "https://purepng.com/page/terms-of-service"
+    },
+    {
+      "file": "onion.webp",
+      "description": "Whole onions for ayamase, vegetable soup and akara",
+      "contributor": "PNGStock",
+      "sourcePage": "https://purepng.com/photo/15105/food-onion",
+      "sourceImage": "https://purepng.com/public/uploads/large/purepng.com-oniononionvegetablegenus-alliumallium-fistulosumonions-1701527266381wcbrj.png",
+      "license": "CC0, as described by PurePNG; the individual source page states free for commercial use with no attribution required",
+      "licenseUrl": "https://purepng.com/page/terms-of-service"
+    },
+    {
+      "file": "green-pepper.webp",
+      "description": "Green pepper for ayamase",
+      "contributor": "PNGStock",
+      "sourcePage": "https://purepng.com/photo/15252/food-green-pepper",
+      "sourceImage": "https://purepng.com/public/uploads/large/purepng.com-green-pepperpepperpeppercornsspicecapsicumfoodchiligreen-pepper-1701527272347embbg.png",
+      "license": "CC0, as described by PurePNG; the individual source page states free for commercial use with no attribution required",
+      "licenseUrl": "https://purepng.com/page/terms-of-service"
+    },
+    {
+      "file": "greens.webp",
+      "description": "Leafy kale illustrating the greens in vegetable soup",
+      "contributor": "hadiaaltaf",
+      "sourcePage": "https://purepng.com/photo/30243/food-kale",
+      "sourceImage": "https://purepng.com/public/uploads/large/kale-fau.png",
+      "license": "CC0, as described by PurePNG; the individual source page states free for commercial use with no attribution required",
+      "licenseUrl": "https://purepng.com/page/terms-of-service"
+    },
+    {
+      "file": "ginger.webp",
+      "description": "Ginger root and slices for pepper soup",
+      "contributor": "PNGStock",
+      "sourcePage": "https://purepng.com/photo/15037/food-ginger",
+      "sourceImage": "https://purepng.com/public/uploads/large/purepng.com-gingergingerhotasian-plantpreserved-in-syrup-1701527257185h2sxx.png",
+      "license": "CC0, as described by PurePNG; the individual source page states free for commercial use with no attribution required",
+      "licenseUrl": "https://purepng.com/page/terms-of-service"
+    },
+    {
+      "file": "flour.webp",
+      "description": "Scoop of flour for puff-puff dough",
+      "contributor": "LPup",
+      "sourcePage": "https://purepng.com/photo/16594/render-flour",
+      "sourceImage": "https://purepng.com/public/uploads/large/purepng.com-flourflourgrainscerealbread-1411527418659trtwh.png",
+      "license": "CC0, as described by PurePNG; the individual source page states free for commercial use with no attribution required",
+      "licenseUrl": "https://purepng.com/page/terms-of-service"
+    },
+    {
+      "file": "sugar.webp",
+      "description": "Spoon of granulated sugar for puff-puff dough",
+      "contributor": "diqqiafrizal",
+      "sourcePage": "https://purepng.com/photo/4140/food-sugar",
+      "sourceImage": "https://purepng.com/public/uploads/large/purepng.com-sugarfood-sweet-sugar-ingredient-crystal-941524596486jdq3o.png",
+      "license": "CC0, as described by PurePNG; the individual source page states free for commercial use with no attribution required",
+      "licenseUrl": "https://purepng.com/page/terms-of-service"
+    }
+  ]
+}
