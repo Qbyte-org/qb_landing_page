@@ -1,5 +1,9 @@
 "use client";
 
+import { appShowcaseCopy } from "@/content/home/sections";
+
+import { featureLabels } from "@/content/home/app-showcase";
+
 import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { appFeatures } from "@/content/site";
@@ -23,22 +27,14 @@ function GooglePlayIcon() {
   );
 }
 
-const featureLabels = [
-  "Follow your order",
-  "Mix your favourites",
-  "Save your places",
-  "Pay your way",
-];
-
 const entrance = { y: [18, 0], opacity: [0.8, 1] };
 
 export default function AppShowcase() {
-  const [{ index: activeFeature, hasSelectedFeature }, setFeatureSelection] = useState({
+  const [{ index: activeFeature, direction }, setFeatureSelection] = useState({
     index: 0,
-    hasSelectedFeature: false,
+    direction: 1,
   });
   const reducedMotion = useReducedMotion();
-  const feature = appFeatures[activeFeature];
 
   return (
     <section
@@ -55,22 +51,17 @@ export default function AppShowcase() {
         transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         className="grid w-full lg:grid-cols-2"
       >
-        <div className="flex min-w-0 flex-col justify-center bg-cream-200 px-6 py-14 sm:px-10 sm:py-16 lg:px-[5vw]">
+        <div className="flex min-w-0 flex-col justify-center bg-cream-200 px-6 py-10 sm:px-10 sm:pb-12 sm:pt-20 lg:px-[5vw]">
           <div className="mx-auto w-full max-w-[46rem]">
             <h2
               id="app-showcase-title"
               className="section-heading"
-            >
-              Your next bite.
-              <span className="block text-brand-dark">Right here.</span>
+            >{appShowcaseCopy.yourNextBite}<span className="block text-brand-dark">{appShowcaseCopy.rightHere}</span>
             </h2>
 
-            <p className="mt-6 max-w-lg text-base leading-relaxed text-cocoa sm:text-lg">
-              The kitchens you love. The order you know by heart.
-              All in one place, ready for your next craving.
-            </p>
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-cocoa sm:text-lg">{appShowcaseCopy.theKitchensYouLoveTheOrderYou}</p>
 
-            <div role="group" aria-label="Explore QuickBite app features" className="mt-8 grid grid-cols-2 gap-3 sm:mt-10">
+            <div role="group" aria-label={appShowcaseCopy.ariaLabelExploreQuickBiteAppFeatures} className="mt-6 grid grid-cols-2 gap-3 sm:mt-7">
               {appFeatures.map(({ title, icon: Icon }, index) => (
                 <MagneticFillButton
                   key={title}
@@ -81,8 +72,8 @@ export default function AppShowcase() {
                   contentClassName="flex w-full items-center gap-2.5 sm:gap-3"
                   aria-pressed={activeFeature === index}
                   aria-controls="app-feature-preview"
-                  onClick={() => setFeatureSelection({ index, hasSelectedFeature: true })}
-                  className={`min-h-20 rounded-card border! p-3 text-left text-sm font-medium leading-snug sm:min-h-22 sm:p-4 sm:text-base ${activeFeature === index ? "border-ink bg-ink! text-paper!" : "border-ink/20 bg-paper! text-ink!"}`}
+                  onClick={() => setFeatureSelection((previous) => previous.index === index ? previous : { index, direction: index > previous.index ? 1 : -1 })}
+                  className={`min-h-16 rounded-card border! p-3 text-left text-sm font-medium leading-snug sm:min-h-18 sm:p-4 sm:text-base ${activeFeature === index ? "border-ink bg-ink! text-paper!" : "border-ink/20 bg-paper! text-ink!"}`}
                 >
                   <Icon aria-hidden="true" className={`size-4 shrink-0 sm:size-5 ${activeFeature === index ? "text-paper" : "text-brand-dark"}`} strokeWidth={1.75} />
                   {featureLabels[index] ?? title}
@@ -90,21 +81,15 @@ export default function AppShowcase() {
               ))}
             </div>
 
-            <p aria-hidden="true" className="mt-4 min-h-14 border-l-2 border-brand pl-4 text-sm leading-relaxed text-cocoa lg:hidden">
-              {feature.description}
-            </p>
-
-            <div className="mt-8 border-t border-ink/15 pt-7 sm:mt-10 sm:pt-8">
+            <div className="mt-6 border-t border-ink/15 pt-4 sm:mt-7 sm:pt-5">
               <LinkArrow
-                href="/waitlist"
+                href={appShowcaseCopy.hrefWaitlist}
                 variant="light"
                 className="min-h-12 w-64! text-base! font-semibold normal-case! [--link-arrow-spacing:0em]"
-              >
-                Get launch updates
-              </LinkArrow>
-              <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-cocoa">
-                <span>Coming to</span>
-                <span className="inline-flex items-center gap-1.5"><AppStoreIcon /> iOS</span>
+              >{appShowcaseCopy.getLaunchUpdates}</LinkArrow>
+              <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-cocoa">
+                <span>{appShowcaseCopy.comingTo}</span>
+                <span className="inline-flex items-center gap-1.5"><AppStoreIcon />{appShowcaseCopy.iOS}</span>
                 {/* <span className="inline-flex items-center gap-1.5"><GooglePlayIcon /> Android</span> */}
               </p>
             </div>
@@ -113,7 +98,7 @@ export default function AppShowcase() {
 
         <AppPreviewPanel
           activeFeature={activeFeature}
-          hasSelectedFeature={hasSelectedFeature}
+          direction={direction}
           reducedMotion={reducedMotion}
         />
       </motion.div>
