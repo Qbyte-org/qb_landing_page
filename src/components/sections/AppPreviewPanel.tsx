@@ -1,131 +1,77 @@
 "use client";
 
-import Image from "next/image";
-import { Bike, Check, CookingPot, House, MapPin, Store, Wallet } from "lucide-react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion, useIsPresent } from "motion/react";
 import { appFeatures } from "@/content/site";
-import BackgroundGrainTexture from "../ui/BackgroundGrainTexture";
-
-const featurePreviews = [
-  [
-    { icon: CookingPot, title: "From the kitchen", detail: "Keep up with your order" },
-    { icon: Bike, title: "To your doorstep", detail: "Follow your rider on the map" },
-  ],
-  [
-    { icon: Store, title: "Your go-to meal", detail: "From your favourite kitchen" },
-    { icon: Store, title: "A little extra", detail: "Add a bite from another spot" },
-  ],
-  [
-    { icon: House, title: "Home sweet home", detail: "Your usual delivery spot" },
-    { icon: MapPin, title: "Your campus corner", detail: "Save it for the next craving" },
-  ],
-  [
-    { icon: Wallet, title: "Your QuickBite wallet", detail: "Top up before you tuck in" },
-    { icon: Check, title: "A quicker checkout", detail: "Ready for your next order" },
-  ],
-];
+import { appDemoCopy, appFeatureSummaries } from "@/content/home/app-preview";
+import AppFeatureDemo from "./AppFeatureDemo";
 
 type AppPreviewPanelProps = {
   activeFeature: number;
-  hasSelectedFeature: boolean;
+  direction: number;
   reducedMotion: boolean | null;
 };
 
-export default function AppPreviewPanel({
-  activeFeature,
-  hasSelectedFeature,
-  reducedMotion,
-}: AppPreviewPanelProps) {
-  const feature = appFeatures[activeFeature];
-  const FeatureIcon = feature.icon;
+function DealCard({ activeFeature, direction, reducedMotion }: AppPreviewPanelProps) {
+  const isPresent = useIsPresent();
+  const animate = reducedMotion === false;
 
   return (
-    <figure className="relative isolate flex min-w-0 flex-col justify-center overflow-hidden bg-paper px-5 py-8 text-ink sm:px-10 sm:py-10 lg:px-[3vw] lg:py-12 border-l border-dashed border-ink/20">
+    <motion.div
+      data-app-dealt-card={isPresent ? "active" : "leaving"}
+      aria-hidden={!isPresent}
+      inert={!isPresent}
+      custom={direction}
+      initial={animate ? { x: direction * -28, y: 22, rotate: direction * -3, scale: 0.94 } : false}
+      animate={{ x: 0, y: 0, rotate: 0, scale: 1, opacity: 1 }}
+      exit="dealBack"
+      variants={{ dealBack: (exitDirection: number) => animate ? {
+        x: [0, exitDirection * 115, exitDirection * 16],
+        y: [0, -18, 24],
+        rotate: [0, exitDirection * 11, exitDirection * 3],
+        scale: [1, 0.98, 0.9],
+        opacity: [1, 1, 0],
+        zIndex: [20, 20, 0],
+        transition: { duration: 0.62, times: [0, 0.5, 1], ease: [0.22, 1, 0.36, 1] },
+      } : { opacity: 0, transition: { duration: 0 } } }}
+      transition={{ duration: animate ? 0.52 : 0, delay: animate ? 0.1 : 0, ease: [0.22, 1, 0.36, 1] }}
+      className="absolute inset-0 z-10 origin-bottom will-change-transform"
+    >
+      <AppFeatureDemo activeFeature={activeFeature} reducedMotion={reducedMotion} />
+    </motion.div>
+  );
+}
 
+export default function AppPreviewPanel({ activeFeature, direction, reducedMotion }: AppPreviewPanelProps) {
+  const feature = appFeatures[activeFeature];
 
-      <div className="relative mx-auto mt-7 w-full max-w-[46rem] flex-1 sm:mt-12">
-        <div className="flex items-center justify-between gap-4">
-          <p className="relative z-10 font-display text-[2.1rem] font-semibold leading-[0.98] tracking-[0.01em]! sm:text-[2.75rem] lg:text-[2.5rem] xl:text-5xl">
-            Your everyday food kit.
-          </p>
+  return (
+    <figure className="relative isolate flex min-w-0 flex-col justify-center overflow-hidden bg-dark-ink px-5 py-9 text-paper sm:px-10 sm:py-10 lg:px-[3vw]">
+      <div aria-hidden="true" className="pointer-events-none absolute -top-32 -right-32 size-96 rounded-full border border-paper/8" />
+
+      <div data-app-preview-stage className="@container/preview relative z-1 mx-auto w-full max-w-[46rem]">
+        <div className="mb-6 flex items-center justify-between gap-3 text-[0.625rem] font-semibold tracking-[0.14em] uppercase sm:text-xs">
+          <span className="text-paper/60">
+            {appDemoCopy.preview}
+          </span>
+          <span aria-hidden="true" className="font-mono tracking-normal">
+            {String(activeFeature + 1).padStart(2, "0")}
+            <span className="mx-2 text-paper/30">/</span>
+            <span className="text-paper/45">{String(appFeatures.length).padStart(2, "0")}</span>
+          </span>
         </div>
 
-        <div data-app-preview-stage className="@container mt-6 overflow-hidden rounded-[2.75rem] border border-ink/15 bg-cream sm:mt-8 border border-dashed border-ink/20">
-
-          <div className="grid @md:grid-cols-[minmax(0,0.95fr)_minmax(0,1fr)]">
-            <div data-app-phone-stage className="relative flex min-w-0 items-center justify-center overflow-hidden bg-cream-200 px-3 py-4 @md:py-6">
-              <BackgroundGrainTexture className=" opacity-20!" />
-              <div aria-hidden="true" className="pointer-events-none absolute inset-x-6 top-1/2 h-px -rotate-12 bg-ink/10" />
-              <div aria-hidden="true" className="pointer-events-none absolute inset-x-6 top-[58%] h-px -rotate-12 bg-ink/10" />
-              <div className="relative h-[21rem] w-full max-w-[15rem] select-none @md:h-[25rem] @md:max-w-[17rem]">
-                <Image
-                  src="/images/phone2.png"
-                  alt="QuickBite app home screen showing restaurant categories, a lunch offer, and a previous order"
-                  fill
-                  loading="lazy"
-                  sizes="(min-width: 1280px) 272px, (min-width: 1024px) 220px, (min-width: 640px) 272px, 240px"
-                  className="object-contain"
-                />
-              </div>
-            </div>
-
-            <div
-              id="app-feature-preview"
-              role="status"
-              aria-live="polite"
-              aria-atomic="true"
-              className="flex min-w-0 items-center border-t border-dashed border-ink/20 bg-paper @md:border-l @md:border-t-0"
-            >
-              <motion.div
-                key={feature.title}
-                // The first render stays identical on the server and client.
-                initial={hasSelectedFeature && reducedMotion === false ? { opacity: 0, y: 6 } : false}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: reducedMotion ? 0 : 0.22 }}
-                className="w-full min-w-0 p-5 @md:px-5 @md:py-7 @xl:p-7"
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <span className="grid size-10 shrink-0 place-items-center rounded-full bg-brand text-white">
-                    <FeatureIcon aria-hidden="true" className="size-5" strokeWidth={1.75} />
-                  </span>
-                  <span aria-hidden="true" className="font-mono text-[0.65rem] text-cocoa">
-                    {String(activeFeature + 1).padStart(2, "0")} / {String(appFeatures.length).padStart(2, "0")}
-                  </span>
-                </div>
-
-                <p className="mt-5 font-display text-xl font-semibold leading-tight @md:min-h-12 @lg:text-2xl">
-                  {feature.title}
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-cocoa @md:min-h-[4.5rem]">
-                  {feature.description}
-                </p>
-
-                <div className="mt-5 space-y-4 border-t border-dashed border-ink/20 pt-5">
-                  {featurePreviews[activeFeature].map(({ icon: Icon, title, detail }) => (
-                    <div key={title} className="flex items-start gap-2.5 @md:min-h-12">
-                      <Icon aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-brand-dark" strokeWidth={1.75} />
-                      <div className="min-w-0">
-                        <p className="text-xs font-semibold leading-snug">{title}</p>
-                        <p className="mt-1 text-[0.65rem] leading-relaxed text-cocoa">{detail}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
-          </div>
+        <div data-app-card-stack className="relative mx-1 h-96 @[28rem]/preview:h-100">
+          <div aria-hidden="true" className="absolute inset-x-4 -bottom-5 top-8 rotate-[-3deg] rounded-[1.5rem] border border-paper/25 bg-cocoa-dark @[28rem]/preview:rounded-[1.75rem]" />
+          <div aria-hidden="true" className="absolute inset-x-1.5 -bottom-2.5 top-4 rotate-[2deg] rounded-[1.5rem] border border-paper/30 bg-sand @[28rem]/preview:rounded-[1.75rem]" />
+          <AnimatePresence initial={false} custom={direction}>
+            <DealCard key={activeFeature} activeFeature={activeFeature} direction={direction} reducedMotion={reducedMotion} />
+          </AnimatePresence>
         </div>
-      </div>
 
-      <div aria-hidden="true" className="mt-7 flex items-center justify-between gap-4 border-t border-ink/15 pt-5 sm:mt-8">
-        <p className="text-[0.6rem] font-semibold uppercase tracking-[0.15em] text-cocoa sm:text-[0.65rem]">
-          A little less effort. A lot more flavour.
-        </p>
-        <div className="flex shrink-0 gap-1.5">
-          {appFeatures.map(({ title }, index) => (
-            <span key={title} className={`h-1.5 rounded-full transition-[width,background-color] duration-200 motion-reduce:transition-none ${index === activeFeature ? "w-5 bg-brand" : "w-1.5 bg-ink/20"}`} />
-          ))}
-        </div>
+        <figcaption id="app-feature-preview" role="status" aria-live="polite" aria-atomic="true" className="mt-10 min-h-20 min-w-0">
+          <h3 className="font-display text-[clamp(1.375rem,4.5cqw,1.8rem)] leading-tight font-semibold tracking-[-0.04em]">{feature.title}</h3>
+          <p className="mt-2 max-w-[40ch] text-xs leading-relaxed text-paper/60 @[28rem]/preview:text-sm">{appFeatureSummaries[activeFeature]}</p>
+        </figcaption>
       </div>
     </figure>
   );
