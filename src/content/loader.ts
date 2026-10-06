@@ -1,0 +1,60 @@
+export const loaderCopy = {
+  welcome: "Welcome to QuickBite",
+  welcomeStatus: "Welcome to QuickBite.",
+  transitionHeadline: ["GOOD", "FOOD."],
+  tagline: "A little local goodness.",
+  skip: "Skip intro",
+  appMockup: "App Mockup",
+  preparing: "Preparing",
+  pickedUp: "Picked up",
+  onTheWay: "On the way",
+  transitionPhoto: "/images/food/pinterest/jollof-chicken-plantain.webp",
+};
+
+export const photographs = [
+  {
+    src: "/images/food/pinterest/ofada-egg-plantain.webp",
+    width: 788,
+    height: 1400,
+    alt: "Ofada rice, pepper sauce, eggs and golden plantain on a leaf-lined plate",
+    frame: "discover",
+    headline: ["YOUR", "FAVOURITES."],
+    introduction: "Big flavours. Familiar favourites.",
+    detail: "Find the food you love, from kitchens close to home.",
+    copySide: "right",
+    details: [
+      { x: .274112, y: .295714, width: .162437, height: .094286, name: "Golden plantain slice" },
+      { x: .619289, y: .402143, width: .271574, height: .114286, name: "Egg with pepper sauce" },
+    ],
+  },
+  {
+    src: "/images/food/pinterest/assorted-meat-pepper-soup.webp",
+    width: 736,
+    height: 919,
+    alt: "Assorted meat pepper soup with herbs and a red pepper in a white bowl",
+    frame: "order",
+    headline: ["LOCAL", "GOODNESS."],
+    introduction: "Made nearby. Made with care.",
+    detail: "A little comfort from the cooks who know it best.",
+    copySide: "right",
+    details: [
+      { x: .627717, y: .315560, width: .263587, height: .169750, name: "Tender meat in pepper soup" },
+      { x: .387908, y: .359630, width: .074728, height: .099021, name: "Red pepper in the soup" },
+    ],
+  },
+  {
+    src: "/images/food/pinterest/peppered-fish-noodles.webp",
+    width: 1050,
+    height: 1400,
+    alt: "Peppered fish and boiled eggs arranged over a tray of noodles",
+    frame: "enjoy",
+    headline: ["MORE", "TO SHARE."],
+    introduction: "Good food. Better together.",
+    detail: "From your everyday lunch to everyone's next favourite.",
+    copySide: "right",
+    details: [
+      { x: .504762, y: .575357, width: .068571, height: .060714, name: "Pepper on the grilled fish" },
+      { x: .574762, y: .761071, width: .185714, height: .163571, name: "Boiled egg with noodles" },
+    ],
+  },
+];
