@@ -1,7 +1,7 @@
 {
   "referencedRasterCount": 58,
-  "rasterCount": 245,
-  "masterCount": 101,
+  "rasterCount": 248,
+  "masterCount": 104,
   "vectorCount": 31,
   "responsiveVariantCount": 144,
   "verifiedVariantCount": 144,
@@ -2099,6 +2099,27 @@
         "src/content/home/app-preview.ts",
         "src/content/home/sections.ts"
       ]
+    },
+    {
+      "asset": "/images/riders/full-delivery-scooter.webp",
+      "width": 1600,
+      "height": 1200,
+      "bytes": 176282,
+      "references": []
+    },
+    {
+      "asset": "/images/riders/quickbite-delivery-scooter-front.webp",
+      "width": 1320,
+      "height": 1200,
+      "bytes": 158240,
+      "references": []
+    },
+    {
+      "asset": "/images/riders/quickbite-delivery-scooter-hd.webp",
+      "width": 2640,
+      "height": 2400,
+      "bytes": 518062,
+      "references": []
     },
     {
       "asset": "/images/riders/quickbite-delivery-scooter-wordmark.webp",
