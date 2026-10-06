@@ -1,0 +1,59 @@
+{
+  "processing": "Whole independently pictured cooked foods. Neutral backgrounds are removed automatically; every complete food object is retained. No food portions are clipped from the restaurant hero photographs. Transparent WebP assets are prepared with scripts/prepare-standalone-food.mjs.",
+  "assets": [
+    {
+      "file": "grilled-drumstick.webp",
+      "subject": "Grilled chicken drumstick",
+      "sourcePageUrl": "https://www.rawpixel.com/image/16728546",
+      "sourceImageUrl": "https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTEyL3Jhd3BpeGVsX29mZmljZV8zNl90YXN0eV9ncmlsbGVkX2NoaWNrZW5fZHJ1bXN0aWNrX29uX3doaXRlX2JhY185MmIzNmM2MS0yMTg4LTRkNWYtYjk4OS00ODExM2Y4YjBmYzMtbTUyM3VndTUucG5n.png",
+      "sourceType": "Published AI-generated food illustration, sourced from Rawpixel; not generated for this project.",
+      "backgroundNeutralTolerance": 14,
+      "backgroundMinimum": 150
+    },
+    {
+      "file": "boiled-egg.webp",
+      "subject": "Halved boiled egg",
+      "sourcePageUrl": "https://www.bloc-notes-culinaire.com/2015/11/cuire-un-oeuf-dur-mollet-a-la-coque.html",
+      "sourceImageUrl": "https://1.bp.blogspot.com/-dQAkhLpjh6c/X6FJJvCSV_I/AAAAAAABg2s/b38PPjwA3ec7Egy1FuCyqP3ZHKw40f7lACLcBGAsYHQ/s1919/oeuf-dur.jpg",
+      "sourceType": "Whole boiled-egg half photographed alone on a dark background",
+      "backgroundMode": "dark",
+      "backgroundMaximum": 180
+    },
+    {
+      "file": "pounded-yam.webp",
+      "subject": "Whole cooked pounded-yam portion",
+      "sourcePageUrl": "https://thelabelstores.com/product/tls-poundo-yam-iyan/",
+      "sourceImageUrl": "https://thelabelstores.com/files/uploads/2026/02/TLS-Pounded-Yam-Iyan.jpg",
+      "sourceType": "Standalone product photograph",
+      "backgroundNeutralTolerance": 10,
+      "backgroundMinimum": 245
+    },
+    {
+      "file": "cooked-beef.webp",
+      "subject": "Cooked beef pieces",
+      "sourcePageUrl": "https://www.rizeyoresel.com/rize-kavurmasi--yagsiz-temel-kavurma--250-gr-342",
+      "sourceImageUrl": "https://www.rizeyoresel.com/img/products/yagsiz-rize-dana-kavurma-83b3486.webp",
+      "sourceType": "Standalone cooked-beef product photograph; all pieces retained",
+      "backgroundNeutralTolerance": 35,
+      "backgroundMinimum": 115
+    },
+    {
+      "file": "akara-fritters.webp",
+      "subject": "Whole akara bean fritters",
+      "sourcePageUrl": "https://www.toasttab.com/local/order/pastry-queens/item-akara_253c69e4-6041-44e9-a379-088cb5d2dbcb",
+      "sourceImageUrl": "https://d1w7312wesee68.cloudfront.net/tKpR7tHyWvkAi6EySLOs6CAHyWrWUc20SqkSQtpzUfo/resize%3Afit%3A720%3A720/plain/s3%3A/toasttab/restaurants/restaurant-285696000000000000/menu/items/9/item-1400000000634173919_1771447248.png",
+      "sourceType": "Akara product photograph; all five complete fritters retained, neutral plate/background removed",
+      "backgroundNeutralTolerance": 65,
+      "backgroundMinimum": 30
+    },
+    {
+      "file": "puff-puff.webp",
+      "subject": "Whole Nigerian puff-puff dough balls",
+      "sourcePageUrl": "https://mama-t.de/en/products/puff-puff-nigerianisches-geback",
+      "sourceImageUrl": "https://mama-t.de/cdn/shop/files/gebaeck_2.jpg?v=1683903201&width=1445",
+      "sourceType": "Standalone puff-puff product photograph; all three complete dough balls retained",
+      "backgroundNeutralTolerance": 55,
+      "backgroundMinimum": 25
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "referencedRasterCount": 58,
-  "rasterCount": 211,
-  "masterCount": 67,
+  "rasterCount": 245,
+  "masterCount": 101,
   "vectorCount": 31,
   "responsiveVariantCount": 144,
   "verifiedVariantCount": 144,
@@ -54,6 +54,132 @@
       "references": [
         "src/content/pages.ts"
       ]
+    },
+    {
+      "asset": "/images/food/cooked-tray-accents/akara-crisp.webp",
+      "width": 384,
+      "height": 456,
+      "bytes": 55324,
+      "references": []
+    },
+    {
+      "asset": "/images/food/cooked-tray-accents/akara-golden.webp",
+      "width": 398,
+      "height": 420,
+      "bytes": 41770,
+      "references": []
+    },
+    {
+      "asset": "/images/food/cooked-tray-accents/jollof-chicken.webp",
+      "width": 456,
+      "height": 259,
+      "bytes": 44778,
+      "references": []
+    },
+    {
+      "asset": "/images/food/cooked-tray-accents/jollof-plantain.webp",
+      "width": 301,
+      "height": 250,
+      "bytes": 16068,
+      "references": []
+    },
+    {
+      "asset": "/images/food/cooked-tray-accents/ofada-egg.webp",
+      "width": 289,
+      "height": 188,
+      "bytes": 12440,
+      "references": []
+    },
+    {
+      "asset": "/images/food/cooked-tray-accents/ofada-rice.webp",
+      "width": 456,
+      "height": 420,
+      "bytes": 51400,
+      "references": []
+    },
+    {
+      "asset": "/images/food/cooked-tray-accents/pepper-soup-meat.webp",
+      "width": 224,
+      "height": 208,
+      "bytes": 10104,
+      "references": []
+    },
+    {
+      "asset": "/images/food/cooked-tray-accents/pepper-soup-piece.webp",
+      "width": 282,
+      "height": 272,
+      "bytes": 14642,
+      "references": []
+    },
+    {
+      "asset": "/images/food/cooked-tray-accents/puff-puff-bite.webp",
+      "width": 193,
+      "height": 215,
+      "bytes": 9056,
+      "references": []
+    },
+    {
+      "asset": "/images/food/cooked-tray-accents/puff-puff-round.webp",
+      "width": 242,
+      "height": 278,
+      "bytes": 14224,
+      "references": []
+    },
+    {
+      "asset": "/images/food/cooked-tray-accents/vegetable-fish.webp",
+      "width": 212,
+      "height": 142,
+      "bytes": 8368,
+      "references": []
+    },
+    {
+      "asset": "/images/food/cooked-tray-accents/yam-portion.webp",
+      "width": 248,
+      "height": 214,
+      "bytes": 8828,
+      "references": []
+    },
+    {
+      "asset": "/images/food/hero-cutouts/akara.webp",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 133268,
+      "references": []
+    },
+    {
+      "asset": "/images/food/hero-cutouts/jollof.webp",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 393450,
+      "references": []
+    },
+    {
+      "asset": "/images/food/hero-cutouts/ofada.webp",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 255588,
+      "references": []
+    },
+    {
+      "asset": "/images/food/hero-cutouts/pepper-soup.webp",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 191946,
+      "references": []
+    },
+    {
+      "asset": "/images/food/hero-cutouts/pounded-yam.webp",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 296952,
+      "references": []
+    },
+    {
+      "asset": "/images/food/hero-cutouts/puff-puff.webp",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 76196,
+      "references": []
     },
     {
       "asset": "/images/food/hero-fast.webp",
@@ -1800,6 +1926,118 @@
       "width": 1200,
       "height": 1450,
       "bytes": 158860,
+      "references": []
+    },
+    {
+      "asset": "/images/food/standalone-accents/akara-fritters.webp",
+      "width": 452,
+      "height": 208,
+      "bytes": 23594,
+      "references": []
+    },
+    {
+      "asset": "/images/food/standalone-accents/boiled-egg.webp",
+      "width": 419,
+      "height": 452,
+      "bytes": 23754,
+      "references": []
+    },
+    {
+      "asset": "/images/food/standalone-accents/cooked-beef.webp",
+      "width": 452,
+      "height": 290,
+      "bytes": 55908,
+      "references": []
+    },
+    {
+      "asset": "/images/food/standalone-accents/grilled-drumstick.webp",
+      "width": 433,
+      "height": 452,
+      "bytes": 51404,
+      "references": []
+    },
+    {
+      "asset": "/images/food/standalone-accents/pounded-yam.webp",
+      "width": 419,
+      "height": 452,
+      "bytes": 21138,
+      "references": []
+    },
+    {
+      "asset": "/images/food/standalone-accents/puff-puff.webp",
+      "width": 434,
+      "height": 452,
+      "bytes": 61460,
+      "references": []
+    },
+    {
+      "asset": "/images/food/tray-accents/flour.webp",
+      "width": 505,
+      "height": 560,
+      "bytes": 51138,
+      "references": []
+    },
+    {
+      "asset": "/images/food/tray-accents/ginger.webp",
+      "width": 560,
+      "height": 509,
+      "bytes": 55894,
+      "references": []
+    },
+    {
+      "asset": "/images/food/tray-accents/green-pepper.webp",
+      "width": 557,
+      "height": 560,
+      "bytes": 105980,
+      "references": []
+    },
+    {
+      "asset": "/images/food/tray-accents/greens.webp",
+      "width": 560,
+      "height": 473,
+      "bytes": 74616,
+      "references": []
+    },
+    {
+      "asset": "/images/food/tray-accents/lime-half.webp",
+      "width": 383,
+      "height": 560,
+      "bytes": 31020,
+      "references": []
+    },
+    {
+      "asset": "/images/food/tray-accents/lime-pair.webp",
+      "width": 560,
+      "height": 271,
+      "bytes": 30466,
+      "references": []
+    },
+    {
+      "asset": "/images/food/tray-accents/onion.webp",
+      "width": 560,
+      "height": 412,
+      "bytes": 41780,
+      "references": []
+    },
+    {
+      "asset": "/images/food/tray-accents/red-chili.webp",
+      "width": 532,
+      "height": 560,
+      "bytes": 20416,
+      "references": []
+    },
+    {
+      "asset": "/images/food/tray-accents/sugar.webp",
+      "width": 560,
+      "height": 158,
+      "bytes": 13748,
+      "references": []
+    },
+    {
+      "asset": "/images/food/tray-accents/tomato.webp",
+      "width": 560,
+      "height": 546,
+      "bytes": 60924,
       "references": []
     },
     {
