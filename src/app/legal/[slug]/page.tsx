@@ -6,7 +6,9 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import SiteShell from "@/components/layout/SiteShell";
 import LegalDocument from "@/components/sections/legal/LegalDocument";
+import LegalNotice from "@/components/sections/legal/LegalNotice";
 import { legalDocs, legalSlugs, type LegalSlug } from "@/content/legal";
+import { legalPageMetadata } from "@/content/pages";
 
 export const dynamicParams = false;
 export function generateStaticParams() { return legalSlugs.map(slug => ({ slug })); }
@@ -15,7 +17,7 @@ type Params = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const doc = legalDocs[slug as LegalSlug];
-  return doc ? { title: `${doc.title} — QuickBite`, description: doc.description } : {};
+  return doc ? legalPageMetadata(doc.title, doc.description) : {};
 }
 
 const prose = [
@@ -31,7 +33,16 @@ const prose = [
 ].join(" ");
 
 function DocumentBody({ body }: { body: string }) {
-  return <div className={prose}><Markdown remarkPlugins={[remarkGfm]}>{body}</Markdown></div>;
+  const trimmedBody = body.trimStart();
+  const disclaimer = trimmedBody.match(/^>\s+\*\*[^\r\n]*Template Disclaimer:\*\*\s*([^\r\n]*)(?:\r?\n|$)/);
+  const remainingBody = disclaimer ? trimmedBody.slice(disclaimer[0].length) : body;
+
+  return (
+    <div className={prose}>
+      {disclaimer && <LegalNotice><Markdown remarkPlugins={[remarkGfm]}>{disclaimer[1]}</Markdown></LegalNotice>}
+      <Markdown remarkPlugins={[remarkGfm]}>{remainingBody}</Markdown>
+    </div>
+  );
 }
 
 export default async function LegalPage({ params }: Params) {
