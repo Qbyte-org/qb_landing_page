@@ -1,12 +1,24 @@
+export type SectionWaveSurface = "paper" | "cream-200" | "dark-ink" | "forest-dark" | "transparent";
+
+const surfaceClasses: Record<SectionWaveSurface, string> = {
+  paper: "bg-paper",
+  "cream-200": "bg-cream-200",
+  "dark-ink": "bg-dark-ink",
+  "forest-dark": "bg-forest-dark",
+  transparent: "bg-transparent",
+};
+
 type SectionWaveProps = {
   to: "ink" | "paper";
+  from?: SectionWaveSurface;
   placement?: "flow" | "bottom";
-  splitBackground?: boolean;
+  splitBackground?: boolean | "forest-right" | "ink-right";
   className?: string;
 };
 
 export default function SectionWave({
   to,
+  from = to === "ink" ? "paper" : "dark-ink",
   placement = "flow",
   splitBackground = false,
   className = "",
@@ -15,11 +27,12 @@ export default function SectionWave({
     <div
       aria-hidden="true"
       data-section-wave={to}
+      data-wave-from={from}
       data-wave-split={splitBackground || undefined}
-      className={`pointer-events-none h-20 overflow-hidden sm:h-28 lg:h-36 ${to === "ink" ? "bg-paper text-dark-ink" : "bg-dark-ink text-paper"} ${placement === "bottom" ? "absolute inset-x-0 -bottom-px z-0" : "relative"} ${className}`}
+      className={`pointer-events-none h-20 overflow-hidden sm:h-28 lg:h-36 ${surfaceClasses[from]} ${to === "ink" ? "text-dark-ink" : "text-paper"} ${placement === "bottom" ? "absolute inset-x-0 -bottom-10 z-50!" : "relative"} ${className}`}
     >
       {splitBackground && (
-        <div className="absolute inset-y-0 left-0 hidden w-1/2 bg-cream-200 lg:block border-x border-dashed border-ink/20" />
+        <div className={splitBackground === "forest-right" || splitBackground === "ink-right" ? `absolute inset-y-0 right-0 hidden w-2/5 lg:block ${splitBackground === "ink-right" ? "bg-dark-ink" : "bg-forest-dark"}` : "absolute inset-y-0 left-0 hidden w-1/2 bg-cream-200 lg:block border-x border-dashed border-ink/20"} />
       )}
       <svg
         className="absolute left-1/2 top-0 h-full w-[178%] -translate-x-1/2 sm:w-full"
