@@ -1,7 +1,36 @@
 {
+  "quickbite-delivery-scooter-wordmark.webp": {
+    "reference": "https://www.tinbot-tech.com/en/tb-express",
+    "source": "https://static.wixstatic.com/media/2f6bf9_2e7353e55ac94c289bb53d4d84e31f51~mv2.png",
+    "credit": "Tinbot Technology — TB Express product photograph",
+    "sourceDimensions": [5760, 3840],
+    "treatment": "Native transparent front three-quarter photograph oriented with the front wheel to the right. Original model lettering remains readable. The original QuickBite mark in brand orange and a bold horizontal Quick/Bite wordmark in ink/orange are printed directly on both white delivery-box faces, with no colored label background. Each logo uses a projective quadrilateral transform matching its box face. Downsampled, lightly sharpened and padded to 2640 by 2400 WebP; no enlargement. Reproducible with scripts/prepare-rider-hero-hd.mjs."
+  },
+  "quickbite-delivery-scooter-hd.webp": {
+    "reference": "https://www.tinbot-tech.com/en/tb-express",
+    "source": "https://static.wixstatic.com/media/2f6bf9_2e7353e55ac94c289bb53d4d84e31f51~mv2.png",
+    "credit": "Tinbot Technology — TB Express product photograph",
+    "sourceDimensions": [5760, 3840],
+    "treatment": "Native high-resolution transparent front three-quarter photo, oriented with the front wheel to the right. Original model lettering kept readable. Large orange decals with the actual QuickBite logo mark and bold wordmark follow both visible delivery-box faces. Downsampled, lightly sharpened and padded to 2640 by 2400 WebP; no enlargement of the source. Earlier orange-label version, superseded by quickbite-delivery-scooter-wordmark.webp."
+  },
+  "quickbite-delivery-scooter-front.webp": {
+    "references": [
+      "https://nl.pinterest.com/pin/291397038374801654/",
+      "https://es.pinterest.com/pin/the-emco-nova-a-stylish-electric-scooter--671740100653640861/"
+    ],
+    "source": "https://www.jf-zweiradtechnik.de/images/fahrzeuge/emco/emco-novi-c1500-delivery-2x37ah-akku-45kmh-weiss.jpg",
+    "credit": "JF Zweiradtechnik — EMCO delivery scooter product photograph",
+    "treatment": "EMCO styling discovered through Pinterest references; actual image obtained from the linked dealer product photograph, not the referenced pins. White studio background and floor shadow removed; complete front-right three-quarter vehicle, wheels and mirrors preserved. The actual QuickBite logo mark and wordmark were composited as a perspective-aligned cargo-box decal. Padded transparent 1320 × 1200 WebP, reproducible with scripts/prepare-rider-hero.mjs."
+  },
   "reference-moped.webp": {
     "reference": "https://www.pinterest.com/pin/1141381099327567787/",
     "source": "https://i.pinimg.com/originals/e7/b8/98/e7b898cfbb0166740e3e93d5d147c3f7.jpg",
     "treatment": "The reference's photographed white and red moped, cropped and masked into a transparent WebP."
+  },
+  "full-delivery-scooter.webp": {
+    "reference": "https://www.tinbot-tech.com/en/tb-express",
+    "source": "https://static.wixstatic.com/media/2f6bf9_68396fb394194a398ab8b875898405b0~mv2.png",
+    "credit": "Tinbot Technology — TB Express product photograph",
+    "treatment": "Full side-angle photograph with its original transparent cutout preserved. Transparent excess trimmed, then proportionally resized and padded to 1600 × 1200; both wheels, mirrors, rear delivery box and stand remain intact."
   }
 }
