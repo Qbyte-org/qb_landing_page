@@ -3,7 +3,15 @@ import type Lenis from "lenis";
 /** Give same-page links one scroll owner, while retaining native keyboard use. */
 export function bindScrollNavigation(lenis: Lenis) {
   let anchorFrame = 0;
+  let anchorRequest = 0;
+  let disposed = false;
   let restoreFocusTarget: (() => void) | undefined;
+
+  const cancelAnchor = () => {
+    cancelAnimationFrame(anchorFrame);
+    anchorFrame = 0;
+    anchorRequest += 1;
+  };
 
   const cancelMomentum = () => {
     if (lenis.isStopped || lenis.isScrolling !== "smooth") return;
@@ -18,7 +26,11 @@ export function bindScrollNavigation(lenis: Lenis) {
     if (!link || link.hasAttribute("download") || (link.target && link.target !== "_self")) return;
 
     const url = new URL(link.href, window.location.href);
-    if (url.origin !== window.location.origin || url.pathname !== window.location.pathname || url.search !== window.location.search || !url.hash) return;
+    if (url.origin !== window.location.origin || url.pathname !== window.location.pathname || url.search !== window.location.search) {
+      cancelAnchor();
+      return;
+    }
+    if (!url.hash) return;
 
     let target: HTMLElement | null;
     try {
@@ -29,11 +41,23 @@ export function bindScrollNavigation(lenis: Lenis) {
     if (!target) return;
 
     // Capture before Next's link handler and the browser's default hash jump.
-    // The frame lets a menu link release its scroll lock before navigation.
+    // The menu retains its scroll lock through its exit animation. Wait for
+    // that lock rather than dropping the click on the first stopped frame.
     event.preventDefault();
-    cancelAnimationFrame(anchorFrame);
-    anchorFrame = requestAnimationFrame(() => {
-      if (lenis.isStopped || !target.isConnected) return;
+    cancelAnchor();
+    const request = anchorRequest;
+    const deadline = performance.now() + 2000;
+    const isCurrent = () => !disposed && request === anchorRequest && target.isConnected &&
+      window.location.pathname === url.pathname && window.location.search === url.search;
+    const navigateWhenUnlocked = () => {
+      anchorFrame = 0;
+      if (!isCurrent()) return;
+      if (lenis.isStopped) {
+        // An unrelated or stuck overlay must not be unlocked by an anchor.
+        // Cancel this request after a bounded wait; a later click can retry.
+        if (performance.now() < deadline) anchorFrame = requestAnimationFrame(navigateWhenUnlocked);
+        return;
+      }
       if (window.location.hash !== url.hash) {
         window.history.pushState(window.history.state, "", url);
       }
@@ -42,6 +66,7 @@ export function bindScrollNavigation(lenis: Lenis) {
         // completion. A timed anchor scroll reliably hands focus to the section.
         duration: 0.9,
         onComplete: () => {
+          if (!isCurrent()) return;
           restoreFocusTarget?.();
           if (!target.hasAttribute("tabindex")) {
             target.setAttribute("tabindex", "-1");
@@ -56,7 +81,8 @@ export function bindScrollNavigation(lenis: Lenis) {
           target.focus({ preventScroll: true });
         },
       });
-    });
+    };
+    anchorFrame = requestAnimationFrame(navigateWhenUnlocked);
   };
 
   const handleKeyboard = (event: KeyboardEvent) => {
@@ -69,7 +95,7 @@ export function bindScrollNavigation(lenis: Lenis) {
   };
 
   const handleHistory = () => {
-    cancelAnimationFrame(anchorFrame);
+    cancelAnchor();
     cancelMomentum();
   };
 
@@ -77,7 +103,8 @@ export function bindScrollNavigation(lenis: Lenis) {
   document.addEventListener("keydown", handleKeyboard);
   window.addEventListener("popstate", handleHistory);
   return () => {
-    cancelAnimationFrame(anchorFrame);
+    disposed = true;
+    cancelAnchor();
     restoreFocusTarget?.();
     document.removeEventListener("click", handleAnchor, true);
     document.removeEventListener("keydown", handleKeyboard);

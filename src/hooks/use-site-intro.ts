@@ -7,6 +7,7 @@ import { gsap, useGSAP } from "@/lib/gsap";
 export function useSiteIntro(shellRef: RefObject<HTMLDivElement | null>, heroIntro: boolean, introStarted: boolean) {
   useGSAP(
     () => {
+      if (!introStarted) return;
       const reducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       ).matches;
@@ -31,8 +32,6 @@ export function useSiteIntro(shellRef: RefObject<HTMLDivElement | null>, heroInt
       }
 
       // ── heroIntro page: wait until loader signals done ───────────────
-      if (!introStarted) return;
-
       // useGSAP starts the existing hero sequence before the next paint once
       // the loader is removed, including when the visitor skips the intro.
       if (reducedMotion) {
@@ -154,6 +153,6 @@ export function useSiteIntro(shellRef: RefObject<HTMLDivElement | null>, heroInt
           1.04,
         );
     },
-    { scope: shellRef, dependencies: [heroIntro, introStarted] },
+    { scope: shellRef, dependencies: [heroIntro, introStarted], revertOnUpdate: true },
   );
 }

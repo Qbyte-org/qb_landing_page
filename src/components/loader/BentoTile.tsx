@@ -1,6 +1,8 @@
 import React, { forwardRef } from "react";
-import Image from "next/image";
-import { BentoTileData } from "./loaderData";
+import Image from "@/components/ui/SiteImage";
+import { brand } from "@/content/ui";
+import { loaderCopy } from "@/content/loader";
+import { BentoTileData } from "@/content/loader-tiles";
 
 
 interface BentoTileProps {
@@ -27,15 +29,15 @@ const BentoTile = forwardRef<HTMLDivElement, BentoTileProps>(
               <div data-brand-mark className="flex flex-col items-center gap-3 sm:flex-row">
                 <div className="relative h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0">
                   <Image
-                    src="/logo-mark-light.svg"
-                    alt="QuickBite"
+                    src={brand.lightMark}
+                    alt={brand.name}
                     fill
                     className="object-contain"
                   />
                 </div>
                 <div data-brand-wordmark className="overflow-hidden">
                   <span className="block font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                    QuickBite
+                    {brand.name}
                   </span>
                 </div>
               </div>
@@ -66,7 +68,7 @@ const BentoTile = forwardRef<HTMLDivElement, BentoTileProps>(
               <div data-bento-app-mockup className="relative h-full w-full">
                 <Image
                   src={data.content.imageSrc}
-                  alt="App Mockup"
+                  alt={loaderCopy.appMockup}
                   fill
                   className="object-contain object-bottom drop-shadow-2xl"
                   sizes="(max-width: 640px) 50vw, 20vw"
@@ -82,15 +84,15 @@ const BentoTile = forwardRef<HTMLDivElement, BentoTileProps>(
               </span>
               <ul className="flex flex-col gap-2 text-xs font-medium sm:text-sm">
                 <li className="flex items-center justify-between opacity-50">
-                  <span>Preparing</span>
+                  <span>{loaderCopy.preparing}</span>
                   <span>✓</span>
                 </li>
                 <li className="flex items-center justify-between opacity-50">
-                  <span>Picked up</span>
+                  <span>{loaderCopy.pickedUp}</span>
                   <span>✓</span>
                 </li>
                 <li data-bento-status-active className="flex items-center justify-between font-bold text-brand">
-                  <span>On the way</span>
+                  <span>{loaderCopy.onTheWay}</span>
                   <span className="animate-pulse">●</span>
                 </li>
               </ul>

@@ -20,10 +20,10 @@ export default function SmoothScroll({ enabled = true }: { enabled?: boolean }) 
         // The html element is fixed to h-full; observe the growing page body
         // so accordions and responsive layouts keep the scroll limit accurate.
         content: document.body,
-        // Damping settles fast wheel bursts without restarting a long tween.
-        lerp: 0.085,
+        // Keep normal input distance and settle promptly after the gesture.
+        lerp: 0.12,
         smoothWheel: true,
-        wheelMultiplier: 0.58,
+        wheelMultiplier: 1,
         touchMultiplier: 1,
         // Native touch preserves browser momentum and selection gestures.
         syncTouch: false,
@@ -46,9 +46,10 @@ export default function SmoothScroll({ enabled = true }: { enabled?: boolean }) 
 
       let scrollTime = 0;
       const updateLenis = (_time: number, elapsed: number) => {
-        // A stalled frame must not fast-forward scrolling. Keep the existing
-        // GSAP animation clock unchanged and cap only Lenis's elapsed time.
-        scrollTime += Math.min(elapsed, 1000 / 30);
+        // Lenis damping already accounts for elapsed time. Preserve ordinary
+        // missed frames instead of slowing the page whenever it drops below
+        // 30fps; only bound long stalls such as resuming a background tab.
+        scrollTime += Math.min(elapsed, 100);
         lenis.raf(scrollTime);
       };
       const syncScrollTrigger = () => ScrollTrigger.update();
