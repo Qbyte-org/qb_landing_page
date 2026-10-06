@@ -1,0 +1,11 @@
+{
+  "processing": "Rebuilt from original source photographs at up to 2048px wide, without enlargement, with light output sharpening and WebP quality 90. Full source frames are preserved.",
+  "photos": [
+    { "file": "party-rice-chicken.webp", "pinUrl": "https://www.pinterest.com/pin/601652831470057914/", "sourceImageUrl": "https://i.pinimg.com/originals/dd/a0/b0/dda0b0f5c4fbd952be9b56b61d342e38.jpg" },
+    { "file": "rice-beans-stew.webp", "pinUrl": "https://www.pinterest.com/pin/1012184085026267480/", "sourceImageUrl": "https://i.pinimg.com/originals/e9/df/bc/e9dfbc30fc9cbcfb30f6d4d1c99196f5.jpg" },
+    { "file": "beef-suya.webp", "pinUrl": "https://www.pinterest.com/pin/424323596149669140/", "sourceImageUrl": "https://i.pinimg.com/originals/a6/c1/3d/a6c13d707fa0c66359bda8855ce59a3b.jpg" },
+    { "file": "small-chops.webp", "pinUrl": "https://www.pinterest.com/pin/874261346421609550/", "sourceImageUrl": "https://i.pinimg.com/originals/47/55/d8/4755d8b25688ed08bb82a7dd48dfbf93.jpg" },
+    { "file": "grilled-tilapia.webp", "pinUrl": "https://www.pinterest.com/pin/859976491315478278/", "sourceImageUrl": "https://i.pinimg.com/originals/c3/33/ef/c333ef733c93db7b6bdc857793d60f44.jpg" },
+    { "file": "egusi-soup.webp", "pinUrl": "https://www.pinterest.com/pin/847239748663903362/", "sourceImageUrl": "https://i.pinimg.com/originals/94/cc/7d/94cc7dbe10881318bda2ed589436dc9f.jpg" }
+  ]
+}
