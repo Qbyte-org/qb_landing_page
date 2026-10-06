@@ -1,3 +1,4 @@
+import { categoriesDecorCopy } from "@/content/home/sections";
 import Image from "../../ui/FoodImage";
 
 export default function CategoriesDecor() {
@@ -8,7 +9,7 @@ export default function CategoriesDecor() {
         className="pointer-events-none absolute inset-0 opacity-[0.14] [background-image:radial-gradient(var(--color-ink)_0.65px,transparent_0.65px)] [background-size:18px_18px]"
       />
       <Image
-        src="/images/food/pinterest/jollof-chicken-plantain.webp"
+        src={categoriesDecorCopy.srcImagesFoodPinterestYamFishSauce}
         alt=""
         width={150}
         height={150}
@@ -16,7 +17,7 @@ export default function CategoriesDecor() {
         className="pointer-events-none absolute left-[9%] top-36 hidden aspect-square w-16 -rotate-12 rounded-full object-cover opacity-[0.065] lg:block"
       />
       <Image
-        src="/images/food/pinterest/akara-bean-cakes.webp"
+        src={categoriesDecorCopy.srcImagesFoodPinterestOfadaEggPlantain}
         alt=""
         width={140}
         height={140}
@@ -24,7 +25,7 @@ export default function CategoriesDecor() {
         className="pointer-events-none absolute right-[13%] top-64 hidden aspect-square w-16 rotate-12 rounded-full object-cover opacity-[0.07] lg:block"
       />
       <Image
-        src="/images/food/pinterest/puff-puff.webp"
+        src={categoriesDecorCopy.srcImagesFoodPinterestBerryWafflesWebp}
         alt=""
         width={150}
         height={150}
