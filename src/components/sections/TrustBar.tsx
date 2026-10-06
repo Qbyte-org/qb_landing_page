@@ -1,3 +1,4 @@
+import { trustBarCopy } from "@/content/home/sections";
 import { stats } from "@/content/site";
 import Container from "../ui/Container";
 import Counter from "../ui/Counter";
@@ -12,12 +13,8 @@ export default function TrustBar() {
     >
       <Container className="max-w-[103rem] pt-16 sm:pt-20">
         <Reveal className="max-w-4xl sm:pl-10 xl:pl-20">
-          <p className="text-sm font-extrabold uppercase text-brand-dark">
-            Built for everyday cravings
-          </p>
-          <h2 className="mt-4 font-display text-3xl font-extrabold leading-tight text-espresso sm:text-5xl lg:text-6xl">
-            Browse nearby kitchens, order in seconds, and track every bite.
-          </h2>
+          <p className="text-sm font-extrabold uppercase text-brand-dark">{trustBarCopy.builtForEverydayCravings}</p>
+          <h2 className="mt-4 font-display text-3xl font-extrabold leading-tight text-espresso sm:text-5xl lg:text-6xl">{trustBarCopy.browseNearbyKitchensOrderInSecondsAnd}</h2>
         </Reveal>
 
         <div className="mt-10 grid grid-cols-2 gap-4 rounded-[2rem] border border-ink-warm/12 bg-espresso p-5 sm:p-6 lg:grid-cols-4">

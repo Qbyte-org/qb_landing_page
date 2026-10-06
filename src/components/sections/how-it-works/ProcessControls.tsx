@@ -1,3 +1,4 @@
+import { processControlsCopy } from "@/content/home/sections";
 import MagneticFillButton from "../../ui/MagneticFillButton";
 import BiteRouteIcon from "./BiteRouteIcon";
 
@@ -12,7 +13,7 @@ export default function ProcessControls({
     <div className="relative z-20 mt-7 inline-flex items-center gap-2 rounded-[1.35rem] bg-ink p-1.5 sm:mt-8 sm:p-2">
       <MagneticFillButton
         type="button"
-        ariaLabel="Previous process step"
+        ariaLabel={processControlsCopy.ariaLabelPreviousProcessStep}
         onClick={onPrevious}
         variant="ghost"
         customFillClass="bg-brand"
@@ -23,7 +24,7 @@ export default function ProcessControls({
       </MagneticFillButton>
       <MagneticFillButton
         type="button"
-        ariaLabel="Next process step"
+        ariaLabel={processControlsCopy.ariaLabelNextProcessStep}
         onClick={onNext}
         variant="ghost"
         customFillClass="bg-paper"

@@ -1,6 +1,6 @@
 import Image from "../../ui/FoodImage";
 import { AnimatePresence, motion } from "motion/react";
-import type { ProcessSlide } from "./howItWorks.data";
+import type { ProcessSlide } from "@/content/home/how-it-works";
 
 export default function ProcessVisualPanel({
   activeStep,

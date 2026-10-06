@@ -1,12 +1,14 @@
 "use client";
 
-import Image from "next/image";
+import { howItWorksCopy } from "@/content/home/sections";
+
+import Image from "@/components/ui/SiteImage";
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   processSlides,
   totalSteps,
-} from "./how-it-works/howItWorks.data";
+} from "@/content/home/how-it-works";
 import ProcessControls from "./how-it-works/ProcessControls";
 import ProcessStepCopy from "./how-it-works/ProcessStepCopy";
 import ProcessVisualPanel from "./how-it-works/ProcessVisualPanel";
@@ -36,23 +38,19 @@ export default function HowItWorks() {
       data-nav-theme="dark"
       className="relative -mt-px overflow-hidden bg-dark-ink text-white"
     >
-      <SectionWave to="ink" splitBackground />
+      <SectionWave to="ink" from="dark-ink" splitBackground />
       <Container className="relative z-10 pb-8 pt-14 sm:pb-10 sm:pt-18 lg:pb-12 lg:pt-20">
         <div
           data-section-motion-header
           className="flex w-full flex-col items-start gap-6 text-left lg:flex-row lg:items-center lg:justify-between"
         >
-          <h2 className="section-heading">
-            How It Works
-          </h2>
+          <h2 className="section-heading">{howItWorksCopy.howItWorks}</h2>
 
           <LinkArrow
-            href="/restaurants"
+            href={howItWorksCopy.hrefRestaurants}
             variant="dark"
             className="min-h-14 w-max shrink-0 self-end text-lg! normal-case! [--link-arrow-spacing:0em] sm:min-h-16 sm:text-xl! lg:self-auto"
-          >
-            Learn more
-          </LinkArrow>
+          >{howItWorksCopy.learnMore}</LinkArrow>
         </div>
       </Container>
 
@@ -83,8 +81,7 @@ export default function HowItWorks() {
                   <span className="text-[3.25rem] text-paper sm:text-[4rem]">
                     {activeIndex + 1}
                   </span>
-                  <span className="ml-2 align-[1.1rem] text-xl text-paper/65 sm:text-2xl">
-                    /{totalSteps}
+                  <span className="ml-2 align-[1.1rem] text-xl text-paper/65 sm:text-2xl">{"/"}{totalSteps}
                   </span>
                 </div>
                 <Image
@@ -124,7 +121,7 @@ export default function HowItWorks() {
                 </div>
                 <div className="relative -ml-7 mb-1 size-24 shrink-0 overflow-hidden rounded-full border-4 border-dark-ink bg-paper ring-2 ring-paper/35">
                   <FoodImage
-                    src="/images/food/pinterest/rice-beans-stew.webp"
+                    src={activeStep.companion}
                     alt=""
                     fill
                     sizes="6rem"

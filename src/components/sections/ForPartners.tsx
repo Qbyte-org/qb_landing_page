@@ -1,14 +1,14 @@
 "use client";
 
+import { forPartnersCopy } from "@/content/home/sections";
+
+import { journeyStages } from "@/content/home/partner-journey";
+
 import { useRef } from "react";
 import {
   ArrowRight,
-  Bike,
-  ChefHat,
   Check,
   Clock3,
-  Home,
-  PackageCheck,
   Sparkles,
   Store,
 } from "lucide-react";
@@ -18,49 +18,6 @@ import LinkArrow from "../ui/LinkArrow";
 import { gsap, useGSAP } from "@/lib/gsap";
 
 const ease = [0.22, 1, 0.36, 1] as const;
-
-const journeyStages = [
-  {
-    key: "kitchen",
-    title: "Kitchen",
-    eyebrow: "Order accepted",
-    stamp: "Prep cleared",
-    time: "03 min",
-    description:
-      "Partners receive clean incoming orders with customer notes, prep time and payment status already attached.",
-    icon: ChefHat,
-  },
-  {
-    key: "packaging",
-    title: "Packaging",
-    eyebrow: "Packed fresh",
-    stamp: "Bag sealed",
-    time: "05 min",
-    description:
-      "Meals are grouped, labelled and checked so riders pick up the right bags without slowing the kitchen down.",
-    icon: PackageCheck,
-  },
-  {
-    key: "dispatch",
-    title: "Dispatch",
-    eyebrow: "Rider assigned",
-    stamp: "Route live",
-    time: "08 min",
-    description:
-      "QuickBite routes the nearest rider, updates the customer and keeps every handoff visible.",
-    icon: Bike,
-  },
-  {
-    key: "customer",
-    title: "Customer",
-    eyebrow: "Delivered hot",
-    stamp: "Delivered",
-    time: "24 min",
-    description:
-      "Customers track the ride, receive the meal and leave ratings that help your kitchen grow.",
-    icon: Home,
-  },
-] as const;
 
 type JourneyStage = (typeof journeyStages)[number];
 
@@ -76,15 +33,9 @@ function PassportSectionMark() {
           aria-hidden="true"
           className="absolute inset-0 opacity-[0.16] [background-image:radial-gradient(circle,color-mix(in_srgb,var(--color-brand)_55%,transparent)_1px,transparent_1.4px)] [background-size:12px_12px]"
         />
-        <p className="relative text-[0.64rem] font-black uppercase leading-none tracking-[0.24em]">
-          Route stamp
-        </p>
-        <p className="relative mt-1 font-serif text-xl font-black uppercase leading-none tracking-[-0.06em]">
-          Partner Flow
-        </p>
-        <p className="relative mt-2 text-[0.7rem] font-black tracking-[0.25em]">
-          QB / LIVE
-        </p>
+        <p className="relative text-[0.64rem] font-black uppercase leading-none tracking-[0.24em]">{forPartnersCopy.routeStamp}</p>
+        <p className="relative mt-1 font-serif text-xl font-black uppercase leading-none tracking-[-0.06em]">{forPartnersCopy.partnerFlow}</p>
+        <p className="relative mt-2 text-[0.7rem] font-black tracking-[0.25em]">{forPartnersCopy.qBLIVE}</p>
       </div>
     </motion.div>
   );
@@ -107,8 +58,7 @@ function StageStamp({
       transition={{ duration: 0.3, ease }}
       className="relative shrink-0 rotate-[-4deg] rounded-[1rem] border-[0.15rem] border-dashed border-brand px-3 py-2 text-center text-brand"
     >
-      <p className="text-[0.54rem] font-black uppercase leading-none tracking-[0.18em]">
-        Stage 0{index + 1}
+      <p className="text-[0.54rem] font-black uppercase leading-none tracking-[0.18em]">{forPartnersCopy.stage0}{index + 1}
       </p>
       <p className="mt-1 font-serif text-sm font-black uppercase leading-none">
         {stage.stamp}
@@ -219,7 +169,7 @@ function JourneyConnector() {
       />
       <image
         data-journey-bike
-        href="/quickbite-delivery-bike.svg"
+        href={forPartnersCopy.hrefQuickbiteDeliveryBikeSvg}
         width="132"
         height="78"
       />
@@ -283,9 +233,7 @@ function StageCard({
           hover: { x: 10 },
         }}
         className="relative mt-auto inline-flex items-center gap-2 pt-5 text-sm font-black uppercase tracking-[0.14em] text-brand"
-      >
-        Move order
-        <ArrowRight className="h-4 w-4" strokeWidth={2.5} aria-hidden="true" />
+      >{forPartnersCopy.moveOrder}<ArrowRight className="h-4 w-4" strokeWidth={2.5} aria-hidden="true" />
       </motion.span>
     </motion.article>
   );
@@ -427,23 +375,15 @@ export default function ForPartners() {
       <div aria-hidden="true" className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-paper" />
         <div className="absolute inset-0 opacity-[0.09] [background-image:radial-gradient(circle,color-mix(in_srgb,var(--color-ink)_38%,transparent)_1px,transparent_1.3px)] [background-size:18px_18px]" />
-        <div className="absolute -right-24 top-24 rotate-[-8deg] rounded-[1.4rem] border-[0.2rem] border-dashed border-brand/20 px-12 py-8 font-serif text-4xl font-black uppercase text-brand/10">
-          Route approved
-        </div>
+        <div className="absolute -right-24 top-24 rotate-[-8deg] rounded-[1.4rem] border-[0.2rem] border-dashed border-brand/20 px-12 py-8 font-serif text-4xl font-black uppercase text-brand/10">{forPartnersCopy.routeApproved}</div>
       </div>
 
       <Container>
         <div className="mx-auto max-w-3xl text-center">
           <PassportSectionMark />
-          <h2 className="mt-5 font-display text-4xl font-black leading-[0.96] tracking-[-0.07em] sm:text-6xl lg:text-7xl">
-            From prep table
-            <br />
-            to <span className="text-brand">front door.</span>
+          <h2 className="mt-5 font-display text-4xl font-black leading-[0.96] tracking-[-0.07em] sm:text-6xl lg:text-7xl">{forPartnersCopy.fromPrepTable}<br />{forPartnersCopy.to}<span className="text-brand">{forPartnersCopy.frontDoor}</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base font-semibold leading-relaxed text-cocoa sm:text-lg">
-            QuickBite turns every partner order into a clean operational flow:
-            prep, pack, dispatch and deliver without losing visibility.
-          </p>
+          <p className="mx-auto mt-5 max-w-2xl text-base font-semibold leading-relaxed text-cocoa sm:text-lg">{forPartnersCopy.quickBiteTurnsEveryPartnerOrderIntoA}</p>
         </div>
 
         <div className="relative mt-12 rounded-[2.5rem] bg-white/45 p-3 ring-1 ring-ink/10 sm:p-5 lg:p-7">
@@ -460,19 +400,14 @@ export default function ForPartners() {
             <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-dashed border-brand/55 bg-brand text-white">
               <Sparkles className="h-5 w-5" strokeWidth={2.35} aria-hidden="true" />
             </span>
-            <p className="max-w-xl text-center text-sm font-semibold leading-relaxed text-paper/72 sm:text-left">
-              Built for restaurants that want faster handoffs, clearer order
-              status and customers who know exactly when food is arriving.
-            </p>
+            <p className="max-w-xl text-center text-sm font-semibold leading-relaxed text-paper/72 sm:text-left">{forPartnersCopy.builtForRestaurantsThatWantFasterHandoffs}</p>
           </div>
 
           <LinkArrow
-            href="/partners"
+            href={forPartnersCopy.hrefPartners}
             appearance="plain"
             className="h-[3.25rem] shrink-0 justify-center gap-2 rounded-pill bg-brand px-6 text-sm font-black text-white sm:h-14 sm:px-8 sm:text-base"
-          >
-            Become partner
-            <Store className="h-4 w-4" strokeWidth={2.4} aria-hidden="true" />
+          >{forPartnersCopy.becomePartner}<Store className="h-4 w-4" strokeWidth={2.4} aria-hidden="true" />
           </LinkArrow>
         </div>
       </Container>
