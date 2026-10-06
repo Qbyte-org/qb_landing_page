@@ -39,7 +39,36 @@ pnpm install
 pnpm dev
 ```
 
-Open [http://localhost:3002](http://localhost:3002).
+Open [http://localhost:3001](http://localhost:3001). Production preview (`pnpm build`
+followed by `pnpm start`) runs on port 3002.
+
+## Waitlist configuration
+
+Set `NEXT_PUBLIC_API_BASE_URL` in your local `.env` file to the backend API base
+URL, including its version prefix. The waitlist client appends `/waitlist`.
+Keep the actual URL in environment configuration rather than application code
+or checked-in documentation; `.env*` files are ignored by Git.
+
+Configure the same variable in the deployment environment before building.
+Next.js embeds public environment values in the client bundle, so restart the
+development server or rebuild the deployment after changing this value. The
+backend must allow the website's origin through CORS.
+
+## Quality checks
+
+```bash
+pnpm check
+pnpm test
+pnpm build
+```
+
+## Editing content
+
+Page copy, card data, image choices, navigation, form messages, and accessible
+labels live in `src/content/` and are imported by their components. See the
+[content guide](src/content/README.md) for the files belonging to each page.
+Keep layout and interaction logic in components. Legal policy text stays in
+`content/legal/`.
 
 ## Colors
 
@@ -55,57 +84,3 @@ compiling. Run `pnpm theme:sync` to regenerate those files on their own; do not
 edit generated SVG fallback colors or `src/generated/theme-colors.json`.
 Asset colors support hex values, token aliases, and `color-mix(in srgb, ...)`.
 Food photographs retain their original pixels.
-
-## Waitlist
-
-The `/waitlist` page and footer newsletter use the same EmailJS submission
-service. Both submit directly and show a shared result dialog. Configure all
-three environment variables locally in `.env.local` and in the deployment
-environment before building:
-
-```text
-NEXT_PUBLIC_EMAILJS_SERVICE_ID=
-NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=
-NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=
-```
-
-These are EmailJS's public client configuration values. Restart the development
-server or rebuild the deployment after changing them; Next.js embeds
-`NEXT_PUBLIC_` values at build time.
-
-The EmailJS template receives these parameters:
-
-| Parameter | Value |
-| --- | --- |
-| `email` | Trimmed, lowercase email address |
-| `phone` | Optional phone number, or `Not provided` |
-| `name` | Email address portion before `@` |
-| `reply_to` | `support@quickbite.ng` |
-| `from_name` | `QuickBite Team` |
-| `title` | `Welcome to the QuickBite waitlist` |
-
-The service uses the documented [EmailJS send endpoint](https://www.emailjs.com/docs/rest-api/send/).
-It confirms a signup only after EmailJS accepts the request. Missing
-configuration, rejected requests and network timeouts show an explanatory
-dialog and keep the entered details available for retrying.
-
-After acceptance, a browser cache stores the email and confirmation time to
-prevent repeat submissions from that browser. It does not store the optional
-phone number and is not a central subscriber database. Legacy
-`quickbiteWaitlistEmails` entries are ignored because earlier versions could
-save them without contacting EmailJS. Configure the EmailJS template/service
-to deliver the required signup notification or confirmation; acceptance does
-not verify that a message reached the recipient's inbox.
-
-## Quality checks
-
-```bash
-pnpm check
-pnpm test
-pnpm build
-```
-
-`pnpm check` runs ESLint and the TypeScript compiler without emitting files.
-`pnpm test` checks waitlist validation, transport outcomes, duplicate handling
-and modal scroll-lock cleanup with mocked transport; it sends no real emails.
-The production build also generates every marketing and legal route.

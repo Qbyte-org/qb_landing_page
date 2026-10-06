@@ -1,148 +1,169 @@
-export type WaitlistInput = { email: string; phone?: string };
+import { waitlistApiMessages as messages } from "@/content/waitlist-messages";
 
-export type WaitlistResult =
-  | { status: "success"; email: string }
-  | { status: "duplicate"; email: string; source: "browser" | "server" }
-  | { status: "invalid"; field: "email" | "phone" }
-  | { status: "unavailable" | "error" | "rate-limited" };
-
-export type WaitlistConfig = {
-  serviceId?: string;
-  templateId?: string;
-  publicKey?: string;
+export type WaitlistInput = {
+  name?: string;
+  email?: string;
+  phone?: string;
+  consent: boolean;
+  website: string;
 };
 
-type ConfirmedEntry = { email: string; confirmedAt: string };
-type WaitlistStorage = Pick<Storage, "getItem" | "setItem">;
-type WaitlistTransport = (
-  input: Required<WaitlistInput>,
-  config: Required<WaitlistConfig>,
-) => Promise<{ status: number }>;
+export type WaitlistResult =
+  | { status: "success"; message: string }
+  | {
+      status: "invalid";
+      field: "contact" | "name" | "email" | "phone" | "consent";
+      message: string;
+    }
+  | {
+      status: "unavailable" | "error" | "rate-limited";
+      message: string;
+      code?: string;
+      requestId?: string;
+      retryAfterSeconds?: number;
+    };
 
-// Earlier versions saved entries even when sending was not configured. Only
-// this new key can establish that this browser received an accepted response.
-export const CONFIRMED_WAITLIST_KEY = "quickbiteWaitlistConfirmed:v1";
+export type WaitlistConfig = { apiBaseUrl?: string };
 
-function browserStorage(): WaitlistStorage | undefined {
-  try {
-    return typeof window === "undefined" ? undefined : window.localStorage;
-  } catch {
-    return undefined;
-  }
+type WaitlistTransport = (url: string, options: RequestInit) => Promise<Response>;
+type ErrorEnvelope = { message?: string; code?: string; requestId?: string };
+
+const REQUEST_TIMEOUT_MS = 15_000;
+
+function isNigerianMobile(phone: string): boolean {
+  if (!/^\+?[\d\s().-]+$/.test(phone)) return false;
+  let digits = phone.replace(/\D/g, "");
+  if (digits.startsWith("234")) digits = digits.slice(3);
+  else if (phone.startsWith("+")) return false;
+  if (digits.startsWith("0")) digits = digits.slice(1);
+  // Check the Nigerian mobile shape, not a changing list of operator prefixes.
+  // The API remains responsible for canonicalization and final validation.
+  return /^[789]\d{9}$/.test(digits);
 }
 
-function readConfirmed(storage?: WaitlistStorage): ConfirmedEntry[] {
-  try {
-    const value: unknown = JSON.parse(storage?.getItem(CONFIRMED_WAITLIST_KEY) ?? "[]");
-    return Array.isArray(value)
-      ? value.filter((entry): entry is ConfirmedEntry =>
-        Boolean(entry && typeof entry.email === "string" && typeof entry.confirmedAt === "string"),
-      )
-      : [];
-  } catch {
-    return [];
-  }
+function parseEnvelope(value: unknown): ErrorEnvelope {
+  if (!value || typeof value !== "object") return {};
+  const body = value as Record<string, unknown>;
+  return {
+    ...(typeof body.message === "string" && body.message.trim() ? { message: body.message } : {}),
+    ...(typeof body.code === "string" && body.code.trim() ? { code: body.code } : {}),
+    ...(typeof body.requestId === "string" && body.requestId.trim() ? { requestId: body.requestId } : {}),
+  };
 }
 
-async function sendWithEmailJS(
-  input: Required<WaitlistInput>,
-  config: Required<WaitlistConfig>,
-): Promise<{ status: number }> {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 15_000);
-  try {
-    // The same EmailJS template contract as the page, using its documented
-    // REST endpoint so a slow request can be cancelled without loading an SDK.
-    const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      signal: controller.signal,
-      body: JSON.stringify({
-        service_id: config.serviceId,
-        template_id: config.templateId,
-        user_id: config.publicKey,
-        template_params: {
-          email: input.email,
-          phone: input.phone || "Not provided",
-          name: input.email.split("@")[0],
-          reply_to: "support@quickbite.ng",
-          from_name: "QuickBite Team",
-          title: "Welcome to the QuickBite waitlist",
-        },
-      }),
-    });
-    return { status: response.status };
-  } finally {
-    clearTimeout(timeout);
+function retryAfterSeconds(value: string | null): number {
+  if (!value?.trim()) return 60;
+  if (/^\d+$/.test(value.trim())) {
+    const seconds = Number(value);
+    return Number.isSafeInteger(seconds) ? seconds : 60;
   }
+  const retryAt = /[a-z]/i.test(value) ? Date.parse(value) : Number.NaN;
+  return Number.isFinite(retryAt) ? Math.max(0, Math.ceil((retryAt - Date.now()) / 1000)) : 60;
 }
 
 export function createWaitlistSubmission({
-  config = {
-    serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-    templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-    publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
-  },
-  transport = sendWithEmailJS,
-  getStorage = browserStorage,
+  config = {},
+  transport = (url, options) => fetch(url, options),
 }: {
   config?: WaitlistConfig;
   transport?: WaitlistTransport;
-  getStorage?: () => WaitlistStorage | undefined;
 } = {}) {
-  const confirmedEmails = new Set<string>();
+  // Keep only requests that are currently in flight. A repeat submission must
+  // receive the same server acknowledgement, without revealing membership.
   const pending = new Map<string, Promise<WaitlistResult>>();
 
   return async function submit(input: WaitlistInput): Promise<WaitlistResult> {
-    const email = input.email.trim().toLowerCase();
-    const phone = input.phone?.trim() ?? "";
-    if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return { status: "invalid", field: "email" };
+    const name = input.name?.trim();
+    const email = input.email?.trim();
+    const phone = input.phone?.trim();
+    if (!email && !phone) {
+      return { status: "invalid", field: "contact", message: messages.contact };
     }
-    if (phone && (!/^\+?[\d\s().-]+$/.test(phone) || !/^\d{7,15}$/.test(phone.replace(/\D/g, "")))) {
-      return { status: "invalid", field: "phone" };
+    if (name && name.length > 100) {
+      return { status: "invalid", field: "name", message: messages.name };
+    }
+    if (email && (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) {
+      return { status: "invalid", field: "email", message: messages.email };
+    }
+    if (phone && !isNigerianMobile(phone)) {
+      return { status: "invalid", field: "phone", message: messages.phone };
+    }
+    if (input.consent !== true) {
+      return { status: "invalid", field: "consent", message: messages.consent };
     }
 
-    const storage = getStorage();
-    if (confirmedEmails.has(email) || readConfirmed(storage).some((entry) => entry.email === email)) {
-      return { status: "duplicate", email, source: "browser" };
+    const baseUrl = (config.apiBaseUrl ?? process.env.NEXT_PUBLIC_API_BASE_URL ?? "").trim().replace(/\/+$/, "");
+    try {
+      const parsed = new URL(baseUrl);
+      if (!["https:", "http:"].includes(parsed.protocol) || parsed.username || parsed.password || parsed.search || parsed.hash) {
+        throw new Error("Invalid API base URL");
+      }
+    } catch {
+      return { status: "unavailable", code: "CONFIGURATION_ERROR", message: messages.configuration };
     }
-    const serviceId = config.serviceId?.trim();
-    const templateId = config.templateId?.trim();
-    const publicKey = config.publicKey?.trim();
-    if (!serviceId || !templateId || !publicKey) return { status: "unavailable" };
 
-    const current = pending.get(email);
+    const payload = JSON.stringify({
+      ...(name ? { name } : {}),
+      ...(email ? { email } : {}),
+      ...(phone ? { phone } : {}),
+      consent: input.consent,
+      // Never trim or silently remove a filled honeypot. The API handles it.
+      website: input.website ?? "",
+    });
+    const current = pending.get(payload);
     if (current) return current;
 
     const request = (async (): Promise<WaitlistResult> => {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
       try {
-        const response = await transport({ email, phone }, { serviceId, templateId, publicKey });
-        if (response.status === 409) return { status: "duplicate", email, source: "server" };
-        if (response.status === 429) return { status: "rate-limited" };
-        if (response.status < 200 || response.status >= 300) return { status: "error" };
+        const response = await transport(`${baseUrl}/waitlist`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          credentials: "omit",
+          cache: "no-store",
+          signal: controller.signal,
+          body: payload,
+        });
+        const body = parseEnvelope(await response.json().catch((error: unknown) => {
+          if (controller.signal.aborted) throw error;
+          return undefined;
+        }));
 
-        confirmedEmails.add(email);
-        try {
-          const entries = readConfirmed(storage).filter((entry) => entry.email !== email);
-          storage?.setItem(CONFIRMED_WAITLIST_KEY, JSON.stringify([
-            ...entries,
-            { email, confirmedAt: new Date().toISOString() },
-          ]));
-        } catch {
-          // A blocked/full browser store must not turn an accepted signup into
-          // an error. The in-memory set still prevents another send this visit.
+        if (response.status === 202 && body.message) {
+          return { status: "success", message: body.message };
         }
-        return { status: "success", email };
+        if (response.status === 429) {
+          return {
+            ...body,
+            status: "rate-limited",
+            message: body.message ?? messages.rateLimited,
+            retryAfterSeconds: retryAfterSeconds(response.headers.get("Retry-After")),
+          };
+        }
+        if (response.ok) {
+          return { status: "error", code: "INVALID_RESPONSE", message: messages.invalidResponse };
+        }
+        return {
+          ...body,
+          status: "error",
+          message: body.message ?? (body.code === "VALIDATION_FAILED"
+            ? messages.validationFailed
+            : messages.requestFailed),
+        };
       } catch {
-        return { status: "error" };
+        return controller.signal.aborted
+          ? { status: "unavailable", code: "TIMEOUT", message: messages.timeout }
+          : { status: "unavailable", code: "NETWORK_ERROR", message: messages.network };
+      } finally {
+        clearTimeout(timeout);
       }
     })();
-    pending.set(email, request);
+    pending.set(payload, request);
     try {
       return await request;
     } finally {
-      pending.delete(email);
+      pending.delete(payload);
     }
   };
 }
