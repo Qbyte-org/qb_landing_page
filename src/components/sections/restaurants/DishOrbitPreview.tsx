@@ -1,9 +1,11 @@
 "use client";
 
+import { dishOrbitPreviewCopy } from "@/content/restaurants/sections";
+
 import { motion, useTransform, type MotionValue } from "motion/react";
 import FoodImage from "@/components/ui/FoodImage";
 import { getDishOrbitFrame } from "./dishOrbitMotion";
-import { restaurantDishes, type RestaurantDish } from "./restaurantDishes";
+import { restaurantDishes, type RestaurantDish } from "@/content/restaurants/dishes";
 
 type DishOrbitPreviewProps = {
   dish: RestaurantDish;
@@ -30,7 +32,7 @@ export default function DishOrbitPreview({ dish, index, selected, position, onSe
     >
       <button
         type="button"
-        aria-label={`Preview ${dish.imageAlt.toLowerCase()}`}
+        aria-label={dishOrbitPreviewCopy.ariaLabelPreviewFormat(dish.imageAlt.toLowerCase())}
         aria-pressed={selected}
         onClick={() => onSelect(index)}
         className={`relative block size-full cursor-pointer overflow-hidden rounded-full border-[3px] bg-paper shadow-[0_8px_18px_color-mix(in_srgb,var(--color-ink)_12%,transparent)] transition-[border-color,transform] duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand motion-reduce:transition-none ${selected ? "border-brand scale-110" : "border-paper motion-safe:hover:scale-110"}`}

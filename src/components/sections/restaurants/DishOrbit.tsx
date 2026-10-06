@@ -1,10 +1,12 @@
 "use client";
 
+import { dishOrbitCopy } from "@/content/restaurants/sections";
+
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion, type MotionValue } from "motion/react";
 import FoodImage from "@/components/ui/FoodImage";
 import MagneticFillButton from "@/components/ui/MagneticFillButton";
-import { restaurantDishes } from "./restaurantDishes";
+import { restaurantDishes } from "@/content/restaurants/dishes";
 import DishOrbitPreview from "./DishOrbitPreview";
 
 type DishOrbitProps = {
@@ -22,7 +24,7 @@ export default function DishOrbit({ selectedIndex, position, onSelect, onStep }:
     <div
       role="region"
       aria-roledescription="carousel"
-      aria-label="Meal inspiration"
+      aria-label={dishOrbitCopy.ariaLabelMealInspiration}
       className="mx-auto w-full max-w-[43rem] lg:mx-0 lg:max-w-none md:-mt-20"
     >
       <div data-orbit-stage className="relative aspect-[1.16] w-full">
@@ -74,7 +76,7 @@ export default function DishOrbit({ selectedIndex, position, onSelect, onStep }:
 
         <div className="absolute inset-x-[10%] bottom-0 z-30 max-sm:-my-10! flex items-center justify-between">
           <MagneticFillButton
-            ariaLabel="Previous meal"
+            ariaLabel={dishOrbitCopy.ariaLabelPreviousMeal}
             variant="cream"
             onClick={() => onStep(-1)}
             className="size-12 rounded-full border! border-paper/15! bg-paper! text-ink! shadow-sm shadow-ink/10 sm:size-14"
@@ -82,10 +84,10 @@ export default function DishOrbit({ selectedIndex, position, onSelect, onStep }:
             <ArrowLeft className="size-5" aria-hidden="true" />
           </MagneticFillButton>
           <span className="self-end pb-2 text-xs font-medium tabular-nums tracking-[0.2em] text-paper/70">
-            {String(selectedIndex + 1).padStart(2, "0")} <span className="mx-1 opacity-50">/</span> {String(restaurantDishes.length).padStart(2, "0")}
+            {String(selectedIndex + 1).padStart(2, "0")} <span className="mx-1 opacity-50">{"/"}</span> {String(restaurantDishes.length).padStart(2, "0")}
           </span>
           <MagneticFillButton
-            ariaLabel="Next meal"
+            ariaLabel={dishOrbitCopy.ariaLabelNextMeal}
             variant="cream"
             onClick={() => onStep(1)}
             className="size-12 rounded-full border! border-paper/15! bg-paper! text-ink! shadow-sm shadow-ink/10 sm:size-14"

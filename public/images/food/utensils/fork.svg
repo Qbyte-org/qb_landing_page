@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" fill="none">
+  <title>Polished dining fork</title>
+  <defs>
+    <linearGradient id="metal" x1="94" y1="120" x2="141" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="var(--color-cocoa, #6D5C52)"/>
+      <stop offset=".17" stop-color="var(--color-border, #F0E6DC)"/>
+      <stop offset=".36" stop-color="var(--color-paper, #FFFAF5)"/>
+      <stop offset=".55" stop-color="var(--color-muted, #6B7280)"/>
+      <stop offset=".77" stop-color="var(--color-cream, #FFF7F0)"/>
+      <stop offset="1" stop-color="var(--color-cocoa, #6D5C52)"/>
+    </linearGradient>
+    <linearGradient id="handle" x1="108" y1="170" x2="132" y2="170" gradientUnits="userSpaceOnUse">
+      <stop stop-color="var(--color-muted, #6B7280)"/>
+      <stop offset=".25" stop-color="var(--color-border, #F0E6DC)"/>
+      <stop offset=".43" stop-color="var(--color-paper, #FFFAF5)"/>
+      <stop offset=".8" stop-color="var(--color-tan, #C9AA96)"/>
+      <stop offset="1" stop-color="var(--color-cocoa, #6D5C52)"/>
+    </linearGradient>
+  </defs>
+  <g transform="rotate(-38 120 120)">
+    <path d="M94 76H139V92C139 103 133 108 129 114C126 119 126 124 127 134L132 201C133 211 128 218 120 218C112 218 107 211 108 201L113 134C114 124 114 119 110 114C105 108 94 103 94 92Z" fill="url(#metal)"/>
+    <path d="M114 126C114 149 109 190 109 204C109 212 114 216 120 216C126 216 131 212 131 204C131 190 126 149 126 126Z" fill="url(#handle)"/>
+    <path d="M94 79V28Q94 23 97.5 23Q101 23 101 28V79ZM106.5 79V26Q106.5 21 110 21Q113.5 21 113.5 26V79ZM119 79V26Q119 21 122.5 21Q126 21 126 26V79ZM132 79V28Q132 23 135.5 23Q139 23 139 28V79Z" fill="url(#metal)"/>
+    <path d="M96 28V88C96 101 108 106 113 114M116 132L112 200Q111 211 118 213" stroke="var(--color-paper, #FFFAF5)" stroke-width="1.6" stroke-linecap="round" opacity=".8"/>
+    <path d="M136 83C136 103 126 105 123 117" stroke="var(--color-cocoa, #6D5C52)" stroke-width="1.2" stroke-linecap="round" opacity=".55"/>
+  </g>
+</svg>
