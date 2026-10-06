@@ -1,5 +1,7 @@
 "use client";
 
+import { quickBitePassportHubCopy } from "@/content/home/sections";
+
 import dynamic from "next/dynamic";
 import {
   useMemo,
@@ -23,7 +25,7 @@ import {
 import {
   getCityRestaurants,
   passportCities,
-} from "./quickbite-passport-hub/passportHub.data";
+} from "@/content/home/passport";
 import { gsap, useGSAP } from "@/lib/gsap";
 import Container from "../ui/Container";
 import SectionWave from "../ui/SectionWave";
@@ -33,9 +35,7 @@ import RestaurantMembershipCard from "./quickbite-passport-hub/RestaurantMembers
 const PassportLeafletMap = dynamic(() => import("./PassportLeafletMap"), {
   ssr: false,
   loading: () => (
-    <div className="grid h-full min-h-[18rem] place-items-center rounded-[2.35rem] bg-cream-200 text-xs font-semibold uppercase tracking-[0.22em] text-cocoa">
-      Preparing destination map
-    </div>
+    <div className="grid h-full min-h-[18rem] place-items-center rounded-[2.35rem] bg-cream-200 text-xs font-semibold uppercase tracking-[0.22em] text-cocoa">{quickBitePassportHubCopy.preparingDestinationMap}</div>
   ),
 });
 
@@ -362,27 +362,17 @@ export default function QuickBitePassportHub() {
           className="mb-10 flex w-full flex-col items-start gap-6 text-left lg:flex-row lg:items-center lg:justify-between"
         >
           <h2 className="section-heading min-w-0">
-            <span className="block sm:hidden">
-              Food
-              <span className="block text-[var(--passport-accent)]">
-                by city.
-              </span>
+            <span className="block sm:hidden">{quickBitePassportHubCopy.food}<span className="block text-[var(--passport-accent)]">{quickBitePassportHubCopy.byCity}</span>
             </span>
-            <span className="hidden sm:block">
-              Discover food
-              <span className="block text-[var(--passport-accent)]">
-                by destination.
-              </span>
+            <span className="hidden sm:block">{quickBitePassportHubCopy.discoverFood}<span className="block text-[var(--passport-accent)]">{quickBitePassportHubCopy.byDestination}</span>
             </span>
           </h2>
           <LinkArrow
-            href="/restaurants"
-            ariaLabel="Explore kitchens"
+            href={quickBitePassportHubCopy.hrefRestaurants}
+            ariaLabel={quickBitePassportHubCopy.ariaLabelExploreKitchens}
             variant="dark"
             className="min-h-14 w-64 shrink-0 self-end text-lg! normal-case! [--link-arrow-spacing:0em] sm:min-h-16 sm:text-xl! lg:self-auto"
-          >
-            Explore kitchens
-          </LinkArrow>
+          >{quickBitePassportHubCopy.ariaLabelExploreKitchens}</LinkArrow>
         </div>
 
         <div
@@ -442,9 +432,7 @@ export default function QuickBitePassportHub() {
                         />
                         <circle cx="12" cy="10.6" r="2.1" fill="var(--color-paper)" />
                       </svg>
-                    </span>
-                    Choose an area to explore local kitchens
-                  </div>
+                    </span>{quickBitePassportHubCopy.chooseAnAreaToExploreLocalKitchens}</div>
                 </div>
               </div>
             </div>
@@ -463,9 +451,7 @@ export default function QuickBitePassportHub() {
                 <div className="relative rounded-[2.35rem] bg-paper p-4 text-ink sm:p-5">
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
-                      <h3 className="font-display text-[2.25rem] font-semibold leading-[0.86] tracking-[-0.075em] text-ink sm:text-[2.85rem]">
-                        Explore Kitchens
-                      </h3>
+                      <h3 className="font-display text-[2.25rem] font-semibold leading-[0.86] tracking-[-0.075em] text-ink sm:text-[2.85rem]">{quickBitePassportHubCopy.exploreKitchens}</h3>
                     </div>
 
                     {/* <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-ink text-paper">
@@ -477,9 +463,7 @@ export default function QuickBitePassportHub() {
 
                   <div className="mt-4 flex flex-wrap items-end gap-2 text-[0.76rem] font-semibold text-ink">
                     <div>
-                      <p className="mb-3 text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-cocoa">
-                        Destinations
-                      </p>
+                      <p className="mb-3 text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-cocoa">{quickBitePassportHubCopy.destinations}</p>
                       <CityStampSelector
                         cities={passportCities}
                         selectedCity={selectedCity}
@@ -492,8 +476,7 @@ export default function QuickBitePassportHub() {
                     </span>
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/6 px-3 py-1.5">
                       <Store className="h-3.5 w-3.5 text-[var(--passport-accent)]" strokeWidth={2.35} />
-                      {activeCity.restaurantCount} Restaurants
-                    </span>
+                      {activeCity.restaurantCount}{quickBitePassportHubCopy.restaurants}</span>
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/6 px-3 py-1.5">
                       <Star className="h-3.5 w-3.5 text-[var(--passport-accent)]" strokeWidth={2.35} />
                       {activeCity.avgRating}

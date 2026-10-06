@@ -1,31 +1,11 @@
 "use client";
 
+import { passportLeafletMapCopy } from "@/content/home/sections";
+import type { PassportMapCity, PassportMapNode, PassportMapRestaurant } from "@/content/home/passport";
+
 import { motion } from "motion/react";
 import type { CSSProperties } from "react";
 import MagneticFillButton from "../ui/MagneticFillButton";
-
-export type PassportMapNode = {
-  name: string;
-  deliveries?: number;
-  coordinates?: [number, number];
-  mapLabel?: string;
-  minZoom?: number;
-};
-
-export type PassportMapRestaurant = {
-  id: string;
-  name: string;
-  cuisine: string;
-  eta: string;
-  coordinates?: [number, number];
-};
-
-export type PassportMapCity = {
-  name: string;
-  center: [number, number];
-  accent: string;
-  radius: number;
-};
 
 const districtColors = [
   "var(--color-brand)",
@@ -222,7 +202,7 @@ export default function PassportLeafletMap({
               style={{ left: `${slot.x}%`, top: `${slot.y}%` }}
             >
               <MagneticFillButton
-                ariaLabel={`${restaurant.name}, ${restaurant.eta}`}
+                ariaLabel={passportLeafletMapCopy.ariaLabelFormat(restaurant.name, restaurant.eta)}
                 onMouseEnter={() => onHoverRestaurant?.(restaurant.name)}
                 onMouseLeave={() => onHoverRestaurant?.(null)}
                 onFocus={() => onHoverRestaurant?.(restaurant.name)}
@@ -232,9 +212,7 @@ export default function PassportLeafletMap({
                 customFillClass="bg-ink"
                 customHoverTextColor="var(--color-white)"
                 className="size-[clamp(1.5rem,6.5cqw,2rem)] rounded-full border! border-ink bg-paper! text-[clamp(0.5rem,1.8cqw,0.625rem)]! font-bold text-brand-dark!"
-              >
-                QB
-              </MagneticFillButton>
+              >{passportLeafletMapCopy.qB}</MagneticFillButton>
             </motion.div>
           );
         })}
