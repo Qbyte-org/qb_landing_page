@@ -1,0 +1,263 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  padding: 9rem 1.25rem 2rem;
+}
+
+.rail {
+  position: relative;
+  width: 100%;
+  max-width: 100rem;
+  margin-inline: auto;
+}
+
+.canvas {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.heading,
+.location,
+.pathCopy,
+.pathControls {
+  position: relative;
+  z-index: 3;
+  min-width: 0;
+}
+
+.heading h1 {
+  font-size: clamp(2.8rem, 4.8vw, 5.1rem);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.06em;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--color-cocoa);
+}
+
+.location strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.location p > span {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.locationIcon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--color-cream-200);
+  color: var(--color-brand-dark);
+}
+
+.backdrop,
+.backdropSide {
+  display: none;
+  pointer-events: none;
+}
+
+.bikeStage {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+}
+
+.bikeStage::before {
+  content: "";
+  position: absolute;
+  inset: 15% 0 4%;
+  border-radius: 2rem;
+  background: color-mix(in srgb, var(--color-ink) 9%, var(--color-paper));
+}
+
+.bikeMedia {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.bikeImage {
+  object-fit: contain;
+  filter: drop-shadow(0 1rem 0.75rem color-mix(in srgb, var(--color-ink) 13%, transparent));
+}
+
+.pathCopy {
+  align-self: end;
+  border-radius: 1.75rem;
+  background: var(--color-paper);
+}
+
+.kicker {
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-cocoa);
+}
+
+.pathControls {
+  align-self: end;
+  border-radius: 1.75rem;
+  background: var(--color-paper);
+}
+
+.pathButton {
+  display: flex;
+  width: 100%;
+  min-height: 3.5rem;
+  align-items: center;
+  gap: 0.65rem;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  padding: 0.75rem;
+  background: var(--color-white);
+  color: var(--color-ink);
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background-color 180ms, border-color 180ms;
+}
+
+.pathButton:hover {
+  background: var(--color-cream-200);
+}
+
+.pathButton[aria-pressed="true"] {
+  border-color: var(--color-brand);
+  background: var(--color-brand-50);
+}
+
+.pathButton:focus-visible {
+  outline: 2px solid var(--color-brand-dark);
+  outline-offset: 4px;
+}
+
+@media (min-width: 640px) {
+  .hero {
+    padding-inline: 2rem;
+  }
+
+  .canvas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .heading {
+    grid-column: 1 / -1;
+  }
+
+  .location {
+    grid-column: 1 / -1;
+  }
+
+  .bikeStage {
+    grid-column: 1 / -1;
+    width: 90%;
+    margin-inline: auto;
+  }
+
+  .pathCopy,
+  .pathControls {
+    align-self: start;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero {
+    padding: 9rem 5vw 3rem;
+  }
+
+  .canvas {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto minmax(8rem, 1fr) auto;
+    min-height: clamp(36rem, 45vw, 46rem);
+    column-gap: 0;
+    row-gap: 1.5rem;
+  }
+
+  .heading {
+    grid-column: 1 / 8;
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .location {
+    grid-column: 11 / -1;
+    grid-row: 1;
+    align-self: start;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 0.5rem;
+  }
+
+  .location strong {
+    display: block;
+  }
+
+  .backdrop,
+  .backdropSide {
+    position: absolute;
+    z-index: 0;
+    display: block;
+    border-radius: 2rem;
+    background: color-mix(in srgb, var(--color-ink) 9%, var(--color-paper));
+  }
+
+  .backdrop {
+    inset: 31% 0 26%;
+  }
+
+  .backdropSide {
+    inset: 25% 0 0 76%;
+  }
+
+  .bikeStage {
+    grid-column: 4 / 11;
+    grid-row: 1 / 4;
+    align-self: end;
+    width: 100%;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  .bikeStage::before {
+    display: none;
+  }
+
+  .pathCopy {
+    grid-column: 1 / 4;
+    grid-row: 3;
+    align-self: end;
+    margin-right: 1rem;
+    padding: 1.5rem 1.25rem 0 0;
+  }
+
+  .pathControls {
+    grid-column: 11 / -1;
+    grid-row: 3;
+    align-self: end;
+    margin-left: -0.5rem;
+    padding: 1rem 0 0 1rem;
+  }
+}
