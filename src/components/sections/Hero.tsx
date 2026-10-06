@@ -1,11 +1,13 @@
 "use client";
 
+import { heroCopy } from "@/content/home/sections";
+
 import { useCallback, useRef, useState } from "react";
 import { heroSlides } from "@/content/site";
 import { useHeroTransition } from "@/hooks/use-hero-transition";
 import HeroDecor from "./hero/HeroDecor";
 import HeroImageStage from "./hero/HeroImageStage";
-import { rotatingHeadlines } from "./hero/hero.data";
+import { rotatingHeadlines } from "@/content/home/hero";
 import Container from "../ui/Container";
 import LinkArrow from "../ui/LinkArrow";
 import TypewriterText from "../ui/TypewriterText";
@@ -39,12 +41,11 @@ export default function Hero() {
           >
             <h1
               data-hero-title
-              aria-label={`Real food, delivered ${activeSlide.word}`}
+              aria-label={heroCopy.ariaLabelRealFoodDeliveredFormat(activeSlide.word)}
               className="font-display text-[2.7rem] font-semibold leading-[1.03] tracking-[0.01em]! text-paper min-[430px]:text-[3.1rem] sm:text-5xl md:text-6xl lg:text-[5.2rem] xl:text-[5.9rem]"
             >
-              <span className="block">Real food,</span>
-              <span className="block">
-                delivered{" "}
+              <span className="block">{heroCopy.realFood}</span>
+              <span className="block">{heroCopy.delivered}{" "}
                 <TypewriterText
                   words={rotatingHeadlines}
                   className="inline-grid text-brand"
@@ -61,14 +62,12 @@ export default function Hero() {
         <Container className="pointer-events-none absolute inset-x-0 bottom-0 z-[70] max-w-[103rem]">
           <div data-hero-actions className="translate-y-1/2 sm:pl-10 xl:pl-32">
             <MagneticFillButton
-              href="/restaurants"
+              href={heroCopy.hrefRestaurants}
               variant="brand"
               customFillClass="bg-paper"
               customHoverTextColor="var(--color-ink)"
               className="pointer-events-auto h-14 cursor-pointer rounded-4xl border-brand bg-brand! px-7 text-base font-semibold text-white! sm:h-[3.75rem] sm:px-8"
-            >
-              Order now
-              <ArrowRight className="h-5 w-5" strokeWidth={2.35} aria-hidden="true" />
+            >{heroCopy.orderNow}<ArrowRight className="h-5 w-5" strokeWidth={2.35} aria-hidden="true" />
             </MagneticFillButton>
           </div>
         </Container>

@@ -1,14 +1,13 @@
+import { processStepCopyCopy } from "@/content/home/sections";
 import { AnimatePresence, motion } from "motion/react";
-import type { ProcessSlide } from "./howItWorks.data";
+import type { ProcessSlide } from "@/content/home/how-it-works";
 
 export default function ProcessStepCopy({ activeStep }: { activeStep: ProcessSlide }) {
   const ActiveIcon = activeStep.icon;
 
   return (
     <div className="max-w-md pt-2 md:pt-6 lg:pt-8">
-      <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-success">
-        Our process
-      </p>
+      <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-success">{processStepCopyCopy.ourProcess}</p>
 
       <AnimatePresence mode="wait" initial={false}>
         <motion.div

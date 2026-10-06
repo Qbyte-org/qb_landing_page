@@ -1,153 +1,17 @@
 "use client";
 
+import { testimonialsCopy } from "@/content/home/sections";
+
+import { type TestimonialSource, type StoryCard, storyCards, communityDetails } from "@/content/home/testimonials";
+
 import Image from "../ui/FoodImage";
 import { useSyncExternalStore, type ReactNode } from "react";
-import { Bike, MapPin, Quote, Store, UtensilsCrossed } from "lucide-react";
+import { MapPin, Quote } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
-import { testimonials } from "@/content/site";
 import Container from "../ui/Container";
 import SectionTag from "../ui/SectionTag";
 import BackgroundGrainTexture from "../ui/BackgroundGrainTexture";
 import MagneticFillButton from "../ui/MagneticFillButton";
-
-const extraTestimonials = [
-  {
-    quote:
-      "Ordering from two restaurants at once used to be stressful. QuickBite makes it feel normal.",
-    name: "Aisha Lawal",
-    role: "Customer • OAU Campus",
-    initials: "AL",
-    accent: "var(--color-peach)",
-  },
-  {
-    quote:
-      "The rider handoff is clearer now. We know when to pack, who is coming, and when the order leaves.",
-    name: "Bola Adeyemi",
-    role: "Kitchen Lead • Mayfair",
-    initials: "BA",
-    accent: "var(--color-brand)",
-  },
-  {
-    quote:
-      "The best part is the consistency. I can plan my routes, deliver faster and see my earnings clearly.",
-    name: "David Ojo",
-    role: "Dispatch Rider • Lagere",
-    initials: "DO",
-    accent: "var(--color-ink)",
-  },
-  {
-    quote:
-      "My hostel address is saved, my usual order is two taps away, and the rider updates make late-night food less stressful.",
-    name: "Mariam Yusuf",
-    role: "Customer • Moremi Hall",
-    initials: "MY",
-    accent: "var(--color-linen)",
-  },
-  {
-    quote:
-      "QuickBite brings us new customers without making our counter chaotic. The order notes are simple and useful.",
-    name: "Kunle Ajayi",
-    role: "Restaurant Owner • Sabo",
-    initials: "KA",
-    accent: "var(--color-success)",
-  },
-  {
-    quote:
-      "I can see the pickup point, customer location and payout clearly. It helps me plan routes without guessing.",
-    name: "Grace Effiong",
-    role: "Rider • Mayfair",
-    initials: "GE",
-    accent: "var(--color-brand)",
-  },
-];
-
-const testimonialCards = [...testimonials, ...extraTestimonials];
-
-type TestimonialSource = (typeof testimonialCards)[number];
-
-type StoryCard = {
-  kind: "image" | "quote" | "illustration";
-  testimonial: TestimonialSource;
-  label: string;
-  image?: string;
-  imageAlt?: string;
-  title?: string;
-  mediaClassName?: string;
-};
-
-const storyCards: StoryCard[] = [
-  {
-    kind: "image",
-    testimonial: testimonialCards[0],
-    label: "Campus favourites",
-    title: "A little comfort between lectures.",
-    image: "/images/food/pinterest/jollof-chicken-plantain.webp",
-    imageAlt: "Jollof rice with glazed chicken and fried plantain",
-    mediaClassName: "min-h-[16rem] sm:min-h-[18rem]",
-  },
-  {
-    kind: "quote",
-    testimonial: testimonialCards[1],
-    label: "From the kitchen",
-  },
-  {
-    kind: "illustration",
-    testimonial: testimonialCards[2],
-    label: "Life on the road",
-    title: "Around Ife, one delivery at a time.",
-    image: "/quickbite-delivery-bike.svg",
-    imageAlt: "Illustration of a QuickBite delivery bike",
-    mediaClassName: "min-h-[14.5rem] sm:min-h-[17rem]",
-  },
-  {
-    kind: "quote",
-    testimonial: testimonialCards[3],
-    label: "More to the table",
-  },
-  {
-    kind: "image",
-    testimonial: testimonialCards[4],
-    label: "Behind the counter",
-    title: "Good food starts with teamwork.",
-    image: "/images/food/pinterest/meal-prep-packs.webp",
-    imageAlt: "Prepared portions of rice, chicken and stew in takeaway containers",
-    mediaClassName: "min-h-[18rem] sm:min-h-[22rem]",
-  },
-  {
-    kind: "quote",
-    testimonial: testimonialCards[5],
-    label: "The daily route",
-  },
-  {
-    kind: "image",
-    testimonial: testimonialCards[6],
-    label: "The usual, please",
-    title: "For the cravings that feel like home.",
-    image: "/images/food/pinterest/nigerian-food-spread.webp",
-    imageAlt: "Serving trays of Nigerian rice dishes, stew and soup",
-    mediaClassName: "min-h-[13rem] sm:min-h-[15rem]",
-  },
-  {
-    kind: "quote",
-    testimonial: testimonialCards[7],
-    label: "Local kitchen, big heart",
-  },
-  {
-    kind: "illustration",
-    testimonial: testimonialCards[8],
-    label: "Across the neighbourhood",
-    title: "Every good meal has a last mile.",
-    image: "/quickbite-delivery-bike.svg",
-    imageAlt: "Illustration of a QuickBite delivery bike",
-    mediaClassName: "min-h-[15rem] sm:min-h-[18.5rem]",
-  },
-];
-
-const communityDetails = [
-  { title: "Food lovers", detail: "A seat at the table.", icon: UtensilsCrossed },
-  { title: "Local kitchens", detail: "The heart of every meal.", icon: Store },
-  { title: "Delivery riders", detail: "Bringing it all together.", icon: Bike },
-] as const;
 
 // Only regroup at the two layout breakpoints; cards keep their natural height.
 // A stable server snapshot keeps the first client render hydration-safe.
@@ -167,7 +31,7 @@ function getServerColumnCount() {
 
 function CommunityPanel() {
   return (
-    <ul aria-label="The QuickBite community" className="mt-7 flex flex-wrap gap-x-7 gap-y-3 sm:gap-x-10">
+    <ul aria-label={testimonialsCopy.ariaLabelTheQuickBiteCommunity} className="mt-7 flex flex-wrap gap-x-7 gap-y-3 sm:gap-x-10">
       {communityDetails.map(({ title, icon: Icon }) => (
         <li key={title} className="flex items-center gap-2.5 text-sm font-medium text-cocoa">
           <span className="grid size-8 place-items-center rounded-full border border-ink/10 bg-cream-200 text-brand-dark">
@@ -255,9 +119,7 @@ function MediaStoryCard({ story }: { story: StoryCard }) {
           </p>
         ) : null}
       </div>
-      <blockquote className="mt-5 shrink-0 border-t border-dashed border-ink/20 pt-5 text-base leading-relaxed">
-        &ldquo;{story.testimonial.quote}&rdquo;
-      </blockquote>
+      <blockquote className="mt-5 shrink-0 border-t border-dashed border-ink/20 pt-5 text-base leading-relaxed">{"“"}{story.testimonial.quote}{"”"}</blockquote>
     </StoryCardShell>
   );
 }
@@ -309,16 +171,11 @@ export default function Testimonials() {
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           className="border-b border-ink/15 pb-7 sm:pb-8"
         >
-          <SectionTag>Community</SectionTag>
+          <SectionTag>{testimonialsCopy.community}</SectionTag>
           <div className="mt-5 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
-            <h2 id="testimonials-title" className="section-heading leading-[1.05]!">
-              Good food.
-              <span className="block text-brand-dark">Better together.</span>
+            <h2 id="testimonials-title" className="section-heading leading-[1.05]!">{testimonialsCopy.goodFood}<span className="block text-brand-dark">{testimonialsCopy.betterTogether}</span>
             </h2>
-            <p className="max-w-md text-base leading-relaxed text-cocoa sm:text-lg lg:max-w-sm">
-              From campus cravings to the kitchen counter, meet the food lovers,
-              local kitchens and riders behind the everyday food run.
-            </p>
+            <p className="max-w-md text-base leading-relaxed text-cocoa sm:text-lg lg:max-w-sm">{testimonialsCopy.fromCampusCravingsToTheKitchenCounter}</p>
           </div>
           <CommunityPanel />
         </motion.div>

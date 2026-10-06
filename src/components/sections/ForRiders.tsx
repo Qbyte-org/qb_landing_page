@@ -1,5 +1,9 @@
 "use client";
 
+import { forRidersCopy } from "@/content/home/sections";
+
+import { journeys, riderComparisonRows } from "@/content/home/rider-journeys";
+
 import { useState, type KeyboardEvent } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import Container from "../ui/Container";
@@ -10,59 +14,6 @@ const manifestClipPath =
   "polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 18px 100%, 0 calc(100% - 18px))";
 const tagClipPath =
   "polygon(12px 0, 100% 0, 100% 100%, 0 100%, 0 12px)";
-
-const journeys = [
-  {
-    id: "app-rider",
-    eyebrow: "App rider",
-    title: "Ride directly from your phone",
-    shortTitle: "App Rider",
-    description:
-      "Accept orders, navigate pickups, update delivery status and track earnings from the QuickBite rider app.",
-    accent: "var(--color-brand)",
-    manifestTitle: "Solo duty slip",
-    manifestCode: "AR / IFE / 042",
-    assignedTo: "Solo riders",
-    tool: "Rider app",
-    payout: "Personal wallet",
-    routeRows: ["Campus pickup", "Market run", "Doorstep drop"],
-    stats: [
-      { label: "Best for", value: "Solo riders" },
-      { label: "Tool", value: "Rider app" },
-      { label: "Payout", value: "Personal wallet" },
-    ],
-    points: [
-      "Accept delivery requests directly",
-      "Update pickup and drop-off status",
-      "Track daily and weekly earnings",
-    ],
-  },
-  {
-    id: "dispatch-partner",
-    eyebrow: "Dispatch partner",
-    title: "Manage riders from one desk",
-    shortTitle: "Dispatch Partner",
-    description:
-      "Coordinate a fleet, assign delivery requests, and manage riders through a dispatcher workspace.",
-    accent: "var(--color-ink)",
-    manifestTitle: "Fleet route roster",
-    manifestCode: "DP / IFE / 118",
-    assignedTo: "Fleet owners",
-    tool: "Web portal",
-    payout: "Partner account",
-    routeRows: ["Rider 01 assigned", "Rider 02 standby", "Rider 03 returning"],
-    stats: [
-      { label: "Best for", value: "Fleet owners" },
-      { label: "Tool", value: "Web portal" },
-      { label: "Payout", value: "Partner account" },
-    ],
-    points: [
-      "Assign orders across multiple riders",
-      "Coordinate riders without smartphones",
-      "Monitor fleet activity and earnings",
-    ],
-  },
-] as const;
 
 type Journey = (typeof journeys)[number];
 type JourneyId = Journey["id"];
@@ -109,19 +60,12 @@ function DispatchBikeMark() {
 function RouteTag() {
   return (
     <div
-      className="relative inline-flex rotate-[-1.5deg] items-center gap-3 border border-ink/20 bg-paper px-4 py-3 text-left"
+      className="relative inline-flex rotate-[-1.5deg] items-center border border-ink/20 bg-paper px-4 py-3 text-left"
       style={{ clipPath: tagClipPath }}
     >
-      <span className="grid h-4 w-4 place-items-center border border-ink/35 bg-white">
-        <span className="h-1.5 w-1.5 rounded-[50%] bg-brand" />
-      </span>
       <span>
-        <span className="block font-mono text-[0.65rem] font-bold text-brand">
-          route tag
-        </span>
-        <span className="block font-mono text-sm font-black text-espresso">
-          rider manifest
-        </span>
+        <span className="block font-mono text-[0.65rem] font-bold text-brand">{forRidersCopy.routeTag}</span>
+        <span className="block font-mono text-sm font-black text-espresso">{forRidersCopy.riderManifest}</span>
       </span>
     </div>
   );
@@ -158,31 +102,27 @@ function ManifestDocument({ journey, active }: { journey: Journey; active: boole
       <div className="relative">
         <div className="flex items-start justify-between gap-4 border-b border-dashed border-ink/24 pb-3 font-mono">
           <div>
-            <p className="text-[0.64rem] font-bold text-brand">
-              QUICKBITE DISPATCH
-            </p>
+            <p className="text-[0.64rem] font-bold text-brand">{forRidersCopy.qUICKBITEDISPATCH}</p>
             <p className="mt-1 text-xl font-black leading-none tracking-[-0.05em]">
               {journey.manifestTitle}
             </p>
           </div>
           <span className="text-right text-[0.68rem] font-bold text-cocoa">
             {journey.manifestCode}
-            <br />
-            07:30am
-          </span>
+            <br />{forRidersCopy.value0730am}</span>
         </div>
 
         <div className="mt-4 grid gap-2 font-mono text-[0.72rem] font-bold">
           <div className="flex justify-between border-b border-dashed border-ink/16 pb-1.5">
-            <span className="text-cocoa">assigned to</span>
+            <span className="text-cocoa">{forRidersCopy.assignedTo}</span>
             <span>{journey.assignedTo}</span>
           </div>
           <div className="flex justify-between border-b border-dashed border-ink/16 pb-1.5">
-            <span className="text-cocoa">tool</span>
+            <span className="text-cocoa">{forRidersCopy.tool}</span>
             <span>{journey.tool}</span>
           </div>
           <div className="flex justify-between border-b border-dashed border-ink/16 pb-1.5">
-            <span className="text-cocoa">payout</span>
+            <span className="text-cocoa">{forRidersCopy.payout}</span>
             <span>{journey.payout}</span>
           </div>
         </div>
@@ -201,7 +141,7 @@ function ManifestDocument({ journey, active }: { journey: Journey; active: boole
             active ? "border-brand text-brand" : "border-ink/28 text-ink/28"
           }`}
         >
-          {active ? "CLEARED" : "STANDBY"}
+          {active ? forRidersCopy.cleared : forRidersCopy.standby}
         </div>
       </div>
     </motion.div>
@@ -262,7 +202,7 @@ function JourneyCard({
             active ? "border-brand text-brand" : "border-ink/28 text-ink/38"
           }`}
         >
-          {active ? "SELECTED" : "OPEN"}
+          {active ? forRidersCopy.selected : forRidersCopy.open}
         </div>
       </div>
 
@@ -305,12 +245,11 @@ function JourneyCard({
               </ul>
 
               <LinkArrow
-                href="/riders"
+                href={forRidersCopy.hrefRiders}
                 appearance="plain"
-                ariaLabel={`Apply as ${journey.shortTitle}`}
+                ariaLabel={forRidersCopy.ariaLabelApplyAsFormat(journey.shortTitle)}
                 className="mt-6 h-[3.25rem] w-full justify-center gap-2 bg-brand px-6 text-sm font-black text-white [clip-path:polygon(0_0,calc(100%_-_14px)_0,100%_14px,100%_100%,14px_100%,0_calc(100%_-_14px))]"
-              >
-                Apply as {journey.shortTitle}
+              >{forRidersCopy.applyAs}{journey.shortTitle}
                 <ArrowGlyph />
               </LinkArrow>
             </div>
@@ -322,24 +261,6 @@ function JourneyCard({
 }
 
 function ComparisonLedger({ activeJourney }: { activeJourney: JourneyId }) {
-  const rows = [
-    {
-      label: "Earnings model",
-      app: "Personal rider payouts",
-      dispatch: "Fleet partner payouts",
-    },
-    {
-      label: "Operations",
-      app: "Accept and deliver yourself",
-      dispatch: "Assign orders to riders",
-    },
-    {
-      label: "Team size",
-      app: "One rider",
-      dispatch: "Multiple riders",
-    },
-  ];
-
   return (
     <div
       className="relative overflow-hidden border border-ink/16 bg-paper p-4 text-espresso sm:p-5"
@@ -349,15 +270,11 @@ function ComparisonLedger({ activeJourney }: { activeJourney: JourneyId }) {
       <div className="relative">
         <div className="flex flex-col justify-between gap-3 border-b border-dashed border-ink/24 pb-4 sm:flex-row sm:items-end">
           <div>
-            <p className="font-mono text-[0.72rem] font-bold text-brand">
-              duty log / compare
-            </p>
-            <h3 className="mt-1 font-display text-3xl font-black leading-none tracking-[-0.06em]">
-              Rider path ledger
-            </h3>
+            <p className="font-mono text-[0.72rem] font-bold text-brand">{forRidersCopy.dutyLogCompare}</p>
+            <h3 className="mt-1 font-display text-3xl font-black leading-none tracking-[-0.06em]">{forRidersCopy.riderPathLedger}</h3>
           </div>
           <div className="rotate-[-2deg] border-[3px] border-dashed border-brand px-4 py-2 font-mono text-sm font-black text-brand">
-            {activeJourney === "app-rider" ? "APP RIDER CHECKED" : "DISPATCH CHECKED"}
+            {activeJourney === "app-rider" ? forRidersCopy.aPPRIDERCHECKED : forRidersCopy.dISPATCHCHECKED}
           </div>
         </div>
 
@@ -365,17 +282,13 @@ function ComparisonLedger({ activeJourney }: { activeJourney: JourneyId }) {
           <table className="w-full min-w-[42rem] border-collapse font-mono text-sm">
             <thead>
               <tr className="text-left text-[0.72rem] text-cocoa">
-                <th className="border-b border-dashed border-ink/20 py-3 pr-4">record</th>
-                <th className={`border-b border-dashed border-ink/20 px-4 py-3 ${activeJourney === "app-rider" ? "bg-parchment" : ""}`}>
-                  App Rider
-                </th>
-                <th className={`border-b border-dashed border-ink/20 px-4 py-3 ${activeJourney === "dispatch-partner" ? "bg-parchment" : ""}`}>
-                  Dispatch Partner
-                </th>
+                <th className="border-b border-dashed border-ink/20 py-3 pr-4">{forRidersCopy.record}</th>
+                <th className={`border-b border-dashed border-ink/20 px-4 py-3 ${activeJourney === "app-rider" ? "bg-parchment" : ""}`}>{forRidersCopy.appRider}</th>
+                <th className={`border-b border-dashed border-ink/20 px-4 py-3 ${activeJourney === "dispatch-partner" ? "bg-parchment" : ""}`}>{forRidersCopy.dispatchPartner}</th>
               </tr>
             </thead>
             <tbody>
-              {rows.map((row) => (
+              {riderComparisonRows.map((row) => (
                 <tr key={row.label}>
                   <td className="border-b border-dashed border-ink/14 py-3 pr-4 font-black">
                     {row.label}
@@ -415,15 +328,10 @@ export default function ForRiders() {
         <div className="mx-auto flex max-w-5xl flex-col items-start justify-between gap-7 md:flex-row md:items-end">
           <div>
             <RouteTag />
-            <h2 className="mt-5 font-display text-4xl font-black leading-[0.96] tracking-[-0.07em] sm:text-6xl lg:text-7xl">
-              Ride with
-              <br />
-              <span className="text-brand">QuickBite.</span>
+            <h2 className="mt-5 font-display text-4xl font-black leading-[0.96] tracking-[-0.07em] sm:text-6xl lg:text-7xl">{forRidersCopy.rideWith}<br />
+              <span className="text-brand">{forRidersCopy.quickBite}</span>
             </h2>
-            <p className="mt-5 max-w-2xl text-base font-semibold leading-relaxed text-cocoa sm:text-lg">
-              Earn as an app rider, or coordinate a dispatch team from one
-              partner workspace. Pick the path that matches how you work.
-            </p>
+            <p className="mt-5 max-w-2xl text-base font-semibold leading-relaxed text-cocoa sm:text-lg">{forRidersCopy.earnAsAnAppRiderOrCoordinate}</p>
           </div>
 
           <div className="hidden text-brand md:block">
