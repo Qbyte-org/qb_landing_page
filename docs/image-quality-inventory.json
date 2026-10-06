@@ -1,0 +1,1954 @@
+{
+  "referencedRasterCount": 58,
+  "rasterCount": 211,
+  "masterCount": 67,
+  "vectorCount": 31,
+  "responsiveVariantCount": 144,
+  "verifiedVariantCount": 144,
+  "missing": [],
+  "images": [
+    {
+      "asset": "/favicon/PNG/16.png",
+      "width": 16,
+      "height": 16,
+      "bytes": 289,
+      "references": []
+    },
+    {
+      "asset": "/favicon/PNG/180.png",
+      "width": 180,
+      "height": 180,
+      "bytes": 2760,
+      "references": [
+        "src/content/pages.ts"
+      ]
+    },
+    {
+      "asset": "/favicon/PNG/192.png",
+      "width": 192,
+      "height": 192,
+      "bytes": 3083,
+      "references": [
+        "src/content/pages.ts"
+      ]
+    },
+    {
+      "asset": "/favicon/PNG/32.png",
+      "width": 32,
+      "height": 32,
+      "bytes": 491,
+      "references": []
+    },
+    {
+      "asset": "/favicon/PNG/48.png",
+      "width": 48,
+      "height": 48,
+      "bytes": 709,
+      "references": []
+    },
+    {
+      "asset": "/favicon/PNG/512.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 11483,
+      "references": [
+        "src/content/pages.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/hero-fast.webp",
+      "width": 2200,
+      "height": 1467,
+      "bytes": 157178,
+      "references": [
+        "src/content/loader-tiles.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/hero-fresh.webp",
+      "width": 2200,
+      "height": 1467,
+      "bytes": 781442,
+      "references": [
+        "src/content/loader-tiles.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/hero-hot.webp",
+      "width": 2200,
+      "height": 2933,
+      "bytes": 930832,
+      "references": [
+        "src/content/loader-tiles.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/hero-local.webp",
+      "width": 2200,
+      "height": 1791,
+      "bytes": 1022528,
+      "references": [
+        "src/content/loader-tiles.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/partner-kitchen.webp",
+      "width": 1600,
+      "height": 1067,
+      "bytes": 239270,
+      "references": [
+        "src/content/home/sections.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/partners/beef-suya.webp",
+      "width": 783,
+      "height": 1175,
+      "bytes": 346628,
+      "references": [
+        "src/content/partner-dishes.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/partners/egusi-soup.webp",
+      "width": 600,
+      "height": 600,
+      "bytes": 150948,
+      "references": [
+        "src/content/partner-dishes.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/partners/grilled-tilapia.webp",
+      "width": 2000,
+      "height": 1500,
+      "bytes": 361506,
+      "references": [
+        "src/content/partner-dishes.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/partners/party-rice-chicken.webp",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 227346,
+      "references": [
+        "src/content/partner-dishes.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/partners/rice-beans-stew.webp",
+      "width": 1280,
+      "height": 1600,
+      "bytes": 291432,
+      "references": [
+        "src/content/partner-dishes.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/partners/small-chops.webp",
+      "width": 1280,
+      "height": 1600,
+      "bytes": 324764,
+      "references": [
+        "src/content/partner-dishes.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/abacha-african-salad.webp",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 378110,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/home/how-it-works.ts",
+        "src/content/restaurants/menu.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/akara-bean-cakes.webp",
+      "width": 900,
+      "height": 1200,
+      "bytes": 219534,
+      "references": [
+        "src/content/brand-pages.ts",
+        "src/content/cta-food.ts",
+        "src/content/home/passport.ts",
+        "src/content/restaurants/menu.ts",
+        "src/content/site.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/amala-ewedu-stew.webp",
+      "width": 554,
+      "height": 554,
+      "bytes": 91102,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/home/how-it-works.ts",
+        "src/content/restaurants/menu.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/assorted-meat-pepper-soup.webp",
+      "width": 736,
+      "height": 919,
+      "bytes": 152944,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/loader.ts",
+        "src/content/site.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/assorted-meat-stew.webp",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 241180,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/home/passport.ts",
+        "src/content/restaurants/menu.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/beef-rice-plantain.webp",
+      "width": 720,
+      "height": 714,
+      "bytes": 143832,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/restaurants/menu.ts",
+        "src/content/site.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/berry-waffles.webp",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 273440,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/home/how-it-works.ts",
+        "src/content/home/sections.ts",
+        "src/content/restaurants/menu.ts",
+        "src/content/site.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/eba-vegetable-soup.webp",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 187954,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/restaurants/menu.ts",
+        "src/content/site.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/egusi-soup.webp",
+      "width": 2048,
+      "height": 2731,
+      "bytes": 2094480,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/home/how-it-works.ts",
+        "src/content/restaurants/menu.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/glazed-chicken.webp",
+      "width": 520,
+      "height": 560,
+      "bytes": 135558,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/home/how-it-works.ts",
+        "src/content/home/passport.ts",
+        "src/content/site.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/jollof-chicken-plantain.webp",
+      "width": 1080,
+      "height": 1349,
+      "bytes": 464522,
+      "references": [
+        "src/content/brand-pages.ts",
+        "src/content/cta-food.ts",
+        "src/content/home/testimonials.ts",
+        "src/content/loader.ts",
+        "src/content/restaurants/sections.ts",
+        "src/content/site.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/jollof-takeaway.webp",
+      "width": 1440,
+      "height": 1679,
+      "bytes": 390734,
+      "references": [
+        "src/content/brand-pages.ts",
+        "src/content/cta-food.ts",
+        "src/content/home/app-preview.ts",
+        "src/content/home/passport.ts",
+        "src/content/restaurants/menu.ts",
+        "src/content/site.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/meal-prep-packs.webp",
+      "width": 1154,
+      "height": 1311,
+      "bytes": 185422,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/home/how-it-works.ts",
+        "src/content/home/testimonials.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/nigerian-food-spread.webp",
+      "width": 736,
+      "height": 920,
+      "bytes": 297264,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/home/how-it-works.ts",
+        "src/content/home/passport.ts",
+        "src/content/home/testimonials.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/ofada-egg-plantain.webp",
+      "width": 1152,
+      "height": 2048,
+      "bytes": 346066,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/home/sections.ts",
+        "src/content/loader.ts",
+        "src/content/restaurants/menu.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/ofada-rice-ayamase.webp",
+      "width": 1440,
+      "height": 1795,
+      "bytes": 301878,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/site.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/peppered-fish-noodles.webp",
+      "width": 1440,
+      "height": 1920,
+      "bytes": 491486,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/home/passport.ts",
+        "src/content/loader.ts",
+        "src/content/restaurants/menu.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/pounded-yam-greens.webp",
+      "width": 768,
+      "height": 1024,
+      "bytes": 331352,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/site.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/puff-puff-paper-bowl.webp",
+      "width": 405,
+      "height": 720,
+      "bytes": 68510,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/restaurants/menu.ts",
+        "src/content/site.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/puff-puff.webp",
+      "width": 959,
+      "height": 1168,
+      "bytes": 270156,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/home/app-preview.ts",
+        "src/content/home/passport.ts",
+        "src/content/site.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/abacha-african-salad-1200.webp",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 378110,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/abacha-african-salad-1600.webp",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 378110,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/abacha-african-salad-2048.webp",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 378110,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/abacha-african-salad-320.webp",
+      "width": 320,
+      "height": 569,
+      "bytes": 74734,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/abacha-african-salad-640.webp",
+      "width": 640,
+      "height": 1138,
+      "bytes": 196064,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/abacha-african-salad-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 325276,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/akara-bean-cakes-1200.webp",
+      "width": 900,
+      "height": 1200,
+      "bytes": 219534,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/akara-bean-cakes-1600.webp",
+      "width": 900,
+      "height": 1200,
+      "bytes": 219534,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/akara-bean-cakes-2048.webp",
+      "width": 900,
+      "height": 1200,
+      "bytes": 219534,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/akara-bean-cakes-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 44828,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/akara-bean-cakes-640.webp",
+      "width": 640,
+      "height": 853,
+      "bytes": 139902,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/akara-bean-cakes-960.webp",
+      "width": 900,
+      "height": 1200,
+      "bytes": 219534,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/amala-ewedu-stew-1200.webp",
+      "width": 554,
+      "height": 554,
+      "bytes": 91102,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/amala-ewedu-stew-1600.webp",
+      "width": 554,
+      "height": 554,
+      "bytes": 91102,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/amala-ewedu-stew-2048.webp",
+      "width": 554,
+      "height": 554,
+      "bytes": 91102,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/amala-ewedu-stew-320.webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 34388,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/amala-ewedu-stew-640.webp",
+      "width": 554,
+      "height": 554,
+      "bytes": 91102,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/amala-ewedu-stew-960.webp",
+      "width": 554,
+      "height": 554,
+      "bytes": 91102,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/assorted-meat-pepper-soup-1200.webp",
+      "width": 736,
+      "height": 919,
+      "bytes": 152944,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/assorted-meat-pepper-soup-1600.webp",
+      "width": 736,
+      "height": 919,
+      "bytes": 152944,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/assorted-meat-pepper-soup-2048.webp",
+      "width": 736,
+      "height": 919,
+      "bytes": 152944,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/assorted-meat-pepper-soup-320.webp",
+      "width": 320,
+      "height": 400,
+      "bytes": 42878,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/assorted-meat-pepper-soup-640.webp",
+      "width": 640,
+      "height": 799,
+      "bytes": 136118,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/assorted-meat-pepper-soup-960.webp",
+      "width": 736,
+      "height": 919,
+      "bytes": 152944,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/assorted-meat-stew-1200.webp",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 241180,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/assorted-meat-stew-1600.webp",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 241180,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/assorted-meat-stew-2048.webp",
+      "width": 1080,
+      "height": 1350,
+      "bytes": 241180,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/assorted-meat-stew-320.webp",
+      "width": 320,
+      "height": 400,
+      "bytes": 43618,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/assorted-meat-stew-640.webp",
+      "width": 640,
+      "height": 800,
+      "bytes": 126504,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/assorted-meat-stew-960.webp",
+      "width": 960,
+      "height": 1200,
+      "bytes": 214286,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/beef-rice-plantain-1200.webp",
+      "width": 720,
+      "height": 714,
+      "bytes": 143832,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/beef-rice-plantain-1600.webp",
+      "width": 720,
+      "height": 714,
+      "bytes": 143832,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/beef-rice-plantain-2048.webp",
+      "width": 720,
+      "height": 714,
+      "bytes": 143832,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/beef-rice-plantain-320.webp",
+      "width": 320,
+      "height": 317,
+      "bytes": 44034,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/beef-rice-plantain-640.webp",
+      "width": 640,
+      "height": 635,
+      "bytes": 133080,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/beef-rice-plantain-960.webp",
+      "width": 720,
+      "height": 714,
+      "bytes": 143832,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/berry-waffles-1200.webp",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 273440,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/berry-waffles-1600.webp",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 273440,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/berry-waffles-2048.webp",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 273440,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/berry-waffles-320.webp",
+      "width": 320,
+      "height": 480,
+      "bytes": 48728,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/berry-waffles-640.webp",
+      "width": 640,
+      "height": 960,
+      "bytes": 143956,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/berry-waffles-960.webp",
+      "width": 960,
+      "height": 1440,
+      "bytes": 245996,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/eba-vegetable-soup-1200.webp",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 187954,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/eba-vegetable-soup-1600.webp",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 187954,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/eba-vegetable-soup-2048.webp",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 187954,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/eba-vegetable-soup-320.webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 33732,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/eba-vegetable-soup-640.webp",
+      "width": 640,
+      "height": 640,
+      "bytes": 94574,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/eba-vegetable-soup-960.webp",
+      "width": 960,
+      "height": 960,
+      "bytes": 159562,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/egusi-soup-1200.webp",
+      "width": 1200,
+      "height": 1600,
+      "bytes": 871366,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/egusi-soup-1600.webp",
+      "width": 1600,
+      "height": 2133,
+      "bytes": 1387812,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/egusi-soup-2048.webp",
+      "width": 2048,
+      "height": 2731,
+      "bytes": 2094480,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/egusi-soup-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 77530,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/egusi-soup-640.webp",
+      "width": 640,
+      "height": 853,
+      "bytes": 294074,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/egusi-soup-960.webp",
+      "width": 960,
+      "height": 1280,
+      "bytes": 588884,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/glazed-chicken-1200.webp",
+      "width": 520,
+      "height": 560,
+      "bytes": 135558,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/glazed-chicken-1600.webp",
+      "width": 520,
+      "height": 560,
+      "bytes": 135558,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/glazed-chicken-2048.webp",
+      "width": 520,
+      "height": 560,
+      "bytes": 135558,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/glazed-chicken-320.webp",
+      "width": 320,
+      "height": 345,
+      "bytes": 54470,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/glazed-chicken-640.webp",
+      "width": 520,
+      "height": 560,
+      "bytes": 135558,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/glazed-chicken-960.webp",
+      "width": 520,
+      "height": 560,
+      "bytes": 135558,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/jollof-chicken-plantain-1200.webp",
+      "width": 1080,
+      "height": 1349,
+      "bytes": 464522,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/jollof-chicken-plantain-1600.webp",
+      "width": 1080,
+      "height": 1349,
+      "bytes": 464522,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/jollof-chicken-plantain-2048.webp",
+      "width": 1080,
+      "height": 1349,
+      "bytes": 464522,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/jollof-chicken-plantain-320.webp",
+      "width": 320,
+      "height": 399,
+      "bytes": 48026,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/jollof-chicken-plantain-640.webp",
+      "width": 640,
+      "height": 799,
+      "bytes": 178244,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/jollof-chicken-plantain-960.webp",
+      "width": 960,
+      "height": 1199,
+      "bytes": 374036,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/jollof-takeaway-1200.webp",
+      "width": 1200,
+      "height": 1399,
+      "bytes": 334766,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/jollof-takeaway-1600.webp",
+      "width": 1440,
+      "height": 1679,
+      "bytes": 390734,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/jollof-takeaway-2048.webp",
+      "width": 1440,
+      "height": 1679,
+      "bytes": 390734,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/jollof-takeaway-320.webp",
+      "width": 320,
+      "height": 373,
+      "bytes": 48910,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/jollof-takeaway-640.webp",
+      "width": 640,
+      "height": 746,
+      "bytes": 145826,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/jollof-takeaway-960.webp",
+      "width": 960,
+      "height": 1119,
+      "bytes": 248690,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/meal-prep-packs-1200.webp",
+      "width": 1154,
+      "height": 1311,
+      "bytes": 185422,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/meal-prep-packs-1600.webp",
+      "width": 1154,
+      "height": 1311,
+      "bytes": 185422,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/meal-prep-packs-2048.webp",
+      "width": 1154,
+      "height": 1311,
+      "bytes": 185422,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/meal-prep-packs-320.webp",
+      "width": 320,
+      "height": 363,
+      "bytes": 40840,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/meal-prep-packs-640.webp",
+      "width": 640,
+      "height": 727,
+      "bytes": 98130,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/meal-prep-packs-960.webp",
+      "width": 960,
+      "height": 1091,
+      "bytes": 159396,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/nigerian-food-spread-1200.webp",
+      "width": 736,
+      "height": 920,
+      "bytes": 297264,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/nigerian-food-spread-1600.webp",
+      "width": 736,
+      "height": 920,
+      "bytes": 297264,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/nigerian-food-spread-2048.webp",
+      "width": 736,
+      "height": 920,
+      "bytes": 297264,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/nigerian-food-spread-320.webp",
+      "width": 320,
+      "height": 400,
+      "bytes": 74332,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/nigerian-food-spread-640.webp",
+      "width": 640,
+      "height": 800,
+      "bytes": 242852,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/nigerian-food-spread-960.webp",
+      "width": 736,
+      "height": 920,
+      "bytes": 297264,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/ofada-egg-plantain-1200.webp",
+      "width": 1152,
+      "height": 2048,
+      "bytes": 346066,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/ofada-egg-plantain-1600.webp",
+      "width": 1152,
+      "height": 2048,
+      "bytes": 346066,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/ofada-egg-plantain-2048.webp",
+      "width": 1152,
+      "height": 2048,
+      "bytes": 346066,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/ofada-egg-plantain-320.webp",
+      "width": 320,
+      "height": 569,
+      "bytes": 56242,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/ofada-egg-plantain-640.webp",
+      "width": 640,
+      "height": 1138,
+      "bytes": 158978,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/ofada-egg-plantain-960.webp",
+      "width": 960,
+      "height": 1707,
+      "bytes": 286436,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/ofada-rice-ayamase-1200.webp",
+      "width": 1200,
+      "height": 1496,
+      "bytes": 268688,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/ofada-rice-ayamase-1600.webp",
+      "width": 1440,
+      "height": 1795,
+      "bytes": 301878,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/ofada-rice-ayamase-2048.webp",
+      "width": 1440,
+      "height": 1795,
+      "bytes": 301878,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/ofada-rice-ayamase-320.webp",
+      "width": 320,
+      "height": 399,
+      "bytes": 42228,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/ofada-rice-ayamase-640.webp",
+      "width": 640,
+      "height": 798,
+      "bytes": 118466,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/ofada-rice-ayamase-960.webp",
+      "width": 960,
+      "height": 1197,
+      "bytes": 202570,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/peppered-fish-noodles-1200.webp",
+      "width": 1200,
+      "height": 1600,
+      "bytes": 422928,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/peppered-fish-noodles-1600.webp",
+      "width": 1440,
+      "height": 1920,
+      "bytes": 491486,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/peppered-fish-noodles-2048.webp",
+      "width": 1440,
+      "height": 1920,
+      "bytes": 491486,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/peppered-fish-noodles-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 57482,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/peppered-fish-noodles-640.webp",
+      "width": 640,
+      "height": 853,
+      "bytes": 182498,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/peppered-fish-noodles-960.webp",
+      "width": 960,
+      "height": 1280,
+      "bytes": 326900,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/pounded-yam-greens-1200.webp",
+      "width": 768,
+      "height": 1024,
+      "bytes": 331352,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/pounded-yam-greens-1600.webp",
+      "width": 768,
+      "height": 1024,
+      "bytes": 331352,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/pounded-yam-greens-2048.webp",
+      "width": 768,
+      "height": 1024,
+      "bytes": 331352,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/pounded-yam-greens-320.webp",
+      "width": 320,
+      "height": 427,
+      "bytes": 58296,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/pounded-yam-greens-640.webp",
+      "width": 640,
+      "height": 853,
+      "bytes": 227536,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/pounded-yam-greens-960.webp",
+      "width": 768,
+      "height": 1024,
+      "bytes": 331352,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/puff-puff-1200.webp",
+      "width": 959,
+      "height": 1168,
+      "bytes": 270156,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/puff-puff-1600.webp",
+      "width": 959,
+      "height": 1168,
+      "bytes": 270156,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/puff-puff-2048.webp",
+      "width": 959,
+      "height": 1168,
+      "bytes": 270156,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/puff-puff-320.webp",
+      "width": 320,
+      "height": 390,
+      "bytes": 37472,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/puff-puff-640.webp",
+      "width": 640,
+      "height": 779,
+      "bytes": 134732,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/puff-puff-960.webp",
+      "width": 959,
+      "height": 1168,
+      "bytes": 270156,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/puff-puff-paper-bowl-1200.webp",
+      "width": 405,
+      "height": 720,
+      "bytes": 68510,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/puff-puff-paper-bowl-1600.webp",
+      "width": 405,
+      "height": 720,
+      "bytes": 68510,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/puff-puff-paper-bowl-2048.webp",
+      "width": 405,
+      "height": 720,
+      "bytes": 68510,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/puff-puff-paper-bowl-320.webp",
+      "width": 320,
+      "height": 569,
+      "bytes": 44698,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/puff-puff-paper-bowl-640.webp",
+      "width": 405,
+      "height": 720,
+      "bytes": 68510,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/puff-puff-paper-bowl-960.webp",
+      "width": 405,
+      "height": 720,
+      "bytes": 68510,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/rice-beans-stew-1200.webp",
+      "width": 720,
+      "height": 720,
+      "bytes": 118646,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/rice-beans-stew-1600.webp",
+      "width": 720,
+      "height": 720,
+      "bytes": 118646,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/rice-beans-stew-2048.webp",
+      "width": 720,
+      "height": 720,
+      "bytes": 118646,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/rice-beans-stew-320.webp",
+      "width": 320,
+      "height": 320,
+      "bytes": 41270,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/rice-beans-stew-640.webp",
+      "width": 640,
+      "height": 640,
+      "bytes": 109532,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/rice-beans-stew-960.webp",
+      "width": 720,
+      "height": 720,
+      "bytes": 118646,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/rice-chicken-plantain-1200.webp",
+      "width": 720,
+      "height": 714,
+      "bytes": 143832,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/rice-chicken-plantain-1600.webp",
+      "width": 720,
+      "height": 714,
+      "bytes": 143832,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/rice-chicken-plantain-2048.webp",
+      "width": 720,
+      "height": 714,
+      "bytes": 143832,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/rice-chicken-plantain-320.webp",
+      "width": 320,
+      "height": 317,
+      "bytes": 44034,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/rice-chicken-plantain-640.webp",
+      "width": 640,
+      "height": 635,
+      "bytes": 133080,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/rice-chicken-plantain-960.webp",
+      "width": 720,
+      "height": 714,
+      "bytes": 143832,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/seafood-okra-1200.webp",
+      "width": 720,
+      "height": 900,
+      "bytes": 217268,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/seafood-okra-1600.webp",
+      "width": 720,
+      "height": 900,
+      "bytes": 217268,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/seafood-okra-2048.webp",
+      "width": 720,
+      "height": 900,
+      "bytes": 217268,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/seafood-okra-320.webp",
+      "width": 320,
+      "height": 400,
+      "bytes": 49582,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/seafood-okra-640.webp",
+      "width": 640,
+      "height": 800,
+      "bytes": 172280,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/seafood-okra-960.webp",
+      "width": 720,
+      "height": 900,
+      "bytes": 217268,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/yam-fish-sauce-1200.webp",
+      "width": 720,
+      "height": 852,
+      "bytes": 138236,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/yam-fish-sauce-1600.webp",
+      "width": 720,
+      "height": 852,
+      "bytes": 138236,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/yam-fish-sauce-2048.webp",
+      "width": 720,
+      "height": 852,
+      "bytes": 138236,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/yam-fish-sauce-320.webp",
+      "width": 320,
+      "height": 379,
+      "bytes": 43724,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/yam-fish-sauce-640.webp",
+      "width": 640,
+      "height": 757,
+      "bytes": 121560,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/responsive/yam-fish-sauce-960.webp",
+      "width": 720,
+      "height": 852,
+      "bytes": 138236,
+      "references": [
+        "src/components/ui/FoodImage.tsx"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/rice-beans-stew.webp",
+      "width": 720,
+      "height": 720,
+      "bytes": 118646,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/home/passport.ts",
+        "src/content/restaurants/menu.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/rice-chicken-plantain.webp",
+      "width": 720,
+      "height": 714,
+      "bytes": 143832,
+      "references": [
+        "src/content/cta-food.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/seafood-okra.webp",
+      "width": 720,
+      "height": 900,
+      "bytes": 217268,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/home/how-it-works.ts",
+        "src/content/restaurants/menu.ts",
+        "src/content/site.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/pinterest/yam-fish-sauce.webp",
+      "width": 720,
+      "height": 852,
+      "bytes": 138236,
+      "references": [
+        "src/content/cta-food.ts",
+        "src/content/home/how-it-works.ts",
+        "src/content/home/sections.ts",
+        "src/content/restaurants/menu.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/restaurant-hero/akara-breakfast.webp",
+      "width": 600,
+      "height": 900,
+      "bytes": 90100,
+      "references": [
+        "src/content/restaurants/dishes.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/restaurant-hero/assorted-pepper-soup.webp",
+      "width": 720,
+      "height": 835,
+      "bytes": 113148,
+      "references": [
+        "src/content/restaurants/dishes.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/restaurant-hero/jollof-chicken.webp",
+      "width": 800,
+      "height": 1336,
+      "bytes": 298534,
+      "references": [
+        "src/content/restaurants/dishes.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/restaurant-hero/ofada-fish-plantain.webp",
+      "width": 1580,
+      "height": 1288,
+      "bytes": 451260,
+      "references": [
+        "src/content/restaurants/dishes.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/restaurant-hero/pounded-yam-vegetables.webp",
+      "width": 1440,
+      "height": 1440,
+      "bytes": 217596,
+      "references": [
+        "src/content/restaurants/dishes.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/restaurant-hero/puff-puff-bites.webp",
+      "width": 900,
+      "height": 1200,
+      "bytes": 174822,
+      "references": [
+        "src/content/restaurants/dishes.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/restaurant-pizza.webp",
+      "width": 1200,
+      "height": 800,
+      "bytes": 305980,
+      "references": []
+    },
+    {
+      "asset": "/images/food/restaurant-smoothie.webp",
+      "width": 1200,
+      "height": 1707,
+      "bytes": 216854,
+      "references": []
+    },
+    {
+      "asset": "/images/food/restaurant-swallow.webp",
+      "width": 1200,
+      "height": 1450,
+      "bytes": 158860,
+      "references": []
+    },
+    {
+      "asset": "/images/food/utensils/fork-knife-pair.webp",
+      "width": 195,
+      "height": 640,
+      "bytes": 29040,
+      "references": [
+        "src/content/restaurants/ingredients.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/utensils/fork.webp",
+      "width": 313,
+      "height": 440,
+      "bytes": 11754,
+      "references": []
+    },
+    {
+      "asset": "/images/food/utensils/spoon-fork-pair.webp",
+      "width": 270,
+      "height": 640,
+      "bytes": 35486,
+      "references": [
+        "src/content/restaurants/ingredients.ts"
+      ]
+    },
+    {
+      "asset": "/images/food/utensils/spoon.webp",
+      "width": 317,
+      "height": 440,
+      "bytes": 10948,
+      "references": []
+    },
+    {
+      "asset": "/images/food/utensils/water-glass.webp",
+      "width": 396,
+      "height": 396,
+      "bytes": 26280,
+      "references": [
+        "src/content/restaurants/ingredients.ts"
+      ]
+    },
+    {
+      "asset": "/images/phone.png",
+      "width": 433,
+      "height": 577,
+      "bytes": 122738,
+      "references": [
+        "src/content/loader-tiles.ts"
+      ]
+    },
+    {
+      "asset": "/images/phone2.png",
+      "width": 379,
+      "height": 658,
+      "bytes": 178304,
+      "references": [
+        "src/content/home/app-preview.ts",
+        "src/content/home/sections.ts"
+      ]
+    },
+    {
+      "asset": "/images/riders/quickbite-delivery-scooter-wordmark.webp",
+      "width": 2640,
+      "height": 2400,
+      "bytes": 503384,
+      "references": [
+        "src/content/brand-pages.ts"
+      ]
+    },
+    {
+      "asset": "/images/riders/reference-moped.webp",
+      "width": 678,
+      "height": 555,
+      "bytes": 61386,
+      "references": []
+    },
+    {
+      "asset": "/images/team/astronaut-toy.webp",
+      "width": 597,
+      "height": 945,
+      "bytes": 58306,
+      "references": [
+        "src/content/company.ts"
+      ]
+    },
+    {
+      "asset": "/images/team/black-ninja.webp",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 37626,
+      "references": [
+        "src/content/company.ts"
+      ]
+    },
+    {
+      "asset": "/images/team/demo-robot.webp",
+      "width": 768,
+      "height": 1200,
+      "bytes": 101042,
+      "references": [
+        "src/content/company.ts"
+      ]
+    },
+    {
+      "asset": "/images/team/dinosaur-character.webp",
+      "width": 1024,
+      "height": 1136,
+      "bytes": 174856,
+      "references": [
+        "src/content/company.ts"
+      ]
+    },
+    {
+      "asset": "/images/team/helmet-explorer.webp",
+      "width": 928,
+      "height": 1232,
+      "bytes": 146906,
+      "references": [
+        "src/content/company.ts"
+      ]
+    },
+    {
+      "asset": "/images/team/orange-robot.webp",
+      "width": 580,
+      "height": 580,
+      "bytes": 21688,
+      "references": [
+        "src/content/company.ts"
+      ]
+    },
+    {
+      "asset": "/images/team/teal-robot.webp",
+      "width": 1567,
+      "height": 2048,
+      "bytes": 287908,
+      "references": [
+        "src/content/company.ts"
+      ]
+    },
+    {
+      "asset": "/images/team/white-ninja.webp",
+      "width": 800,
+      "height": 1239,
+      "bytes": 37630,
+      "references": [
+        "src/content/company.ts"
+      ]
+    }
+  ]
+}

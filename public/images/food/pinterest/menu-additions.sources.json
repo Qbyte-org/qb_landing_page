@@ -1,0 +1,79 @@
+{
+  "board": "https://www.pinterest.com/adedokundaniel16/quickbite-lp/",
+  "verification": "Pins found in the board's public feed on 2026-09-24; dishes checked visually against the board contact sheet.",
+  "processing": "Rebuilt from original photographs at WebP quality 90, max width 2048px, no enlargement, light output sharpening; 320/640/960/1200/1600/2048 responsive variants.",
+  "photos": [
+    {
+      "file": "puff-puff-paper-bowl.webp",
+      "pinId": "1012184085026267761",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267761/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/9f/47/80/9f4780757ab3b3c519c639a33c134399.png",
+      "sourceWidth": 405,
+      "sourceHeight": 720,
+      "alt": "Golden puff-puff in a paper-lined serving bowl"
+    },
+    {
+      "file": "eba-vegetable-soup.webp",
+      "pinId": "1012184085026267475",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267475/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/bc/67/1c/bc671c6e63b70b6c7905076d438b37c6.jpg",
+      "sourceWidth": 1200,
+      "sourceHeight": 1200,
+      "alt": "Eba with dark leafy vegetable soup and meat"
+    },
+    {
+      "file": "ofada-egg-plantain.webp",
+      "pinId": "1012184085026267485",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267485/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/6c/17/bc/6c17bc20335d7a9e54952d6395dbfe37.jpg",
+      "sourceWidth": 1152,
+      "sourceHeight": 2048,
+      "alt": "Rice with pepper stew, eggs and fried plantain on a leaf-lined plate"
+    },
+    {
+      "file": "berry-waffles.webp",
+      "pinId": "1012184085026273291",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026273291/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/e9/2c/91/e92c91854eed7e1fcd312e2e49ecd0a8.png",
+      "sourceWidth": 1024,
+      "sourceHeight": 1536,
+      "alt": "Stacked waffles topped with strawberries and blueberries"
+    },
+    {
+      "file": "abacha-african-salad.webp",
+      "pinId": "1012184085026267543",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267543/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/1f/af/4c/1faf4c6d43b81b25fcc11d0f2c9a499e.jpg",
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "alt": "Abacha African salad with cassava strips, ugba, onion and fish"
+    },
+    {
+      "file": "beef-rice-plantain.webp",
+      "pinId": "1012184085026267554",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267554/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/72/4b/42/724b42d4ccf21bfab8035172b1a59c63.jpg",
+      "sourceWidth": 720,
+      "sourceHeight": 714,
+      "alt": "White rice with beef, fried plantain and an egg"
+    },
+    {
+      "file": "yam-fish-sauce.webp",
+      "pinId": "1012184085026267539",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267539/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/9f/a4/ac/9fa4acd85178ceedffd8c9adf6c1be02.jpg",
+      "sourceWidth": 720,
+      "sourceHeight": 852,
+      "alt": "Boiled yam served with fish, onion and pepper sauce"
+    },
+    {
+      "file": "seafood-okra.webp",
+      "pinId": "1012184085026267527",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267527/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/04/48/ee/0448eecbc2e4c6231957d679c96b9650.jpg",
+      "sourceWidth": 720,
+      "sourceHeight": 900,
+      "alt": "A bowl of okra soup with fish, egg and peppers"
+    }
+  ]
+}
