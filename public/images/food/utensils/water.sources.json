@@ -1,0 +1,7 @@
+{
+  "file": "water-glass.webp",
+  "sourcePageUrl": "https://kochcode.de/rezept/klassischer-bismarckhering-hausgemacht",
+  "sourceImageUrl": "https://kochcode.de/assets/zutaten_img/trinkwasser.png",
+  "description": "Photographed drinking water in a glass viewed directly from above, matching the tray and place setting perspective.",
+  "processing": "Extract the full glass with its original circular rim from the 1024px photograph; a soft alpha mask follows only the outside of the rim. Background and the long cast shadow are removed; the app provides a tight contact shadow and coaster."
+}

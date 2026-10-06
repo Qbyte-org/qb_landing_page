@@ -1,0 +1,12 @@
+{
+  "description": "Distinct plated photographs for the restaurant hero, separate from the home page and menu preview images.",
+  "processing": "Original photographs retained up to 2048px wide, without enlargement or background removal, with light output sharpening and WebP quality 90. The source plate or bowl remains part of the photograph.",
+  "photos": [
+    { "file": "jollof-chicken.webp", "pinUrl": "https://www.pinterest.com/pin/453315518747971225/", "sourceImageUrl": "https://i.pinimg.com/originals/21/28/89/2128898982b674010455268f45ce1e32.jpg" },
+    { "file": "ofada-fish-plantain.webp", "pinUrl": "https://www.pinterest.com/pin/630715122785259259/", "sourceImageUrl": "https://i.pinimg.com/originals/cc/5a/6a/cc5a6abd672cf825a7eea16b496596d3.jpg" },
+    { "file": "pounded-yam-vegetables.webp", "pinUrl": "https://www.pinterest.com/pin/1054827543987296253/", "sourceImageUrl": "https://i.pinimg.com/originals/11/05/a8/1105a8e9b8c2ff6669c1cbcd5bcb78d1.jpg" },
+    { "file": "assorted-pepper-soup.webp", "pinUrl": "https://www.pinterest.com/pin/121808364909867786/", "sourceImageUrl": "https://i.pinimg.com/originals/99/f9/37/99f93710cfb86f97d640f77a7580b8b2.jpg" },
+    { "file": "akara-breakfast.webp", "pinUrl": "https://www.pinterest.com/pin/701928291910987879/", "sourceImageUrl": "https://i.pinimg.com/originals/4d/0e/66/4d0e66be704f43c1e36fbec6c6097d6c.jpg" },
+    { "file": "puff-puff-bites.webp", "pinUrl": "https://www.pinterest.com/pin/649503577526047250/", "sourceImageUrl": "https://i.pinimg.com/originals/2d/f4/6e/2df46e8f43c3b1330ba276c1323861be.jpg" }
+  ]
+}
