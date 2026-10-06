@@ -7,12 +7,10 @@
   "verification": "Every pin ID below was present in the public board's initialReduxState.feeds['boardfeed:1012184153692466514']; its original image URL was read from the corresponding initialReduxState.pins record. Subjects were checked visually using a contact sheet of these board pins.",
   "processing": {
     "format": "webp",
-    "quality": 80,
-    "maxWidth": 1200,
-    "maxHeight": 1400,
-    "fit": "inside",
+    "quality": 90,
+    "maxWidth": 2048,
     "withoutEnlargement": true,
-    "responsive": "responsive/<basename>-<width>.webp, requested widths 320/640/960/1200, quality 78. Dimensions stop at the source size; files are served directly without the Next.js runtime optimizer."
+    "responsive": "responsive/<basename>-<width>.webp, requested widths 320/640/960/1200/1600/2048, quality 90, light output sharpening. Dimensions stop at the source size; variants are encoded from original source photographs and served directly without a second lossy encode."
   },
   "photos": [
     {
