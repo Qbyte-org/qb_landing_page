@@ -3,7 +3,7 @@
     "purpose": "User-selected character illustration for the engineering role profile.",
     "reference": "https://www.pinterest.com/pin/920282505127474053/",
     "source": "https://i.pinimg.com/originals/33/ea/73/33ea736c8ed6e7dadc5913f43365cd02.jpg",
-    "processing": "Resized to 640 pixels wide and converted to WebP."
+    "processing": "Original 768×1200 image retained, lightly sharpened and encoded at WebP quality 90."
   },
   "white-ninja.webp": {
     "purpose": "User-selected art-toy illustration for the product and design role profile.",
@@ -15,12 +15,36 @@
     "purpose": "Character illustration for the community and care role profile.",
     "reference": "https://www.pinterest.com/pin/artstation-shy-robot--12244230228535895/",
     "source": "https://i.pinimg.com/originals/f3/e4/b6/f3e4b67f137116e0b0e42cad4bc97c54.png",
-    "processing": "Converted to WebP at original 580 pixel width."
+    "processing": "Original 580×580 image retained, lightly sharpened and encoded at WebP quality 90."
+  },
+  "helmet-explorer.webp": {
+    "purpose": "Distinct art-toy portrait for the rider operations role profile.",
+    "reference": "https://www.pinterest.com/pin/144537469337545196/",
+    "source": "https://i.pinimg.com/originals/39/94/2d/39942dcdfaf5c185ad613da0c3e4e4f9.png",
+    "processing": "Original 928×1232 image retained, lightly sharpened and encoded at WebP quality 90."
+  },
+  "dinosaur-character.webp": {
+    "purpose": "Distinct art-toy portrait for the brand and growth role profile.",
+    "reference": "https://www.pinterest.com/pin/144537469337545197/",
+    "source": "https://i.pinimg.com/originals/02/69/d9/0269d9fb7715bf8b2ce19a4cc4e85303.jpg",
+    "processing": "Original 1024×1136 image retained, lightly sharpened and encoded at WebP quality 90."
+  },
+  "teal-robot.webp": {
+    "purpose": "Distinct art-toy portrait for the quality and research role profile.",
+    "reference": "https://www.pinterest.com/pin/144537469337582813/",
+    "source": "https://i.pinimg.com/originals/e1/fe/ce/e1fece5529a3b0f8725b353d07e0688d.jpg",
+    "processing": "Original 1567×2048 image retained, lightly sharpened and encoded at WebP quality 90."
+  },
+  "astronaut-toy.webp": {
+    "purpose": "Distinct art-toy portrait for the business operations role profile.",
+    "reference": "https://www.pinterest.com/pin/144537469313690269/",
+    "source": "https://i.pinimg.com/originals/f8/2c/e0/f82ce0666abafe2ccf67d89dcef008a7.png",
+    "processing": "Original 597×945 image retained, lightly sharpened and encoded at WebP quality 90."
   },
   "black-ninja.webp": {
     "purpose": "Character illustration for the kitchen partnerships role profile.",
     "reference": "https://www.lummi.ai/3d/chibi-ninja-character-mixqy",
     "source": "https://assets.lummi.ai/assets/QmWV7aG3iQC7WXR46EVTnCBrfhQojPhxL6UMMDUhWYBDC7?auto=format&w=1200",
-    "processing": "Resized to 800 pixels wide and converted to WebP."
+    "processing": "Original 1200×1200 image retained, lightly sharpened and encoded at WebP quality 90."
   }
 }
