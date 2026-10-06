@@ -1,6 +1,8 @@
 "use client";
 
-import Image from "next/image";
+import { quickBiteDistrictExplorerCopy } from "@/content/home/sections";
+
+import Image from "@/components/ui/SiteImage";
 import LinkArrow from "../ui/LinkArrow";
 import {
   useMemo,
@@ -98,12 +100,12 @@ const restaurantPositions = [
 ];
 
 const restaurantBadges = [
-  "District favourite",
-  "Fast route",
-  "Lunch rush",
-  "Night bite",
-  "Popular stop",
-  "Fresh find",
+  quickBiteDistrictExplorerCopy.districtFavourite,
+  quickBiteDistrictExplorerCopy.fastRoute,
+  quickBiteDistrictExplorerCopy.lunchRush,
+  quickBiteDistrictExplorerCopy.nightBite,
+  quickBiteDistrictExplorerCopy.popularStop,
+  quickBiteDistrictExplorerCopy.freshFind,
 ];
 
 function slugify(value: string) {
@@ -132,14 +134,14 @@ const explorerCities: ExplorerCity[] = [liveCity, ...expansionCities].map(
     return {
       id: slugify(city),
       name: city,
-      state: live ? liveCityState : "Nigeria rollout",
+      state: live ? liveCityState : quickBiteDistrictExplorerCopy.nigeriaRollout,
       accent: palette.accent,
       dark: palette.dark,
       soft: palette.soft,
       water: palette.water,
       summary: live
-        ? "Explore Ile-Ife as connected food districts: campus cravings, neighbourhood kitchens, fast rider corridors, and late-night bite stops."
-        : "Preview the next QuickBite food district with launch corridors, restaurant clusters, and rider-ready neighbourhood routes.",
+        ? quickBiteDistrictExplorerCopy.exploreIleIfeAsConnectedFoodDistricts
+        : quickBiteDistrictExplorerCopy.previewTheNextQuickBiteFoodDistrictWith,
       nodes: makeNodes(index),
       roads: [
         districtRoutes[index % districtRoutes.length],
@@ -219,7 +221,7 @@ function FloatingRestaurant({
       }}
     >
       <LinkArrow
-        href="/restaurants"
+        href={quickBiteDistrictExplorerCopy.hrefRestaurants}
         appearance="plain"
         className="group relative block! rounded-[1.45rem] bg-white/90 p-3 text-espresso ring-1 ring-black/5 backdrop-blur-xl transition-transform duration-300"
       >
@@ -235,7 +237,7 @@ function FloatingRestaurant({
           >
             <Image
               src={restaurant.image}
-              alt={`Food from ${restaurant.name}`}
+              alt={quickBiteDistrictExplorerCopy.altFoodFromFormat(restaurant.name)}
               fill
               sizes="212px"
               className="object-cover"
@@ -292,7 +294,7 @@ function DiscoveryStripCard({
         <div className="relative h-20 w-24 shrink-0 overflow-hidden rounded-[1.1rem] bg-cream-200">
           <Image
             src={restaurant.image}
-            alt={`Food from ${restaurant.name}`}
+            alt={quickBiteDistrictExplorerCopy.altFoodFromFormat2(restaurant.name)}
             fill
             sizes="96px"
             className="object-cover"
@@ -602,14 +604,14 @@ export default function QuickBiteDistrictExplorer() {
         className="pointer-events-none absolute bottom-20 right-0 h-[30rem] w-[30rem] rounded-full bg-[var(--district-water)]/25 blur-3xl"
       />
       <Image
-        src="/food/snacks.svg"
+        src={quickBiteDistrictExplorerCopy.srcFoodSnacksSvg}
         alt=""
         width={150}
         height={150}
         className="pointer-events-none absolute right-[7%] top-16 hidden w-24 rotate-12 opacity-[0.08] lg:block"
       />
       <Image
-        src="/food/pizza.svg"
+        src={quickBiteDistrictExplorerCopy.srcFoodPizzaSvg}
         alt=""
         width={150}
         height={150}
@@ -620,12 +622,8 @@ export default function QuickBiteDistrictExplorer() {
         <div className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
             <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.22em] text-[var(--district-accent)]">
-              <MapPinned className="h-4 w-4" strokeWidth={2.4} />
-              Food District Explorer
-            </p>
-            <h2 className="mt-4 font-display text-[2.45rem] font-black leading-[0.95] tracking-[-0.07em] sm:text-5xl lg:text-[4.55rem]">
-              Browse the city by food districts, not by lists.
-            </h2>
+              <MapPinned className="h-4 w-4" strokeWidth={2.4} />{quickBiteDistrictExplorerCopy.foodDistrictExplorer}</p>
+            <h2 className="mt-4 font-display text-[2.45rem] font-black leading-[0.95] tracking-[-0.07em] sm:text-5xl lg:text-[4.55rem]">{quickBiteDistrictExplorerCopy.browseTheCityByFoodDistrictsNot}</h2>
             <p className="mt-5 max-w-2xl text-base font-semibold leading-relaxed text-cocoa">
               {activeCity.summary}
             </p>
@@ -660,7 +658,7 @@ export default function QuickBiteDistrictExplorer() {
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search restaurants, cuisine, or district mood"
+                placeholder={quickBiteDistrictExplorerCopy.placeholderSearchRestaurantsCuisineOrDistrictMood}
                 className="h-14 w-full rounded-pill bg-white/86 px-11 text-sm font-bold text-espresso ring-1 ring-ink-warm/10 outline-none transition focus:ring-[var(--district-accent)]"
               />
             </label>
@@ -676,7 +674,7 @@ export default function QuickBiteDistrictExplorer() {
               className="absolute inset-0 h-full w-full"
               viewBox="0 0 920 560"
               fill="none"
-              aria-label={`${activeCity.name} illustrated food district map`}
+              aria-label={quickBiteDistrictExplorerCopy.ariaLabelFormat(activeCity.name)}
             >
               <defs>
                 <filter id="districtGlow" x="-20%" y="-20%" width="140%" height="140%">
@@ -813,7 +811,7 @@ export default function QuickBiteDistrictExplorer() {
                 />
                 <image
                   data-district-bike
-                  href="/quickbite-delivery-bike.svg"
+                  href={quickBiteDistrictExplorerCopy.hrefQuickbiteDeliveryBikeSvg}
                   width="142"
                   height="84"
                 />
@@ -851,8 +849,7 @@ export default function QuickBiteDistrictExplorer() {
                       </span>
                       {node.name}
                       <span className={active ? "text-white/65" : "text-terracotta"}>
-                        {node.eta}m
-                      </span>
+                        {node.eta}{quickBiteDistrictExplorerCopy.m}</span>
                     </span>
                   </motion.button>
                 );
@@ -882,32 +879,23 @@ export default function QuickBiteDistrictExplorer() {
             <div
               data-delivery-note
               className="pointer-events-none absolute left-1/2 top-[58%] z-40 -translate-x-1/2 rounded-pill bg-espresso px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-white opacity-0"
-            >
-              Delivery completed
-            </div>
+            >{quickBiteDistrictExplorerCopy.deliveryCompleted}</div>
 
             <div className="absolute left-5 top-5 z-40 flex max-w-[calc(100%-2.5rem)] flex-wrap items-center gap-3">
               <div className="rounded-[1.35rem] bg-espresso/88 px-4 py-3 text-white ring-1 ring-white/10 backdrop-blur-xl">
-                <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-white/45">
-                  Active district
-                </p>
+                <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-white/45">{quickBiteDistrictExplorerCopy.activeDistrict}</p>
                 <p className="mt-1 flex items-center gap-2 font-display text-xl font-black">
                   <Compass className="h-5 w-5 text-[var(--district-accent)]" strokeWidth={2.3} />
                   {activeDistrict.name}
                 </p>
               </div>
               <div className="rounded-[1.35rem] bg-white/86 px-4 py-3 text-espresso ring-1 ring-black/5 backdrop-blur-xl">
-                <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-terracotta">
-                  Delivery time
-                </p>
+                <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-terracotta">{quickBiteDistrictExplorerCopy.deliveryTime}</p>
                 <p className="mt-1 font-display text-xl font-black text-[var(--district-accent)]">
-                  {activeDistrict.eta} min
-                </p>
+                  {activeDistrict.eta}{quickBiteDistrictExplorerCopy.min}</p>
               </div>
               <div className="rounded-[1.35rem] bg-white/86 px-4 py-3 text-espresso ring-1 ring-black/5 backdrop-blur-xl">
-                <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-terracotta">
-                  Orders today
-                </p>
+                <p className="text-[0.65rem] font-black uppercase tracking-[0.18em] text-terracotta">{quickBiteDistrictExplorerCopy.ordersToday}</p>
                 <p className="mt-1 font-display text-xl font-black">
                   {activeDistrict.deliveries}
                 </p>
@@ -915,28 +903,21 @@ export default function QuickBiteDistrictExplorer() {
             </div>
 
             <div className="absolute bottom-5 right-5 z-40 hidden items-center gap-3 rounded-pill bg-espresso/88 px-4 py-3 text-xs font-black uppercase tracking-[0.16em] text-white/70 ring-1 ring-white/10 backdrop-blur-xl sm:flex">
-              <Bike className="h-4 w-4 text-[var(--district-accent)]" strokeWidth={2.4} />
-              Rider reroutes when you choose a district
-            </div>
+              <Bike className="h-4 w-4 text-[var(--district-accent)]" strokeWidth={2.4} />{quickBiteDistrictExplorerCopy.riderReroutesWhenYouChooseADistrict}</div>
           </div>
 
           <div className="border-t border-white/10 bg-espresso p-4 sm:p-5">
             <div className="mb-4 flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.2em] text-[var(--district-accent)]">
-                  Restaurant discovery strip
-                </p>
-                <h3 className="mt-1 font-display text-2xl font-black text-white">
-                  Floating finds near {activeDistrict.name}
+                <p className="text-xs font-black uppercase tracking-[0.2em] text-[var(--district-accent)]">{quickBiteDistrictExplorerCopy.restaurantDiscoveryStrip}</p>
+                <h3 className="mt-1 font-display text-2xl font-black text-white">{quickBiteDistrictExplorerCopy.floatingFindsNear}{activeDistrict.name}
                 </h3>
               </div>
               <LinkArrow
-                href="/restaurants"
+                href={quickBiteDistrictExplorerCopy.hrefRestaurants}
                 appearance="plain"
                 className="h-12 w-max justify-center gap-2 rounded-pill border-0 bg-[var(--district-accent)] px-6 text-sm font-black text-white"
-              >
-                Explore all
-                <Navigation className="h-4 w-4" strokeWidth={2.35} />
+              >{quickBiteDistrictExplorerCopy.exploreAll}<Navigation className="h-4 w-4" strokeWidth={2.35} />
               </LinkArrow>
             </div>
 
@@ -956,18 +937,18 @@ export default function QuickBiteDistrictExplorer() {
           {[
             {
               icon: Building2,
-              label: "District landmarks",
-              copy: "Simplified buildings and food corridors show where demand clusters.",
+              label: quickBiteDistrictExplorerCopy.labelDistrictLandmarks,
+              copy: quickBiteDistrictExplorerCopy.copySimplifiedBuildingsAndFoodCorridorsShow,
             },
             {
               icon: Trees,
-              label: "Parks and boundaries",
-              copy: "Soft map zones help the explorer feel custom rather than like a plain map.",
+              label: quickBiteDistrictExplorerCopy.labelParksAndBoundaries,
+              copy: quickBiteDistrictExplorerCopy.copySoftMapZonesHelpTheExplorer,
             },
             {
               icon: Waves,
-              label: "Route texture",
-              copy: "Water, roads, pins and rider motion create a living city layer.",
+              label: quickBiteDistrictExplorerCopy.labelRouteTexture,
+              copy: quickBiteDistrictExplorerCopy.copyWaterRoadsPinsAndRiderMotion,
             },
           ].map((item) => (
             <div

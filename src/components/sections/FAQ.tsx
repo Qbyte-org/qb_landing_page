@@ -1,5 +1,7 @@
 "use client";
 
+import { fAQCopy } from "@/content/home/sections";
+
 import { MessageCircle, Plus } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import MagneticFillButton from "../ui/MagneticFillButton";
@@ -19,32 +21,27 @@ export default function FAQ() {
       <div className="grid lg:grid-cols-2">
         <div data-faq-surface="cream" className="bg-cream-200 px-6 py-14 sm:px-10 sm:py-16 lg:px-[5vw] lg:py-20 border-x border-dashed border-ink/20">
           <motion.div initial={false} whileInView={reducedMotion === false ? { opacity: [0.7, 1], y: [14, 0] } : undefined} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }} className="mx-auto max-w-[46rem]">
-            <SectionTag>FAQ</SectionTag>
+            <SectionTag>{fAQCopy.fAQ}</SectionTag>
             <h2
               id="faq-title"
               className="section-heading mt-5 max-w-lg leading-[1.08]!"
             >
-              <span className="block">Good questions.</span>
-              <span className="mt-3 block text-brand-dark">Clear answers.</span>
+              <span className="block">{fAQCopy.goodQuestions}</span>
+              <span className="mt-3 block text-brand-dark">{fAQCopy.clearAnswers}</span>
             </h2>
-            <p className="mt-5 max-w-sm text-base leading-relaxed text-cocoa sm:text-lg">
-              From your first order to your next opportunity, here&apos;s what
-              you need to know about QuickBite.
-            </p>
+            <p className="mt-5 max-w-sm text-base leading-relaxed text-cocoa sm:text-lg">{fAQCopy.fromYourFirstOrderToYourNext}</p>
 
             <div className="mt-8 flex max-w-sm items-start gap-4 border-t border-dashed border-ink/20 pt-6 lg:mt-12">
               <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-peach">
                 <MessageCircle aria-hidden="true" className="size-5" strokeWidth={1.6} />
               </span>
               <div>
-                <p className="text-sm text-cocoa">Still have something on your mind?</p>
+                <p className="text-sm text-cocoa">{fAQCopy.stillHaveSomethingOnYourMind}</p>
                 <LinkArrow
-                  href="mailto:quickbiteinfo01@gmail.com"
+                  href={fAQCopy.hrefMailtoQuickbiteinfo01GmailCom}
                   variant="light"
                   className="mt-3 min-h-11 text-base! normal-case! [--link-arrow-spacing:0em]"
-                >
-                  Talk to our team
-                </LinkArrow>
+                >{fAQCopy.talkToOurTeam}</LinkArrow>
               </div>
             </div>
           </motion.div>

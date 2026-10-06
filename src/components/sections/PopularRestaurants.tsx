@@ -1,4 +1,5 @@
-import Image from "next/image";
+import { popularRestaurantsCopy } from "@/content/home/sections";
+import Image from "@/components/ui/FoodImage";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/SectionHeading";
 import LinkArrow from "../ui/LinkArrow";
@@ -12,26 +13,24 @@ export default function PopularRestaurants() {
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
           <SectionHeading
             align="left"
-            title="Trending restaurants"
-            subtitle="Verified kitchens loved by thousands of QuickBite customers."
+            title={popularRestaurantsCopy.titleTrendingRestaurants}
+            subtitle={popularRestaurantsCopy.subtitleVerifiedKitchensLovedByThousandsOf}
           />
-          <LinkArrow href="/restaurants" variant="accent">
-            See all restaurants
-          </LinkArrow>
+          <LinkArrow href={popularRestaurantsCopy.hrefRestaurants} variant="accent">{popularRestaurantsCopy.seeAllRestaurants}</LinkArrow>
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {restaurants.map((r, i) => (
             <Reveal key={r.name} delay={(i % 3) * 0.08} mode="image">
               <LinkArrow
-                href="/restaurants"
+                href={popularRestaurantsCopy.hrefRestaurants}
                 appearance="plain"
                 className="block! h-full overflow-hidden rounded-card border border-border bg-white"
               >
               <div className="relative aspect-[16/10] w-full overflow-hidden">
                 <Image
                   src={r.image}
-                  alt={`Food from ${r.name}`}
+                  alt={popularRestaurantsCopy.altFoodFromFormat(r.name)}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover"
@@ -42,8 +41,7 @@ export default function PopularRestaurants() {
                   <h3 className="text-lg font-bold text-navy">{r.name}</h3>
                 </div>
                 <p className="mt-1 text-sm text-muted">{r.cuisine}</p>
-                <p className="mt-4 text-sm font-semibold text-navy">
-                  Delivery from{" "}
+                <p className="mt-4 text-sm font-semibold text-navy">{popularRestaurantsCopy.deliveryFrom}{" "}
                   <span className="text-brand-dark">{r.deliveryFrom}</span>
                 </p>
               </div>
