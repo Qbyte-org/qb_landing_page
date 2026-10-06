@@ -1,0 +1,19 @@
+{
+  "processing": "Individual utensils cropped from Pinterest product photographs, white background removed by edge-connected masking, rotated and saved as transparent WebP. Original metal highlights retained.",
+  "photos": [
+    {
+      "file": "fork.webp",
+      "pinUrl": "https://www.pinterest.com/pin/144537469334664653/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/07/a5/e1/07a5e133c1ed133e9a3f80f5f3eaf92c.jpg",
+      "subject": "Stainless steel dinner fork",
+      "crop": { "left": 275, "top": 730, "width": 110, "height": 710 }
+    },
+    {
+      "file": "spoon.webp",
+      "pinUrl": "https://www.pinterest.com/pin/750130881671817046/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/92/5d/67/925d679203cf2951c448a28d2441db43.jpg",
+      "subject": "Stainless steel soup spoon",
+      "crop": { "left": 20, "top": 65, "width": 220, "height": 1270 }
+    }
+  ]
+}
