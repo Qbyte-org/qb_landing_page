@@ -1,12 +1,8 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/content/pages";
 import SiteShell from "@/components/layout/SiteShell";
 import RestaurantsExperience from "@/components/sections/RestaurantsExperience";
 
-export const metadata: Metadata = {
-  title: "Restaurants — QuickBite",
-  description:
-    "Explore menu previews, upcoming special offers and local kitchens around Ile-Ife. Find your next craving and get updates when QuickBite launches.",
-};
+export const metadata = pageMetadata["restaurants"];
 
 export default function RestaurantsPage() {
   return (
