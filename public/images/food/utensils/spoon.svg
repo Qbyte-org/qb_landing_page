@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" fill="none">
+  <title>Polished soup spoon</title>
+  <defs>
+    <linearGradient id="metal" x1="81" y1="120" x2="159" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="var(--color-cocoa, #6D5C52)"/>
+      <stop offset=".17" stop-color="var(--color-border, #F0E6DC)"/>
+      <stop offset=".38" stop-color="var(--color-paper, #FFFAF5)"/>
+      <stop offset=".65" stop-color="var(--color-muted, #6B7280)"/>
+      <stop offset=".84" stop-color="var(--color-cream, #FFF7F0)"/>
+      <stop offset="1" stop-color="var(--color-cocoa, #6D5C52)"/>
+    </linearGradient>
+    <radialGradient id="bowl" cx="0" cy="0" r="1" gradientTransform="translate(134 70) rotate(-124) scale(60 40)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="var(--color-paper, #FFFAF5)"/>
+      <stop offset=".38" stop-color="var(--color-border, #F0E6DC)"/>
+      <stop offset=".74" stop-color="var(--color-muted, #6B7280)"/>
+      <stop offset="1" stop-color="var(--color-cocoa, #6D5C52)"/>
+    </radialGradient>
+    <linearGradient id="handle" x1="108" y1="165" x2="132" y2="165" gradientUnits="userSpaceOnUse">
+      <stop stop-color="var(--color-muted, #6B7280)"/>
+      <stop offset=".24" stop-color="var(--color-border, #F0E6DC)"/>
+      <stop offset=".42" stop-color="var(--color-paper, #FFFAF5)"/>
+      <stop offset=".8" stop-color="var(--color-tan, #C9AA96)"/>
+      <stop offset="1" stop-color="var(--color-cocoa, #6D5C52)"/>
+    </linearGradient>
+  </defs>
+  <g transform="rotate(-38 120 120)">
+    <path d="M120 15C96 15 81 43 81 66C81 89 94 101 107 109C112 113 114 120 113 134L108 201C107 211 112 218 120 218C128 218 133 211 132 201L127 134C126 120 128 113 133 109C146 101 159 89 159 66C159 43 144 15 120 15Z" fill="url(#metal)"/>
+    <path d="M120 20C100 20 86 46 86 66C86 88 101 101 120 103C139 101 154 88 154 66C154 46 140 20 120 20Z" fill="url(#bowl)"/>
+    <path d="M114 125C114 149 109 190 109 204C109 212 114 216 120 216C126 216 131 212 131 204C131 190 126 149 126 125Z" fill="url(#handle)"/>
+    <path d="M115 20C94 25 84 54 86 72M116 133L112 201Q111 211 118 213" stroke="var(--color-paper, #FFFAF5)" stroke-width="1.8" stroke-linecap="round" opacity=".85"/>
+    <path d="M146 49C154 74 147 88 131 95" stroke="var(--color-paper, #FFFAF5)" stroke-width="2.6" stroke-linecap="round" opacity=".55"/>
+  </g>
+</svg>

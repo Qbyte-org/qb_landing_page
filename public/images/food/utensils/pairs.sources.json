@@ -1,0 +1,13 @@
+{
+  "subject": "Photographic polished silver fork, knife and spoon with original transparent edges",
+  "sourcePageUrl": "https://purepng.com/photo/171/objects-fork-knife-and-spoon",
+  "sourceImageUrl": "https://purepng.com/public/uploads/large/91506006629zqnx3ogw0q1oqsdrovzqokdnwmj3uxx1i9kcy1igglhnrq9rvw38oamw7e3m2toyo0j8mdoftkgeschajwecshdrxgvb8b7lgzyu.png",
+  "sourceType": "Transparent photographic PNG, not a vector icon",
+  "license": "Source page states free for commercial use, no attribution required (PurePNG CC0).",
+  "processing": "The source already has a transparent background. Separate whole utensils are grouped into matching pairs while preserving the original alpha channel, metal reflections, tines and handles. No colour-based background masking is applied. Prepared by scripts/prepare-utensil-pairs.mjs.",
+  "utensilsFromLeft": ["fork", "knife", "spoon"],
+  "pairs": [
+    { "file": "fork-knife-pair.webp", "subject": "Polished dining fork and knife", "utensils": ["fork", "knife"] },
+    { "file": "spoon-fork-pair.webp", "subject": "Polished soup spoon and dining fork", "utensils": ["spoon", "fork"] }
+  ]
+}

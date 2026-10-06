@@ -1,120 +1,185 @@
 "use client";
 
-import { useEffect, useState, type KeyboardEvent } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ArrowDown, ArrowLeft, ArrowRight, Flame, Leaf, MapPin, UtensilsCrossed, Wheat } from "lucide-react";
+import { restaurantMenuCopy } from "@/content/restaurants/sections";
+
+import { useCallback, useEffect, useId, useRef, useState, type MouseEvent } from "react";
+import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "motion/react";
+import { ArrowRight, Flame, Leaf, MapPin, Wheat } from "lucide-react";
 import { ScrollTrigger } from "@/lib/gsap";
 import Container from "@/components/ui/Container";
+import ExpandableCardDialog, { expandableCardTransition } from "@/components/ui/ExpandableCardDialog";
 import MagneticFillButton from "@/components/ui/MagneticFillButton";
 import Reveal from "@/components/ui/Reveal";
 import FoodImage from "@/components/ui/FoodImage";
-import { mealPeriods, restaurantDishes, type MealPeriod, type RestaurantDish } from "./restaurantDishes";
-import { dishDetails } from "./restaurantPresentation";
-import styles from "./Restaurants.module.css";
+import { mealPeriods, type MealPeriod } from "@/content/restaurants/dishes";
+import { restaurantMenuDishes } from "@/content/restaurants/menu";
+import RestaurantMenuDetails from "./RestaurantMenuDetails";
+import BackgroundGrainTexture from "@/components/ui/BackgroundGrainTexture";
 
-type MenuFilter = "All meals" | MealPeriod;
-const filters: MenuFilter[] = ["All meals", ...mealPeriods];
-const tabs = ["Details", "Ingredients", "Our kitchens"] as const;
+type MenuFilter = typeof restaurantMenuCopy.allMeals | MealPeriod;
+const filters: MenuFilter[] = [restaurantMenuCopy.allMeals, ...mealPeriods];
 const ingredientIcons = [Wheat, Flame, Leaf];
+const initialMobileCount = 6;
+const mobilePageSize = 3;
 
-export default function RestaurantMenu({ selectedDish, onSelect }: { selectedDish: RestaurantDish; onSelect: (index: number) => void }) {
-  const [selectedFilter, setSelectedFilter] = useState<MenuFilter>("All meals");
-  const [tab, setTab] = useState<(typeof tabs)[number]>("Details");
+export default function RestaurantMenu() {
+  const [selectedFilter, setSelectedFilter] = useState<MenuFilter>(restaurantMenuCopy.allMeals);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [mobileVisibleCount, setMobileVisibleCount] = useState(initialMobileCount);
+  const filterRef = useRef<HTMLDivElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
+  const pendingAnchorRef = useRef<string | null>(null);
+  const id = useId();
   const reducedMotion = useReducedMotion();
-  const index = restaurantDishes.findIndex(dish => dish.id === selectedDish.id);
-  const details = dishDetails[selectedDish.id];
-  const visibleDishes = restaurantDishes.filter(dish => selectedFilter === "All meals" || dish.period === selectedFilter);
+  const visibleDishes = restaurantMenuDishes.filter(dish => selectedFilter === restaurantMenuCopy.allMeals || dish.period === selectedFilter);
+  const mobileCount = Math.min(mobileVisibleCount, visibleDishes.length);
+  const activeDish = activeIndex === null ? null : restaurantMenuDishes[activeIndex];
+  const closeDetails = useCallback(() => setActiveIndex(null), []);
+
   useEffect(() => {
     const frame = requestAnimationFrame(() => ScrollTrigger.refresh());
     return () => cancelAnimationFrame(frame);
-  }, [selectedFilter]);
-  function handleTabKey(event: KeyboardEvent<HTMLButtonElement>, current: number) {
-    const delta = event.key === "ArrowDown" || event.key === "ArrowRight" ? 1 : event.key === "ArrowUp" || event.key === "ArrowLeft" ? -1 : 0;
-    const next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (current + delta + tabs.length) % tabs.length;
-    if (!delta && !["Home", "End"].includes(event.key)) return;
-    event.preventDefault(); setTab(tabs[next]);
-    document.getElementById(`menu-tab-${next}`)?.focus({ preventScroll: true });
+  }, [selectedFilter, mobileVisibleCount]);
+
+  function selectFilter(filter: MenuFilter) {
+    setSelectedFilter(filter);
+    setMobileVisibleCount(initialMobileCount);
   }
 
+  function scrollToMenuTarget(target: HTMLElement) {
+    const lenis = window.quickBiteLenis;
+    if (lenis && !lenis.isStopped) {
+      lenis.resize();
+      lenis.scrollTo(target, { offset: -100, duration: .55, immediate: Boolean(reducedMotion) });
+    } else {
+      target.scrollIntoView({ block: "start", behavior: reducedMotion ? "instant" : "smooth" });
+    }
+  }
+
+  function showMoreDishes() {
+    const nextDish = visibleDishes[mobileCount];
+    if (!nextDish) return;
+    setMobileVisibleCount(count => Math.min(count + mobilePageSize, visibleDishes.length));
+    requestAnimationFrame(() => {
+      const card = document.getElementById(`menu-preview-${nextDish.id}-${id}`);
+      if (!card) return;
+      card.querySelector<HTMLButtonElement>("[data-menu-card-trigger]")?.focus({ preventScroll: true });
+      scrollToMenuTarget(card);
+    });
+  }
+
+  function showFewerDishes() {
+    setMobileVisibleCount(initialMobileCount);
+    requestAnimationFrame(() => {
+      const filters = filterRef.current;
+      if (!filters) return;
+      filters.querySelector<HTMLButtonElement>('[aria-pressed="true"]')?.focus({ preventScroll: true });
+      scrollToMenuTarget(filters);
+    });
+  }
+
+  function openDetails(index: number, event: MouseEvent<HTMLButtonElement>) {
+    returnFocusRef.current = event.currentTarget;
+    // Keep the source card visible if the viewport becomes mobile while its
+    // dialog is open, so closing can still return focus to that card.
+    const position = visibleDishes.indexOf(restaurantMenuDishes[index]) + 1;
+    setMobileVisibleCount(count => Math.max(count, Math.ceil(position / mobilePageSize) * mobilePageSize));
+    setActiveIndex(index);
+  }
+
+  function visitKitchens() {
+    pendingAnchorRef.current = "restaurant-list";
+    closeDetails();
+  }
+
+  const finishClose = useCallback(() => {
+    const anchor = pendingAnchorRef.current;
+    pendingAnchorRef.current = null;
+    if (!anchor) return;
+    // Called after the dialog has released its scroll lock, including Lenis.
+    requestAnimationFrame(() => {
+      const target = document.getElementById(anchor);
+      if (!target) return;
+      const focusTarget = () => {
+        if (!target.hasAttribute("tabindex")) {
+          target.setAttribute("tabindex", "-1");
+          target.addEventListener("blur", () => target.removeAttribute("tabindex"), { once: true });
+        }
+        target.focus({ preventScroll: true });
+      };
+      const lenis = window.quickBiteLenis;
+      if (lenis && !lenis.isStopped) {
+        lenis.resize();
+        lenis.scrollTo(target, { duration: .9, onComplete: focusTarget });
+      } else {
+        target.scrollIntoView({ behavior: "instant" });
+        focusTarget();
+      }
+    });
+  }, []);
+
   return (
-    <section id="restaurant-menu" data-nav-theme="neutral" aria-labelledby="restaurant-menu-title" className="relative bg-paper text-ink">
-      <div data-menu-intro data-scroll-motion="off" className={styles.menuIntro}>
-        <div data-menu-image-stage className={styles.menuVisual}>
-          <p className="flex items-center justify-between gap-3 text-[10px] font-semibold uppercase tracking-[.18em] text-cocoa"><span>The QuickBite menu</span><span className="text-brand-dark">{String(index + 1).padStart(2,"0")} / 06</span></p>
-          <div className={styles.menuPlateArea}>
-            <div data-menu-featured-plate className={styles.menuPlate}>
-              <AnimatePresence initial={false}>
-                <motion.div key={selectedDish.id} initial={{ opacity: 0, rotate: reducedMotion ? 0 : -30, scale: reducedMotion ? 1 : .85 }} animate={{ opacity: 1, rotate: 0, scale: 1 }} exit={{ opacity: 0, rotate: reducedMotion ? 0 : 30, scale: reducedMotion ? 1 : .85 }} transition={{ duration: reducedMotion ? .12 : .65, ease: [.22,1,.36,1] }} className="absolute inset-0 overflow-hidden rounded-full border-4 border-paper sm:border-8">
-                  <FoodImage src={selectedDish.image} alt={selectedDish.imageAlt} fill sizes="(min-width: 1024px) 42vw, 60vw" className="object-cover" />
-                </motion.div>
-              </AnimatePresence>
+    <section id="restaurant-menu" data-nav-theme="neutral" aria-labelledby="restaurant-menu-title" className="relative scroll-mt-24 mt-20 bg-paper text-dark-ink">
+      <LayoutGroup id={id}>
+        <Container className="py-14 sm:py-20 lg:py-24">
+          <Reveal className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
+            <div>
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[.18em] text-cocoa">{restaurantMenuCopy.theMenuPreview}</p>
+              <h2 id="restaurant-menu-title" className="max-w-[18ch] font-display text-[clamp(2rem,4vw,3.75rem)] font-semibold leading-[1.08] tracking-[-.04em]">{restaurantMenuCopy.findYourNextFavourite}</h2>
             </div>
+            <p className="max-w-xs text-sm leading-relaxed text-cocoa">{restaurantMenuCopy.aGoldenStartAProperLunchOr}</p>
+          </Reveal>
+          <div className="mb-7 mt-9 flex flex-wrap items-center justify-between gap-4 border-b border-ink/10 pb-5">
+            <div ref={filterRef} role="group" aria-label={restaurantMenuCopy.ariaLabelFilterMenuByMealTime} className="flex scroll-mt-24 flex-wrap gap-2">
+              {filters.map(filter => <MagneticFillButton key={filter} variant={selectedFilter === filter ? "dark" : "cream"} aria-pressed={selectedFilter === filter} aria-controls="restaurant-menu-results" onClick={() => selectFilter(filter)} className={`min-h-11 rounded-full px-4 py-2 text-xs sm:text-sm ${selectedFilter === filter ? "bg-dark-ink! text-paper!" : "border! border-ink/15! bg-paper!"}`}>{filter}</MagneticFillButton>)}
+            </div>
+            <p role="status" aria-atomic="true" className="text-xs text-cocoa"><span className="md:hidden">{restaurantMenuCopy.showing}{mobileCount}{restaurantMenuCopy.of}{visibleDishes.length}{restaurantMenuCopy.dishes}</span><span className="hidden md:inline">{visibleDishes.length}{restaurantMenuCopy.dishesToDiscover}</span></p>
           </div>
-          <div className="flex items-center gap-3 sm:gap-5">
-            <button type="button" aria-label="Previous menu dish" onClick={() => onSelect((index - 1 + restaurantDishes.length) % restaurantDishes.length)} className="grid size-11 shrink-0 place-items-center rounded-full border border-ink/15 hover:bg-peach focus-visible:outline-2 focus-visible:outline-brand"><ArrowLeft className="size-4" /></button>
-            <input type="range" min={0} max={restaurantDishes.length - 1} value={index} onChange={event => onSelect(Number(event.target.value))} aria-label="Choose menu dish" aria-valuetext={details.title} className="h-11 min-w-0 flex-1 cursor-pointer accent-brand" />
-            <button type="button" aria-label="Next menu dish" onClick={() => onSelect((index + 1) % restaurantDishes.length)} className="grid size-11 shrink-0 place-items-center rounded-full border border-ink/15 hover:bg-peach focus-visible:outline-2 focus-visible:outline-brand"><ArrowRight className="size-4" /></button>
-          </div>
-        </div>
-        <div role="tablist" aria-label="About this dish" aria-orientation="vertical" className={styles.menuTabs}>
-          {tabs.map((label,i) => <button type="button" key={label} id={`menu-tab-${i}`} role="tab" aria-selected={tab === label} aria-controls="menu-dish-details" tabIndex={tab === label ? 0 : -1} onKeyDown={event => handleTabKey(event,i)} onClick={() => setTab(label)} className={`${styles.menuTab} focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-brand`}><span>{label}</span></button>)}
-        </div>
-        <div className={styles.menuDetails}>
-          <p className="mb-4 flex items-center justify-between gap-3 text-[10px] font-semibold uppercase tracking-[.16em] text-cocoa"><span>Dish discovery</span><MapPin aria-hidden="true" className="size-4 text-brand" /></p>
-          <h2 id="restaurant-menu-title" className={styles.menuTitle}>{details.title}</h2>
-          <div id="menu-dish-details" data-lenis-prevent role="tabpanel" aria-labelledby={`menu-tab-${tabs.indexOf(tab)}`} tabIndex={0} className={`${styles.menuPanel} focus-visible:outline-2 focus-visible:outline-brand`}>
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div key={`${selectedDish.id}-${tab}`} initial={{ opacity: 0, y: reducedMotion ? 0 : 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: reducedMotion ? 0 : -8 }} transition={{ duration: reducedMotion ? .1 : .2 }}>
-                {tab === "Details" ? <>
-                  <p className="max-w-md text-xs leading-relaxed text-cocoa sm:text-sm">{selectedDish.description}</p>
-                  <dl className={styles.menuFacts}>{[["Good for",selectedDish.period],["Flavour",details.flavour],["Serving",details.serving],["Our first city","Ile-Ife"]].map(([label,value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
-                </> : tab === "Ingredients" ? <>
-                  <p className="text-xs leading-relaxed text-cocoa sm:text-sm">The familiar flavours in this dish.</p>
-                  <ul className="mt-4 divide-y divide-ink/10">{details.ingredients.map((ingredient,i) => {const Icon = ingredientIcons[i]; return <li key={ingredient} className="flex items-center gap-3 py-3 text-sm"><Icon aria-hidden="true" className="size-5 text-brand" />{ingredient}</li>;})}</ul>
-                  <p className="mt-3 text-[10px] leading-relaxed text-cocoa">Recipes vary by kitchen. Check ingredients and dietary needs with the restaurant when ordering opens.</p>
-                </> : <>
-                  <span className="inline-flex items-center gap-2 rounded-full bg-peach px-3 py-2 text-xs"><MapPin className="size-4 text-brand" /> Ile-Ife, Nigeria</span>
-                  <p className="mt-5 max-w-sm text-sm leading-relaxed text-cocoa">Good food begins with the people who make it. We&apos;re bringing neighbourhood kitchens and their familiar favourites closer to your door.</p>
-                  <a href="#restaurant-list" className="mt-5 inline-flex min-h-11 items-center gap-5 text-sm font-semibold text-brand-dark">Meet the kitchens <ArrowDown className="size-4" /></a>
-                </>}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-          <div className={styles.menuActions}>
-            <div><p className="text-[9px] uppercase tracking-widest text-cocoa">On the way</p><p className="mt-1 text-sm font-semibold">A taste of what&apos;s next.</p></div>
-            <MagneticFillButton href="/waitlist" variant="dark" className="min-h-11 rounded-full bg-dark-ink! px-5 py-3 text-xs">Get launch updates <ArrowRight aria-hidden="true" className="size-4" /></MagneticFillButton>
-          </div>
-        </div>
-      </div>
-      <Container className="py-14 sm:py-20 lg:py-24">
-        <Reveal className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
-          <div><p className="mb-4 text-xs font-semibold uppercase tracking-[.18em] text-cocoa">The menu preview</p><h2 className="max-w-[18ch] font-display text-[clamp(2rem,4vw,3.75rem)] font-semibold leading-[1.08] tracking-[-.04em]">Find your next favourite.</h2></div>
-          <p className="max-w-xs text-sm leading-relaxed text-cocoa">A golden start, a proper lunch, or something warm for dinner. A little of what you&apos;re craving.</p>
-        </Reveal>
-        <div className="mb-7 mt-9 flex flex-wrap items-center justify-between gap-4 border-b border-ink/10 pb-5">
-          <div role="group" aria-label="Filter menu by meal time" className="flex flex-wrap gap-2">{filters.map(filter => <MagneticFillButton key={filter} variant={selectedFilter === filter ? "dark" : "cream"} aria-pressed={selectedFilter === filter} aria-controls="restaurant-menu-results" onClick={() => setSelectedFilter(filter)} className={`min-h-11 rounded-full px-4 py-2 text-xs sm:text-sm ${selectedFilter === filter ? "bg-dark-ink! text-paper!" : "border! border-ink/15! bg-paper!"}`}>{filter}</MagneticFillButton>)}</div>
-          <p role="status" aria-atomic="true" className="text-xs text-cocoa">{visibleDishes.length} dishes to discover</p>
-        </div>
-        <ul id="restaurant-menu-results" aria-label={`${selectedFilter} menu preview`} className="grid items-stretch gap-5 [overflow-anchor:none] md:grid-cols-2 xl:grid-cols-3">
-          {visibleDishes.map(dish => {
-            const dishIndex = restaurantDishes.indexOf(dish);
-            const dark = dishIndex % 2 === 1;
-            const info = dishDetails[dish.id];
-            return <motion.li key={dish.id} data-menu-dish={dish.id} initial={false} whileInView={reducedMotion === false ? { opacity: [0,1], y: [12,0] } : undefined} viewport={{ once: true, amount: .1 }} transition={{ duration: .4 }} className={`min-w-0 overflow-hidden rounded-[1.6rem] border p-2.5 shadow-sm ${dark ? "border-ink bg-ink text-paper" : "border-ink/10 bg-cream text-ink"}`}>
-              <div className="relative aspect-[1.5] overflow-hidden rounded-[1.1rem] bg-peach">
-                <FoodImage src={dish.image} alt={dish.imageAlt} fill sizes="(min-width: 1280px) 32vw, (min-width: 768px) 48vw, 95vw" className="object-cover" />
-                <span className={`absolute right-2 top-2 rounded-xl px-3 py-2 text-[10px] font-semibold uppercase tracking-wider ${dark ? "bg-ink text-paper" : "bg-paper text-ink"}`}>{dish.period}</span>
-              </div>
-              <div className={`relative -mt-5 ml-2 mr-9 flex items-center gap-2 rounded-lg px-3 py-2.5 text-[10px] ${dark ? "bg-brand text-paper" : "bg-peach text-ink"}`}><MapPin aria-hidden="true" className="size-3.5" /> Local favourites. Made in Ile-Ife.</div>
-              <div className="px-2 pb-2 pt-4">
-                <div className="flex items-center justify-between gap-3"><h3 className="max-w-[18ch] font-display text-lg font-semibold leading-tight">{info.title}</h3><MagneticFillButton href="#restaurant-menu" onClick={() => onSelect(dishIndex)} variant={dark ? "cream" : "dark"} ariaLabel={`View ${info.title}`} className={`size-11 shrink-0 rounded-full ${dark ? "bg-paper!" : "bg-dark-ink!"}`}><ArrowRight className="size-4" aria-hidden="true" /></MagneticFillButton></div>
-                <div className={`mt-4 grid grid-cols-3 gap-2 border-t pt-3 ${dark ? "border-paper/15" : "border-ink/10"}`}>{info.ingredients.map((ingredient,i) => {const Icon = ingredientIcons[i]; return <div key={ingredient} className={`flex min-h-16 flex-col items-center justify-center gap-1.5 rounded-xl px-1 py-2 ${dark ? "bg-paper/8" : "bg-peach/55"}`}><Icon aria-hidden="true" className={`size-4 ${dark ? "text-brand-light" : "text-brand-dark"}`} /><span className="text-center text-[10px] leading-tight">{ingredient}</span></div>;})}</div>
-              </div>
-            </motion.li>;
-          })}
-        </ul>
-        <p className="mt-7 flex items-start gap-2.5 text-xs leading-relaxed text-cocoa"><UtensilsCrossed aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-brand" /> A taste of what&apos;s coming. Full menus and ordering arrive with the QuickBite app.</p>
-      </Container>
+          <ul id="restaurant-menu-results" data-scroll-motion="off" aria-label={restaurantMenuCopy.ariaLabelFormat(selectedFilter)} className="grid items-stretch gap-5 [overflow-anchor:none] md:grid-cols-2 xl:grid-cols-3">
+            {visibleDishes.map((dish, position) => {
+              const dishIndex = restaurantMenuDishes.indexOf(dish);
+              const dark = dishIndex % 2 === 1;
+              return (
+                <motion.li key={dish.id} id={`menu-preview-${dish.id}-${id}`} data-menu-dish={dish.id} layoutId={reducedMotion ? undefined : `menu-card-${dish.id}-${id}`} initial={false} transition={{ layout: reducedMotion ? { duration: 0 } : expandableCardTransition }} style={{ borderRadius: 40 }} className={`group relative min-w-0 scroll-mt-24 overflow-hidden border shadow-sm ${position >= mobileVisibleCount ? "hidden md:block" : ""} ${dark ? "border-ink bg-ink text-paper" : "border-ink/10 bg-cream text-dark-ink"}`}>
+                  <button type="button" data-menu-card-trigger aria-label={restaurantMenuCopy.ariaLabelViewFormat(dish.title)} aria-haspopup="dialog" aria-expanded={activeIndex === dishIndex} aria-controls={activeIndex === dishIndex ? `menu-dialog-${id}` : undefined} onClick={event => openDetails(dishIndex, event)} className="absolute inset-0 z-10 cursor-pointer rounded-[2.5rem]! focus-visible:outline-4 focus-visible:-outline-offset-4 focus-visible:outline-brand" />
+                  <motion.div layoutId={reducedMotion ? undefined : `menu-image-${dish.id}-${id}`} transition={{ layout: reducedMotion ? { duration: 0 } : expandableCardTransition }} data-menu-card-image className="relative aspect-[1.35] overflow-hidden bg-peach rounded-b-4xl">
+                    <FoodImage src={dish.image} alt={dish.imageAlt} fill sizes="(min-width: 1280px) 400px, (min-width: 768px) 48vw, 95vw" className="object-cover" />
+                    <span className={`absolute right-5 top-5 rounded-[2.5rem] px-3 py-2 text-[10px] font-semibold uppercase tracking-wider ${dark ? "bg-ink text-paper" : "bg-paper text-dark-ink"}`}>{dish.period}</span>
+                    <span className={`absolute bottom-4 left-4 flex items-center gap-2 rounded-[2.5rem] px-3 py-2.5 text-[10px] ${dark ? "bg-dark-ink text-paper" : "bg-paper text-dark-ink"}`}><MapPin aria-hidden="true" className="size-3.5" />{restaurantMenuCopy.localFavouritesMadeInIleIfe}</span>
+                  </motion.div>
+                  <div className="px-5 pb-5 pt-4">
+                    <BackgroundGrainTexture className={`${dark ? "opacity-20 hover:opacity-10" : "opacity-50"}`} />
+                    <div className="flex min-h-12 items-center justify-between gap-3">
+                      <h3 className="max-w-[18ch] font-display text-lg font-semibold leading-tight">{dish.title}</h3>
+                      <span aria-hidden="true" className={`grid size-10 shrink-0 place-items-center rounded-full transition-colors ${dark ? "bg-paper text-dark-ink group-hover:bg-brand group-hover:text-paper" : "bg-dark-ink text-paper group-hover:bg-brand"}`}><ArrowRight className="size-4" /></span>
+                    </div>
+                    <div className={`mt-4 grid grid-cols-3 gap-2 border-t pt-3 ${dark ? "border-paper/15" : "border-ink/10"}`}>
+                      {dish.ingredients.map((ingredient, index) => {
+                        const Icon = ingredientIcons[index % ingredientIcons.length];
+                        return <div key={ingredient} className={`flex min-h-16 flex-col items-center justify-center gap-1.5 rounded-[2.5rem] px-1 py-2 ${dark ? "bg-dark-ink" : "bg-peach"}`}><Icon aria-hidden="true" className={`size-4 ${dark ? "text-brand-light" : "text-brand-dark"}`} /><span className="text-center text-[10px] leading-tight">{ingredient}</span></div>;
+                      })}
+                    </div>
+                  </div>
+                </motion.li>
+              );
+            })}
+          </ul>
+          {visibleDishes.length > initialMobileCount && (
+            <div className="mt-8 flex flex-wrap justify-center gap-3 md:hidden">
+              {mobileCount < visibleDishes.length && <MagneticFillButton type="button" variant="dark" aria-controls="restaurant-menu-results" aria-expanded={mobileCount > initialMobileCount} onClick={showMoreDishes} className="min-h-12 rounded-full bg-dark-ink! px-6 text-sm">{restaurantMenuCopy.show}{Math.min(mobilePageSize, visibleDishes.length - mobileCount)}{restaurantMenuCopy.moreDishes}<ArrowRight aria-hidden="true" className="size-4" /></MagneticFillButton>}
+              {mobileCount > initialMobileCount && <MagneticFillButton type="button" variant="cream" aria-controls="restaurant-menu-results" onClick={showFewerDishes} className="min-h-12 rounded-full border! border-ink/15! px-6 text-sm">{restaurantMenuCopy.showFewerDishes}</MagneticFillButton>}
+            </div>
+          )}
+          {/* <p className="mt-7 flex items-start gap-2.5 text-xs leading-relaxed text-cocoa"><UtensilsCrossed aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-brand" /> A taste of what&apos;s coming. Full menus and ordering arrive with the QuickBite app.</p> */}
+        </Container>
+        <AnimatePresence>
+          {activeDish && (
+            <ExpandableCardDialog key={activeDish.id} id={`menu-dialog-${id}`} layoutId={`menu-card-${activeDish.id}-${id}`} labelledBy={`menu-detail-title-${id}`} onClose={closeDetails} onAfterClose={finishClose} returnFocusRef={returnFocusRef}>
+              <RestaurantMenuDetails dish={activeDish} layoutPrefix={id} onClose={closeDetails} onVisitKitchens={visitKitchens} />
+            </ExpandableCardDialog>
+          )}
+        </AnimatePresence>
+      </LayoutGroup>
     </section>
   );
 }
