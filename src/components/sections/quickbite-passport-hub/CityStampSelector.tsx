@@ -1,6 +1,6 @@
 import { MapPin } from "lucide-react";
 import MagneticFillButton from "../../ui/MagneticFillButton";
-import type { PassportCity } from "./passportHub.data";
+import type { PassportCity } from "@/content/home/passport";
 
 export default function CityStampSelector({
   cities,

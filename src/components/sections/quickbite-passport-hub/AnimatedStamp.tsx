@@ -1,7 +1,8 @@
+import { animatedStampCopy } from "@/content/home/sections";
 import { motion } from "motion/react";
 import { MapPin, ArrowUpRight } from "lucide-react";
 import type { RefObject } from "react";
-import type { PassportCity } from "./passportHub.data";
+import type { PassportCity } from "@/content/home/passport";
 
 export default function AnimatedStamp({
   city,
@@ -27,16 +28,16 @@ export default function AnimatedStamp({
       <div
         className="relative overflow-hidden rounded-2xl border border-ink/15 bg-paper px-4 py-3 text-ink sm:py-4"
       >
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[url('/images/footer-grain.svg')] opacity-10" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-10" style={{ backgroundImage: `url('${animatedStampCopy.texture}')` }} />
         <div className="relative flex items-center justify-between gap-2 text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-cocoa">
-          <span>Entry stamp</span>
+          <span>{animatedStampCopy.entryStamp}</span>
           <MapPin aria-hidden="true" className="size-4 text-[var(--passport-accent)]" />
         </div>
         <p className="relative mt-3 font-display text-xl font-semibold leading-tight tracking-[0.02em] sm:text-2xl">
           {city.name}
         </p>
         <div className="relative mt-3 flex items-center justify-between border-t border-dashed border-ink/20 pt-2 text-[0.65rem] font-medium tracking-[0.12em] text-cocoa">
-          <span>07 / 2026</span>
+          <span>{animatedStampCopy.value072026}</span>
           <ArrowUpRight aria-hidden="true" className="size-4 text-[var(--passport-accent)]" />
         </div>
       </div>

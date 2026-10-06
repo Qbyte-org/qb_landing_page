@@ -1,9 +1,11 @@
 "use client";
 
+import { restaurantMembershipCardCopy } from "@/content/home/sections";
+
 import { useId, useState, type CSSProperties } from "react";
 import { motion } from "motion/react";
 import { Clock3, MapPin, Plus, Star } from "lucide-react";
-import type { PassportRestaurant } from "./passportHub.data";
+import type { PassportRestaurant } from "@/content/home/passport";
 import FoodImage from "../../ui/FoodImage";
 import MagneticFillButton from "../../ui/MagneticFillButton";
 import BackgroundGrainTexture from "../../ui/BackgroundGrainTexture";
@@ -41,7 +43,7 @@ export default function RestaurantMembershipCard({
       >
         <BackgroundGrainTexture tone="light" className="opacity-20" />
         <MagneticFillButton
-          ariaLabel={`Details for ${restaurant.name}`}
+          ariaLabel={restaurantMembershipCardCopy.ariaLabelDetailsForFormat(restaurant.name)}
           aria-expanded={isOpen}
           aria-controls={detailsId}
           onClick={toggle}
@@ -80,8 +82,7 @@ export default function RestaurantMembershipCard({
         >
           <div className="relative z-10 flex h-full max-w-[80%] flex-col justify-center">
             <p className="text-[0.68rem] font-semibold tracking-[0.08em] text-[var(--card-accent)]">
-              {restaurant.eta} • {restaurant.rating}★
-            </p>
+              {restaurant.eta}{" • "}{restaurant.rating}{"★"}</p>
             <h3 className="mt-2 line-clamp-2 font-display text-[1.42rem] font-semibold leading-[0.92] tracking-[-0.055em] text-ink sm:mt-3 sm:text-[1.65rem]">
               {restaurant.name}
             </h3>
@@ -89,14 +90,12 @@ export default function RestaurantMembershipCard({
               {restaurant.cuisine}
             </p>
             <LinkArrow
-              href="/restaurants"
+              href={restaurantMembershipCardCopy.hrefRestaurants}
               variant="light"
-              ariaLabel={`View ${restaurant.name}`}
+              ariaLabel={restaurantMembershipCardCopy.ariaLabelViewFormat(restaurant.name)}
               onClick={(event) => event.stopPropagation()}
               className="mt-4 min-h-11 w-full max-w-48 border-ink/20 text-ink [--link-arrow-min-width:7.2rem] sm:mt-5"
-            >
-              View
-            </LinkArrow>
+            >{restaurantMembershipCardCopy.view}</LinkArrow>
           </div>
         </motion.div>
 
@@ -142,17 +141,14 @@ export default function RestaurantMembershipCard({
           <div className="absolute inset-x-6 bottom-[3.5rem] z-10 border-t border-dashed border-ink/20" />
           <div className="absolute inset-x-6 bottom-2 z-10 flex items-center justify-between gap-3">
             <p className="line-clamp-1 text-[0.68rem] font-semibold text-ink">
-              {restaurant.avgOrder} avg order
-            </p>
+              {restaurant.avgOrder}{restaurantMembershipCardCopy.avgOrder}</p>
             <LinkArrow
-              href="/restaurants"
+              href={restaurantMembershipCardCopy.hrefRestaurants}
               onClick={(event) => event.stopPropagation()}
               variant="light"
-              ariaLabel={`Open ${restaurant.name}`}
+              ariaLabel={restaurantMembershipCardCopy.ariaLabelOpenFormat(restaurant.name)}
               className="min-h-11 border-ink/20 text-ink [--link-arrow-min-width:6.2rem]"
-            >
-              Open
-            </LinkArrow>
+            >{restaurantMembershipCardCopy.open}</LinkArrow>
           </div>
         </motion.div>
       </div>
