@@ -40,7 +40,7 @@ Some source images are intrinsically small: the puff-puff paper bowl is 405px wi
 
 The existing white-ninja portrait remains at 800 × 1239 because its intentional crop bounds were not recorded. Its rendering quality improves through `SiteImage`; its crop has been preserved. The legacy phone images are only 433 × 577 and 379 × 658. The redesigned app feature display uses scalable UI artwork instead of stretching those screenshots.
 
-Already large 1600–2200px legacy photos and native transparent utensil assets were retained. Recompressing or enlarging those would not add information. Unused draft cutouts and superseded bike exports remain local and are excluded from the published release. Favicons remain at their required icon dimensions. Grain, logos and other SVG artwork already scale without raster degradation.
+Already large 1600–2200px legacy photos and native transparent utensil assets were retained. Recompressing or enlarging those would not add information. Unused food cutouts are versioned as [design references](design-archive/README.md) and have no active page consumers. Superseded bike exports remain local. Favicons remain at their required icon dimensions. Grain, logos and other SVG artwork already scale without raster degradation.
 
 ## Inventory and checks
 
@@ -48,7 +48,7 @@ Run `node scripts/audit-image-quality.mjs` to refresh the machine-readable inven
 
 The checked-in `docs/image-quality-inventory.json` contains the full file-by-file dimensions, sizes and referencing source files from this pass.
 
-The inventory was refreshed for publication on 6 October 2026 after excluding unused drafts. It contains 211 raster files (67 source/standalone files and 144 responsive variants), 31 SVGs and 58 code-referenced raster sources. All 144 required food variants are present, all raster files decode, and no referenced images are missing.
+The inventory was refreshed on 6 October 2026 after including the food design references. It contains 245 raster files (101 source/standalone files and 144 responsive variants), 31 SVGs and 58 code-referenced raster sources. All 144 required food variants are present, all raster files decode, and no referenced images are missing. Unused references are included in the file counts but are not loaded by the current pages.
 
 `pnpm exec tsc --noEmit` passed. Targeted ESLint checks passed with no errors; `CompanyTeamHero.tsx` retains its existing unused `ArrowDown` warning.
 

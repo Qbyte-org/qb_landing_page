@@ -1,0 +1,89 @@
+{
+  "processing": "Prepared food silhouettes extracted from the same photographs used by the restaurant hero. Original photo pixels retained; hand-traced masks remove plates, backgrounds and neighbouring food. Generated with scripts/prepare-cooked-tray-accents.mjs.",
+  "assets": [
+    {
+      "file": "jollof-plantain.webp",
+      "subject": "Fried plantain",
+      "derivedFrom": "/images/food/pinterest/jollof-chicken-plantain.webp",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267449/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/fc/6c/cf/fc6ccf6314f207173840e9e368cc20b0.jpg"
+    },
+    {
+      "file": "jollof-chicken.webp",
+      "subject": "Pepper-glazed chicken",
+      "derivedFrom": "/images/food/pinterest/jollof-chicken-plantain.webp",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267449/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/fc/6c/cf/fc6ccf6314f207173840e9e368cc20b0.jpg"
+    },
+    {
+      "file": "ofada-egg.webp",
+      "subject": "Ayamase egg",
+      "derivedFrom": "/images/food/pinterest/ofada-rice-ayamase.webp",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267553/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/0d/ed/83/0ded83cdacd7f73c91d82bb81d5e33ab.jpg"
+    },
+    {
+      "file": "ofada-rice.webp",
+      "subject": "Ofada rice",
+      "derivedFrom": "/images/food/pinterest/ofada-rice-ayamase.webp",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267553/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/0d/ed/83/0ded83cdacd7f73c91d82bb81d5e33ab.jpg"
+    },
+    {
+      "file": "yam-portion.webp",
+      "subject": "Cooked yam",
+      "derivedFrom": "/images/food/pinterest/pounded-yam-greens.webp",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267477/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/e3/d7/3c/e3d73cbd3acb57bb3e9f53b8cdb562f8.jpg"
+    },
+    {
+      "file": "vegetable-fish.webp",
+      "subject": "Fish in vegetable soup",
+      "derivedFrom": "/images/food/pinterest/pounded-yam-greens.webp",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267477/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/e3/d7/3c/e3d73cbd3acb57bb3e9f53b8cdb562f8.jpg"
+    },
+    {
+      "file": "pepper-soup-meat.webp",
+      "subject": "Slow-cooked pepper-soup meat",
+      "derivedFrom": "/images/food/pinterest/assorted-meat-pepper-soup.webp",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267574/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/21/57/10/2157101365fe08d938e4e4794e148724.jpg"
+    },
+    {
+      "file": "pepper-soup-piece.webp",
+      "subject": "Herb-coated cooked meat",
+      "derivedFrom": "/images/food/pinterest/assorted-meat-pepper-soup.webp",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267574/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/21/57/10/2157101365fe08d938e4e4794e148724.jpg"
+    },
+    {
+      "file": "akara-crisp.webp",
+      "subject": "Crisp akara bean cake",
+      "derivedFrom": "/images/food/pinterest/akara-bean-cakes.webp",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267797/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/a9/3c/87/a93c8711aae3cd668d56fb0bb5a26fa7.jpg"
+    },
+    {
+      "file": "akara-golden.webp",
+      "subject": "Golden fried akara",
+      "derivedFrom": "/images/food/pinterest/akara-bean-cakes.webp",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267797/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/a9/3c/87/a93c8711aae3cd668d56fb0bb5a26fa7.jpg"
+    },
+    {
+      "file": "puff-puff-bite.webp",
+      "subject": "Golden puff-puff",
+      "derivedFrom": "/images/food/pinterest/puff-puff.webp",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267746/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/29/bd/5d/29bd5d41b9bc18757f9598e68c3a3592.jpg"
+    },
+    {
+      "file": "puff-puff-round.webp",
+      "subject": "Freshly fried puff-puff",
+      "derivedFrom": "/images/food/pinterest/puff-puff.webp",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267746/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/29/bd/5d/29bd5d41b9bc18757f9598e68c3a3592.jpg"
+    }
+  ]
+}
