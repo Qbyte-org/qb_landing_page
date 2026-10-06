@@ -1,37 +1,10 @@
 import { MapPin } from "lucide-react";
+import { footerCopy, navigation, legalLinks } from "@/content/footer";
 import FooterNewsletter from "./FooterNewsletter";
 import LinkArrow from "../ui/LinkArrow";
 import MagneticFillButton from "../ui/MagneticFillButton";
 
-const navigation = [
-  {
-    title: "Menu",
-    links: [
-      { label: "Restaurants", href: "/restaurants" },
-      { label: "About us", href: "/company" },
-      { label: "Get the app", href: "/#app" },
-      { label: "How it works", href: "/#how" },
-      { label: "Restaurant partners", href: "/partners" },
-      { label: "Become a rider", href: "/riders" },
-    ],
-  },
-  {
-    title: "Support",
-    links: [
-      { label: "Join the waitlist", href: "/waitlist" },
-      { label: "FAQs", href: "/#faq" },
-      { label: "Contact us", href: "/contact" },
-    ],
-  },
-] as const;
 
-const legalLinks = [
-  { label: "Privacy", href: "/legal/privacy" },
-  { label: "Terms", href: "/legal/terms" },
-  { label: "Cookies", href: "/legal/cookies" },
-  { label: "Refunds", href: "/legal/refunds" },
-  { label: "Delete account", href: "/delete-account" },
-] as const;
 
 // One static SVG path keeps the receipt detail inexpensive to render.
 const barcodeBars = [7, 2, 5, 1, 3, 8, 2, 1, 4, 2, 6, 1, 3, 2, 7, 1, 5, 3, 1, 2];
@@ -47,7 +20,7 @@ export default function Footer() {
       data-nav-theme="dark"
       className="relative overflow-hidden bg-dark-ink text-paper border-t border-peach/10"
     >
-      <div className="mx-auto grid w-[92%] max-w-[1840px] grid-cols-1 gap-10 pb-28 pt-10 sm:gap-12 sm:pt-12 lg:grid-cols-[clamp(4.5rem,calc(5vw+1.5rem),6.5rem)_minmax(0,2fr)_minmax(0,3fr)_1px] lg:gap-x-6 lg:gap-y-0 lg:pb-12 xl:gap-x-10 2xl:gap-x-14">
+      <div className="mx-auto grid w-[92%] max-w-[1840px] grid-cols-1 gap-9 pb-28 pt-10 sm:gap-10 sm:pt-12 lg:grid-cols-[3.5rem_minmax(0,0.85fr)_minmax(0,1.15fr)_1px] lg:gap-x-5 lg:gap-y-0 lg:pb-12 xl:grid-cols-[5rem_minmax(0,28rem)_minmax(0,1fr)_1px] xl:gap-x-9 2xl:gap-x-12">
         <div aria-hidden="true" className="relative hidden items-stretch justify-center pr-6 lg:flex">
           <svg
             viewBox="0 0 72 420"
@@ -64,8 +37,8 @@ export default function Footer() {
 
         <FooterNewsletter />
 
-        <div className="flex min-w-0 flex-col">
-          <nav aria-label="Footer navigation" className="grid gap-7 sm:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] sm:gap-8 lg:pb-10 2xl:pb-14">
+        <div className="flex min-w-0 flex-col lg:py-2">
+          <nav aria-label={footerCopy.navigationLabel} className="grid gap-7 sm:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] sm:gap-8 lg:gap-x-6 lg:pb-10 2xl:pb-14">
             {navigation.map((column) => (
               <div key={column.title} className="min-w-0">
                 <h2 className="text-sm font-medium uppercase text-peach/75 sm:text-base 2xl:text-xl">
@@ -91,20 +64,20 @@ export default function Footer() {
 
           <div className="mt-8 grid grid-cols-1 items-center gap-x-4 gap-y-5 border-t border-paper/15 pt-7 sm:grid-cols-[minmax(0,1fr)_auto] lg:mt-auto lg:pt-8">
             <p className="text-base sm:text-lg 2xl:text-2xl">
-              &copy; 2026 QuickBite
+              {footerCopy.copyright}
             </p>
 
             <MagneticFillButton
-              href="/#cities"
+              href={footerCopy.locationsHref}
               variant="cream"
               prefetch={false}
               className="min-h-10 w-fit justify-center gap-2 rounded-pill border-2 border-ink px-3 py-2 text-sm 2xl:text-base"
             >
               <MapPin className="size-4" aria-hidden="true" />
-              All locations
+              {footerCopy.locations}
             </MagneticFillButton>
 
-            <nav aria-label="Legal" className="order-3 sm:col-span-2">
+            <nav aria-label={footerCopy.legalLabel} className="order-3 sm:col-span-2">
               <ul className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,9rem),1fr))] gap-x-4 gap-y-1">
                 {legalLinks.map((link) => (
                   <li key={link.label}>

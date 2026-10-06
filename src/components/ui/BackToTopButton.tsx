@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUp } from "lucide-react";
+import { uiCopy } from "@/content/ui";
 import { useRef, useState, type CSSProperties } from "react";
 import type { NavTheme } from "@/config/navigation";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
@@ -191,7 +192,7 @@ export default function BackToTopButton() {
     >
       <MagneticFillButton
         type="button"
-        ariaLabel="Back to top"
+        ariaLabel={uiCopy.backToTop}
         onClick={scrollToTop}
         themeAware
         className="h-full w-full rounded-full border-0 p-0"

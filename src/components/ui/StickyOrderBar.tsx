@@ -1,18 +1,12 @@
 "use client";
 
 import { useRef } from "react";
+import { defaultPageAction, pageActions } from "@/content/ui";
 import { usePathname } from "next/navigation";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import LinkArrow from "./LinkArrow";
 import MagneticFillButton from "./MagneticFillButton";
 
-const pageActions: Record<string, { title: string; detail: string; label: string; href: string }> = {
-  "/restaurants": { title: "Be first at the table", detail: "Get QuickBite launch updates", label: "Join waitlist", href: "/waitlist" },
-  "/partners": { title: "Your kitchen. More tables.", detail: "Get partner launch updates", label: "Join waitlist", href: "/waitlist" },
-  "/riders": { title: "Your next chapter.", detail: "Get rider launch updates", label: "Join waitlist", href: "/waitlist" },
-  "/company": { title: "A little local goodness.", detail: "Meet the kitchens around you", label: "Explore food", href: "/restaurants" },
-  "/contact": { title: "Let's talk.", detail: "We're here to help", label: "Email us", href: "mailto:quickbiteinfo01@gmail.com" },
-};
 
 export default function StickyOrderBar() {
   const barRef = useRef<HTMLDivElement>(null);
@@ -60,10 +54,10 @@ export default function StickyOrderBar() {
       <div className="flex items-center gap-3">
         <div className="min-w-0 flex-1 leading-tight">
           <p className={`text-sm font-bold ${pageAction ? "text-ink" : "text-navy"}`}>
-            {pageAction?.title ?? "Hungry right now?"}
+            {pageAction?.title ?? defaultPageAction.title}
           </p>
           <p className="truncate text-xs text-muted">
-            {pageAction?.detail ?? "Free delivery on your first order"}
+            {pageAction?.detail ?? defaultPageAction.detail}
           </p>
         </div>
         <div className="shrink-0">
@@ -72,11 +66,11 @@ export default function StickyOrderBar() {
               {pageAction.label}
             </MagneticFillButton>
           ) : <LinkArrow
-            href="/restaurants"
+            href={defaultPageAction.href}
             appearance="plain"
             className="h-12 justify-center rounded-pill bg-brand-dark px-6 text-base font-semibold text-white"
           >
-            Order now
+            {defaultPageAction.label}
           </LinkArrow>}
         </div>
       </div>

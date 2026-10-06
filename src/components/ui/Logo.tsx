@@ -1,10 +1,11 @@
-import Image from "next/image";
+import Image from "@/components/ui/SiteImage";
+import { brand } from "@/content/ui";
 import LinkArrow from "./LinkArrow";
 
 function LogoWordmark({ light = false }: { light?: boolean }) {
   return (
     <span className={light ? "text-paper" : "text-ink"}>
-      Quick<span className="text-brand">Bite</span>
+      {brand.wordmark[0]}<span className="text-brand">{brand.wordmark[1]}</span>
     </span>
   );
 }
@@ -24,22 +25,22 @@ export default function Logo({
   height?: number;
   themeAware?: boolean;
 }) {
-  const markSrc = variant === "light" ? "/logo-mark-light.svg" : "/logo-mark.svg";
+  const markSrc = variant === "light" ? brand.lightMark : brand.mark;
   const colorLogoState = variant === "light" ? "invisible opacity-0" : "";
   const lightLogoState = variant === "light" ? "" : "invisible opacity-0";
 
   return (
     <LinkArrow
-      href="/"
+      href={brand.homeHref}
       appearance="plain"
-      aria-label="QuickBite home"
+      aria-label={brand.homeLabel}
       className={`inline-flex items-center ${className}`}
     >
       {themeAware ? (
         <span className="relative flex h-7 w-[128px] items-center sm:h-8 sm:w-[145px]" style={{ maxWidth: width }}>
           <span data-logo-color className={`flex items-center gap-2 ${colorLogoState}`}>
             <Image
-              src="/logo-mark.svg"
+              src={brand.mark}
               alt=""
               width={32}
               height={32}
@@ -50,7 +51,7 @@ export default function Logo({
           </span>
           <span data-logo-light className={`absolute left-0 flex items-center gap-2 ${lightLogoState}`}>
             <Image
-              src="/logo-mark-light.svg"
+              src={brand.lightMark}
               alt=""
               width={32}
               height={32}

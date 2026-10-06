@@ -1,9 +1,6 @@
 import MagneticFillButton from "../ui/MagneticFillButton";
+import { footerCopy, socialLinks } from "@/content/footer";
 
-const socialLinks = [
-  { label: "X", href: "https://x.com/quickbite01?s=11", icon: "x" },
-  { label: "Instagram", href: "https://www.instagram.com/quickbite.01?stkn=MWNieGR5c2U4NWdycQ%3D%3D", icon: "instagram" },
-] as const;
 
 function SocialIcon({ name }: { name: typeof socialLinks[number]["icon"] }) {
   const className = "size-4";
@@ -43,7 +40,7 @@ function SocialIcon({ name }: { name: typeof socialLinks[number]["icon"] }) {
 
 export default function FooterSocials() {
   return (
-    <ul aria-label="QuickBite social profiles" className="flex flex-wrap gap-2 sm:gap-3 justify-end max-sm:max-w-md ">
+    <ul aria-label={footerCopy.socialLabel} className="flex shrink-0 items-center gap-2 sm:gap-3">
       {socialLinks.map(({ label, href, icon }) => (
         <li key={label}>
           {href ? (
@@ -53,16 +50,16 @@ export default function FooterSocials() {
               rel="noreferrer"
               external
               variant="dark"
-              ariaLabel={`QuickBite on ${label} (opens in a new tab)`}
-              className="size-10 justify-center rounded-full border! border-paper/20! bg-transparent! text-paper! motion-safe:hover:-translate-y-0.5"
+              ariaLabel={footerCopy.socialLinkLabel(label)}
+              className="size-11 justify-center rounded-full border! border-paper/20! bg-transparent! text-paper! motion-safe:hover:-translate-y-0.5"
             >
               <SocialIcon name={icon} />
             </MagneticFillButton>
           ) : (
             <span
               role="img"
-              aria-label={`${label} profile unavailable`}
-              title={`${label} profile unavailable`}
+              aria-label={footerCopy.unavailableProfile(label)}
+              title={footerCopy.unavailableProfile(label)}
               className="flex size-10 items-center justify-center rounded-full border border-paper/15 text-peach/60"
             >
               <SocialIcon name={icon} />
