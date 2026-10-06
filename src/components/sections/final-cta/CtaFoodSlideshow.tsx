@@ -5,10 +5,11 @@ import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/rea
 import { Pause, Play } from "lucide-react";
 import FoodImage from "../../ui/FoodImage";
 import MagneticFillButton from "../../ui/MagneticFillButton";
-import { ctaFoodSlides } from "./foodSlides";
+import { ctaFoodSlides } from "@/content/cta-food";
+import { ctaCopy } from "@/content/cta";
 
 const slideInterval = 4500;
-const imageSizes = "(min-width: 2000px) 240px, (min-width: 1067px) 12vw, (min-width: 640px) 128px, 90vw";
+const imageSizes = "(min-width: 2000px) 240px, (min-width: 1067px) 12vw, (min-width: 1024px) 128px, (width > 640px) calc((90vw - 16px) / 3), (width: 640px) 128px, 90vw";
 
 export default function CtaFoodSlideshow() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -89,7 +90,7 @@ export default function CtaFoodSlideshow() {
         <MagneticFillButton
           variant="dark"
           onClick={() => setPaused((value) => !value)}
-          ariaLabel={paused ? "Resume food slideshow" : "Pause food slideshow"}
+          ariaLabel={paused ? ctaCopy.resume : ctaCopy.pause}
           className="absolute! bottom-2 right-2 z-20 size-9 rounded-full border! border-paper/25 bg-dark-ink/80! text-paper! backdrop-blur-sm"
         >
           {paused ? <Play className="size-4" aria-hidden="true" /> : <Pause className="size-4" aria-hidden="true" />}
