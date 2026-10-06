@@ -1,4 +1,4 @@
-import { bentoTiles, BentoTileData } from "./loaderData";
+import { bentoTiles, BentoTileData } from "@/content/loader-tiles";
 
 export interface TileLayout {
   id: string;

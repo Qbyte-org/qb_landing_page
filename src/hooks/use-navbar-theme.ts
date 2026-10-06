@@ -1,6 +1,7 @@
 "use client";
 
 import type { RefObject } from "react";
+import { usePathname } from "next/navigation";
 import { navThemes, type NavTheme } from "@/config/navigation";
 import { animation } from "@/lib/animation";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
@@ -10,14 +11,15 @@ function isNavTheme(value: string | undefined): value is NavTheme {
 }
 
 export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
+  const pathname = usePathname();
+
   useGSAP(
     (_context, contextSafe) => {
       const nav = navRef.current;
       if (!nav) return;
 
-      const sections = Array.from(
-        document.querySelectorAll<HTMLElement>("[data-nav-theme]"),
-      );
+      const page = nav.closest<HTMLElement>("[data-site-intro]") ?? document.body;
+      let sections: HTMLElement[] = [];
       const reducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       ).matches;
@@ -25,11 +27,11 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
       colorCanvas.width = colorCanvas.height = 1;
       const colorContext = colorCanvas.getContext("2d", { willReadFrequently: true });
       const resolvedColors = new Map<string, string>();
+      let rootStyles = getComputedStyle(document.documentElement);
 
       // GSAP custom-property tweens need concrete colors. Canvas also resolves
       // derived CSS colors such as color-mix() into channels GSAP can interpolate.
       const resolveColor = (value: string) => {
-        const rootStyles = getComputedStyle(document.documentElement);
         const resolved = value.replace(/var\((--[\w-]+)\)/g, (_match, token: string) =>
           rootStyles.getPropertyValue(token).trim(),
         );
@@ -51,6 +53,7 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
         if (name === activeTheme && !immediate) return;
         activeTheme = name;
         nav.dataset.activeNavTheme = name;
+        rootStyles = getComputedStyle(document.documentElement);
         const theme = navThemes[name];
         const duration = immediate || reducedMotion ? 0 : animation.duration.base;
         const tween = {
@@ -58,6 +61,7 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
           ease: animation.ease.smooth,
           overwrite: "auto" as const,
         };
+        const colorTweens: Array<() => void> = [];
 
         const animateColors = (
           target: HTMLElement | string,
@@ -84,17 +88,22 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
                 : property.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
               return [property, resolveColor(currentStyles.getPropertyValue(cssProperty).trim() || value)];
             }));
-            gsap.fromTo(element, start, {
-              ...resolved,
-              ...tween,
-              // Restore references after interpolation, keeping the settled
-              // navigation connected to changes in the global palette.
-              onComplete: () => { gsap.set(element, { ...colors }); },
+            // Finish all style reads before starting any tween. Alternating
+            // reads and writes across the controls forces repeated layouts.
+            colorTweens.push(() => {
+              gsap.fromTo(element, start, {
+                ...resolved,
+                ...tween,
+                // Keep settled colors linked to the global palette.
+                onComplete: () => { gsap.set(element, { ...colors }); },
+              });
             });
           });
         };
 
-        animateColors(document.documentElement, {
+        // Interpolating inherited root variables invalidates the entire page
+        // every frame. Only the visible navigation needs the color transition.
+        gsap.set(document.documentElement, {
           "--background": theme.pageBackground,
           "--foreground": theme.pageForeground,
         });
@@ -154,6 +163,7 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
           backgroundColor: theme.action,
           color: theme.actionText,
         });
+        colorTweens.forEach(start => start());
         const colorLogos = nav.querySelectorAll("[data-logo-color]");
         const lightLogos = nav.querySelectorAll("[data-logo-light]");
         if (colorLogos.length) gsap.to(colorLogos, {
@@ -168,20 +178,37 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
       const applyTheme = contextSafe ? contextSafe(updateTheme) : updateTheme;
 
       let frame = 0;
+      let layoutDirty = true;
+      let maxScroll = 0;
+      let navTop = 0;
+      let halfBarHeight = 0;
+      let bounds: Array<{ element: HTMLElement; top: number; bottom: number }> = [];
       const sampleTheme = (immediate = false) => {
-        const closedBar = nav.querySelector<HTMLElement>("[data-menu-open] [data-intro-nav-content]");
-        const barBounds = (closedBar ?? nav).getBoundingClientRect();
-        const navLine = Math.max(0, Math.min(window.innerHeight - 1, barBounds.top + Math.min(barBounds.height, 80) / 2));
-        const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-        const atBottom = maxScroll > 0 && window.scrollY >= maxScroll - 2;
-        const candidates = atBottom ? [...sections].reverse() : sections;
-        const section = candidates.find((candidate) => {
-          if (!candidate.isConnected || !isNavTheme(candidate.dataset.navTheme)) return false;
-          const bounds = candidate.getBoundingClientRect();
+        const scroll = window.scrollY;
+        if (layoutDirty) {
+          layoutDirty = false;
+          maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+          const closedBar = nav.querySelector<HTMLElement>("[data-menu-open] [data-intro-nav-content]");
+          navTop = Number.parseFloat(getComputedStyle(nav).top) || 0;
+          halfBarHeight = Math.min((closedBar ?? nav).offsetHeight, 80) / 2;
+          bounds = sections.map(element => {
+            const rect = element.getBoundingClientRect();
+            return { element, top: rect.top + scroll, bottom: rect.bottom + scroll };
+          }).reverse();
+        }
+        // GSAP owns the navbar's vertical transform; read its cached value
+        // instead of asking the browser to lay out every section during scroll.
+        const navOffset = Number(gsap.getProperty(nav, "y")) || 0;
+        const navLine = Math.max(0, Math.min(window.innerHeight - 1, navTop + navOffset + halfBarHeight)) + scroll;
+        const atBottom = maxScroll > 0 && scroll >= maxScroll - 2;
+        // A nested section (for example, a dark CTA inside a light document)
+        // owns its theme instead of inheriting the outer document's theme.
+        const section = bounds.find(({ element, top, bottom }) => {
+          if (!element.isConnected || !isNavTheme(element.dataset.navTheme)) return false;
           return atBottom
-            ? bounds.top < window.innerHeight && bounds.bottom > 0
-            : bounds.top <= navLine && bounds.bottom > navLine;
-        });
+            ? top < scroll + window.innerHeight && bottom > scroll
+            : top <= navLine && bottom > navLine;
+        })?.element;
         const name = section?.dataset.navTheme;
         applyTheme(isNavTheme(name) ? name : activeTheme ?? "hero", immediate);
       };
@@ -192,25 +219,55 @@ export function useNavbarTheme(navRef: RefObject<HTMLElement | null>) {
           sampleTheme();
         });
       };
+      const scheduleMeasure = () => {
+        layoutDirty = true;
+        scheduleSample();
+      };
 
-      // Read current geometry instead of caching section starts: lazy content
-      // and short final sections can move without ever crossing a trigger line.
-      sampleTheme(true);
+      // Resize and refresh keep cached bounds current when lazy content,
+      // accordions, fonts, or streamed sections change the page's geometry.
       window.addEventListener("scroll", scheduleSample, { passive: true });
-      window.addEventListener("resize", scheduleSample);
-      ScrollTrigger.addEventListener("refresh", scheduleSample);
-      const resizeObserver = new ResizeObserver(scheduleSample);
-      sections.forEach((section) => resizeObserver.observe(section));
+      window.addEventListener("resize", scheduleMeasure);
+      window.addEventListener("pageshow", scheduleMeasure);
+      ScrollTrigger.addEventListener("refresh", scheduleMeasure);
+      const resizeObserver = new ResizeObserver(scheduleMeasure);
+      const collectSections = () => {
+        resizeObserver.disconnect();
+        sections = Array.from(page.querySelectorAll<HTMLElement>("[data-nav-theme]"));
+        sections.forEach((section) => resizeObserver.observe(section));
+        resizeObserver.observe(page);
+        layoutDirty = true;
+      };
+      const containsTheme = (node: Node) => node instanceof Element && (
+        node.matches("[data-nav-theme]") || Boolean(node.querySelector("[data-nav-theme]"))
+      );
+      const mutationObserver = new MutationObserver((records) => {
+        const themesChanged = records.some(record => record.type === "attributes" ||
+          [...record.addedNodes, ...record.removedNodes].some(containsTheme));
+        if (!themesChanged) return;
+        collectSections();
+        scheduleSample();
+      });
+      collectSections();
+      sampleTheme(true);
+      mutationObserver.observe(page, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ["data-nav-theme"],
+      });
       scheduleSample();
 
       return () => {
         window.cancelAnimationFrame(frame);
         window.removeEventListener("scroll", scheduleSample);
-        window.removeEventListener("resize", scheduleSample);
-        ScrollTrigger.removeEventListener("refresh", scheduleSample);
+        window.removeEventListener("resize", scheduleMeasure);
+        window.removeEventListener("pageshow", scheduleMeasure);
+        ScrollTrigger.removeEventListener("refresh", scheduleMeasure);
         resizeObserver.disconnect();
+        mutationObserver.disconnect();
       };
     },
-    { scope: navRef },
+    { scope: navRef, dependencies: [pathname], revertOnUpdate: true },
   );
 }

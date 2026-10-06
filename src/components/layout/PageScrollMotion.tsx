@@ -22,7 +22,7 @@ export default function PageScrollMotion() {
       const main = root.querySelector<HTMLElement>("main");
       const shell = main?.closest<HTMLElement>("[data-site-intro]");
       // Route streaming and the opening sequence must finish before measuring.
-      if (!main || (shell && shell.dataset.siteIntro !== "ready")) return;
+      if (!main || root.inert || (shell && shell.dataset.siteIntro !== "ready")) return;
 
       initialized = true;
       observer.disconnect();
@@ -56,6 +56,32 @@ export default function PageScrollMotion() {
                 });
               });
               hero.querySelectorAll<HTMLElement>("[data-scroll-hero-media]").forEach((artwork) => {
+                if (artwork.dataset.scrollHeroMedia === "ride") {
+                  const travel = () => Math.min(context.conditions?.desktop ? 18 : 12, artwork.offsetWidth * 0.035);
+                  const stage = artwork.closest<HTMLElement>("[data-rider-bike-stage]") ?? artwork;
+                  // Follow the bike's forward direction and reverse with the scroll.
+                  // Keep the whole vehicle inside its lane as it approaches the viewer.
+                  gsap.fromTo(artwork, {
+                    x: () => -travel(),
+                    y: 0,
+                    scale: 0.94,
+                    transformOrigin: "left bottom",
+                  }, {
+                    x: travel,
+                    y: 6,
+                    scale: 0.98,
+                    ease: "none",
+                    immediateRender: true,
+                    scrollTrigger: {
+                      trigger: hero,
+                      start: "top top",
+                      end: () => `+=${Math.max(1, stage.getBoundingClientRect().bottom - hero.getBoundingClientRect().top)}`,
+                      scrub: 0.65,
+                      invalidateOnRefresh: true,
+                    },
+                  });
+                  return;
+                }
                 gsap.fromTo(artwork, { y: 0 }, {
                   y: distance * 1.35,
                   ease: "none",
@@ -122,7 +148,7 @@ export default function PageScrollMotion() {
       childList: true,
       subtree: true,
       attributes: true,
-      attributeFilter: ["data-site-intro"],
+      attributeFilter: ["data-site-intro", "inert"],
     });
     schedule();
 

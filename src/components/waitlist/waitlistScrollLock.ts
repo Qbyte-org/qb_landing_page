@@ -3,7 +3,7 @@ type ScrollController = NonNullable<Window["quickBiteLenis"]>;
 let lockCount = 0;
 let restoreScroll: (() => void) | undefined;
 
-export function lockWaitlistScroll() {
+export function lockWaitlistScroll({ preserveLayout = false }: { preserveLayout?: boolean } = {}) {
   if (lockCount === 0) {
     const body = document.body;
     const html = document.documentElement;
@@ -21,7 +21,9 @@ export function lockWaitlistScroll() {
     lenis?.stop();
     body.style.overflow = "hidden";
     html.style.overflow = "hidden";
-    const fixedHere = previous.position !== "fixed";
+    // Shared-layout overlays must keep the document's scroll coordinates while
+    // Motion measures the source card and its expanded destination.
+    const fixedHere = !preserveLayout && previous.position !== "fixed";
     if (fixedHere) {
       body.style.position = "fixed";
       body.style.top = `-${scrollY}px`;

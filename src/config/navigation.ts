@@ -16,7 +16,7 @@ const paperSurface = {
 
 const inkSurface = {
   surfaceTone: "dark",
-  surface: "var(--color-ink)",
+  surface: "var(--color-dark-ink)",
   foreground: "var(--color-paper)",
   muted: "var(--color-peach)",
   icon: "var(--color-brand)",

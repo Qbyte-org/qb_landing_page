@@ -75,9 +75,8 @@ export default function Reveal({
             autoAlpha: 0,
             y: from.y ?? 0,
             x: from.x ?? 0,
-            filter: "blur(8px)",
           },
-          { autoAlpha: 1, y: 0, x: 0, filter: "blur(0px)" },
+          { autoAlpha: 1, y: 0, x: 0 },
         );
       }
 
