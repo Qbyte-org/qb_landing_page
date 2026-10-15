@@ -54,6 +54,13 @@ Next.js embeds public environment values in the client bundle, so restart the
 development server or rebuild the deployment after changing this value. The
 backend must allow the website's origin through CORS.
 
+While the API runs on Render's free tier, the `Keep dev API awake` workflow
+(`.github/workflows/keep-dev-api-awake.yml`) pings its readiness endpoint every
+5 minutes so it does not sleep. GitHub disables scheduled workflows after 60 days
+without repository activity; re-enable it from the Actions tab if that happens.
+Its run logs are public, so keep secrets out of it. Remove the workflow once the
+API is on a paid instance.
+
 ## Quality checks
 
 ```bash
