@@ -8,6 +8,8 @@ import { ArrowRight } from "lucide-react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import FoodImage from "../ui/FoodImage";
 import MagneticFillButton from "../ui/MagneticFillButton";
+import LoaderPhoto from "./LoaderPhoto";
+import { loaderImageMaxZoom, loaderImageOverscan, loaderPreviewSrc } from "./loaderImageSizing";
 
 const initialGrid = {
   "--tile-left": "46%",
@@ -52,6 +54,7 @@ export default function QuickBiteBentoLoader({
     container.querySelector<HTMLButtonElement>("button")?.focus({ preventScroll: true });
 
     let disposed = false;
+    let waitingForPhoto = false;
     requestedRef.current = false;
     completedRef.current = false;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -65,6 +68,20 @@ export default function QuickBiteBentoLoader({
     }
     const sequence = gsap.timeline({ paused: true, onComplete: () => ready("completed") });
     skipRef.current = () => ready("skipped");
+    const foregroundImages = Array.from(stage.querySelectorAll<HTMLImageElement>("[data-loader-photo] img"));
+    const preparePhoto = (index: number) => {
+      const image = foregroundImages[index];
+      if (!image) return;
+      image.srcset = image.dataset.loaderSrcset!;
+      image.src = image.dataset.loaderSource!;
+    };
+    const releasePhoto = (index: number) => {
+      const image = foregroundImages[index];
+      // Retain the small preview, but let the browser release the decoded
+      // full-resolution surface once its scene has faded out.
+      image.removeAttribute("srcset");
+      image.src = image.dataset.loaderPreview!;
+    };
 
     const framing = { x: .5, y: .5, width: .08, height: .12, focus: 0, sourceX: .5, sourceY: .5, regionWidth: .3, regionHeight: .3, photoIndex: 0 };
     const wideFrame = { x: .5, y: .5, width: .84, height: .56, focus: 0 };
@@ -75,10 +92,11 @@ export default function QuickBiteBentoLoader({
     const copies = Array.from(stage.querySelectorAll<HTMLElement>("[data-loader-copy]"));
     const mediaLayers = photographs.map((photo, index) => ({
       photo,
+      rasterScale: 1,
       layers: Array.from(stage.querySelectorAll<HTMLElement>(`[data-loader-media="${index}"]`)),
     }));
     const renderFrame = () => {
-      const overscan = 32;
+      const overscan = loaderImageOverscan;
       const chromeInset = viewportHeight < 600 ? 60 : 88;
       const padding = Math.max(8, Math.min(16, viewportWidth * .01));
       const maxSquare = Math.min(viewportWidth * .8, viewportHeight - chromeInset * 2);
@@ -91,8 +109,9 @@ export default function QuickBiteBentoLoader({
       );
       const detailScaleFor = (photo: typeof photographs[number]) => {
         const coverScale = coverScaleFor(photo);
-        // A gentle camera push, limited by the space needed for the whole item.
-        return Math.max(coverScale, Math.min(coverScale * 1.08, (maxSquare - padding * 2) / detailExtentFor(photo)));
+        // A gentle camera push, pulling back on short screens when needed to
+        // keep the whole ingredient inside the window.
+        return Math.min(coverScale * loaderImageMaxZoom, (maxSquare - padding * 2) / detailExtentFor(photo));
       };
       const activePhoto = photographs[framing.photoIndex];
       // Size the square from the actual ingredient bounds, with breathing room.
@@ -102,21 +121,33 @@ export default function QuickBiteBentoLoader({
       const height = framing.height * viewportHeight * (1 - framing.focus) + square * framing.focus;
       const sourceX = .5 + (framing.sourceX - .5) * framing.focus;
       const sourceY = .5 + (framing.sourceY - .5) * framing.focus;
-      const cameras = mediaLayers.map(({ photo, layers }) => {
-        // Both views use one full-screen projection. The extra pixels keep
-        // the blur supplied with image content at every viewport edge.
+      const cameras = mediaLayers.map(({ photo, layers, rasterScale }) => {
+        // Both moving views use one projection, so the sharp food remains
+        // registered with its blurred surroundings throughout the pan.
         const coverScale = coverScaleFor(photo);
         const detailScale = detailScaleFor(photo);
         const scale = coverScale + (detailScale - coverScale) * framing.focus;
         const imageWidth = photo.width * scale;
         const imageHeight = photo.height * scale;
-        const desiredLeft = framing.x * viewportWidth - sourceX * imageWidth;
-        const desiredTop = framing.y * viewportHeight - sourceY * imageHeight;
-        const imageLeft = Math.max(viewportWidth - imageWidth + overscan, Math.min(-overscan, desiredLeft));
-        const imageTop = Math.max(viewportHeight - imageHeight + overscan, Math.min(-overscan, desiredTop));
-        const transform = `translate3d(${imageLeft}px, ${imageTop}px, 0) scale(${scale})`;
+        // At the source edge, shift the window's centre just enough to keep
+        // the entire square inside the photograph (the top egg touches y=0).
+        const focusX = Math.max(width / 2, Math.min(imageWidth - width / 2, sourceX * imageWidth));
+        const focusY = Math.max(height / 2, Math.min(imageHeight - height / 2, sourceY * imageHeight));
+        const desiredLeft = framing.x * viewportWidth - focusX;
+        const desiredTop = framing.y * viewportHeight - focusY;
+        const coverLeft = Math.max(viewportWidth - imageWidth + overscan, Math.min(-overscan, desiredLeft));
+        const coverTop = Math.max(viewportHeight - imageHeight + overscan, Math.min(-overscan, desiredTop));
+        // Allow only the extra travel needed to clear the header/footer. A
+        // stationary blurred underlay supplies any newly exposed screen edge.
+        const safeLeft = Math.max(12 + width / 2 - focusX, Math.min(viewportWidth - 12 - width / 2 - focusX, coverLeft));
+        const safeTop = Math.max(chromeInset + height / 2 - focusY, Math.min(viewportHeight - chromeInset - height / 2 - focusY, coverTop));
+        const imageLeft = coverLeft + (safeLeft - coverLeft) * framing.focus;
+        const imageTop = coverTop + (safeTop - coverTop) * framing.focus;
+        // Animate a surface already laid out at the maximum zoom size. The
+        // compositor only scales down, instead of magnifying a small raster.
+        const transform = `translate3d(${imageLeft}px, ${imageTop}px, 0) scale(${scale / rasterScale})`;
         for (const layer of layers) layer.style.transform = transform;
-        return { x: imageLeft + sourceX * imageWidth, y: imageTop + sourceY * imageHeight };
+        return { x: imageLeft + focusX, y: imageTop + focusY };
       });
       // Follow the actual food position after the camera reaches an image edge.
       // This keeps the sharp square registered with the blurred photograph.
@@ -135,12 +166,22 @@ export default function QuickBiteBentoLoader({
     const resizeFrame = () => {
       viewportWidth = container.clientWidth;
       viewportHeight = container.clientHeight;
+      for (const media of mediaLayers) {
+        media.rasterScale = Math.max(
+          (viewportWidth + loaderImageOverscan * 2) / media.photo.width,
+          (viewportHeight + loaderImageOverscan * 2) / media.photo.height,
+        ) * loaderImageMaxZoom;
+        for (const layer of media.layers) {
+          layer.style.width = `${media.photo.width * media.rasterScale}px`;
+          layer.style.height = `${media.photo.height * media.rasterScale}px`;
+        }
+      }
       renderFrame();
     };
     window.addEventListener("resize", resizeFrame);
     sequence.eventCallback("onUpdate", renderFrame);
     if (reduced) Object.assign(framing, wideFrame, { focus: 1 });
-    renderFrame();
+    resizeFrame();
     sequence
       .set(container, { attr: { "data-intro-frame": "brand" } }, 0)
       .fromTo(stage, { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0)
@@ -159,8 +200,26 @@ export default function QuickBiteBentoLoader({
         sourceX: detail.x, sourceY: detail.y,
         regionWidth: detail.width, regionHeight: detail.height,
       });
+      if (index > 0) sequence.call(() => preparePhoto(index), [], start - 3);
+      // Never run a close-up over a photo that has not decoded yet. The current
+      // scene (or opening mark) stays visible, and Skip remains available.
+      sequence.addPause(start - 0.001, () => {
+        waitingForPhoto = true;
+        syncVisibility();
+        const image = foregroundImages[index];
+        void image.decode().catch(async () => {
+          if (disposed || requestedRef.current) return;
+          releasePhoto(index);
+          await image.decode().catch(() => undefined);
+        }).then(() => {
+          if (disposed || requestedRef.current) return;
+          waitingForPhoto = false;
+          syncVisibility();
+        });
+      });
       sequence
         .set(framing, { photoIndex: index }, start)
+        .set(`[data-loader-media="${index}"]`, { willChange: "transform" }, start)
         .set(container, { attr: { "data-intro-frame": photograph.frame } }, start)
         .to(scene, { opacity: 1, duration: reduced ? 0.6 : 0.8, ease: "power2.inOut" }, start)
         .fromTo(copy, { opacity: 0 }, {
@@ -171,6 +230,8 @@ export default function QuickBiteBentoLoader({
         sequence
           .to(`[data-loader-copy="${index - 1}"]`, { opacity: 0, duration: 0.3 }, start)
           .to(`[data-loader-scene="${index - 1}"]`, { opacity: 0, duration: 0.8 }, start);
+        sequence.set(`[data-loader-media="${index - 1}"]`, { willChange: "auto" }, start + 0.8);
+        sequence.call(() => releasePhoto(index - 1), [], start + 0.8);
       }
       if (reduced) {
         sequence.set(framing, { ...wideFrame, ...detailFrame(firstDetail, .3) }, start);
@@ -207,8 +268,8 @@ export default function QuickBiteBentoLoader({
 
     const syncVisibility = () => {
       if (requestedRef.current || disposed) return;
-      sequence.paused(document.hidden);
-      container.dataset.introPlayback = document.hidden ? "paused" : "playing";
+      sequence.paused(document.hidden || waitingForPhoto);
+      container.dataset.introPlayback = document.hidden ? "paused" : waitingForPhoto ? "buffering" : "playing";
     };
     document.addEventListener("visibilitychange", syncVisibility);
     syncVisibility();
@@ -279,15 +340,16 @@ export default function QuickBiteBentoLoader({
           <div key={photograph.src} data-loader-scene={index} className="absolute inset-0 opacity-0">
             <div data-loader-backdrop={index} className="absolute inset-0">
               <div className="absolute inset-0 blur-[16px]">
-                <div data-loader-media={index} className="absolute left-0 top-0 origin-top-left will-change-transform" style={{ width: photograph.width, height: photograph.height }}>
-                  <FoodImage src={photograph.src} alt="" fill priority unoptimized className="object-cover" />
+                <FoodImage data-loader-edge-fill src={loaderPreviewSrc(photograph.src)} alt="" fill loading="eager" fetchPriority="low" unoptimized className="object-cover" />
+                <div data-loader-media={index} className="absolute left-0 top-0 origin-top-left" style={{ width: photograph.width, height: photograph.height }}>
+                  <FoodImage src={loaderPreviewSrc(photograph.src)} alt="" fill loading="eager" fetchPriority="low" unoptimized className="object-cover" />
                 </div>
               </div>
               <div className="absolute inset-0 bg-dark-ink/65" />
             </div>
             <div data-loader-photo={index} className="absolute inset-0 overflow-hidden [clip-path:inset(var(--window-top)_calc(100%_-_var(--tile-right))_calc(100%_-_var(--window-bottom))_var(--tile-left))]">
-              <div data-loader-media={index} className="absolute left-0 top-0 origin-top-left will-change-transform" style={{ width: photograph.width, height: photograph.height }}>
-                <FoodImage src={photograph.src} alt={photograph.alt} fill priority unoptimized className="object-cover" />
+              <div data-loader-media={index} className="absolute left-0 top-0 origin-top-left" style={{ width: photograph.width, height: photograph.height }}>
+                <LoaderPhoto src={photograph.src} alt={photograph.alt} width={photograph.width} height={photograph.height} first={index === 0} />
               </div>
             </div>
           </div>

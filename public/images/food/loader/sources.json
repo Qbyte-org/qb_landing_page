@@ -1,0 +1,265 @@
+{
+  "generator": "scripts/prepare-loader-photos.mjs",
+  "processing": {
+    "format": "webp",
+    "quality": 92,
+    "effort": 6,
+    "widths": [
+      640,
+      960,
+      1600,
+      2400,
+      3200,
+      3840
+    ],
+    "resizeKernel": "lanczos3",
+    "sharpening": {
+      "sigma": "min(2.4, 0.5 * max(1, width / sourceWidth))",
+      "m1": 0.8,
+      "m2": 2
+    },
+    "crop": null,
+    "note": "Source-preserving exports from the original JPEGs with resolution-aware output sharpening. Widths above each native source size are resampled enhancements, not recovered native detail. Framing, subjects and image proportions are preserved; no generative edits or color/contrast changes are applied. All selected photos retain variants through 3840px for high-density zoom rendering."
+  },
+  "photos": [
+    {
+      "basename": "ofada-egg-plantain",
+      "sourceManifest": "../pinterest/menu-additions.sources.json",
+      "pinId": "1012184085026267485",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267485/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/6c/17/bc/6c17bc20335d7a9e54952d6395dbfe37.jpg",
+      "sourceWidth": 1152,
+      "sourceHeight": 2048,
+      "maxWidth": 3840,
+      "sourceSha256": "be77eb41d3c8ee8819265aacc203fddfd5f1b2e71575c67c359db7d1121c96e6",
+      "alt": "Rice with pepper stew, eggs and fried plantain on a leaf-lined plate",
+      "variants": [
+        {
+          "file": "ofada-egg-plantain-640.webp",
+          "width": 640,
+          "height": 1138,
+          "bytes": 203822,
+          "sharpening": {
+            "sigma": 0.5,
+            "m1": 0.8,
+            "m2": 2
+          }
+        },
+        {
+          "file": "ofada-egg-plantain-960.webp",
+          "width": 960,
+          "height": 1707,
+          "bytes": 350996,
+          "sharpening": {
+            "sigma": 0.5,
+            "m1": 0.8,
+            "m2": 2
+          }
+        },
+        {
+          "file": "ofada-egg-plantain-1600.webp",
+          "width": 1600,
+          "height": 2844,
+          "bytes": 658120,
+          "sharpening": {
+            "sigma": 0.6944444444444444,
+            "m1": 0.8,
+            "m2": 2
+          }
+        },
+        {
+          "file": "ofada-egg-plantain-2400.webp",
+          "width": 2400,
+          "height": 4267,
+          "bytes": 1069726,
+          "sharpening": {
+            "sigma": 1.0416666666666667,
+            "m1": 0.8,
+            "m2": 2
+          }
+        },
+        {
+          "file": "ofada-egg-plantain-3200.webp",
+          "width": 3200,
+          "height": 5689,
+          "bytes": 1439896,
+          "sharpening": {
+            "sigma": 1.3888888888888888,
+            "m1": 0.8,
+            "m2": 2
+          }
+        },
+        {
+          "file": "ofada-egg-plantain-3840.webp",
+          "width": 3840,
+          "height": 6827,
+          "bytes": 1805532,
+          "sharpening": {
+            "sigma": 1.6666666666666667,
+            "m1": 0.8,
+            "m2": 2
+          }
+        }
+      ]
+    },
+    {
+      "basename": "rice-beans-stew",
+      "sourceManifest": "../partners/sources.json",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267480/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/e9/df/bc/e9dfbc30fc9cbcfb30f6d4d1c99196f5.jpg",
+      "sourceWidth": 1280,
+      "sourceHeight": 1600,
+      "maxWidth": 3840,
+      "sourceSha256": "72737ffd98b66076561f68a319f6292bd48ee9d0b45bc4b7630f8c1ef8ff6e4d",
+      "alt": "Rice and beans beside pepper stew, assorted meat and eggs on white plates",
+      "variants": [
+        {
+          "file": "rice-beans-stew-640.webp",
+          "width": 640,
+          "height": 800,
+          "bytes": 160368,
+          "sharpening": {
+            "sigma": 0.5,
+            "m1": 0.8,
+            "m2": 2
+          }
+        },
+        {
+          "file": "rice-beans-stew-960.webp",
+          "width": 960,
+          "height": 1200,
+          "bytes": 262712,
+          "sharpening": {
+            "sigma": 0.5,
+            "m1": 0.8,
+            "m2": 2
+          }
+        },
+        {
+          "file": "rice-beans-stew-1600.webp",
+          "width": 1600,
+          "height": 2000,
+          "bytes": 463886,
+          "sharpening": {
+            "sigma": 0.625,
+            "m1": 0.8,
+            "m2": 2
+          }
+        },
+        {
+          "file": "rice-beans-stew-2400.webp",
+          "width": 2400,
+          "height": 3000,
+          "bytes": 756126,
+          "sharpening": {
+            "sigma": 0.9375,
+            "m1": 0.8,
+            "m2": 2
+          }
+        },
+        {
+          "file": "rice-beans-stew-3200.webp",
+          "width": 3200,
+          "height": 4000,
+          "bytes": 1052334,
+          "sharpening": {
+            "sigma": 1.25,
+            "m1": 0.8,
+            "m2": 2
+          }
+        },
+        {
+          "file": "rice-beans-stew-3840.webp",
+          "width": 3840,
+          "height": 4800,
+          "bytes": 1279526,
+          "sharpening": {
+            "sigma": 1.5,
+            "m1": 0.8,
+            "m2": 2
+          }
+        }
+      ]
+    },
+    {
+      "basename": "peppered-fish-noodles",
+      "sourceManifest": "../pinterest/sources.json",
+      "pinId": "1012184085026267514",
+      "pinUrl": "https://www.pinterest.com/pin/1012184085026267514/",
+      "sourceImageUrl": "https://i.pinimg.com/originals/22/5f/f4/225ff46d3f32697f4845847afef9552d.jpg",
+      "sourceWidth": 1440,
+      "sourceHeight": 1920,
+      "maxWidth": 3840,
+      "sourceSha256": "9f092d081c8772c018101e9b7482fc233d109484ba4b6ede4e05cb6fea9ee63a",
+      "alt": "Peppered fish fillets over noodles with eggs",
+      "variants": [
+        {
+          "file": "peppered-fish-noodles-640.webp",
+          "width": 640,
+          "height": 853,
+          "bytes": 226876,
+          "sharpening": {
+            "sigma": 0.5,
+            "m1": 0.8,
+            "m2": 2
+          }
+        },
+        {
+          "file": "peppered-fish-noodles-960.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 391416,
+          "sharpening": {
+            "sigma": 0.5,
+            "m1": 0.8,
+            "m2": 2
+          }
+        },
+        {
+          "file": "peppered-fish-noodles-1600.webp",
+          "width": 1600,
+          "height": 2133,
+          "bytes": 727758,
+          "sharpening": {
+            "sigma": 0.5555555555555556,
+            "m1": 0.8,
+            "m2": 2
+          }
+        },
+        {
+          "file": "peppered-fish-noodles-2400.webp",
+          "width": 2400,
+          "height": 3200,
+          "bytes": 1158498,
+          "sharpening": {
+            "sigma": 0.8333333333333334,
+            "m1": 0.8,
+            "m2": 2
+          }
+        },
+        {
+          "file": "peppered-fish-noodles-3200.webp",
+          "width": 3200,
+          "height": 4267,
+          "bytes": 1619858,
+          "sharpening": {
+            "sigma": 1.1111111111111112,
+            "m1": 0.8,
+            "m2": 2
+          }
+        },
+        {
+          "file": "peppered-fish-noodles-3840.webp",
+          "width": 3840,
+          "height": 5120,
+          "bytes": 1957668,
+          "sharpening": {
+            "sigma": 1.3333333333333333,
+            "m1": 0.8,
+            "m2": 2
+          }
+        }
+      ]
+    }
+  ]
+}
