@@ -27,7 +27,7 @@ export default function ContactMessageForm() {
   }
 
   return (
-    <div className="relative self-start rounded-[1.75rem] border border-ink/10 bg-paper p-6 text-ink shadow-[0_24px_70px_color-mix(in_srgb,var(--color-dark-ink)_25%,transparent)] sm:p-9 lg:-my-8 lg:self-center lg:rounded-[2rem] lg:p-10">
+    <div className="relative self-start rounded-[1.75rem] border border-ink/10 bg-paper p-6 text-ink shadow-[0_24px_70px_color-mix(in_srgb,var(--color-dark-ink)_25%,transparent)] sm:p-9 lg:self-center lg:rounded-[2rem] lg:p-10">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cocoa">{content.eyebrow}</p>
       <h2 className="mt-4 font-display text-3xl font-semibold leading-tight sm:text-4xl">{content.title[0]}<br />{content.title[1]}</h2>
       <form onSubmit={prepareEmail} className="mt-7 space-y-5">
