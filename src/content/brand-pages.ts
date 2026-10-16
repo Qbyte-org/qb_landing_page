@@ -226,7 +226,6 @@ export const riderContent = {
 export const contactContent = {
   email: "quickbiteinfo01@gmail.com",
   hero: {
-    location: "Starting in Ile-Ife, Nigeria",
     title: ["Contact us.", "Pull up a chair."],
     description: "Questions, ideas or a little hello. There is always room for a conversation at the QuickBite table.",
     emailLabel: "Write to us",
