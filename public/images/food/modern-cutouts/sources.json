@@ -17,10 +17,11 @@
     },
     {
       "file": "fries.webp",
-      "subject": "French fries",
-      "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:McDonalds-French-Fries-Plate.jpg",
-      "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d1/McDonalds-French-Fries-Plate.jpg",
-      "license": "Public domain (Evan-Amos, own work)"
+      "subject": "French fries in a plain white takeaway box",
+      "sourcePageUrl": "https://unsplash.com/photos/A-NkDhr0Ewk",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1767469576669-95151b13d3b5",
+      "license": "Unsplash License (https://unsplash.com/license), photo by Abdul Raheem Kannath",
+      "processing": "Cut out along a hand-traced outline of the box, since the white box sits on a white backdrop."
     },
     {
       "file": "fried-chicken.webp",

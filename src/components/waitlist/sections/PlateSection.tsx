@@ -14,7 +14,7 @@ const layout = [
   { left: 21, top: 24, size: 30 },
   { left: 79, top: 22, size: 27 },
   { left: 16, top: 59, size: 25 },
-  { left: 50, top: 11, size: 24 },
+  { left: 50, top: 12, size: 28 },
   { left: 84, top: 56, size: 25 },
   { left: 28, top: 86, size: 27 },
   { left: 73, top: 86, size: 24 },
