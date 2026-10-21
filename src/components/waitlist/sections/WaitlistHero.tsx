@@ -35,10 +35,7 @@ export default function WaitlistHero({ initialEmail }: { initialEmail: string })
       <div className="relative mx-auto max-w-[90rem] px-5 pt-5 sm:px-8 sm:pt-7 lg:px-12">
         <header className="flex items-center justify-between gap-4">
           <Logo variant="light" width={150} height={29} priority />
-          <p className="flex items-center gap-2.5 text-sm text-paper/70">
-            <span aria-hidden="true" className="size-2 rounded-full bg-brand" />
-            {waitlistPage.location}
-          </p>
+          <p className="text-sm font-medium text-paper/75">{waitlistPage.location}</p>
         </header>
 
         <div className="relative pt-14 sm:pt-20 lg:pt-16">
