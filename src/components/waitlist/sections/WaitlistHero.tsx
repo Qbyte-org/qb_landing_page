@@ -71,7 +71,7 @@ export default function WaitlistHero({ initialEmail }: { initialEmail: string })
 
           <div className="relative mx-auto w-full max-w-[26rem] lg:col-span-5 lg:col-start-8 lg:mt-[-6rem]">
             <div data-hero-phone className="relative mx-auto w-[64%] -rotate-[4deg]">
-              <PhoneFrame>
+              <PhoneFrame sizes="(min-width: 1024px) 17rem, 64vw">
                 <Image src="/images/app/dish.webp" alt="The QuickBite test build: Ofada Rice and Ofada Stew at ₦3,500 with an Add to cart button" width={600} height={1300} sizes="(min-width: 1024px) 17rem, 64vw" className="h-auto w-full" />
               </PhoneFrame>
             </div>

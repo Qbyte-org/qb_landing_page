@@ -79,7 +79,7 @@ export default function AppStorySection() {
           <div className="flex flex-col items-center gap-10 lg:col-span-5 lg:col-start-8">
             <div className="relative mb-14 w-[12rem] sm:w-[16rem] lg:mb-16 lg:w-[19rem] xl:w-[20.5rem]" aria-label="QuickBite app screens" role="group">
               {/* Sizes the pile; the cards stack on top of it. */}
-              <div aria-hidden="true" className="invisible aspect-[600/1300]" />
+              <div aria-hidden="true" className="invisible aspect-[736/1492]" />
               {steps.map((step, index) => (
                 <div
                   key={step.src}
@@ -87,7 +87,7 @@ export default function AppStorySection() {
                   className="absolute inset-0 origin-bottom will-change-transform"
                   style={{ zIndex: steps.length - index }}
                 >
-                  <PhoneFrame className="h-full w-full">
+                  <PhoneFrame className="h-full w-full" sizes="(min-width: 1280px) 20.5rem, (min-width: 1024px) 19rem, 16rem">
                     <Image src={step.src} alt={step.alt} width={600} height={1300} sizes="(min-width: 1280px) 20.5rem, (min-width: 1024px) 19rem, 16rem" className="absolute inset-x-0 top-0 h-auto w-full" />
                   </PhoneFrame>
                 </div>
