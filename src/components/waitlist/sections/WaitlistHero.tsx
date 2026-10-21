@@ -44,7 +44,7 @@ export default function WaitlistHero({ initialEmail }: { initialEmail: string })
         <div className="relative pt-14 sm:pt-20 lg:pt-16">
           <p data-greeting lang="yo" className="relative z-10 whitespace-nowrap font-display text-[clamp(3.6rem,13.2vw,13rem)] font-semibold leading-[0.9] tracking-[-0.05em] text-paper">
             <span className="sr-only">{waitlistPage.greeting}</span>
-            <span aria-hidden="true" className="inline-flex overflow-hidden pb-[0.08em]">
+            <span aria-hidden="true" className="-mt-[0.14em] -mb-[0.3em] inline-flex overflow-hidden pt-[0.14em] pb-[0.3em]">
               {Array.from(waitlistPage.greeting).map((char, index) => (
                 <span key={`${char}-${index}`} data-greeting-char className="inline-block whitespace-pre">{char}</span>
               ))}
