@@ -49,7 +49,7 @@ export const waitlistCopy = {
 
 /** Copy for the /waitlist page, in scroll order. */
 export const waitlistPage = {
-  location: "Ile-Ife, Osun State",
+  location: "Coming soon to Ile-Ife",
   greeting: "Ṣé o ti jẹun?",
   greetingTranslation: "Have you eaten?",
   headline: "Ife's food, at your door.",
@@ -114,7 +114,7 @@ export const waitlistPage = {
   faq: {
     heading: "Good questions.",
     items: [
-      { question: "When does QuickBite launch?", answer: "We're opening in Ile-Ife first. People on the waitlist hear before anyone else, and get invited in waves." },
+      { question: "When does QuickBite launch?", answer: "Coming soon. We're opening in Ile-Ife first, and people on the waitlist hear before anyone else and get invited in waves." },
       { question: "Where will you deliver?", answer: "We're starting in Ile-Ife. We'll share the exact areas with the waitlist before the first wave opens." },
       { question: "Does joining cost anything?", answer: "No. Joining is free, and you can leave the list whenever you like." },
       { question: "What do you do with my email?", answer: "We send launch updates and your invite. Nothing else. The Privacy Notice has the details." },
