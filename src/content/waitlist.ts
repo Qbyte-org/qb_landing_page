@@ -64,18 +64,20 @@ export const waitlistPage = {
       { label: "Local favourites", dishes: ["Jollof rice", "Ofada & ayamase", "Pounded yam & efo", "Pepper soup", "Akara", "Puff-puff"] },
       { label: "Campus cravings", dishes: ["Pizza", "Burgers", "Fried chicken", "Fries"] },
     ],
-    // In the order they land on the table, largest first.
+    // The centre bowl, then the dishes around it clockwise from the top.
+    // vessel: "plate" and "saucer" are drawn cream ceramic, "dark-bowl" a drawn dark bowl,
+    // and "own" means the photo already has its plate or box.
+    centre: { name: "Jollof rice with chicken and plantain", src: "/images/food/plate/jollof-bowl.webp" },
     dishes: [
-      { name: "Jollof rice", src: "/images/food/hero-cutouts/jollof.webp" },
-      { name: "Pizza", src: "/images/food/modern-cutouts/pizza.webp" },
-      { name: "Burger", src: "/images/food/modern-cutouts/burger.webp" },
-      { name: "Ofada & ayamase", src: "/images/food/hero-cutouts/ofada.webp" },
-      { name: "Fries", src: "/images/food/modern-cutouts/fries.webp" },
-      { name: "Pounded yam & efo", src: "/images/food/hero-cutouts/pounded-yam.webp" },
-      { name: "Fried chicken", src: "/images/food/modern-cutouts/fried-chicken.webp" },
-      { name: "Pepper soup", src: "/images/food/hero-cutouts/pepper-soup.webp" },
-      { name: "Akara", src: "/images/food/hero-cutouts/akara.webp" },
-      { name: "Puff-puff", src: "/images/food/hero-cutouts/puff-puff.webp" },
+      { name: "Fries", src: "/images/food/modern-cutouts/fries.webp", vessel: "own" },
+      { name: "Burger", src: "/images/food/modern-cutouts/burger.webp", vessel: "plate" },
+      { name: "Pounded yam & efo", src: "/images/food/hero-cutouts/pounded-yam.webp", vessel: "own" },
+      { name: "Pepper soup", src: "/images/food/hero-cutouts/pepper-soup.webp", vessel: "dark-bowl" },
+      { name: "Fried chicken", src: "/images/food/modern-cutouts/fried-chicken.webp", vessel: "plate" },
+      { name: "Akara", src: "/images/food/hero-cutouts/akara.webp", vessel: "saucer" },
+      { name: "Ofada & ayamase", src: "/images/food/hero-cutouts/ofada.webp", vessel: "plate" },
+      { name: "Pizza", src: "/images/food/modern-cutouts/pizza.webp", vessel: "plate" },
+      { name: "Puff-puff", src: "/images/food/hero-cutouts/puff-puff.webp", vessel: "saucer" },
     ],
   },
   app: {
