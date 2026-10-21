@@ -1,6 +1,5 @@
 import { pageMetadata } from "@/content/pages";
 import Waitlist from "@/components/waitlist/Waitlist";
-import "./waitlist.css";
 
 export const metadata = pageMetadata["waitlist"];
 

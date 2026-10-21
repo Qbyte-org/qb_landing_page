@@ -1,0 +1,34 @@
+{
+  "processing": "Whole food items for the waitlist plate. Transparent PNG sources are trimmed; plain white studio backgrounds are removed by flood-filling light, low-saturation pixels from the image edges. Each item is fitted into a 640x640 transparent WebP with 30px padding. Brand names in source titles are not used.",
+  "assets": [
+    {
+      "file": "burger.webp",
+      "subject": "Cheeseburger",
+      "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Cheeseburger.png",
+      "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/11/Cheeseburger.png",
+      "license": "Public domain (PD-US-NIH, National Cancer Institute; photo by Renee Comet)"
+    },
+    {
+      "file": "pizza.webp",
+      "subject": "Pizza quattro stagioni",
+      "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Pizza_Quattro_Stagioni_transparent.png",
+      "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/42/Pizza_Quattro_Stagioni_transparent.png",
+      "license": "CC0 1.0 (http://creativecommons.org/publicdomain/zero/1.0/)"
+    },
+    {
+      "file": "fries.webp",
+      "subject": "French fries in a plain white takeaway box",
+      "sourcePageUrl": "https://unsplash.com/photos/A-NkDhr0Ewk",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1767469576669-95151b13d3b5",
+      "license": "Unsplash License (https://unsplash.com/license), photo by Abdul Raheem Kannath",
+      "processing": "Cut out along a hand-traced outline of the box, since the white box sits on a white backdrop."
+    },
+    {
+      "file": "fried-chicken.webp",
+      "subject": "Fried chicken pieces",
+      "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Fried-Chicken-Set.jpg",
+      "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Fried-Chicken-Set.jpg",
+      "license": "CC0 1.0 (http://creativecommons.org/publicdomain/zero/1.0/)"
+    }
+  ]
+}
