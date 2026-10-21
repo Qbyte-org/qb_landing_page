@@ -5,6 +5,7 @@ import { legalLinks } from "@/content/footer";
 import { waitlistPage } from "@/content/waitlist";
 import BackgroundGrainTexture from "../../ui/BackgroundGrainTexture";
 import WaitlistEmailForm from "../WaitlistEmailForm";
+import PlatedDish from "./PlatedDish";
 
 const { founder, faq, final, partners, riders } = waitlistPage;
 
@@ -50,17 +51,22 @@ export function WaitlistFaq() {
 export function FinalJoin() {
   return (
     <section aria-labelledby="final-title" className="bg-cream px-3 pb-3 sm:px-6 sm:pb-6">
-      <div className="relative isolate mx-auto max-w-[110rem] overflow-hidden rounded-[2rem] bg-dark-ink px-5 pt-24 pb-[clamp(5.5rem,24vw,6.5rem)] text-center text-paper sm:rounded-[3rem] sm:px-8 sm:pt-20 sm:pb-[clamp(4.5rem,10vw,9rem)]">
+      <div className="relative isolate mx-auto max-w-[110rem] overflow-hidden rounded-[2rem] bg-dark-ink px-5 pt-28 pb-[clamp(5.5rem,24vw,6.5rem)] text-center text-paper sm:rounded-[3rem] sm:px-8 sm:pt-24 sm:pb-[clamp(4.5rem,10vw,9rem)]">
         <BackgroundGrainTexture />
         {/* SVG text is fitted to the panel width, so the wordmark is never clipped. */}
         <svg aria-hidden="true" viewBox="0 0 1000 175" className="pointer-events-none absolute inset-x-[3%] bottom-[2%] w-[94%] text-paper/7">
           <text x="500" y="150" textAnchor="middle" textLength="1000" lengthAdjust="spacing" fill="currentColor" className="font-display" fontSize="190" fontWeight="800" letterSpacing="-8">QuickBite</text>
         </svg>
-        <div aria-hidden="true" className="pointer-events-none absolute top-3 -left-4 w-24 -rotate-[10deg] sm:top-12 sm:left-[6%] sm:w-44">
-          <Image src="/images/food/hero-cutouts/pepper-soup.webp" alt="" width={640} height={640} sizes="11rem" className="h-auto w-full" />
+        {/* Two dishes set at the table's edge, partly off the panel: quiet framing, not decoration. */}
+        <div aria-hidden="true" className="pointer-events-none absolute -top-10 -left-10 w-32 -rotate-[8deg] sm:-top-16 sm:-left-12 sm:w-60 lg:-top-20 lg:-left-10 lg:w-80">
+          <div className="relative aspect-square rounded-full bg-[radial-gradient(circle_at_35%_30%,#4a3d36_0,#1c1411_55%,#0d0907_100%)] p-[6%] ring-1 ring-paper/10 [filter:drop-shadow(0_24px_28px_rgba(0,0,0,0.45))]">
+            <div className="relative h-full w-full overflow-hidden rounded-full">
+              <Image src="/images/food/plate/jollof-bowl.webp" alt="" fill sizes="(min-width: 1024px) 20rem, 15rem" className="object-cover" />
+            </div>
+          </div>
         </div>
-        <div aria-hidden="true" className="pointer-events-none absolute top-4 -right-3 w-20 rotate-[12deg] sm:top-16 sm:right-[7%] sm:w-36">
-          <Image src="/images/food/hero-cutouts/akara.webp" alt="" width={640} height={640} sizes="9rem" className="h-auto w-full" />
+        <div aria-hidden="true" className="pointer-events-none absolute -top-6 -right-8 w-28 rotate-[10deg] sm:-top-10 sm:-right-10 sm:w-52 lg:-top-12 lg:-right-6 lg:w-64">
+          <PlatedDish src="/images/food/modern-cutouts/burger.webp" alt="" vessel="plate" sizes="(min-width: 1024px) 16rem, 13rem" className="[filter:drop-shadow(0_24px_28px_rgba(0,0,0,0.45))]!" />
         </div>
         <div className="relative z-10 mx-auto flex max-w-[38rem] flex-col items-center gap-4">
           <h2 id="final-title" className="font-display text-[clamp(2.6rem,6vw,5.25rem)] font-semibold leading-[0.96] tracking-[-0.045em]">{final.heading}</h2>

@@ -5,9 +5,9 @@ import { useRef } from "react";
 import { waitlistPage } from "@/content/waitlist";
 import { gsap, useGSAP } from "@/lib/gsap";
 import SectionWave from "../../ui/SectionWave";
+import PlatedDish, { type Vessel } from "./PlatedDish";
 
 const { heading, description, groups, centre, dishes } = waitlistPage.plate;
-type Vessel = (typeof dishes)[number]["vessel"];
 
 // The dishes sit on one orbit around the centre bowl, evenly spaced and clockwise from the top.
 const ORBIT = 37; // radius, percent of the stage
@@ -19,15 +19,6 @@ const spots = dishes.map((dish, index) => {
     size: dish.vessel === "saucer" ? 17 : dish.vessel === "own" ? 24 : 22,
   };
 });
-
-// Drawn tableware. Box shadows are switched off site-wide, so depth comes from drop-shadow filters.
-const vesselClasses: Record<Vessel, string> = {
-  plate: "rounded-full border border-ink/8 bg-[radial-gradient(circle,#ffffff_0_50%,#f4ece2_54%,#ffffff_60%,#efe5da_100%)] [filter:drop-shadow(0_14px_16px_rgba(42,33,29,0.16))]",
-  saucer: "rounded-full border border-ink/8 bg-[radial-gradient(circle,#ffffff_0_46%,#f4ece2_51%,#ffffff_58%,#efe5da_100%)] [filter:drop-shadow(0_10px_12px_rgba(42,33,29,0.14))]",
-  "dark-bowl": "rounded-full bg-[radial-gradient(circle_at_38%_32%,#4a3d36_0,#241813_45%,#120d0b_100%)] [filter:drop-shadow(0_16px_18px_rgba(42,33,29,0.24))]",
-  own: "[filter:drop-shadow(0_14px_14px_rgba(42,33,29,0.14))]",
-};
-const foodInset: Record<Vessel, string> = { plate: "inset-[9%]", saucer: "inset-[13%]", "dark-bowl": "inset-[9%]", own: "inset-0" };
 
 export default function PlateSection() {
   const rootRef = useRef<HTMLElement>(null);
@@ -81,10 +72,8 @@ export default function PlateSection() {
               return (
                 <div key={dish.name} className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${spot.left}%`, top: `${spot.top}%`, width: `${spot.size}%` }}>
                   <div data-plate-upright>
-                    <div data-plate-dish className={`relative aspect-square ${vesselClasses[dish.vessel]}`}>
-                      <div className={`absolute ${foodInset[dish.vessel]}`}>
-                        <Image src={dish.src} alt={dish.name} fill sizes="(min-width: 1024px) 10rem, 24vw" className="object-contain" />
-                      </div>
+                    <div data-plate-dish>
+                      <PlatedDish src={dish.src} alt={dish.name} vessel={dish.vessel as Vessel} sizes="(min-width: 1024px) 10rem, 24vw" />
                     </div>
                   </div>
                 </div>
