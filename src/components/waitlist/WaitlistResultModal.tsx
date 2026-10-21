@@ -1,7 +1,7 @@
 "use client";
 
-import { useId, useRef, type KeyboardEvent, type RefObject } from "react";
-import { ArrowRight, Check, Clock3, Info, MapPin, X } from "lucide-react";
+import { useId, useRef, useState, type KeyboardEvent, type RefObject } from "react";
+import { ArrowRight, Check, Clock3, Copy, Info, MapPin, MessageCircle, X } from "lucide-react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import type { WaitlistResult } from "@/lib/waitlist";
 import { waitlistCopy, waitlistResultMessages as messages, waitlistRetryMessage } from "@/content/waitlist";
@@ -27,6 +27,16 @@ export default function WaitlistResultModal({
   const successful = result.status === "success";
   const needsHelp = result.status === "error" || result.status === "unavailable";
   const StatusIcon = successful ? Check : result.status === "rate-limited" ? Clock3 : Info;
+  const [copied, setCopied] = useState(false);
+  const shareHref = `https://wa.me/?text=${encodeURIComponent(waitlistCopy.result.shareText)}`;
+  const copyInvite = async () => {
+    try {
+      await navigator.clipboard.writeText(waitlistCopy.result.inviteHref);
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
+  };
 
   useGSAP(() => {
     const dialog = dialogRef.current;
@@ -117,6 +127,29 @@ export default function WaitlistResultModal({
           {"requestId" in result && result.requestId ? <p className="mt-4 wrap-anywhere text-xs leading-relaxed text-cocoa">{waitlistCopy.result.referenceLabel} {result.requestId}</p> : null}
           {successful ? (
             <>
+              <div className="mt-6 flex flex-col gap-3">
+                <div>
+                  <p className="font-display text-xl font-semibold tracking-[-0.02em] text-ink">{waitlistCopy.result.shareHeading}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-cocoa">{waitlistCopy.result.shareDescription}</p>
+                </div>
+                <a
+                  href={shareHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex min-h-13 items-center justify-center gap-2.5 rounded-pill bg-dark-ink px-6 text-sm font-semibold text-paper transition-colors hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+                >
+                  <MessageCircle aria-hidden="true" className="size-5" />
+                  {waitlistCopy.result.shareLabel}
+                </a>
+                <button
+                  type="button"
+                  onClick={copyInvite}
+                  className="flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-pill border border-ink/20 px-6 text-sm font-semibold text-ink transition-colors hover:border-ink/40 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+                >
+                  {copied ? <Check aria-hidden="true" className="size-4 text-brand-dark" /> : <Copy aria-hidden="true" className="size-4" />}
+                  <span aria-live="polite">{copied ? waitlistCopy.result.copiedLabel : waitlistCopy.result.copyLabel}</span>
+                </button>
+              </div>
               <div className="mt-6 [&>span]:w-full">
                 <p className="mb-3 text-sm font-semibold leading-relaxed text-ink">{waitlistCopy.result.communityHeading}</p>
                 <MagneticFillButton
