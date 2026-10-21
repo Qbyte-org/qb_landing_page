@@ -106,9 +106,10 @@ export const waitlistPage = {
     nominateHref: "mailto:quickbiteinfo01@gmail.com?subject=Kitchen%20suggestion%20for%20QuickBite",
   },
   founder: {
-    quote: "[Two or three sentences, in the founder's own words, on why QuickBite is starting in Ife and what it should fix about ordering food here.]",
-    name: "[Founder name]",
-    role: "[Role], QuickBite",
+    quote: "Happiness can be as simple as a warm meal arriving at your doorstep.",
+    name: "Adedokun Daniel",
+    role: "Co-founder, QuickBite",
+    image: "/images/team/white-ninja.webp",
   },
   faq: {
     heading: "Good questions.",

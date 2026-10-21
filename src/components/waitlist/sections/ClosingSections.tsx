@@ -18,7 +18,7 @@ export function FounderNote() {
             <p>“{founder.quote}”</p>
           </blockquote>
           <figcaption className="flex items-center gap-4">
-            <span aria-hidden="true" className="grid size-14 place-items-center rounded-full bg-sand text-[0.6rem] text-cocoa">[Photo]</span>
+            <span className="relative size-14 shrink-0 overflow-hidden rounded-full bg-sand"><Image src={founder.image} alt="" fill sizes="3.5rem" className="object-cover" /></span>
             <span className="text-base leading-snug"><strong className="font-semibold">{founder.name}</strong><br /><span className="text-cocoa">{founder.role}</span></span>
           </figcaption>
         </figure>
