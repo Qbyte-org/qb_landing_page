@@ -1,0 +1,33 @@
+{
+  "processing": "Whole food items for the waitlist plate. Transparent PNG sources are trimmed; plain white studio backgrounds are removed by flood-filling light, low-saturation pixels from the image edges. Each item is fitted into a 640x640 transparent WebP with 30px padding. Brand names in source titles are not used.",
+  "assets": [
+    {
+      "file": "burger.webp",
+      "subject": "Cheeseburger",
+      "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Cheeseburger.png",
+      "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/11/Cheeseburger.png",
+      "license": "Public domain (PD-US-NIH, National Cancer Institute; photo by Renee Comet)"
+    },
+    {
+      "file": "pizza.webp",
+      "subject": "Pizza quattro stagioni",
+      "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Pizza_Quattro_Stagioni_transparent.png",
+      "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/42/Pizza_Quattro_Stagioni_transparent.png",
+      "license": "CC0 1.0 (http://creativecommons.org/publicdomain/zero/1.0/)"
+    },
+    {
+      "file": "fries.webp",
+      "subject": "French fries",
+      "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:McDonalds-French-Fries-Plate.jpg",
+      "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d1/McDonalds-French-Fries-Plate.jpg",
+      "license": "Public domain (Evan-Amos, own work)"
+    },
+    {
+      "file": "fried-chicken.webp",
+      "subject": "Fried chicken pieces",
+      "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Fried-Chicken-Set.jpg",
+      "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Fried-Chicken-Set.jpg",
+      "license": "CC0 1.0 (http://creativecommons.org/publicdomain/zero/1.0/)"
+    }
+  ]
+}

@@ -50,7 +50,7 @@ export default function WaitlistHero({ initialEmail }: { initialEmail: string })
               ))}
             </span>
           </p>
-          <p className="mt-3 text-sm text-paper/55 sm:text-base">{waitlistPage.greetingTranslation}</p>
+          <p className="mt-4 font-display text-lg font-semibold tracking-[-0.01em] text-brand sm:text-2xl">{waitlistPage.greetingTranslation}</p>
 
           <div aria-hidden="true" data-hero-plate className="pointer-events-none absolute -top-2 right-[-14%] w-[52vw] max-w-[34rem] sm:right-[-6%] sm:w-[38vw] lg:-top-10 lg:right-[-3%]">
             <Image src="/images/food/hero-cutouts/jollof.webp" alt="" width={640} height={640} priority sizes="(min-width: 1024px) 34rem, 52vw" className="h-auto w-full" />
@@ -72,11 +72,11 @@ export default function WaitlistHero({ initialEmail }: { initialEmail: string })
           <div className="relative mx-auto w-full max-w-[26rem] lg:col-span-5 lg:col-start-8 lg:mt-[-6rem]">
             <div data-hero-phone className="relative mx-auto w-[64%] -rotate-[4deg]">
               <PhoneFrame>
-                <Image src="/images/app/dish.webp" alt="The QuickBite test build: Ofada Rice and Ofada Stew at ₦3,500 with an Add to cart button" width={600} height={1178} sizes="(min-width: 1024px) 17rem, 64vw" className="h-auto w-full" />
+                <Image src="/images/app/dish.webp" alt="The QuickBite test build: Ofada Rice and Ofada Stew at ₦3,500 with an Add to cart button" width={600} height={1300} sizes="(min-width: 1024px) 17rem, 64vw" className="h-auto w-full" />
               </PhoneFrame>
             </div>
             <figure data-hero-chip className="absolute right-[-4%] bottom-[8%] w-[62%] rotate-[3deg] rounded-[1.4rem] bg-paper p-2.5 pb-2 text-ink sm:right-[-10%]">
-              <Image src="/images/app/track.webp" alt="Order tracking in the QuickBite app" width={600} height={550} sizes="16rem" className="h-auto w-full rounded-[0.9rem]" />
+              <Image src="/images/app/track-card.webp" alt="Order tracking in the QuickBite app" width={600} height={500} sizes="16rem" className="h-auto w-full rounded-[0.9rem]" />
               <figcaption className="px-1 pt-2 text-xs font-semibold text-cocoa">Live tracking, from the test build</figcaption>
             </figure>
             <div aria-hidden="true" className="pointer-events-none absolute -left-[12%] top-[6%] w-[30%]">

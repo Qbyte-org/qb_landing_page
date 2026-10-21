@@ -50,20 +50,23 @@ export function WaitlistFaq() {
 export function FinalJoin() {
   return (
     <section aria-labelledby="final-title" className="bg-cream px-3 pb-3 sm:px-6 sm:pb-6">
-      <div className="relative isolate mx-auto max-w-[110rem] overflow-hidden rounded-[2rem] bg-dark-ink px-5 pt-20 text-center text-paper sm:rounded-[3rem] sm:px-8 sm:pt-28">
+      <div className="relative isolate mx-auto max-w-[110rem] overflow-hidden rounded-[2rem] bg-dark-ink px-5 pt-16 pb-[clamp(4.5rem,10vw,9rem)] text-center text-paper sm:rounded-[3rem] sm:px-8 sm:pt-20">
         <BackgroundGrainTexture />
-        <div aria-hidden="true" className="pointer-events-none absolute top-10 -left-10 w-32 -rotate-[10deg] sm:top-16 sm:left-[6%] sm:w-52">
-          <Image src="/images/food/hero-cutouts/pepper-soup.webp" alt="" width={640} height={640} sizes="13rem" className="h-auto w-full" />
+        {/* SVG text is fitted to the panel width, so the wordmark is never clipped. */}
+        <svg aria-hidden="true" viewBox="0 0 1000 175" className="pointer-events-none absolute inset-x-[3%] bottom-[2%] w-[94%] text-paper/7">
+          <text x="500" y="150" textAnchor="middle" textLength="1000" lengthAdjust="spacing" fill="currentColor" className="font-display" fontSize="190" fontWeight="800" letterSpacing="-8">QuickBite</text>
+        </svg>
+        <div aria-hidden="true" className="pointer-events-none absolute top-8 -left-10 w-28 -rotate-[10deg] sm:top-12 sm:left-[6%] sm:w-44">
+          <Image src="/images/food/hero-cutouts/pepper-soup.webp" alt="" width={640} height={640} sizes="11rem" className="h-auto w-full" />
         </div>
-        <div aria-hidden="true" className="pointer-events-none absolute top-16 -right-8 w-28 rotate-[12deg] sm:top-24 sm:right-[7%] sm:w-44">
-          <Image src="/images/food/hero-cutouts/akara.webp" alt="" width={640} height={640} sizes="11rem" className="h-auto w-full" />
+        <div aria-hidden="true" className="pointer-events-none absolute top-10 -right-8 w-24 rotate-[12deg] sm:top-16 sm:right-[7%] sm:w-36">
+          <Image src="/images/food/hero-cutouts/akara.webp" alt="" width={640} height={640} sizes="9rem" className="h-auto w-full" />
         </div>
-        <div className="relative mx-auto flex max-w-[36rem] flex-col items-center gap-5">
+        <div className="relative z-10 mx-auto flex max-w-[38rem] flex-col items-center gap-4">
           <h2 id="final-title" className="font-display text-[clamp(2.6rem,6vw,5.25rem)] font-semibold leading-[0.96] tracking-[-0.045em]">{final.heading}</h2>
           <p className="text-lg leading-relaxed text-paper/72">{final.description}</p>
-          <WaitlistEmailForm idPrefix="final" className="mt-4" />
+          <WaitlistEmailForm idPrefix="final" className="mt-3" />
         </div>
-        <p aria-hidden="true" className="relative mt-16 font-display text-[clamp(5.5rem,19vw,17rem)] leading-[0.74] font-extrabold tracking-[-0.06em] whitespace-nowrap text-paper/6 sm:mt-24">QuickBite</p>
       </div>
     </section>
   );

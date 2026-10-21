@@ -1,0 +1,11 @@
+{
+  "source": "QuickBite buyer app, staging build, screenshots captured on an Android phone (1080x2340).",
+  "processing": "Prepared for the waitlist page: the device status bar is replaced with a neutral one (9:41), the build's STAGING ribbon and scroll indicator are removed, and on track.webp the tester's delivery address is replaced with a generic campus address. Screens are otherwise unedited. Resized to 600px wide WebP.",
+  "assets": [
+    { "file": "browse.webp", "screen": "Budget-Friendly category list", "capture": "buyer/10_category_list_budget_friendly.png" },
+    { "file": "filters.webp", "screen": "Search filters sheet", "capture": "buyer/23_filter_sheet.png" },
+    { "file": "dish.webp", "screen": "Dish detail (Ofada Rice & Ofada Stew)", "capture": "buyer/11_dish_detail.png" },
+    { "file": "track.webp", "screen": "Track order", "capture": "buyer/49_track_order.png" },
+    { "file": "track-card.webp", "screen": "Track order, order status section", "capture": "Cropped from track.webp" }
+  ]
+}
