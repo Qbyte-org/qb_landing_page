@@ -28,7 +28,7 @@ export default function WaitlistResultModal({
   const needsHelp = result.status === "error" || result.status === "unavailable";
   const StatusIcon = successful ? Check : result.status === "rate-limited" ? Clock3 : Info;
   const [copied, setCopied] = useState(false);
-  const shareHref = `https://wa.me/?text=${encodeURIComponent(waitlistCopy.result.shareText)}`;
+  const shareHref = `https://wa.me/?text=${encodeURIComponent(`${waitlistCopy.result.shareText}\n\n${waitlistCopy.result.inviteHref}`)}`;
   const copyInvite = async () => {
     try {
       await navigator.clipboard.writeText(waitlistCopy.result.inviteHref);

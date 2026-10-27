@@ -33,7 +33,13 @@ export const waitlistCopy = {
     shareHeading: "Bring your people.",
     shareDescription: "Food is better when your roommates are on it too.",
     shareLabel: "Share on WhatsApp",
-    shareText: "I just joined the QuickBite waitlist. Food delivery is coming to Ile-Ife. Join here: https://www.quickbiteltd.org/waitlist",
+    // The pre-filled WhatsApp message; the invite link is added on its own line below it.
+    shareText: [
+      "Your favorite meals delivered instantly.",
+      "A premium food delivery service is launching soon.",
+      "Join the waitlist today for exclusive early access.",
+      "Secure your place among the first to experience it.",
+    ].join("\n"),
     copyLabel: "Copy invite link",
     copiedLabel: "Link copied",
     inviteHref: "https://www.quickbiteltd.org/waitlist",
