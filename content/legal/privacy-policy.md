@@ -23,21 +23,25 @@ For any question about your personal data, or to use any of your rights in Secti
 - that you agreed to receive launch updates, and when; and
 - when you joined.
 
-**When you visit this website**, our hosting provider records standard technical information about each request, such as your IP address, browser type and the page requested. We use it to keep the site running and secure. The website does not use cookies, analytics or advertising trackers.
+If you later create a QuickBite account, we link your waitlist entry to it.
+
+**When you visit this website**, our hosting providers record standard technical information about each request, such as your IP address, browser type and the page requested. We use it to keep the site running and secure. The website does not use cookies, analytics or advertising trackers.
 
 **When you use the QuickBite app**, we collect what we need to run your account and your orders:
 
-- **Account details:** your name, email address, phone number and password, or your Google account details if you sign in with Google. We never store your password or transaction PIN itself, only a one-way scrambled version of it (a hash), so no one at QuickBite can see or recover it.
-- **Delivery details:** the addresses you save and the location you choose for each delivery.
-- **Orders and payments:** what you order, from which kitchen, amounts, refunds, ratings and reviews. Card payments are handled by Paystack; we never see or store your full card number.
+- **Account details:** your name, email address, phone number and password, or your Google account details (name, email and profile picture) if you sign in with Google. You can also add a username, your gender and a profile picture. We never store your password or transaction PIN itself, only a one-way scrambled version of it (a hash), so no one at QuickBite can see or recover it.
+- **Delivery details:** the delivery address and map pin you give for each order.
+- **Orders and payments:** what you order, from which kitchen, amounts, refunds, and any ratings and feedback you leave. Card payments are handled by Paystack; we never see or store your full card number. The payment confirmations Paystack sends us may include limited card details, such as the card type and last four digits.
 - **Wallet:** your QuickBite wallet balance, top-ups and transactions, including the details of any bank-transfer account opened for you through Paystack.
-- **Device information:** your device type, app version and a notification token so we can send you order updates.
-- **Gifts:** if you send food as a gift, the recipient's name and phone number, so the rider can deliver it to them.
+- **Gifts:** if you send food as a gift, the recipient's name and phone number and your gift message.
+- **Meal suggestions:** if you ask the app to suggest a meal, your location and budget for that request.
+- **Referrals:** who invited you, and who you invite.
+- **Device information:** a notification token, so we can send you order updates, and your app settings.
 - **Messages:** what you send our support team.
 
-**If you are a rider**, we also collect your live location while you are online in the rider app, so we can offer you nearby deliveries, route them, and let customers follow their order.
+**If you are a rider**, we also collect your phone number, vehicle type and the bank account your earnings are paid into. While you are online in the rider app or handling a delivery, we collect your live location so we can offer you nearby deliveries, route them, and let customers follow their order.
 
-**If you are a vendor or rider**, we also collect the details we need to verify you and pay you: your identity documents, NIN or BVN, business details, and the bank account your earnings are paid into.
+**If you are a vendor**, we also collect your store's name, address, location and photos, your CAC registration, the bank account your earnings are paid into, and the identity documents you upload for verification (such as a driver's licence, international passport, voter's card, NIN slip, a selfie holding your ID, and CAC certificates). To verify you, we check your NIN or BVN with an identity verification provider; we don't keep the number itself.
 
 ---
 
@@ -49,7 +53,7 @@ We use your personal data to:
 - create and run your account and keep it secure;
 - take, prepare, deliver and track your orders;
 - take payments, issue refunds, and pay vendors and riders;
-- verify vendors and riders before they can sell or deliver;
+- verify vendors before they can sell on QuickBite;
 - send you one-time codes, receipts and order updates;
 - answer your questions and resolve complaints;
 - prevent fraud and misuse, and protect our users and systems; and
@@ -74,15 +78,18 @@ Under the NDPA we rely on:
 
 We share personal data only when we need to, and only what's needed:
 
-- **Kitchens (vendors):** the details of your order, and the name and delivery details needed to prepare and hand it over.
-- **Riders:** once a rider accepts your delivery, they see your first name, phone number, delivery address and location pin until the order is delivered. For a gift, they see the recipient's details instead of yours.
-- **Paystack:** to take payments, run wallet top-ups and bank-transfer accounts, issue refunds, and pay vendors and riders.
-- **Resend:** to send our emails, such as one-time codes and receipts.
+- **Kitchens (vendors):** the details of your order, and what they need to prepare it and hand it over.
+- **Riders:** once a rider accepts your delivery, they see your first name, phone number, delivery address and map pin until the order is delivered. For a gift, they see the recipient's details instead of yours.
+- **Paystack:** to take payments (your email, name and the amount), open bank-transfer accounts (your name, email and phone number), issue refunds, and pay vendors and riders (their bank account details).
+- **Identity verification providers (Dojah, and Monnify for some NIN checks):** for vendor verification. We send only the NIN or BVN number, and receive back only the name it belongs to. We don't send them your photos or documents.
+- **Resend:** to send our emails, such as one-time codes, password resets and receipts.
 - **Google:** if you choose "Sign in with Google", and through Firebase Cloud Messaging, to deliver app notifications.
+- **Termii:** to send text messages, if we turn SMS on. It's currently switched off.
 - **Our hosting and infrastructure providers:** Amazon Web Services (our servers and database), Cloudflare (file storage and backups), Grafana Cloud (system logs and monitoring) and Vercel (this website).
-- **Identity verification:** a verification provider checks vendor and rider identity details such as NIN or BVN.
 - **Authorities and advisers:** when the law requires it, or to protect our rights, and our professional advisers under confidentiality.
 - **A buyer or successor:** if QuickBite is ever merged or sold, under the same protections.
+
+Store names, photos and profile pictures are shown in the app and can be viewed by anyone with their link.
 
 We do not sell your personal data.
 
@@ -90,7 +97,7 @@ We do not sell your personal data.
 
 ## 6. Where your data is stored
 
-Our servers and main database are hosted by Amazon Web Services in London, United Kingdom. Uploaded files and encrypted backups are stored with Cloudflare. Some of the providers in Section 5, such as Google, Resend and Vercel, may process data in other countries, including the United States.
+Our servers and main database are hosted by Amazon Web Services in London, United Kingdom. Uploaded files and encrypted backups are stored with Cloudflare. Some of the providers in Section 5, such as Google, Resend, Grafana Cloud and Vercel, may process data in other countries, including the United States.
 
 When personal data leaves Nigeria, we make sure it stays protected as the NDPA requires, for example through contracts with our providers that require them to keep it secure and use it only on our instructions.
 
@@ -98,19 +105,21 @@ When personal data leaves Nigeria, we make sure it stays protected as the NDPA r
 
 ## 7. How long we keep it
 
-- **Waitlist:** until you ask us to remove you, or until we no longer need it to tell you about our launch.
-- **Account data:** while your account is open. When you delete your account, we delete or anonymise your personal data, except what we must keep by law.
-- **Orders, payments and payouts:** for as long as Nigerian tax and accounting law requires.
-- **Vendor and rider verification records:** while you work with us, and afterwards for as long as the law requires.
-- **System logs:** for a limited period, for security and troubleshooting.
+- **Waitlist:** until you ask us to remove you.
+- **Account:** while your account is open. When you delete your account, we remove your name, contact details, sign-in details and profile picture, and end your sessions.
+- **Orders, payments, payouts and ratings:** we keep these after you delete your account, for as long as Nigerian tax and accounting law requires.
+- **Vendor verification documents:** deleted within 30 days of our verification decision. NIN slips and selfies are deleted as soon as the decision is made.
+- **Rider locations:** a rider's live position is kept for a few minutes; the route of each delivery is deleted after 30 days.
+- **System logs:** about two weeks.
+- **Backups:** encrypted backups of our database are kept for up to 90 days, then deleted.
 
-You can delete your account at any time from our [Delete account](/delete-account) page.
+You can delete your account in the app, or from our [Delete account](/delete-account) page. We can't delete an account while it still has a wallet balance, an active order or a pending payout.
 
 ---
 
 ## 8. How we protect it
 
-All connections to QuickBite are encrypted. Our database sits on a private network that can't be reached directly from the internet, our backups are encrypted, and identity documents are kept in private storage. Access to personal data is limited to the people who need it for their work.
+All connections to QuickBite are encrypted. Our database sits on a private network that can't be reached directly from the internet, our backups are encrypted, and identity documents are kept in private storage. Our logs hide passwords, codes and payment and identity numbers. Access to personal data is limited to the people who need it for their work.
 
 No system is completely secure. If a breach puts your rights at risk, we will tell the NDPC within 72 hours of becoming aware of it, and tell you without undue delay if you are likely to be affected.
 
