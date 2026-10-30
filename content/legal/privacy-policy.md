@@ -1,228 +1,156 @@
 # QuickBite — Privacy Policy
 
-> **⚠️ Template Disclaimer:** This document is a template provided for convenience only. It does not constitute legal advice. Before publishing or relying on it, you must have it reviewed and adapted by a qualified legal practitioner admitted to the Nigerian Bar and, where appropriate, a registered Data Protection Compliance Organisation (DPCO), to ensure it accurately reflects QuickBite's data-processing activities and complies with the **Nigeria Data Protection Regulation (NDPR) 2019**, the **Nigeria Data Protection Act (NDPA) 2023**, and any guidance issued by the Nigeria Data Protection Commission (NDPC).
+**Last updated: 30 October 2026**
 
-**Last Updated: [DATE]**
-**Effective Date: [EFFECTIVE DATE]**
+This policy explains what personal data QuickBite collects, why, who we share it with, and the choices and rights you have. It covers this website (quickbiteltd.org), the QuickBite waitlist, and the QuickBite apps for customers, vendors and riders.
 
-This Privacy Policy explains how **[LEGAL ENTITY NAME]** ("**QuickBite**", "**we**", "**us**", or "**our**") collects, uses, shares, and protects your personal data when you use the QuickBite mobile applications, websites, and related services (the "**Platform**"). We are committed to handling your data lawfully, fairly, and transparently, in line with the NDPR, the NDPA, and GDPR-equivalent principles.
-
-By using the Platform, you acknowledge the practices described in this Policy.
+"QuickBite", "we" and "us" mean QuickBite Fusion & Logistics Ltd, the company that runs QuickBite and decides how your personal data is used. We follow the Nigeria Data Protection Act 2023 (NDPA) and the rules issued under it by the Nigeria Data Protection Commission (NDPC).
 
 ---
 
-## 1. Data Controller Identity
+## 1. Who to contact
 
-1.1. The **data controller** responsible for your personal data is:
-
-**[LEGAL ENTITY NAME]** (RC **[RC NUMBER]**)
-- **Address:** [REGISTERED ADDRESS]
-- **Email:** [SUPPORT EMAIL]
-- **Phone:** [SUPPORT PHONE]
-
-1.2. **Data Protection Officer (DPO).** You can contact our DPO for any privacy-related matter:
-- **Name:** [DPO NAME]
-- **Email:** [DPO EMAIL]
-- **Address:** [DPO ADDRESS / as above]
+For any question about your personal data, or to use any of your rights in Section 9, email us at **quickbiteinfo01@gmail.com** with "Privacy" in the subject line.
 
 ---
 
-## 2. Data We Collect
+## 2. What we collect
 
-We collect the following categories of personal data:
+**If you join the waitlist**, we collect:
 
-2.1. **Identity & contact data** — your name, phone number, email address, and delivery address(es).
+- your email address;
+- your name and Nigerian phone number, if you give them;
+- that you agreed to receive launch updates, and when; and
+- when you joined.
 
-2.2. **Location & GPS data** — your delivery location, and, during an active delivery, location data used to route and track orders (see Section 6).
+If you later create a QuickBite account, we link your waitlist entry to it.
 
-2.3. **Payment data (tokenized)** — we do **not** store your raw card details. Payments are tokenized and processed by PCI-DSS-compliant third-party processors; we retain limited transaction references (e.g., last four digits, transaction status/ID).
+**When you visit this website**, our hosting providers record standard technical information about each request, such as your IP address, browser type and the page requested. We use it to keep the site running and secure. The website does not use cookies, analytics or advertising trackers.
 
-2.4. **Order & transaction data** — your order history, cart contents, sub-orders, fees, refunds, ratings, and reviews.
+**When you use the QuickBite app**, we collect what we need to run your account and your orders:
 
-2.5. **Device & usage data** — device type, operating system, app version, IP address, identifiers, log data, and interactions with the Platform.
+- **Account details:** your name, email address, phone number and password, or your Google account details (name, email and profile picture) if you sign in with Google. You can also add a username, your gender and a profile picture. We never store your password or transaction PIN itself, only a one-way scrambled version of it (a hash), so no one at QuickBite can see or recover it.
+- **Delivery details:** the delivery address and map pin you give for each order.
+- **Orders and payments:** what you order, from which kitchen, amounts, refunds, and any ratings and feedback you leave. Card payments are handled by Paystack; we never see or store your full card number. The payment confirmations Paystack sends us may include limited card details, such as the card type and last four digits.
+- **Wallet:** your QuickBite wallet balance, top-ups and transactions, including the details of any bank-transfer account opened for you through Paystack.
+- **Gifts:** if you send food as a gift, the recipient's name and phone number and your gift message.
+- **Meal suggestions:** if you ask the app to suggest a meal, your location and budget for that request.
+- **Referrals:** who invited you, and who you invite.
+- **Device information:** a notification token, so we can send you order updates, and your app settings.
+- **Messages:** what you send our support team.
 
-2.6. **Cookies & similar technologies** — as described in Section 11.
+**If you are a rider**, we also collect your phone number, vehicle type and the bank account your earnings are paid into. While you are online in the rider app or handling a delivery, we collect your live location so we can offer you nearby deliveries, route them, and let customers follow their order.
 
-2.7. **Vendor/Rider data (where applicable)** — for vendors and riders, we additionally collect KYC information such as government-issued ID, **NIN**, **BVN**, bank account/settlement details, and business information, for verification, settlement, and compliance.
-
-We collect data you provide directly, data generated through your use of the Platform, and data from third parties such as payment processors and identity-verification providers.
-
----
-
-## 3. Legal Basis for Processing
-
-Under the NDPA/NDPR, we process your personal data on one or more of the following lawful bases:
-
-3.1. **Performance of a contract** — to create your account, process and deliver your orders, take payment, and provide support (i.e., to deliver the service you requested).
-
-3.2. **Consent** — where you have given consent, for example for marketing communications, optional cookies, and continuous location tracking. You may withdraw consent at any time (see Section 8).
-
-3.3. **Legitimate interests** — for purposes such as fraud prevention, platform security, service improvement, analytics, and protecting our legal rights, provided these interests are not overridden by your rights and freedoms.
-
-3.4. **Legal obligation** — to comply with applicable laws, tax/VAT requirements, regulatory requests, and lawful orders.
-
-3.5. **Vital interests / public interest** — in rare cases where processing is necessary to protect life or as otherwise permitted by law.
+**If you are a vendor**, we also collect your store's name, address, location and photos, your CAC registration, the bank account your earnings are paid into, and the identity documents you upload for verification (such as a driver's licence, international passport, voter's card, NIN slip, a selfie holding your ID, and CAC certificates). To verify you, we check your NIN or BVN with an identity verification provider; we don't keep the number itself.
 
 ---
 
-## 4. Purpose of Processing
+## 3. Why we use it
 
 We use your personal data to:
 
-4.1. create and manage your account and verify your identity;
+- add you to the waitlist and email you about our launch and your invite;
+- create and run your account and keep it secure;
+- take, prepare, deliver and track your orders;
+- take payments, issue refunds, and pay vendors and riders;
+- verify vendors before they can sell on QuickBite;
+- send you one-time codes, receipts and order updates;
+- answer your questions and resolve complaints;
+- prevent fraud and misuse, and protect our users and systems; and
+- meet our legal, tax and accounting obligations.
 
-4.2. **fulfil orders** — transmit order details to vendors and assign and route riders;
-
-4.3. **process payments**, refunds, and settlements;
-
-4.4. provide **delivery routing and live tracking**;
-
-4.5. provide customer support and handle complaints and disputes;
-
-4.6. detect, prevent, and investigate **fraud, abuse, and security incidents**;
-
-4.7. send transactional notifications (order status, OTPs) via push, SMS, or email;
-
-4.8. send **marketing and promotional** communications **only where you have separately consented**, with an option to opt out at any time;
-
-4.9. analyse and improve the Platform; and
-
-4.10. comply with legal, tax, and regulatory obligations.
+We only send you marketing messages if you have agreed to receive them, and you can stop them at any time.
 
 ---
 
-## 5. Third-Party Sharing
+## 4. Our legal basis
 
-We share personal data only as necessary and with the following categories of recipients:
+Under the NDPA we rely on:
 
-5.1. **Vendors** — we share order details (items, special instructions, and necessary contact/delivery information) with the vendor fulfilling your order.
-
-5.2. **Riders & dispatchers** — we share your delivery location, address, and contact number with the assigned rider (or, for non-app riders, with the coordinating dispatcher) to complete delivery.
-
-5.3. **Payment processors** — e.g., **Paystack** and/or **Flutterwave**, to process payments and payouts.
-
-5.4. **Identity / KYC verification providers** — e.g., providers used to verify **NIN** and **BVN** for vendors and riders.
-
-5.5. **Analytics & communications providers** — analytics tools and SMS/push/email delivery providers (e.g., an SMS/USSD provider for OTPs and rider notifications).
-
-5.6. **Cloud hosting & infrastructure providers** — for storing and processing data securely (see Section 10).
-
-5.7. **Professional advisers, authorities, and successors** — legal/financial advisers, regulators, law-enforcement (where legally required), and parties to a corporate transaction (e.g., merger or acquisition), subject to confidentiality.
-
-We do **not sell** your personal data. We require third parties to protect your data and to use it only for the purposes for which it was shared.
+- **Consent:** for the waitlist and for marketing messages. You can withdraw it at any time; this doesn't affect what we did before you withdrew.
+- **Contract:** to provide the service you asked for, such as your account and your orders.
+- **Legal obligation:** to keep records the law requires, such as tax and accounting records, and to respond to lawful requests from authorities.
+- **Legitimate interests:** to keep QuickBite secure, prevent fraud and improve the service, where this doesn't override your rights.
 
 ---
 
-## 6. Location Data
+## 5. Who we share it with
 
-6.1. We use location data to show nearby vendors, set delivery addresses, route riders, and provide **live order tracking**.
+We share personal data only when we need to, and only what's needed:
 
-6.2. **Continuous GPS during delivery.** During an active delivery, we may process the rider's continuous GPS location to enable real-time tracking and accurate drop-off. Customer location is used to identify the delivery point and improve routing.
+- **Kitchens (vendors):** the details of your order, and what they need to prepare it and hand it over.
+- **Riders:** once a rider accepts your delivery, they see your first name, phone number, delivery address and map pin until the order is delivered. For a gift, they see the recipient's details instead of yours.
+- **Paystack:** to take payments (your email, name and the amount), open bank-transfer accounts (your name, email and phone number), issue refunds, and pay vendors and riders (their bank account details).
+- **Identity verification providers (Dojah, and Monnify for some NIN checks):** for vendor verification. We send only the NIN or BVN number, and receive back only the name it belongs to. We don't send them your photos or documents.
+- **Resend:** to send our emails, such as one-time codes, password resets and receipts.
+- **Google:** if you choose "Sign in with Google", and through Firebase Cloud Messaging, to deliver app notifications.
+- **Termii:** to send text messages, if we turn SMS on. It's currently switched off.
+- **Our hosting and infrastructure providers:** Amazon Web Services (our servers and database), Cloudflare (file storage and backups), Grafana Cloud (system logs and monitoring) and Vercel (this website).
+- **Authorities and advisers:** when the law requires it, or to protect our rights, and our professional advisers under confidentiality.
+- **A buyer or successor:** if QuickBite is ever merged or sold, under the same protections.
 
-6.3. You can control location permissions through your device settings. Disabling location may limit features such as automatic address detection and live tracking.
+Store names, photos and profile pictures are shown in the app and can be viewed by anyone with their link.
 
----
-
-## 7. Data Retention
-
-7.1. We retain personal data only for as long as necessary to fulfil the purposes set out in this Policy, including to satisfy legal, accounting, tax, or reporting requirements.
-
-7.2. Indicative retention periods:
-   - **Account data:** for the life of your account and up to **[RETENTION PERIOD, e.g., 24 months]** after closure;
-   - **Order & transaction records:** at least **[RETENTION PERIOD, e.g., 6–7 years]** to meet tax/financial-record obligations;
-   - **KYC records (vendors/riders):** for the duration of the relationship and the period required by applicable law thereafter;
-   - **Marketing data:** until you withdraw consent or object.
-
-7.3. When data is no longer required, we securely delete or anonymise it.
+We do not sell your personal data.
 
 ---
 
-## 8. Your Rights (NDPA/NDPR)
+## 6. Where your data is stored
 
-Subject to applicable law, you have the right to:
+Our servers and main database are hosted by Amazon Web Services in London, United Kingdom. Uploaded files and encrypted backups are stored with Cloudflare. Some of the providers in Section 5, such as Google, Resend, Grafana Cloud and Vercel, may process data in other countries, including the United States.
 
-8.1. **Access** — request a copy of the personal data we hold about you;
-
-8.2. **Rectification** — request correction of inaccurate or incomplete data;
-
-8.3. **Erasure** — request deletion of your data where there is no overriding legal basis to retain it;
-
-8.4. **Restriction** — request that we limit processing in certain circumstances;
-
-8.5. **Portability** — request your data in a structured, commonly used, machine-readable format, and to have it transmitted to another controller where technically feasible;
-
-8.6. **Objection** — object to processing based on legitimate interests, and to direct marketing at any time; and
-
-8.7. **Withdraw consent** — withdraw any consent you previously gave, without affecting the lawfulness of processing before withdrawal.
-
-To exercise any right, contact our DPO at **[DPO EMAIL]**. We will respond within the timeframe required by law (and in any event without undue delay). We may need to verify your identity before acting on a request.
+When personal data leaves Nigeria, we make sure it stays protected as the NDPA requires, for example through contracts with our providers that require them to keep it secure and use it only on our instructions.
 
 ---
 
-## 9. Data Security
+## 7. How long we keep it
 
-9.1. We implement appropriate technical and organisational measures to protect your data, including **encryption in transit (TLS)**, encryption of sensitive data at rest where appropriate, access controls and role-based permissions, network security, and audit logging.
+- **Waitlist:** until you ask us to remove you.
+- **Account:** while your account is open. When you delete your account, we remove your name, contact details, sign-in details and profile picture, and end your sessions.
+- **Orders, payments, payouts and ratings:** we keep these after you delete your account, for as long as Nigerian tax and accounting law requires.
+- **Vendor verification documents:** deleted within 30 days of our verification decision. NIN slips and selfies are deleted as soon as the decision is made.
+- **Rider locations:** a rider's live position is kept for a few minutes; the route of each delivery is deleted after 30 days.
+- **System logs:** about two weeks.
+- **Backups:** encrypted backups of our database are kept for up to 90 days, then deleted.
 
-9.2. Payment card data is tokenized and handled by **PCI-DSS-compliant** processors; we do not store raw card numbers.
-
-9.3. While we work to protect your data, no method of transmission or storage is completely secure, and we cannot guarantee absolute security. You are responsible for keeping your account credentials and OTPs confidential.
-
----
-
-## 10. International Transfers
-
-10.1. Some of our service providers (e.g., cloud hosting, analytics, communications) may store or process data on servers located **outside Nigeria** — for example **[AWS / Hetzner / Cloudflare / Google Cloud — specify actual providers and regions]**.
-
-10.2. Where we transfer personal data outside Nigeria, we do so in accordance with the NDPA/NDPR, ensuring an adequate level of protection through measures such as adequacy decisions, contractual safeguards (e.g., standard contractual clauses/data-processing agreements), or your explicit consent where required.
+You can delete your account in the app, or from our [Delete account](/delete-account) page. We can't delete an account while it still has a wallet balance, an active order or a pending payout.
 
 ---
 
-## 11. Cookies & Tracking
+## 8. How we protect it
 
-11.1. We use cookies and similar technologies on our website and app to enable core functionality, remember preferences, maintain sessions, measure performance, and (with consent) support analytics and marketing.
+All connections to QuickBite are encrypted. Our database sits on a private network that can't be reached directly from the internet, our backups are encrypted, and identity documents are kept in private storage. Our logs hide passwords, codes and payment and identity numbers. Access to personal data is limited to the people who need it for their work.
 
-11.2. Types of cookies/technologies we use:
-   - **Strictly necessary** — required for the Platform to function;
-   - **Functional** — remember your preferences;
-   - **Analytics/Performance** — help us understand usage; and
-   - **Marketing** — used (with consent) to deliver relevant promotions.
-
-11.3. **Consent mechanism.** Where required, we obtain consent for non-essential cookies via a cookie banner/settings, and you can change your choices at any time through the cookie settings or your browser/device controls.
+No system is completely secure. If a breach puts your rights at risk, we will tell the NDPC within 72 hours of becoming aware of it, and tell you without undue delay if you are likely to be affected.
 
 ---
 
-## 12. Children's Data
+## 9. Your rights
 
-12.1. The Platform is intended for users aged **18 and over**; users aged **13–17** may use it only with parental/guardian consent. We do not knowingly collect personal data from children under **13**.
+Under the NDPA you can ask us to:
 
-12.2. If we learn that we have collected personal data from a child under 13 without appropriate consent, we will delete it promptly. If you believe a child has provided us data, contact **[DPO EMAIL]**.
+- give you a copy of the personal data we hold about you;
+- correct it if it's wrong or incomplete;
+- delete it, where we don't have to keep it;
+- restrict or stop how we use it;
+- send it to you, or to another service, in a common format;
+- stop sending you marketing; and
+- review a decision made about you by automated means alone.
 
----
+You can also withdraw your consent at any time, including leaving the waitlist.
 
-## 13. Breach Notification
+To use any of these rights, email **quickbiteinfo01@gmail.com**. We may ask you to confirm your identity first, and we will reply within one month.
 
-13.1. We maintain procedures to detect, report, and investigate personal-data breaches.
-
-13.2. Where a breach is likely to result in a risk to your rights and freedoms, we will notify the **Nigeria Data Protection Commission (NDPC)** within **72 hours** of becoming aware of it, where required by law, and will inform affected individuals without undue delay where the breach poses a high risk to them.
-
----
-
-## 14. Changes to this Policy & Contact
-
-14.1. **Changes.** We may update this Policy from time to time. We will post the updated version on the Platform, revise the "Last Updated" date, and, for material changes, provide notice through the Platform, email, or SMS where appropriate.
-
-14.2. **Contact us.** For any privacy question, request, or complaint:
-
-**[LEGAL ENTITY NAME]**
-- **Data Protection Officer:** [DPO NAME]
-- **DPO email:** [DPO EMAIL]
-- **Support email:** [SUPPORT EMAIL]
-- **Address:** [REGISTERED ADDRESS]
-- **Website:** [WEBSITE URL]
-
-14.3. **Right to lodge a complaint.** If you are not satisfied with our response, you have the right to lodge a complaint with the **Nigeria Data Protection Commission (NDPC)** at **[NDPC CONTACT / website: ndpc.gov.ng]**.
+If you're unhappy with how we've handled your data, you can complain to the Nigeria Data Protection Commission at [ndpc.gov.ng](https://ndpc.gov.ng).
 
 ---
 
-*QuickBite — Fast. Fresh. Delivered.*
-**Last Updated: [DATE] · Effective Date: [EFFECTIVE DATE]**
+## 10. Children
+
+QuickBite is for people aged 18 and over. We don't knowingly collect personal data from anyone under 18 without a parent or guardian's consent. If you believe a child has given us personal data, email us and we will delete it.
+
+---
+
+## 11. Changes to this policy
+
+We will update this policy when how we use personal data changes. We'll change the date at the top, and if the change is significant, we'll tell you by email or in the app before it takes effect.
