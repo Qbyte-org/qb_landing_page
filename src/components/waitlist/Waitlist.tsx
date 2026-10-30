@@ -12,7 +12,9 @@ export default function Waitlist({ initialEmail = "" }: { initialEmail?: string 
   return (
     <>
       <SmoothScroll />
-      <main data-scroll-motion="off" className="relative bg-dark-ink">
+      {/* Dishes fly in and phone cards are thrown off-screen; clip sideways so they never widen the page.
+          overflow-x: clip (unlike hidden) creates no scroll container, so pinned sections keep working. */}
+      <main data-scroll-motion="off" className="relative overflow-x-clip bg-dark-ink">
         <WaitlistHero initialEmail={initialEmail} />
         <PlateSection />
         <AppStorySection />
