@@ -78,6 +78,12 @@ export const pageMetadata = {
       canonical: "/waitlist",
     },
   },
+  "invite": {
+    title: "You're invited to QuickBite",
+    description: "Get the QuickBite app and use your friend's invite code when you sign up.",
+    // Invite links carry personal referral codes.
+    robots: { index: false, follow: false },
+  },
   "delete-account": {
     title: "Delete Your Account — QuickBite",
     description: "Request the permanent deletion of your QuickBite account and all associated data. Learn what happens when you delete your account.",
