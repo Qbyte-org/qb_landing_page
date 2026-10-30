@@ -27,14 +27,15 @@ For any question about your personal data, or to use any of your rights in Secti
 
 **When you use the QuickBite app**, we collect what we need to run your account and your orders:
 
-- **Account details:** your name, email address, phone number and password, or your Google account details if you sign in with Google. Your password is stored only in encrypted form, and we can never see it.
+- **Account details:** your name, email address, phone number and password, or your Google account details if you sign in with Google. We never store your password or transaction PIN itself, only a one-way scrambled version of it (a hash), so no one at QuickBite can see or recover it.
 - **Delivery details:** the addresses you save and the location you choose for each delivery.
 - **Orders and payments:** what you order, from which kitchen, amounts, refunds, ratings and reviews. Card payments are handled by Paystack; we never see or store your full card number.
 - **Wallet:** your QuickBite wallet balance, top-ups and transactions, including the details of any bank-transfer account opened for you through Paystack.
 - **Device information:** your device type, app version and a notification token so we can send you order updates.
+- **Gifts:** if you send food as a gift, the recipient's name and phone number, so the rider can deliver it to them.
 - **Messages:** what you send our support team.
 
-**If you are a rider**, we also collect your live location while you are on a delivery, so customers can follow their order and we can route deliveries.
+**If you are a rider**, we also collect your live location while you are online in the rider app, so we can offer you nearby deliveries, route them, and let customers follow their order.
 
 **If you are a vendor or rider**, we also collect the details we need to verify you and pay you: your identity documents, NIN or BVN, business details, and the bank account your earnings are paid into.
 
@@ -74,7 +75,7 @@ Under the NDPA we rely on:
 We share personal data only when we need to, and only what's needed:
 
 - **Kitchens (vendors):** the details of your order, and the name and delivery details needed to prepare and hand it over.
-- **Riders:** your delivery address, location pin and phone number, so they can deliver your order.
+- **Riders:** once a rider accepts your delivery, they see your first name, phone number, delivery address and location pin until the order is delivered. For a gift, they see the recipient's details instead of yours.
 - **Paystack:** to take payments, run wallet top-ups and bank-transfer accounts, issue refunds, and pay vendors and riders.
 - **Resend:** to send our emails, such as one-time codes and receipts.
 - **Google:** if you choose "Sign in with Google", and through Firebase Cloud Messaging, to deliver app notifications.
