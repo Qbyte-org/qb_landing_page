@@ -7,7 +7,7 @@ export const inviteCopy = {
     greeting: "You're invited",
     heading: "A friend wants you on QuickBite.",
     codeLabel: "Your invite code",
-    instruction: "Enter this code when you sign up on QuickBite. You both earn points on your first delivered order.",
+    instruction: "Enter this code when you sign up on QuickBite. You both earn points on your first delivered order. A code works for one person and expires within 7 days, so sign up soon.",
   },
   general: {
     heading: "Get QuickBite.",
