@@ -1,6 +1,6 @@
 # QuickBite — Privacy Policy
 
-**Last updated: 30 October 2026**
+**Last updated: 4 November 2026**
 
 This policy explains what personal data QuickBite collects, why, who we share it with, and the choices and rights you have. It covers this website (quickbiteltd.org), the QuickBite waitlist, and the QuickBite apps for customers, vendors and riders.
 
@@ -34,9 +34,11 @@ If you later create a QuickBite account, we link your waitlist entry to it.
 - **Orders and payments:** what you order, from which kitchen, amounts, refunds, and any ratings and feedback you leave. Card payments are handled by Paystack; we never see or store your full card number. The payment confirmations Paystack sends us may include limited card details, such as the card type and last four digits.
 - **Wallet:** your QuickBite wallet balance, top-ups and transactions, including the details of any bank-transfer account opened for you through Paystack.
 - **Gifts:** if you send food as a gift, the recipient's name and phone number and your gift message.
+- **Ordering for someone else:** the phone number you give for the person receiving the delivery.
 - **Meal suggestions:** if you ask the app to suggest a meal, your location and budget for that request.
 - **Referrals:** who invited you, and who you invite.
 - **Device information:** a notification token, so we can send you order updates, and your app settings.
+- **App diagnostics:** crash reports and, if you allow it, information about how you use the app. You can change both in the app's privacy settings.
 - **Messages:** what you send our support team.
 
 **If you are a rider**, we also collect your phone number, vehicle type and the bank account your earnings are paid into. While you are online in the rider app or handling a delivery, we collect your live location so we can offer you nearby deliveries, route them, and let customers follow their order.
@@ -56,6 +58,7 @@ We use your personal data to:
 - verify vendors before they can sell on QuickBite;
 - send you one-time codes, receipts and order updates;
 - answer your questions and resolve complaints;
+- fix crashes and, if you allow it, understand how the app is used so we can improve it;
 - prevent fraud and misuse, and protect our users and systems; and
 - meet our legal, tax and accounting obligations.
 
@@ -67,7 +70,7 @@ We only send you marketing messages if you have agreed to receive them, and you 
 
 Under the NDPA we rely on:
 
-- **Consent:** for the waitlist and for marketing messages. You can withdraw it at any time; this doesn't affect what we did before you withdrew.
+- **Consent:** for the waitlist, for marketing messages and for information about how you use the app. You can withdraw it at any time; this doesn't affect what we did before you withdrew.
 - **Contract:** to provide the service you asked for, such as your account and your orders.
 - **Legal obligation:** to keep records the law requires, such as tax and accounting records, and to respond to lawful requests from authorities.
 - **Legitimate interests:** to keep QuickBite secure, prevent fraud and improve the service, where this doesn't override your rights.
@@ -78,12 +81,12 @@ Under the NDPA we rely on:
 
 We share personal data only when we need to, and only what's needed:
 
-- **Kitchens (vendors):** the details of your order, and what they need to prepare it and hand it over.
-- **Riders:** once a rider accepts your delivery, they see your first name, phone number, delivery address and map pin until the order is delivered. For a gift, they see the recipient's details instead of yours.
+- **Kitchens (vendors):** the details of your order, and what they need to prepare it and hand it over, including any phone number you gave for the person receiving it.
+- **Riders:** once a rider accepts your delivery, they see your first name, phone number, delivery address and map pin until the order is delivered. For a gift, they see the recipient's details instead of yours. If you gave a phone number for the person receiving the delivery, they see that number instead of yours.
 - **Paystack:** to take payments (your email, name and the amount), open bank-transfer accounts (your name, email and phone number), issue refunds, and pay vendors and riders (their bank account details).
 - **Identity verification providers (Dojah, and Monnify for some NIN checks):** for vendor verification. We send only the NIN or BVN number, and receive back only the name it belongs to. We don't send them your photos or documents.
 - **Resend:** to send our emails, such as one-time codes, password resets and receipts.
-- **Google:** if you choose "Sign in with Google", and through Firebase Cloud Messaging, to deliver app notifications.
+- **Google:** if you choose "Sign in with Google"; through Firebase Cloud Messaging, to deliver app notifications; and through Firebase Crashlytics and Analytics, to receive crash reports and, if you allow it, information about how you use the app.
 - **Termii:** to send text messages, if we turn SMS on. It's currently switched off.
 - **Our hosting and infrastructure providers:** Amazon Web Services (our servers and database), Cloudflare (file storage and backups), Grafana Cloud (system logs and monitoring) and Vercel (this website).
 - **Authorities and advisers:** when the law requires it, or to protect our rights, and our professional advisers under confidentiality.
@@ -107,7 +110,7 @@ When personal data leaves Nigeria, we make sure it stays protected as the NDPA r
 
 - **Waitlist:** until you ask us to remove you.
 - **Account:** while your account is open. When you delete your account, we remove your name, contact details, sign-in details and profile picture, and end your sessions.
-- **Orders, payments, payouts and ratings:** we keep these after you delete your account, for as long as Nigerian tax and accounting law requires.
+- **Orders, payments, payouts and ratings:** we keep these after you delete your account, for as long as Nigerian tax and accounting law requires. This includes any phone number you gave for the person receiving an order.
 - **Vendor verification documents:** deleted within 30 days of our verification decision. NIN slips and selfies are deleted as soon as the decision is made.
 - **Rider locations:** a rider's live position is kept for a few minutes; the route of each delivery is deleted after 30 days.
 - **System logs:** about two weeks.
